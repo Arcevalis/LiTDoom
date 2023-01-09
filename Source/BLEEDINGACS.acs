@@ -1,0 +1,524 @@
+#library "BLEEDINGACS"
+#include "zcommon.acs"
+
+Script "FATIGUE" Enter     //being unable to sprint or run while wounded or tired.
+{
+    While(TRUE)
+    {
+		int armorsave = GetArmorInfo(ARMORINFO_SAVEPERCENT);
+        if (GetActorProperty(0, APROP_Health) < 25 && armorsave >= 0.8 && CheckInventory("CanBleed" )) //heavy armor make you able to run (not sprint)
+        {
+		DELAY(1);
+		giveinventory("UsedStamina", 1);
+		setactorproperty(0,APROP_Speed,1.0);
+		}
+		
+		Else if (GetActorProperty(0, APROP_Health) < 25 && CheckInventory("CanBleed" ))
+        {
+		DELAY(1);
+		setactorproperty(0,APROP_Speed,0.3);
+		}
+		
+		Else if (Checkinventory("UsedStamina") > 1400 && GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2)
+        {
+		DELAY(1);
+		setactorproperty(0,APROP_Speed,0.6);
+		}
+		
+		Else if (Checkinventory("UsedStamina") > 70 && GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 3)
+        {
+		DELAY(1);
+		setactorproperty(0,APROP_Speed,0.6);
+		}
+		
+		Else 
+		{
+		Delay(35*4);
+		setactorproperty(0,APROP_Speed,1.0);
+		}
+		
+	delay(1);
+	}
+}
+
+Script "FATIGUE2" ENTER   /// becoming tired while wounded
+{
+	While(1)
+	{ 		
+			If (Getactorproperty(0, APROP_Health) < 80 && GetCvar("staminahealthHUD") == true)
+			{
+			SetHudSize(640, 480, true);
+			setfont("HURT1");
+			HudMessage(s:"A"; HUDMSG_FADEOUT | HUDMSG_ALPHA | HUDMSG_LAYER_UNDERHUD, 3001, CR_UNTRANSLATED, 0.0, 0.0,2.0,2.0, 0.5);			
+			}
+			
+			If (Getactorproperty(0, APROP_Health) < 60 && GetCvar("staminahealthHUD") == true)
+			{
+			SetHudSize(320, 200, true);		
+			setfont("HURT2");
+			HudMessage(s:"A"; HUDMSG_FADEOUT | HUDMSG_ALPHA | HUDMSG_LAYER_UNDERHUD, 3002, CR_UNTRANSLATED, 315.0, 190.0,2.0,2.0, 0.5);
+			}
+			
+			If (Getactorproperty(0, APROP_Health) < 40 && GetCvar("staminahealthHUD") == true)
+			{
+			SetHudSize(320, 200, true);
+			setfont("HURT3");
+			HudMessage(s:"A"; HUDMSG_FADEOUT | HUDMSG_ALPHA | HUDMSG_LAYER_UNDERHUD, 3003, CR_UNTRANSLATED, -50.0, 240.0,2.0,2.0, 0.5);	
+			}
+			
+			If (Getactorproperty(0, APROP_Health) < 25 && GetCvar("staminahealthHUD") == true)
+			{
+			SetHudSize(640, 480, true);
+			setfont("HURT4");
+			HudMessage(s:"A"; HUDMSG_FADEOUT | HUDMSG_ALPHA | HUDMSG_LAYER_UNDERHUD, 3004, CR_UNTRANSLATED, 800.0, 50.0,2.0,2.0, 0.5);
+			}
+	
+			If (Getactorproperty(0, APROP_Health) < 25 && CheckInventory("CanBleed"))
+			{
+			giveinventory("UsedStamina", 2);
+			delay(1);
+			}
+				
+	DELAY(1);
+	}
+}
+
+Script "BLEEDOUT" Enter     //bleeding to death after heavy wounds.
+{
+    While(TRUE)
+    {
+        // Bleeding occurs if health is below 25.
+        if (GetActorProperty(0, APROP_Health) < 25 && CheckInventory("CanBleed") && !Checkinventory("playerisdead"))
+        {
+            int armorsave = GetArmorInfo(ARMORINFO_SAVEPERCENT);
+
+            // Do range checks, because otherwise it'll act as if you're wearing the light armor
+            // even if you have the medium or heavy armors.
+			
+            If(armorsave >= 0.4 && armorsave < 0.6)   // light armor
+            {
+                setfont("bleeding");
+				SetHudSize(640, 480, true);
+				HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 200, CR_UNTRANSLATED, 35.0, 40.0,5.0,2.0,1.0,1.0,0.6);
+                delay(35*5);
+            }
+            Else If(armorsave >= 0.6 && armorsave < 0.8) // medium armor
+            {
+                setfont("bleeding");
+				SetHudSize(640, 480, true);
+				HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 200, CR_UNTRANSLATED, 35.0, 40.0,5.0,2.0,1.0,1.0,0.3);
+                delay(35*5);
+				delay(35*5);
+            }
+            Else If(armorsave >= 0.8) //heavy armor
+            {
+				setactorproperty(0,APROP_Speed,1.0);
+                setfont("nobleed");
+				SetHudSize(640, 480, true);
+				HudMessage(s:"A"; HUDMSG_PLAIN, 200, CR_UNTRANSLATED, 35.0, 40.0,1.0,0.3);
+                delay(1); // Delay the script before restarting.
+                restart;
+            }
+
+		if (GetActorProperty(0, APROP_Health) < 25 && CheckInventory("CanBleed") && !Checkinventory("playerisdead"))
+		setfont("bleeding");  //uniform or no armor
+        SetHudSize(640, 480, true);
+        HudMessage(s:"A"; HUDMSG_FADEINOUT, 200, CR_UNTRANSLATED, 35.0, 40.0,5.0,1.0,1.0);
+		delay(35*3);
+		delay(35*2);
+		setfont("BLEED3");
+		HudMessage(s:"A"; HUDMSG_FADEINOUT, 201, CR_UNTRANSLATED, 320.0, 240.0,9.0);
+		int x = GetActorX(0);
+		int y = GetActorY(0);
+		int z = GetActorZ(0)+20.0;
+		Spawnforced("Brutal_LiquidBlood3",x,y,z,0,0);
+		delay(35*1);
+			If(Getactorproperty(0, APROP_Invulnerable) == 0  && CheckInventory("CanBleed"))
+			{Damageactor(0,0,1,0,1,"bleeding");}
+		delay(35*4);
+        }
+        Delay(1);
+    }
+}
+
+Script "RUPTURE" (void)       //Open wound inflicted by monsters
+{
+	int armorsave = GetArmorInfo(ARMORINFO_SAVEPERCENT);
+	int i;
+	
+	If(Getactorproperty(0, APROP_Invulnerable) == 0  && CheckInventory("CanBleed"))
+	{
+			If(armorsave >= 0.3 && armorsave < 0.4) //uniform armor
+            {
+				for (i=0;i<15;i++) // 3*15 times = 45 dmg  "DEEP LACERATION"
+				{	
+					giveinventory("stillbleeding",1);
+						If(Getactorproperty(0, APROP_Invulnerable) == 0  && CheckInventory("CanBleed"))
+						{Damageactor(0,0,1,0,3,"bleeding");}
+					SetHudSize(640, 480, true);
+					setfont("smallfont");
+					HudMessage(s:"deep laceration"; HUDMSG_FADEINOUT, 203, CR_BRICK,320.0, 450.0,1.0);
+					SetHudSize(320, 200, true);
+					setfont("RUPTURE");
+					HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA, 202, CR_UNTRANSLATED, 100.0, 240.0,2.0,1.0,1.0, 0.5);
+					SetHudSize(640, 480, true);
+					int x1 = GetActorX(0);
+					int y1 = GetActorY(0);
+					int z1 = GetActorZ(0)+10.0;
+					Spawn("Brutal_LiquidBlood3",x1,y1,z1,0,0);				
+					delay(35*2);
+					takeinventory("stillbleeding",1);
+				}
+            }
+			Else if(armorsave >= 0.4 && armorsave < 0.6) //lightarmor, helmet
+            {
+				for (i=0;i<10;i++) // 3*10 times = 30 dmg   "LACERATION"
+				{
+					giveinventory("stillbleeding",1);
+						If(Getactorproperty(0, APROP_Invulnerable) == 0  && CheckInventory("CanBleed"))
+						{Damageactor(0,0,1,0,3,"bleeding");}
+					SetHudSize(640, 480, true);
+					setfont("smallfont");
+					HudMessage(s:"laceration"; HUDMSG_FADEINOUT, 203, CR_RED,320.0, 450.0,1.0);
+					SetHudSize(480, 360, true);
+					setfont("RUPTURE");
+					HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA, 202, CR_UNTRANSLATED, 100.0, 240.0,2.0,1.0,1.0, 0.3);
+					SetHudSize(640, 480, true);
+					int x2 = GetActorX(0);
+					int y2 = GetActorY(0);
+					int z2 = GetActorZ(0)+10.0;				
+					Spawn("Brutal_LiquidBlood3",x2,y2,z2,0,0);	
+					delay(35*3);
+					takeinventory("stillbleeding",1);
+				}
+            }
+            Else If(armorsave >= 0.6 && armorsave < 0.8) // mediumarmor
+            {
+				for (i=0;i<15;i++) // 1*15 times = 15 dmg  "MILD LACERATION"
+				{
+					giveinventory("stillbleeding",1);
+						If(Getactorproperty(0, APROP_Invulnerable) == 0  && CheckInventory("CanBleed"))
+						{Damageactor(0,0,1,0,1,"bleeding");}
+					SetHudSize(640, 480, true);
+					setfont("smallfont");
+					HudMessage(s:"mild laceration"; HUDMSG_FADEINOUT, 203, CR_RED,320.0, 450.0,1.0);				
+					setfont("SCRATCH");
+					HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA, 202, CR_UNTRANSLATED, 100.0, 240.0,2.0,1.0,1.0, 0.3);
+					int x3 = GetActorX(0);
+					int y3 = GetActorY(0);
+					int z3 = GetActorZ(0)+10.0;
+					Spawn("Brutal_LiquidBlood3",x3,y3,z3,0,0);					
+					delay(35*3);
+					takeinventory("stillbleeding",1);
+				}
+            }
+            Else If(armorsave >= 0.8)  //heavy armor & tech armor   "ABSORBED LACERATION"
+            {	
+				delay(1);
+				SetHudSize(640, 480, true);
+				setfont("smallfont");
+				HudMessage(s:"laceration absorbed !"; HUDMSG_FADEINOUT, 204, CR_GREEN,320.0, 450.0,1.0);
+				DELAY(35*5);
+				terminate;
+			}
+			
+			Else //no armor
+			{
+			for (i=0;i<25;i++) // 3*25 times = 75 dmg  "DEADLY LACERATION"
+			{
+			giveinventory("stillbleeding",1);
+				If(Getactorproperty(0, APROP_Invulnerable) == 0  && CheckInventory("CanBleed"))
+				{Damageactor(0,0,1,0,3,"bleeding");}
+			SetHudSize(640, 480, true);
+			setfont("smallfont");
+			HudMessage(s:"deadly laceration !"; HUDMSG_FADEINOUT, 203, CR_DARKRED,320.0, 450.0,1.0);			
+					SetHudSize(320, 200, true);
+					setfont("RUPTURE");
+					HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA, 202, CR_UNTRANSLATED, 100.0, 240.0,2.0,1.0,1.0, 0.7);
+					SetHudSize(640, 480, true);
+			int x4 = GetActorX(0);
+			int y4 = GetActorY(0);
+			int z4 = GetActorZ(0)+10.0;
+			Spawn("Brutal_LiquidBlood3",x4,y4,z4,0,0);				
+			delay(35*2);
+			takeinventory("stillbleeding",1);
+			}
+		}
+	delay(1);
+	}
+}
+
+Script "CRIPPLE" (void)       //Slowed down by wound **UNUSED**
+{
+	 if (GetActorProperty(0, APROP_Health) < 25)
+	   {
+	   	setactorproperty(0,APROP_Speed,0.3);
+		delay(10);
+		terminate;
+		}
+}
+
+
+	Script "MAXHEALTH" (void) ///TEST
+{
+int starthealth = GetActorProperty(0, APROP_SpawnHealth);
+int stamina = GetActorProperty(0, APROP_Stamina);
+int maxhealth = (starthealth + stamina);
+delay(35);
+Print(i:maxhealth);
+delay(1);
+restart;
+}
+		
+		
+Script "QUICKBANDAGE" (void)  
+{
+	IF (CheckInventory("bandages"))
+		{
+		Useinventory("bandages"); 
+		delay(35*3);
+		delay(17);
+		terminate;
+		}
+		
+	Else if (CheckInventory("healthpack2"))
+		{
+		Useinventory("healthpack2"); ;
+		delay(35*3);
+		delay(17);
+		terminate;
+		}
+		
+	Else
+		{
+		Print(s:"you can only quick heal using bandages or portable medikits");
+		delay(17);
+		terminate;
+		}
+}
+
+Script "LIFEMODULE" ENTER 
+{
+while (1)
+{
+	If(Checkinventory("LIFEMODULEON") >=1)
+	{
+		setfont("autoheal");
+        SetHudSize(640, 480, true);
+        HudMessage(s:"A"; HUDMSG_FADEINOUT, 219, CR_UNTRANSLATED, -37.0,40.0,6.0,1.0,1.0);
+		Healthing(1);
+		ACS_NamedTerminate("RUPTURE",0);
+		ACS_Namedexecute("POISONCURE",0);
+		takeinventory("stillbleeding",1);
+		delay(200);
+	}
+	
+	Else
+	{
+	delay(1);
+	restart;
+	}
+}
+}
+
+Script "LIFEMODULEmount" (VOID)
+{
+int armorsave = GetArmorInfo(ARMORINFO_SAVEPERCENT);
+If (Checkinventory("basicarmor") >=1 && armorsave >= 0.4)
+	{
+	print(s:"You mounted the Life Support Module on your armor's dedicated socket");
+	Giveinventory("LIFEMODULEON",1);
+	}
+Else
+	{
+	print(s:"You need a functioning ordinance UAC armor to use this item");
+	Giveinventory("Lifemodule",1);
+	}
+delay(1);
+}
+
+SCRIPT "POISONED" (void)
+{	
+If (Getactorproperty(0, APROP_Invulnerable) == 1 | Checkinventory("lifemoduleon"))
+	{
+	delay(80);
+	terminate;
+	}
+	
+Else
+{
+	giveinventory("poisoned",1);
+	setfont("hazard");
+	SetHudSize(640, 480, true);
+	HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 221, CR_UNTRANSLATED, 80.0, 40.0,20.0,2.0,1.0,1.0,0.6);
+	delay(random(35*10,35*20));
+	HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 221, CR_UNTRANSLATED, 80.0, 40.0,20.0,2.0,1.0,1.0,0.6);
+	delay(random(35*10,35*20));
+	HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 221, CR_UNTRANSLATED, 80.0, 40.0,20.0,2.0,1.0,1.0,0.6);
+	delay(random(35*10,35*20));
+	HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 221, CR_UNTRANSLATED, 80.0, 40.0,20.0,2.0,1.0,1.0,0.6);
+	delay(random(35*10,35*20));
+	HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 221, CR_UNTRANSLATED, 80.0, 40.0,20.0,2.0,1.0,1.0,0.6);
+	
+	switch(random(1,3)) 
+{
+
+///COUGHING
+ case 1:
+		
+		If(Checkinventory("gasmaskon"))
+		{
+		setactorproperty(0,APROP_Speed,0.1);
+		PLAYSOUND(0,"cough/gasmask",2);
+		delay(75);
+		ACS_NamedExecute("radsuitswitch",0);
+		delay(5);
+		PLAYSOUND(0,"INHALE",2);
+		delay(90);
+		}
+		
+		setactorproperty(0,APROP_Speed,0.1);
+		setfont("COFF1");
+		setactorproperty(0,APROP_viewheight,30.0);
+		SetHudSize(640, 480, true);
+		Thing_Damage2(0,2,"NOSOUND");
+		PLAYSOUND(0,"cough/poison",2);
+		HudMessage(s:"A"; HUDMSG_FADEOUT | HUDMSG_ALPHA, 300, CR_UNTRANSLATED, 320.0, 240.0,10.0,2.5,0.5);
+		delay(35);
+		setactorproperty(0,APROP_viewheight,44.0);
+		//
+		Damageactor(0,0,1,0,6,"bleeding");
+		//int currenthealthA = Getactorproperty(0, APROP_Health);
+		//setactorproperty(0, APROP_Health, currenthealthA-6);
+		//SetMugShotState("pain2");
+		//
+		setfont("COFF2");
+		SetHudSize(640, 480, true);
+		HudMessage(s:"A"; HUDMSG_FADEOUT | HUDMSG_ALPHA, 301, CR_UNTRANSLATED, 320.0, 240.0,5.0,2.5,0.6);
+		setactorproperty(0,APROP_Speed,1.0);
+		delay(1);
+		restart; 
+ 
+ ///TRIPPING
+ case 2:
+ //
+ Damageactor(0,0,1,0,2,"litpoison");
+//int currenthealthB = Getactorproperty(0, APROP_Health);
+//setactorproperty(0, APROP_Health, currenthealthB-2);
+//SetMugShotState("pain2");
+setfont("POISON01");
+SetHudSize(640, 480, true);
+HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 300, CR_UNTRANSLATED, 320.0, 240.0,5.0,0.2,0.2,0.2);
+setfont("hazard");
+SetHudSize(640, 480, true);
+HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 221, CR_UNTRANSLATED, 80.0, 40.0,20.0,2.0,2.0,0.5,0.6);
+DELAY(35*5);
+ACS_NamedExecute("TRIP",0);
+//
+Damageactor(0,0,1,0,2,"litpoison");
+//int currenthealthC = Getactorproperty(0, APROP_Health);
+//setactorproperty(0, APROP_Health, currenthealthC-2);
+//SetMugShotState("pain2");
+
+delay(1);
+ restart;
+ 
+///BLINDNESS
+ case 3:
+setfont("BLINDED1");
+SetHudSize(640, 480, true);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA, 300, CR_UNTRANSLATED, 320.0, 240.0,20.0,1.0,1.0,1.0);
+setfont("FADEBL");
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA, 301, CR_UNTRANSLATED, 320.0, 240.0,20.0,1.0,1.0,0.6);
+setfont("hazard");
+SetHudSize(640, 480, true);
+HudMessage(s:"A"; HUDMSG_FADEINOUT|HUDMSG_ALPHA, 221, CR_UNTRANSLATED, 80.0, 60.0,20.0,2.0,1.0,1.0);
+//
+Damageactor(0,0,1,0,3,"litpoison");
+//int currenthealthD = Getactorproperty(0, APROP_Health);
+//setactorproperty(0, APROP_Health, currenthealthD-3);
+//SetMugShotState("pain2");
+delay(1);
+ restart; 
+}
+}}
+
+script "POISONFLOOR" ENTER
+ {
+	While(1)
+	{
+	  if (  CheckActorFloorTexture(0, "NUKAGE1") || CheckActorFloorTexture(0, "NUKAGE2") || CheckActorFloorTexture(0, "NUKAGE3") ||
+			CheckActorFloorTexture(0, "FHDS01") || CheckActorFloorTexture(0, "FHDS02") || CheckActorFloorTexture(0, "FHDS03") || CheckActorFloorTexture(0, "FHDS04") || CheckActorFloorTexture(0, "FHDS05") || CheckActorFloorTexture(0, "FHDS06") || CheckActorFloorTexture(0, "FHDS07") ||
+			CheckActorFloorTexture(0, "FHDS08") || CheckActorFloorTexture(0, "FHDS09") || CheckActorFloorTexture(0, "FHDS10") || CheckActorFloorTexture(0, "FHDS11") || CheckActorFloorTexture(0, "FHDS12") || CheckActorFloorTexture(0, "FHDS13") || CheckActorFloorTexture(0, "FHDS14") || 
+			CheckActorFloorTexture(0, "FHDS15") || CheckActorFloorTexture(0, "FHDS16") || CheckActorFloorTexture(0, "FHDS17") || CheckActorFloorTexture(0, "FHDS18") || CheckActorFloorTexture(0, "FHDS19") || CheckActorFloorTexture(0, "FHDS20") || CheckActorFloorTexture(0, "FHDS21") || 
+			CheckActorFloorTexture(0, "FHDS22") || CheckActorFloorTexture(0, "FHDS22") || CheckActorFloorTexture(0, "FHDS23") || CheckActorFloorTexture(0, "FHDS24") || CheckActorFloorTexture(0, "FHDS25") || CheckActorFloorTexture(0, "FHDS26") ||
+			CheckActorFloorTexture(0, "FHDS27") || CheckActorFloorTexture(0, "FHDS28") || CheckActorFloorTexture(0, "FHDS29") || CheckActorFloorTexture(0, "FHDS30") || CheckActorFloorTexture(0, "FHDS31") || CheckActorFloorTexture(0, "FHDS32")  )
+			 {	
+			 delay(55);
+						If   (!Checkinventory("gasmaskon") && !Checkinventory("playerisdead") && GetCvar("poisonousnukage") == 1 )
+						{	
+						delay(1);
+							If(  CheckActorFloorTexture(0, "NUKAGE1") || CheckActorFloorTexture(0, "NUKAGE2") || CheckActorFloorTexture(0, "NUKAGE3") ||
+							CheckActorFloorTexture(0, "FHDS01") || CheckActorFloorTexture(0, "FHDS02") || CheckActorFloorTexture(0, "FHDS03") || CheckActorFloorTexture(0, "FHDS04") || CheckActorFloorTexture(0, "FHDS05") || CheckActorFloorTexture(0, "FHDS06") || CheckActorFloorTexture(0, "FHDS07") ||
+							CheckActorFloorTexture(0, "FHDS08") || CheckActorFloorTexture(0, "FHDS09") || CheckActorFloorTexture(0, "FHDS10") || CheckActorFloorTexture(0, "FHDS11") || CheckActorFloorTexture(0, "FHDS12") || CheckActorFloorTexture(0, "FHDS13") || CheckActorFloorTexture(0, "FHDS14") || 
+							CheckActorFloorTexture(0, "FHDS15") || CheckActorFloorTexture(0, "FHDS16") || CheckActorFloorTexture(0, "FHDS17") || CheckActorFloorTexture(0, "FHDS18") || CheckActorFloorTexture(0, "FHDS19") || CheckActorFloorTexture(0, "FHDS20") || CheckActorFloorTexture(0, "FHDS21") || 
+							CheckActorFloorTexture(0, "FHDS22") || CheckActorFloorTexture(0, "FHDS22") || CheckActorFloorTexture(0, "FHDS23") || CheckActorFloorTexture(0, "FHDS24") || CheckActorFloorTexture(0, "FHDS25") || CheckActorFloorTexture(0, "FHDS26") ||
+							CheckActorFloorTexture(0, "FHDS27") || CheckActorFloorTexture(0, "FHDS28") || CheckActorFloorTexture(0, "FHDS29") || CheckActorFloorTexture(0, "FHDS30") || CheckActorFloorTexture(0, "FHDS31") || CheckActorFloorTexture(0, "FHDS32") )
+							{
+								 SetActorstate(0,"Pain.Acid",TRUE);
+								 delay(55);
+							}
+							
+							Else {delay(1); }
+						}
+						
+						Else {delay(1); }
+			delay(1);
+			}		
+	 delay(1);
+	 }
+	 delay(1);
+	 }
+
+SCRIPT "ELECTROCUTED" (void)
+{	
+int i;
+If (Getactorproperty(0, APROP_Invulnerable) == 1)
+	{
+	delay(80);
+	terminate;
+	}
+	
+Else
+	{
+	setactorstate(0,"electrocuted");
+	giveinventory("electrocuted",1);
+	SetPlayerProperty(TRUE, ON, PROP_FROZEN);
+	
+		for (i=0;i<6;i++) // 17*6 times = 3 seconds
+		{
+		delay(16);	
+		damagething(1);
+		delay(1);	
+		}
+	delay(1);
+	SetPlayerProperty(TRUE, OFF, PROP_FROZEN);
+	takeinventory("electrocuted",1);
+	}
+}
+
+SCRIPT "BLINDINGFLASH" (void)
+{	
+setfont("WHITE");
+SetHudSize(640, 480, true);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA, 300, CR_WHITE, 320.0, 240.0,5.0,0.5,0.5,1.0);
+delay(1);
+}
+
+SCRIPT "ELECTROFLASH" (void)
+{	
+setfont("SHOCK");
+SetHudSize(640, 480, true);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA, 300, CR_WHITE, 320.0, 240.0,0.5,0.2,0.2,0.2);
+delay(1);
+}

@@ -1,0 +1,13 @@
+Version "4.7"
+
+#include "LiTZscript/Sflashlight.txt"
+#include "LiTZscript/Dflashlight.txt"
+#include "LiTZscript/Slowmo.txt"
+#include "LiTZscript/DifficultySliders.txt"
+#include "LiTZscript/Zscriptactors.txt"
+#include "LiTZscript/MonsterSpawners.txt"
+#include "LiTZscript/Ballistics.txt"
+#include "LiTZscript/SpecialArmor.txt"
+#include "LiTZscript/DroppedMags.txt"
+#include "LiTZscript/DroppedMags.txt"
+#include "LiTZscript/GameplayTweaks.txt"

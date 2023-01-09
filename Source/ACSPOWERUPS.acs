@@ -1,0 +1,437 @@
+#library "WEAPONTAKERACS"
+#include "zcommon.acs"
+
+// MEDICATIONS
+script "MEDICATIONS" (void)
+{
+
+int starthealth = GetActorProperty(0, APROP_SpawnHealth);
+int stamina = GetActorProperty(0, APROP_Stamina);
+int maxhealth = (starthealth + stamina);
+
+	If (Checkinventory("Health") >= maxhealth)
+	{terminate;}
+
+		SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);
+		Print(s:"Applying medications...");
+		setfont("healing");
+        SetHudSize(640, 480, true);
+        HudMessage(s:"A"; HUDMSG_FADEINOUT, 220, CR_UNTRANSLATED, -5.0,40.0,10.0,1.0,1.0);
+		delay(35*3);
+		takeinventory("stillbleeding",1);
+		delay(10);
+		
+		if(Checkinventory("choosingreward"))
+		{terminate;}
+		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		delay(35*7);
+		
+}
+
+script "POISONCURE" (void)
+{
+    HudMessage(s:""; 0, 221, 0, 0, 0, 0);
+	ACS_NAMEDTERMINATE("POISONED",0);
+	takeinventory("poisoned", 1);
+
+}
+
+script "ACIDIMMUNE" ENTER
+{	
+	While(1)
+	{If(Checkinventory("HEVprotect") | Checkinventory("ironfeettoken"))
+	{Giveinventory("Acidimmunity",1);
+		delay(1);
+		restart; 
+	}delay(1);}
+}
+
+script "POISONCURE2" ENTER
+{	
+takeinventory("poisoned", 1);
+takeinventory("permanentberserk", 1);
+takeinventory("gasmaskon", 1);
+takeinventory("norecoil", 1);
+takeinventory("isdoomguy", 1);
+takeinventory("forcefieldon", 1);
+	
+if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0)
+{ delay(1); giveinventory("norecoil",1); giveinventory("isdoomguy",1);}
+TERMINATE;
+}
+
+// REGENSPHERE 
+script "STAMINASPHERE" (void)
+ {
+	int i;
+		for (i=0;i<60;i++)
+			{
+				ACS_NamedTerminate("rupture",0);
+				ACS_NamedTerminate("poisoned",0);
+				takeinventory("UsedStamina", 22);
+				Delay(36);
+			}
+}			
+			
+// BERSERKPACK
+
+script "BERSERKRAGE" (void)
+ {
+	int i;
+
+delay(20);
+		GiveInventory("BerserkDamage",1);
+		GiveInventory("BerserkDrain",1);
+
+		for (i=0;i<120;i++)
+			{
+				SetWeapon("melee_attacks");
+				ACS_NamedTerminate("rupture",0);
+				Healthing(15);
+				takeinventory("UsedStamina", 100);
+				Delay(17);
+					if(Checkinventory("choosingreward"))
+					{SetWeapon("blankweapon");
+					terminate;}
+			}
+		
+		  while (GetActorProperty(0, APROP_Health) > 1)
+		    {
+				SetHudSize(640, 480, true);
+				setfont("FADEBL");
+				HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA ,401, CR_UNTRANSLATED, 320.0, 240.0, 15.0, 1.0, 1.0, 0.3);
+				setfont("bigfont");
+				HudMessage(s:"You  feel your sanity slowly coming back, but your body feels heavy..."; HUDMSG_PLAIN,402, CR_red, 320.0, 240.0, 7.0);
+				setactorproperty(0,APROP_Speed,0.5);
+				giveinventory("UsedStamina", 1500);
+				Giveinventory("HealthPackpower",1);
+					delay(35*10);
+				setfont("FADEBL");
+				HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA,403, CR_UNTRANSLATED, 320.0, 240.0, 8.0, 1.0, 1.0, 0.5);
+				setfont("bigfont");
+				HudMessage(s:"Your senses are becoming numb... you are about to pass out!"; HUDMSG_FADEINOUT,402, CR_red, 320.0, 240.0, 7.0);
+					giveinventory("UsedStamina", 1500);
+					delay(35*5);
+				setfont("FADEBL");
+				SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);
+				Setweapon("blankweapon");
+				setactorproperty(0,APROP_viewheight,20.0);
+				Playsound(0,"SLIDSTRT1",0,1.0);
+					delay(35*1);
+				Playsound(0,"FOOTWALL",0,1.0);
+				HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA,401, CR_UNTRANSLATED, 320.0, 240.0, 7.0, 3.0, 1.0, 1.0);	
+				setactorproperty(0,APROP_viewheight,5.0);
+					delay(35*5);
+					takeinventory("UsedStamina", 1500);
+					delay(35*6);
+				Playsound(0,"KICK",0,1.0);
+				setactorproperty(0,APROP_viewheight,20.0);
+					delay(35*3);
+				setactorproperty(0,APROP_Speed,1.0);
+				setactorproperty(0,APROP_viewheight,44.0);
+				
+				if(Checkinventory("choosingreward"))
+				{terminate;}
+				
+				SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+				Setweapon("melee_attacks");
+					delay(1);
+				Terminate;
+			 }
+	
+  }
+  
+  
+  //////////////////////////////////////////////////////
+  ///	STIMULANTS INJECTORS
+  //////////////////////////////////////////////////////
+  
+  // BERSERK STIM
+  script "BERSERKSTIM" (void)
+ {
+	int i;
+
+		GiveInventory("BerserkDrainSTIM",1);
+		GiveInventory("PowerStrength2",1);
+
+		for (i=0;i<40;i++)
+			{
+				Healthing(5);
+				ACS_NamedTerminate("rupture",0);
+				Delay(35);
+			}
+			
+		SetActorProperty(0, APROP_SPEED, 1.0);
+  }			
+
+		
+// CHAOS INJECTOR
+//( made in Decorate )
+
+// STAMINA STIM
+  script "STAMINASTIM" (void)
+ {
+	int i;
+		GIVEINVENTORY("Yellowdrugscreen",1);
+		GIVEINVENTORY("STAMINAFRENZY",1);
+		
+		for (i=0;i<710;i++)   /// around 20 seconds
+			{
+				Takeinventory("usedstamina",3);
+				SetActorProperty(0, APROP_SPEED, 2.0);
+				Delay(1);
+			}
+			
+		SetActorProperty(0, APROP_SPEED, 1.0);
+		TAKEINVENTORY("STAMINAFRENZY",1);
+  }			
+
+// PREDATOR STIM
+  script "GIVEPREDATOR" (void)
+ {DELAY(17);
+ GIVEINVENTORY("PREDATORMODE",1);
+  GIVEINVENTORY("NIGHTVISION",1);
+  GIVEINVENTORY("SUPERBLURSPHERE",1);
+  DELAY(35*99);
+ TAKEINVENTORY("PREDATORMODE",1);
+  }
+  
+// CLAIRVOYANCE STIM
+//( in RADAR.acs )
+
+//ANTIRAD STIM
+script "GIVEANTIHAZARD" (void)
+ {DELAY(17);
+ ACS_NAMEDEXECUTE("POISONCURE",0);
+  GIVEINVENTORY("IRONFEETTOKEN",1);
+  GIVEINVENTORY("RADSUIT3",1);
+  DELAY(35*60);
+  TAKEINVENTORY("IRONFEETTOKEN",1);
+}
+
+// PHEROMONES
+  script "GIVETERROR" (void)
+ {DELAY(17);
+  GIVEINVENTORY("TERRORPOWER",1);}
+
+// IRON SKIN
+  script "GIVEIRONSKIN" (void)
+ {DELAY(17);
+  GIVEINVENTORY("IRONSKINPOWER",1);}
+  
+// ROCK SKIN
+  script "GIVEROCKSKIN" (void)
+ {DELAY(17);
+  GIVEINVENTORY("ROCKSKINPOWER",1);}
+
+//  LIGHT HEALING INJECTOR
+//( made in Decorate )
+
+// POTENT HEALING INJECTOR
+//( made in Decorate )
+
+//  RAMPAGE INJECTOR
+script "RAMPAGESTIM" (void)
+{ Delay (20);
+GiveInventory("RageSphere",1);
+Giveinventory("RampageDoubleDamage",1);
+Giveinventory("NoRecoil",1);
+giveinventory("isdoomguy",1);
+PlaySound(0, "Slomo_on", CHAN_NOPAUSE, 1.0, FALSE, ATTN_NONE);
+PlaySound(0, "Slomo_loop", CHAN_6, 1.0, TRUE, ATTN_NONE);
+Delay (30);
+
+int i;
+for (i=0;i<21;i++)   /// around 10 seconds
+{
+giveinventory("SlomoGiver", 1);
+setactorproperty(0,APROP_Speed,2.0);
+delay(10);
+takeinventory("SMPowerTimeFreezerSound",1);
+delay(6);
+}
+
+setactorproperty(0,APROP_Speed,1.0);
+PlaySound(0, "Slomo_off", CHAN_NOPAUSE, 1.0, FALSE, ATTN_NONE);
+Stopsound(0, CHAN_6);
+delay(35*50);
+takeinventory("Norecoil",1);
+takeinventory("isdoomguy",1);
+
+if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0)
+{ delay(1); giveinventory("norecoil",1); giveinventory("isdoomguy",1);}
+}
+
+/// TEMPORARY DOOMGUY
+script "Doomguysphere" (void)
+{
+giveinventory("isdoomguy",1);
+giveinventory("norecoil",1);
+delay(50);
+str weapon = GetWeapon();
+
+delay(35*29);
+takeinventory("isdoomguy",1);
+takeinventory("norecoil",1);
+
+if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0)
+{ delay(1); giveinventory("norecoil",1); giveinventory("isdoomguy",1);}
+terminate;
+}
+
+
+///DEMON RUNE TIMER
+script "StrengthTimer" (void)
+{
+If (Checkinventory("permanentberserk"))
+Terminate;
+
+Else
+	{
+		If (Checkinventory("berserktimer"))
+		{ 
+		delay(35);
+		takeinventory("berserktimer",1);
+		restart;
+		}
+		
+		Else
+		{
+		takeinventory("powerstrength2",1);
+		print(s:"You feel weaker again...");
+		delay(35*2);
+		print(s:"");
+		terminate;
+		}
+	}
+}
+
+/// DEMONSHARD
+script "DemonShardBuff" (void)
+{
+giveinventory("demonshardactive",1);
+		If (Checkinventory("armorgem"))
+			{
+				takeinventory("usedstamina",5);
+				takeinventory("armorgem",1);
+				giveinventory("shardresistpower",1);
+				giveinventory("sharddamagepower",1);
+				delay(35);
+				restart;
+			}	
+		////
+		Else
+			{
+				takeinventory("demonshardactive",1);
+				stopsound(0,241);
+				playsound(0,"RSHARD3",7);
+				Terminate;
+			}
+}
+	
+	
+
+///// FORCEFIELD GENERATOR
+script "ForceFieldSwitch" (void)
+{
+delay(1);
+If (Checkinventory("forcefieldON"))
+ACS_NamedExecute("ForceFieldActivate",0);
+Else
+ACS_NamedExecute("ForceFieldDeactivate",0);
+}
+
+script "ForceFieldActivate" (void)
+{
+giveinventory("forcefieldcooldown",1);
+playsound(0,"FFIELDON",3,0.6);
+SetHudSize(1200, 900, true);
+setfont("FFIELD");
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1500.0, 5.0, 0.3, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1400.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1300.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1200.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1100.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1000.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 900.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 800.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 700.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 600.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 500.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+giveinventory("forcefieldon",1);
+takeinventory("forcefieldcooldown",1);
+ACS_NamedExecute("ForceFieldActive",0);
+}
+
+script "ForceFieldDeactivate" (void)
+{
+ACS_NamedTERMINATE("ForceFieldActive",0);
+giveinventory("forcefieldcooldown",1);
+playsound(0,"LNCCANC",4,0.2);
+SetHudSize(1200, 900, true);
+setfont("FFIELD");
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 450.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 500.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 600.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 700.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 800.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 900.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1000.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD,411, CR_UNTRANSLATED, 600.0, 1100.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1200.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1300.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1400.0, 5.0, 0.0, 0.0, 0.8);
+delay(1);
+HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 1500.0, 5.0, 0.0, 0.8, 0.8);
+delay(1);
+takeinventory("forcefieldon",1);
+takeinventory("forcefieldcooldown",1);
+}
+
+script "ForceFieldActive" (void)
+{
+	while (Checkinventory("forcefieldon") == 1)
+	{	
+	SetHudSize(1200, 900, true);
+	setfont("FFIELD");
+	HudMessage(s:"A"; HUDMSG_PLAIN | HUDMSG_ALPHA | HUDMSG_NOTWITHFULLMAP | HUDMSG_LAYER_UNDERHUD ,411, CR_UNTRANSLATED, 600.0, 450.0, 1.0, 0.8);
+		if (CheckInventory("ammocell") >= 1)
+		{
+			playsound(0,"FFIELDHM",4,0.4,1);
+			Delay(1);
+			giveinventory("forcefieldpower",1);
+			Takeinventory("ammocell",1);
+		}	
+
+		else
+		{
+		Print(s:"Energy Cells depleted.");
+		ACS_NamedExecute("ForceFieldDeactivate",0);
+		delay(1);
+		}
+	delay(1);
+	}
+delay(1);
+}

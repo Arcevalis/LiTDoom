@@ -1,0 +1,178 @@
+#library "flashlight"
+
+#include "zcommon.acs"
+
+
+////TOGGLE
+script "FLASHLIGHTKEY" (void)
+{
+If (GetCVAR("flashlight_mod") == 0)
+	{
+	If (Checkinventory("flashlighton") == 1)		
+		{Takeinventory("flashlighton",1);
+		ACS_namedexecute("Steveflashlight",0); }
+		Else
+		{Giveinventory ("flashlighton",1);
+		ACS_namedexecute("Steveflashlight",0); }	
+	}
+
+Else if (GetCVAR("flashlight_mod") == 1)
+	{ 
+		If (Checkinventory("flashlighton") == 1)		
+		{Takeinventory("flashlighton",1);
+		Useinventory("DarkDoomZ_Flashlight");}
+		Else
+		{Giveinventory ("flashlighton",1);
+		Useinventory("DarkDoomZ_Flashlight"); }
+	}
+	
+Else if (GetCVAR("flashlight_mod") == 2)
+	{ 
+		If (Checkinventory("flashlighton") == 1)		
+		{Takeinventory("flashlighton",1);}
+		Else
+		{Giveinventory ("flashlighton",1);}
+	ACS_namedexecute("Zombieflashlight",0);
+	}
+	
+}
+
+
+
+/*--------------------------------------------------------------------
+
+STEVE'S FLASHLIGHT
+
+---------------------------------------------------------------------*/
+
+int players [8]; 
+int playersFlashID [8];
+bool playersFlashOn [8];
+script"lib-flashlight-enter" ENTER {
+	int tid = ActivatorTID();
+	int pN = PlayerNumber();
+	if (tid == 0) {		
+		tid =  UniqueTID();	
+	} 	
+    players[pN] = tid;
+    Thing_ChangeTID(0, tid);
+}
+
+script "Steveflashlight" (void) NET {
+
+	int pN = PlayerNumber();	    
+	if (playersFlashID[pN] == 0)  { //this player does not have a flashlight	
+		playersFlashID[pN] = UniqueTID();	
+		ScriptCall("Util", "setupFlashlight", players[pN], playersFlashID[pN]);	
+		playersFlashOn[pN] = TRUE;	
+		Terminate;	
+	}
+	
+	if (playersFlashOn[pN]){
+		Thing_Deactivate(playersFlashID[pN]);
+		playersFlashOn[pN] = FALSE;
+		ActivatorSound("flashoff", 127);	
+	} else
+		{	
+		Thing_Activate(playersFlashID[pN]);
+		playersFlashOn[pN] = TRUE;
+		ActivatorSound("flashon", 127);		
+		}			
+}
+
+script "lib-flashlight-disconnect" (int pN) DISCONNECT {	
+	Thing_Remove(playersFlashID[pN]);
+	players[pN] = 0;
+	playersFlashID[pN] = 0;
+	playersFlashOn[pN] = FALSE;
+}
+
+/*--------------------------------------------------------------------
+
+ZOMBIE KILLER'S FLASHLIGHT 
+
+---------------------------------------------------------------------*/
+// Defines
+#define MAXPLAYERS 8
+int zflashlightOn[MAXPLAYERS];
+
+// Scripts
+Script "PointerPitch" (void)
+{
+	SetResultValue(GetActorPitch(0) / -182);
+}
+
+Script "ZombieFlashlight" (void)
+{
+	if (zflashlightOn[PlayerNumber()])
+		zflashlightOn[PlayerNumber()] = 0;
+	else
+		zflashlightOn[PlayerNumber()] = 1;
+	ActivatorSound("FLASHON", 127);
+}
+
+Script "FlashlightHandling" ENTER
+{
+	While(1)
+	{
+		if (zflashlightOn[PlayerNumber()])
+			GiveInventory("FlashlightSpawner", 1);
+		Delay(1);
+	}
+}
+
+/*--------------------------------------------------------------------
+
+DARKDOOM FLASHLIGHT (made in zscript)
+
+---------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------
+
+BATTERY
+
+---------------------------------------------------------------------*/
+script "FLASHLIGHTBATTERY" ENTER
+{
+int pN = PlayerNumber();
+	while (1)
+	{	
+		if (Checkinventory("flashlighton") == 1 && CheckInventory("battery") >= 1)
+		{
+			Delay(35*2);
+			Takeinventory("Battery",1);
+		}	
+		else if (Checkinventory("flashlighton") == 1 && CheckInventory("Ammocell") >= 1)
+		{
+			Delay(35*5);		
+			Takeinventory("Ammocell",1);
+		}	
+		else if (Checkinventory("flashlighton") == 1 && CheckInventory("Ammocell") == 0 && CheckInventory("Battery") == 0)
+		{
+		Print(s:"not enough energy");
+				//STEVE
+				If (GetCVAR("flashlight_mod") == 0)
+				{
+				delay(1);
+				ACS_namedexecute("Steveflashlight",0);
+				Takeinventory("flashlighton",1);
+				}
+				// DARKDOOM
+				Else if (GetCVAR("flashlight_mod") == 1)
+				{Useinventory("DarkDoomZ_Flashlight");
+				Takeinventory("flashlighton",1);}
+				// ZOMBIE KILLER
+				Else if (GetCVAR("flashlight_mod") == 2)
+				{ACS_NamedExecuteAlways("ZombieFlashlight",0);
+				Takeinventory("flashlighton",1);}
+
+		delay(1);
+		}
+	delay(1);
+	}
+delay(1);
+}
+
+script "FLASHLIGHTRESET" ENTER
+{ If (GetCVAR("flashlight_mod") == 0 || GetCVAR("flashlight_mod") == 2 )
+		Takeinventory("flashlighton",1);}

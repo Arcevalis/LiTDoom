@@ -1,0 +1,1039 @@
+/////////////
+//					CHEMICALS
+////////////
+
+ACTOR EmptyVial : Ammo 30018
+{
+	scale 0.3
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  Inventory.PickupMessage "$GOTVIAL"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 10
+  Inventory.Pickupsound "GLVIALPK"
+  tag"empty vial"
+  +ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	"####" "#" 0 A_SetRoll(randompick(0,90,180,270))
+	
+	Stay:
+	TNT1 A 0 A_checkproximity("bottlebasic", "basicbloodspot", 50, 1)
+	TNT1 A 0 A_checkproximity("bottleacid", "acidbloodspot", 50, 1)
+	TNT1 A 0 A_checkproximity("bottleneutral", "neutralbonemarrow", 50, 1)
+	TNT1 A 0 A_checkproximity("bottlealpha", "alphabloodspot", 50, 1)
+    VIAL E 1
+    Loop
+	
+	bottlebasic:
+	VIAL E 5
+	VIAL E 0 A_spawnitemex("basicvial",0,0,0,0,0,0,0,0,0,0)
+	TNT1 A 1
+	Stop
+	
+	bottleacid:
+	VIAL E 5
+	VIAL E 0 A_spawnitemex("acidvial",0,0,0,0,0,0,0,0,0,0)
+	TNT1 A 1
+	Stop
+	
+	bottleneutral:
+	VIAL E 5
+	VIAL E 0 A_spawnitemex("neutralvial",0,0,0,0,0,0,0,0,0,0)
+	TNT1 A 1
+	Stop
+	
+	bottlealpha:
+	VIAL E 5
+	VIAL E 0 A_spawnitemex("Alphavial",0,0,0,0,0,0,0,0,0,0)
+	TNT1 A 1
+	Stop
+	
+	pain.removeempty:
+	death.removeempty:
+	TNT1 A 1
+	Stop
+	
+  }
+}
+
+ACTOR AcidVial : Ammo 30019
+{
+	scale 0.3
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  Inventory.PickupMessage "$GOTACID"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 5
+  Inventory.Pickupsound "GLVIALPK"
+  Species "Marines"
+   tag"acid solution"
+   +ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	"####" "#" 0 //A_SetRoll(randompick(0,90,180,270))
+	
+	Stay:
+    VIAL G -1
+    Loop
+	
+	pain.removeacid:
+	death.removeacid:
+	TNT1 A 1
+	Stop
+
+  }
+}
+
+ACTOR NeutralVial : Ammo 30020
+{
+	scale 0.3
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  Inventory.PickupMessage "$GOTNEUTRAL"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 5
+   Inventory.Pickupsound "GLVIALPK"
+   Species "Marines"
+    tag"neutral solution"
+	+FORCEXYBILLBOARD
+	+ROLLSPRITE
++ROLLCENTER
+  States
+  {
+  Spawn:
+	 TNT1 A 0
+	 TNT1 A 0 //A_SetRoll(randompick(0,90,180,270))
+	 
+	 Stay:
+    VIAL N -1
+    Loop
+	
+ 	pain.removeneutral:
+	death.removeneutral:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR BasicVial : Ammo 30021
+{
+	scale 0.3
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  Inventory.PickupMessage "$GOTBASE"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 5
+    Inventory.Pickupsound "GLVIALPK"
+	 tag"basic solution"
+	 +ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 //A_SetRoll(randompick(0,90,180,270))
+	
+	Stay:
+    VIAL V -1
+    Loop
+	
+	pain.removebasic:
+	death.removebasic:
+	TNT1 A 1
+	Stop
+  }
+}
+
+
+/////////////
+//					ORGANIC REAGENTS
+////////////
+
+ACTOR Impspike : Ammo 30022
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  scale 0.2
+  Inventory.PickupMessage "$GOTSPIKE"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 5
+    Inventory.Pickupsound "DEMONPK"
+	 tag"imp spike"
+  +FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+	TNT1 A 0 
+	"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+	
+	Stay:
+    SPIK E -1
+    Loop
+	
+	pain.removespike:
+	death.removespike:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR Demonheart : Ammo 30023
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  scale 0.3
+  Inventory.PickupMessage "$GOTHEART"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 5
+    Inventory.Pickupsound "HEARTPK"
+	 tag"demon heart"
+	 +ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+    DMHE AA 4 
+	"####" "#" 0 { A_ChangeFlag("XFLIP",random(0,1));  A_SetRoll(randompick(0,90,180,270)); }
+	TNT1 A 0 
+	Stay:
+	
+	DMHE BCD 2 A_checkproximity("disappear", "Altarcolumn", 30, 1)
+    DMHE A 1 A_SpawnitemEX ("brutal_flyingblood",5,0,10,0,0,0,0,0,0,0)
+	DMHE A 1 A_SpawnitemEX ("brutal_flyingblood",20,0,10,0,0,0,0,0,0,0)
+	DMHE A 1 A_SpawnitemEX ("brutal_flyingblood",20,0,10,0,0,0,0,0,0,0)
+	goto Beat
+	
+	Beat:
+	TNT1 A 0 A_STARTSOUND("heART2",12, CHANF_NOSTOP, 0.1, 2, 1.1)
+	DMHE AA 2
+	DMHE BCD 3 A_checkproximity("disappear", "Altarcolumn", 30, 1)
+    DMHE A 15
+	loop
+  Disappear:
+	DMHE A 0
+	Stop
+ 
+ 	pain.removeheart:
+	death.removeheart:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR Bruiserhorn : Ammo 30024
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  scale 0.25
+  Inventory.PickupMessage "$GOTHORN"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 5
+    Inventory.Pickupsound "DEMONPK"
+	 tag"bruiser horn"
+	 +FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+   TNT1 A 0
+   "####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+   
+   Stay:
+    HORN A -1
+    Loop
+
+	pain.removehorn:
+	death.removehorn:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR Cacoeye : Ammo 30025
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  scale 1.2
+  Inventory.PickupMessage "$GOTEYE"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 5
+   Inventory.Pickupsound "CACOPK"
+    tag"cacodemon eye"
+	+ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+	 TNT1 A 0
+	 TNT1 A 0 A_SetRoll(randompick(0,90,180,270))
+	CCD5 A -1
+    Loop
+	
+	pain.removeeye:
+	death.removeeye:
+	TNT1 A 1
+	Stop
+  }
+}
+
+/////////////
+//					MATERIALS
+////////////
+
+ACTOR scrapmetal : Ammo 30026
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  scale 0.3
+  Inventory.PickupMessage "$GOTMETAL"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 20
+    Inventory.Pickupsound "METALPK"
+	 tag"scrap metal"
+	 +FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+   TNT1 A 0
+   "####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+   
+   Stay:
+	SCRA P -1
+    Loop
+	
+	pain.removemetal:
+	death.removemetal:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR Electronicparts : Ammo 30027
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  scale 0.3
+  Inventory.PickupMessage "$GOTELECTRONIC"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 20
+    Inventory.Pickupsound "ELECTRPK"
+	 tag"electronic parts"
+	 +FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	"####" "#" 0 A_ChangeFlag("XFLIP",random(0,1))
+	
+	Stay:
+	ELEC T -1
+    Loop
+	
+	pain.removeelectronic:
+	death.removeelectronic:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR Fabric : Ammo 30028
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  scale 0.3
+  Inventory.PickupMessage "$GOTFABRIC"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 20
+  Inventory.Pickupsound "CLOTHPK"
+   tag"torn fabric"
+   +FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+	 TNT1 A 0
+	   "####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+	 
+	 Stay:
+	CLOT H -1
+    Loop
+	
+	pain.removeremovefabric:
+	death.removefabric:
+	TNT1 A 1
+	Stop
+  }
+}
+
+/////////////
+//					UNKNOWN SUBSTANCE
+////////////
+
+ACTOR FireEssence : Ammo 30029
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  Inventory.PickupMessage "$GOTFIRE"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 3
+   Inventory.Pickupsound "UNKNPK"
+    tag"???"
+  scale 0.7
+  +FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+   TNT1 A 0
+   "####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+   
+   Stay:
+	FRES ABCDEFGHIJKLM 3 BRIGHT
+    Loop
+	
+	pain.removefire:
+	death.removefire:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR ChaosEssence : Ammo 30030
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  Inventory.PickupMessage "$GOTCHAOS"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 3
+   Inventory.Pickupsound "UNKNPK"
+    tag"???"
+	+FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+	
+	Stay:
+	CAOS BCDEFGHIHGFEDC 3 bright
+    Loop
+	
+	pain.removechaos:
+	death.removechaos:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR AlphaVial : Ammo 30031
+{
+	+vulnerable
+	+NOBLOOD
+	+cannotpush
+	Height 1
+	Health 1
+  PAINCHANCE PLACEREAGENT, 256
+  scale 0.3
+  Inventory.PickupMessage "$GOTALPHA"
+  iNVENTORY.AMOUNT 1
+  Inventory.MaxAmount 3
+   Inventory.Pickupsound "GLVIALPK"
+    tag"???"
+	+FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+  TNT1 A 0
+  "####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+  
+  Stay:
+	VIAL RTZXXZT 3
+    Loop
+	
+	pain.removealphablood:
+	death.removealphablood:
+	TNT1 A 1
+	Stop
+  }
+}
+
+
+ACTOR GunPowder : Ammo
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 20
+    Inventory.PickupMessage "$GOTPOWDER"
+	inventory.pickupsound "GUNPOWDR"
+   Inventory.Icon "GNPWD0"
+   +SHOOTABLE
+   +cannotpush
+   +NOCLIP
+   health 10
+   SCALE 0.07
+   damagefactor "headkick", 0.0 damagefactor "use", 0.0 damagefactor "stealth", 0.0
+   damagefactor "cut", 0.0 damagefactor "kick", 0.0 damagefactor "extremepunches", 0.0
+   damagefactor "saw", 0.0 damagefactor "crush", 0.0 damagefactor "trample", 0.0 damagefactor "removepowder", 1000.0
+   tag "Gunpowder"
+   +FORCEXYBILLBOARD
+  States
+  {
+    Spawn:
+  TNT1 A 0
+  GNPW D 5 A_ChangeFlag("XFLIP",random(0,1))
+  TNT1 A 0 A_CHANGEFLAG("NOCLIP",0)
+  GNPW D -1
+  stop
+  
+		Death:
+		TNT1 A 0
+		TNT1 A 0 A_Explode(50,100,0,1,100,0,0,"hitpuff","ExplosiveImpact")					 
+		TNT1 A 0 A_SpawnItemEx ("ExplosionSplashSpawner", 0, 0, -20)
+		TNT1 A 0 A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("UnderwaterExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		
+        TNT1 A 0 A_CustomMissile ("BDExplosionparticlesBig", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AA 0 A_CustomMissile ("BDExplosionparticles2", 0, 0, random (0, 360), 2, random (0, 90))
+		TNT1 AA 0 A_CustomMissile ("SmallExplosionFlames", 0, 0, random (0, 360), 2, random (0, 360))
+	    EXPL A 0 Radius_Quake (2, 10, 0, 15, 0)
+		BEXP B 0 BRIGHT A_Scream
+        TNT1 A 0 A_ALertMonsters
+		TNT1 A 0 A_PlaySound("GREXPLO2", 3)
+		TNT1 A 0 A_SpawnItem("BarrelExplosionSmokeColumn")
+        Stop
+		
+	pain.removepowder:
+	death.removepowder:
+	TNT1 A 1
+	Stop
+  }
+}
+
+ACTOR craftedGunPowder : gunpowder
+{
+  +nogravity
+  -noclip
+  States
+  {
+ Spawn:
+		TNT1 A 0
+		GNPW D 1
+  		CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+		CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+		GNPW D -1 A_changeflag("NOGRAVITY", 0)		
+		
+Stay:
+	GNPW D -1
+	Stop 
+
+ Bench:
+	GNPW D 1
+	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+  }
+}
+
+
+//DROPPERS
+
+actor SPIKESPAWNER
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Impspike",0,0,0,(random(0,3)),(random(0,3)),6,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+}}
+
+
+actor HEARTSPAWNER
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Demonheart",0,0,0,(random(0,3)),(random(0,3)),6,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+}}
+
+actor ALPHABLOODSPAWNER
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_CustomMissile ("alphablood", 25, 0, random (0, 360), 2, random (30, 150))		
+		Stop
+}}
+
+actor BASICBLOODSPAWNER
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_CustomMissile ("basicblood", 25, 0, random (0, 360), 2, random (30, 150))		
+		Stop
+}}
+
+actor ACIDBLOODSPAWNER
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_CustomMissile ("acidblood", 25, 0, random (0, 360), 2, random (30, 150))		
+		Stop
+}}
+
+actor CHAOSSPAWNER
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("ChaosEssence",0,0,0,(random(0,3)),(random(0,3)),6,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+}}
+
+actor EYESPAWNER
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("CacodemonEyeBall",0,0,0,(random(2,4)),(random(2,4)),6,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+}}
+
+actor metalspawner
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("scrapmetal",0,0,0,(random(4,4)),(random(4,4)),9,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+}}
+
+actor hornspawner
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("bruiserhorn",0,0,0,(random(4,4)),(random(4,4)),9,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+}}
+
+
+actor powderSPAWNER
+{ States
+{
+Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("gunpowder",0,0,0,(random(0,3)),(random(0,3)),6,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+}}
+
+
+////////////////////////////////////
+
+ACTOR alphabloodspot : custominventory
+{
+	radius 2
+	height 2
+	mass 1
+	+NOTELEPORT
+	+FORCEXYBILLBOARD
+	+MOVEWITHSECTOR
+	+FLOORCLIP
+	+DONTCORPSE
+	+DONTSPLASH
+	-SOLID
+	+THRUACTORS
+	translation "168:191=5:8", "16:47=46:47"
+	Alpha 0.99
+	Scale 0.7
+	tag "alpha demon's blood clot"
+	states
+	 {
+	 Spawn:
+		 TNT1 A 0
+		 TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		 TNT1 A 1
+		 
+		 TNT1 A 0 A_CheckFloor("SpawnNormally")
+		 Goto Splash
+	  
+	  SpawnNormally:
+			TNT1 A 0
+			TNT1 A 0 
+			TNT1 A 0 A_Jump(255, "SpawnBFrameOnly", "SpawnCFrameOnly", "SpawnDFrameOnly")
+		SpawnAFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			ALPB L 1
+			Loop
+		  
+		  SpawnBFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			ALPB L 1
+			Loop
+		  
+		  FadeA:
+			BPDL AAAA 1 A_FadeOut(0.05)
+			Stop
+		  
+		  FadeB:
+			BPDL BBBB 1 A_FadeOut(0.05)
+			Stop
+		  
+		  SpawnCFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			ALPB L 1
+			Loop
+		  
+		  SpawnDFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			ALPB L 1
+			Loop
+		  
+		  FadeC:
+			BPDL CCCC 1 A_FadeOut(0.05)
+			Stop
+		  
+		  FadeD:
+			BPDL DDDD 1 A_FadeOut(0.05)
+			Stop
+	  
+		Splash:
+			BLOD A 0
+			stop
+			
+		bottled:
+		TNT1 A 5
+		TNT1 A 1
+		stop
+			
+		IsOverLiquid:
+			BPDL E 1 A_FadeOut(0.9)
+			BPDL EEEEEEEEEEEEEEEEEEEE 4 A_FadeIn(0.05)
+			BPDL E 400
+			BPDL EEEEEEEEEEEEEEEEEEEE 4 A_FadeOut(0.05)
+			Stop
+	}
+}
+
+
+ACTOR NEUTRALBonemarrow
+{
+	radius 2
+	height 2
+	mass 1
+	+NOTELEPORT
+	+FORCEXYBILLBOARD
+	+MOVEWITHSECTOR
+	+FLOORCLIP
+	+DONTSPLASH
+	+DONTCORPSE
+	-SOLID
+	+THRUACTORS
+	Alpha 0.99
+	Scale 0.5
+	 translation "168:191=160:163","16:47=248:249"
+	states
+	 {
+	 Spawn:
+		 TNT1 A 0
+		 TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		 TNT1 A 1
+		 
+		 TNT1 A 0 A_CheckFloor("SpawnNormally")
+		 Goto Splash
+	  
+	  SpawnNormally:
+			TNT1 A 0
+			TNT1 A 0 
+			TNT1 A 0 A_Jump(255, "SpawnBFrameOnly", "SpawnCFrameOnly", "SpawnDFrameOnly")
+		SpawnAFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			NEUT R 1
+			Loop
+		  
+		  SpawnBFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			NEUT R 1
+			Loop
+		  
+		  FadeA:
+			BPDL AAAA 1 A_FadeOut(0.05)
+			Stop
+		  
+		  FadeB:
+			BPDL BBBB 1 A_FadeOut(0.05)
+			Stop
+		  
+		  SpawnCFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			NEUT R 1
+			Loop
+		  
+		  SpawnDFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			NEUT R 1
+			Loop
+		  
+		  FadeC:
+			BPDL CCCC 1 A_FadeOut(0.05)
+			Stop
+		  
+		  FadeD:
+			BPDL DDDD 1 A_FadeOut(0.05)
+			Stop
+	  
+		Splash:
+			BLOD A 0
+			stop
+			
+		bottled:
+		TNT1 A 5
+		TNT1 A 1
+		stop
+			
+		IsOverLiquid:
+			BPDL E 1 A_FadeOut(0.9)
+			BPDL EEEEEEEEEEEEEEEEEEEE 4 A_FadeIn(0.05)
+			BPDL E 400
+			BPDL EEEEEEEEEEEEEEEEEEEE 4 A_FadeOut(0.05)
+			Stop
+	}
+}
+
+ACTOR BASICBloodspot
+{
+	radius 2
+	height 2
+	mass 1
+	+NOTELEPORT
+	+FORCEXYBILLBOARD
+	+MOVEWITHSECTOR
+	+FLOORCLIP
+	+DONTCORPSE
+	+DONTSPLASH
+	-SOLID
+	+THRUACTORS
+	Alpha 0.99
+	Scale 0.5
+	 translation "168:191=192:195","16:47=195:202"
+	Decal BrutalBloodSplat
+	states
+	 {
+	 Spawn:
+		 TNT1 A 0
+		 TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		 TNT1 A 1
+		 
+		 TNT1 A 0 A_CheckFloor("SpawnNormally")
+		 Goto Splash
+	  
+	  SpawnNormally:
+			TNT1 A 0
+			TNT1 A 0 
+			TNT1 A 0 A_Jump(255, "SpawnBFrameOnly", "SpawnCFrameOnly", "SpawnDFrameOnly")
+		SpawnAFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			BASI C 1
+			Loop
+		  
+		  SpawnBFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			BASI C 1
+			Loop
+		  
+		  FadeA:
+			BPDL AAAA 1 A_FadeOut(0.05)
+			Stop
+		  
+		  FadeB:
+			BPDL BBBB 1 A_FadeOut(0.05)
+			Stop
+		  
+		  SpawnCFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			BASI C 1
+			Loop
+		  
+		  SpawnDFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			BASI C 1
+			Loop
+		  
+		  FadeC:
+			BPDL CCCC 1 A_FadeOut(0.05)
+			Stop
+		  
+		  FadeD:
+			BPDL DDDD 1 A_FadeOut(0.05)
+			Stop
+	  
+		Splash:
+			BLOD A 0
+			stop
+			
+		bottled:
+		TNT1 A 5
+		TNT1 A 1
+		stop
+				
+		Death:
+			TNT1 A 0
+			TNT1 A 0 A_NoBlocking
+			Stop
+			
+		IsOverLiquid:
+			BPDL E 1 A_FadeOut(0.9)
+			BPDL EEEEEEEEEEEEEEEEEEEE 4 A_FadeIn(0.05)
+			BPDL E 400
+			BPDL EEEEEEEEEEEEEEEEEEEE 4 A_FadeOut(0.05)
+			Stop
+	}
+}
+
+ACTOR ACIDBloodspot
+{
+	radius 2
+	height 2
+	mass 1
+	+NOTELEPORT
+	+FORCEXYBILLBOARD
+	+MOVEWITHSECTOR
+	+FLOORCLIP
+	+DONTSPLASH
+	-SOLID
+	+THRUACTORS
+	Alpha 0.99
+	Scale 0.5
+	 translation "168:191=112:114","16:47=115:117"
+	Decal BrutalBloodSplat
+	states
+	 {
+	 Spawn:
+		 TNT1 A 0
+		 TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		 TNT1 A 1
+		 
+		 TNT1 A 0 A_CheckFloor("SpawnNormally")
+		 Goto Splash
+	  
+	  SpawnNormally:
+			TNT1 A 0
+			TNT1 A 0 
+			TNT1 A 0 A_Jump(255, "SpawnBFrameOnly", "SpawnCFrameOnly", "SpawnDFrameOnly")
+		SpawnAFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			ACDB L 1
+			Loop
+		  
+		  SpawnBFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			ACDB L 1
+			Loop
+		  
+		  FadeA:
+			BPDL AAAA 1 A_FadeOut(0.05)
+			Stop
+		  
+		  FadeB:
+			BPDL BBBB 1 A_FadeOut(0.05)
+			Stop
+		  
+		  SpawnCFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			ACDB L 1
+			Loop
+		  
+		  SpawnDFrameOnly:
+			TNT1 A 0 A_checkproximity("bottled", "Emptyvial", 50, 1)
+			ACDB L 1
+			Loop
+		  
+		  FadeC:
+			BPDL CCCC 1 A_FadeOut(0.05)
+			Stop
+		  
+		  FadeD:
+			BPDL DDDD 1 A_FadeOut(0.05)
+			Stop
+	  
+		Splash:
+			BLOD A 0
+			stop
+			
+		bottled:
+		TNT1 A 5
+		TNT1 A 1
+		stop
+			
+		IsOverLiquid:
+			BPDL E 1 A_FadeOut(0.9)
+			BPDL EEEEEEEEEEEEEEEEEEEE 4 A_FadeIn(0.05)
+			BPDL E 400
+			BPDL EEEEEEEEEEEEEEEEEEEE 4 A_FadeOut(0.05)
+			Stop
+	}
+}

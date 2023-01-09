@@ -1,0 +1,1756 @@
+/// I hate myself a reasonable amount for making this ungodly mass of spaghetti code. Please forgive me. - Grey_Wolf
+
+actor SURVIVALKIT : BrutalWeapon
+{
+  Inventory.PickupMessage "$GOTMINES"
+  Weapon.SlotNumber 0
+  Weapon.Selectionorder 8888
+  Weapon.AmmoType1 "Survivalkituses"
+  Inventory.PickupSound "Claymore/Place"
+  SCALE 0.15
+  +WEAPON.NOALERT
+  +UNDROPPABLE
+  States
+  {
+  Ready:
+  SelectAnimation:
+	PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"ReadingAgain")
+	PINC ABCDE 1 A_Weaponready
+Ready3:
+	PINC F 1 A_Weaponready
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	PIST F 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+	TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+	PINC F 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+	TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+	TNT1 A 0 A_Jumpifinventory("kicking",1, "dokick")
+	PINC F 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+	PINC F 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+	loop
+
+
+	goingtoaction:
+		TNT1 A 0 A_JumpIfInventory("readingkit", 1, "actionfromreading")
+		PINC EDCBA 1 
+		goto actionchecks
+	actionfromreading:	
+		SK1T GFEDCBA 1
+		TNT1 A 1
+		SKIT XWUTS 1
+		TNT1 A 0 A_PLAYSOUND("RSUP",1)
+		SKIT RQPONMLKJIHGFEDCBA 1
+	actionchecks:
+		TNT1 A 0 A_PlaySound("weapons/changing")
+		TNT1 A 0 SetPlayerProperty(0,0,0)
+		TNT1 A 0 A_TakeInventory("readingkit", 1)
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		TNT1 A 0 A_TakeInventory("readythrow", 1)
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair	
+
+ Deselect:
+	TNT1 A 0 A_SetCrosshair(0)	
+	TNT1 A 0 SetPlayerProperty(0,0,0)
+	TNT1 A 0 a_jumpifinventory("weaponbroke",1,"Deselect3")
+	 TNT1 A 0 a_jumpifinventory("readingkit",1,"Deselect2")
+	PINC EDCBA 1 
+	TNT1 AAAAAAAAA 0 A_Lower
+	TNT1 A 1 A_Lower
+	Wait
+Deselect2:
+	SK1T GFEDCBA 1
+	 TNT1 A 5
+	 SKIT XWUTS 1
+	 TNT1 A 0 A_PLAYSOUND("RSUP",1)
+	 SKIT RQPONMLKJIHGFEDCBA 1
+	 TNT1 A 3 A_TakeInventory("READINGKIT",1)
+	 TNT1 A 0 SetPlayerProperty(0,0,0)
+	 TNT1 A 0 A_SetCrosshair(0)	
+	 TNT1 AAAAAAAAA 0 A_Lower
+	TNT1 A 1 A_Lower
+	wait
+Deselect3:
+	TNT1 A 1 A_Lower
+	loop
+	
+  Select: 
+		TNT1 A 0 A_Overlay(-10,"FirstPersonLegsStand") 
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)  
+	TNT1 A 0 A_SetCrosshair(0)	
+	TNT1 A 0 SetPlayerProperty(0,0,2)
+	TNT1 A 0 A_SetRoll(0)
+ Select2:
+	PINC A 0 A_Raise
+	Loop
+
+  Fire:  
+ Altfire:
+ 
+	/// Repairs
+	TNT1 A 0 A_CheckProximity("repairSentry","SentryGun",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("repairSentry","SentryBot",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("repairSentry","Tankused",150,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("repairSentry","artilleryTankused",150,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("repairSentry","attackhelicopterused",150,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("repairSentry","Mechused",150,1,CPXF_CHECKSIGHT)
+ 
+	/// Dismantle items
+	TNT1 A 0 A_CheckProximity("removemine","enemyPROXBOMB",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("removemine","EnemySentry",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","Sentryrip",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","Recombinerstart",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","BEACON",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","Recombinerstatic",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","Recombinerrip",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","REPAIRDEVICE",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","beartraprip",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("removemine","beartrapset",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","beartrap",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","sentrybox",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","sentryboxinventory",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","sentryboxrandomammo",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","SentryBotTeleportBeacon",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","Artifact_Container",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","Artifact_Container_used",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","LightArmorNew",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","MediumArmor",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","HeavyArmorNew",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","DroppedLightArmor",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","DroppedMediumArmor",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("disassemble","DroppedHeavyArmor",90,1,CPXF_CHECKSIGHT)
+	
+	/// Broken Weapons
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenpistol",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenrevolver",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokensmg",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenshotgun",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenasg",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenssg",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenrifle",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenmmg",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenminigun",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokengl",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenrocket",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenplasmagun",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenplasmalance",90,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","brokenaxe",40,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","axedroped",40,1,CPXF_CHECKSIGHT)
+	TNT1 A 0 A_CheckProximity("fieldstrip","axespawner",40,1,CPXF_CHECKSIGHT)
+	
+	PINC JKLMMNNNNN 1
+	PINC MLKJ 1
+	TNT1 A 0 A_print("You are not close enough to anything you can disarm or disassemble.", 4)
+	PINC F 2
+	PINC F 1 A_ReFire
+	goto Ready3
+	
+	Disassemble:
+	FieldStrip:
+	Removemine:
+	 TNT1 A 0 A_playsound("WIRECUT")
+	 PINC JKLMMNNNNNMMLMMNNNNNMMLMMNNNNN 1
+	 TNT1 A 0 a_Takeinventory("survivalkituses",1)
+	 TNT1 A 0 A_Firecustommissile("Disarm",0,0,0,-5)
+	 PINC MMLKJ 1
+	 goto Ready3
+	 
+	 RepairSentry:
+	 TNT1 A 0 a_Jumpifinventory("scrapmetal",1,2)
+	 TNT1 A 0 A_print("You need 1 scrap metal to repair it.")
+	 goto Ready3
+	 TNT1 A 0 A_playsound("WIRECUT")
+	PINC JKLMMNNNNNMMLMMNNNNNMMLMMNNNNN 1
+	TNT1 A 0 a_Takeinventory("survivalkituses",1)
+	 TNT1 A 0 A_Firecustommissile("Disarm",0,0,0,-5)
+	 PINC MMLKJ 1
+	  TNT1 A 0 a_Takeinventory("scrapmetal",1)
+	 TNT1 A 0 A_print("You have successfully repaired it.  \cm(-1 scrap metal)")
+	 goto Ready3
+	 
+	 
+	  Spawn:
+   KITP K -1
+    stop 
+
+
+///AMMO SPRINT
+
+	CheckSprint:
+		PINC F 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		PINC F 0 A_JumpIfInventory("IsTacticalClass", 1, "StartSprint")
+		Goto Ready
+		
+	StartSprint:
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")
+		
+	Sprinting:	
+		PINC F 0 offset(-9,32) 
+		PINC F 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		PINC F 0 offset(-9,32) A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		PLAY A 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		PINC F 0 offset(-9,32) A_JumpIfInventory("Powerstrength2", 1, 2)
+		PINC F 0 offset(-9,32) A_GiveInventory("UsedStamina", 3)
+		PINC F 0 offset(-9,32)
+		PINC F   1 offset(-9,34) A_SetPitch(pitch -0.5)
+		PINC F   1 offset(-6,36) A_SetPitch(pitch -0.5)
+		PINC F   1 offset(-3,38) A_SetPitch(pitch -0.5)
+		PINC F   1 offset(0,38) A_SetPitch(pitch -0.5)
+		PINC F   1 offset(3,36) A_SetPitch(pitch -0.5)
+		PINC F   1 offset(6,34) A_SetPitch(pitch -0.5)
+		PINC F   1 offset(9,32) A_SetPitch(pitch -0.5)
+		PINC F 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		PINC F 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        PINC F 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        PINC F 0 A_JumpIfInventory("Reloading",1,"Reload")
+		PINC F 0 offset(-9,32) A_GiveInventory("UsedStamina", 3)
+		PINC F 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		PINC F   1 offset(9,34) A_SetPitch(pitch +0.5)
+		PINC F   1 offset(6,36) A_SetPitch(pitch +0.5)
+		PINC F   1 offset(3,38) A_SetPitch(pitch +0.5)
+		PINC F   1 offset(0,38) A_SetPitch(pitch +0.5)
+		PINC F   1 offset(-3,36) A_SetPitch(pitch +0.5)
+		PINC F   1 offset(-6,34) A_SetPitch(pitch +0.5)
+		PINC F   1 offset(-9,32) A_SetPitch(pitch +0.5)
+		PINC F 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		PINC F 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		Goto StopSprint
+		
+	StopSprintTired:
+		PINC F 1
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		PINC F 0 A_PlaySound("Tired", 2)
+		PINC F 0 A_TakeInventory("usedstamina", 1)
+		TNT1 A 0 A_Jumpifhealthlower(25,"rupturesprint")
+		PINC F 5 A_WeaponReady
+		PINC F 0 A_TakeInventory("usedstamina", 1)
+		PINC F 5 A_WeaponReady
+		PINC F 0 A_TakeInventory("usedstamina", 1)
+		PINC F 5 A_WeaponReady
+		PINC F 0 A_TakeInventory("usedstamina", 1)
+		PINC F 5 A_WeaponReady
+		PINC F 0 A_TakeInventory("usedstamina", 1)
+		PINC F 5 A_WeaponReady
+		Goto Ready3
+		
+		
+	StopSprint:
+		PINC F 1
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		goto ready3
+
+ReadingAgain:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+
+	TNT1 A 1 A_takeINVENTORY("REPAIRMODE", 1)
+	goto Openkit2
+		
+	SPECIALACTION:
+		PINC F 0 A_TakeInventory("STARTDUALWIELD", 1)
+		TNT1 A 0 A_JumpIfInventory("readingkit", 1, 1)
+		goto Openkit
+	
+CLOSEKIT:
+	 SK1T GFEDCBA 1
+	 TNT1 A 5
+	 TNT1 A 0 SetPlayerProperty(0,0,0)
+	 TNT1 A 0 A_SetCrosshair(0)	
+	 SKIT XWU 1
+	 SKIT T 1 A_PLAYSOUND("RSUP",1)
+	 SKIT SRQPONMLKJI 1
+	 SKIT X 0 A_StopSound(1)
+	 SKIT HGFEDCBA 1
+	 TNT1 A 3 A_TakeInventory("READINGKIT",1)
+	 goto Ready
+	
+OPENKIT:
+	PINC EDCBA 1
+	 TNT1 A 3
+	 SKIT ABCDEFG 1
+	 SKIT H 1 A_PLAYSOUND("ZIPPER",1)
+	 SKIT IJKLMNOPQRSTUVWX 1
+	 TNT1 A 10
+OPENKIT2:
+	 SK1T ABCDEFG 1
+	TNT1 A 0 A_GIVEInventory("READINGKIT", 1)
+	TNT1 A 0 A_SetCrosshair(41)	
+	TNT1 A 0 A_STOP
+	 goto MainMenu
+
+///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////		MAIN MENU 		///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////			 
+	 MAINMENU:
+	 TNT1 A 0 A_PLAYSOUND("Crafting/pageflip",1)
+	 TNT1 A 0 SetPlayerProperty(0,1,0)
+	 SK1T G 1 a_overlay(3,"mainmenuoverlay")
+	 TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")	 
+	 TNT1 A 0 A_jumpifinventory("Repairchecked",1,"RepairSelected")
+	TNT1 A 0 A_jumpifinventory("Dismantlechecked",1,"Dismantleselected")
+	TNT1 A 0 A_jumpifinventory("Craftingchecked",1,"CraftingSelected")
+	TNT1 A 0 A_jumpifinventory("Ammochecked",1,"Ammoselected")
+	SK1T G 1 a_overlay(3,"mainmenuoverlay")
+	
+	RepairSelected:
+	TNT1 A 0 A_GIVEInventory("REpairchecked", 1)
+	TNT1 A 0 A_takeInventory("Craftingchecked", 1)
+	TNT1 A 0 A_takeInventory("Dismantlechecked", 1)
+	TNT1 A 0 A_takeInventory("Ammochecked", 1)
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(3,"REPAIRCHECKBOX")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "RepairSelected")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "repairselected")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "RepairSelected")
+	Repairloop:
+	SK1T G 1 a_overlay(3,"REPAIRCHECKBOX")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CraftingSelected")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoSelected")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+	TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "StartRepair")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "CLOSEKIT")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "StartRepair")
+	loop
+	
+	
+	CraftingSelected:
+	TNT1 A 0 A_takeInventory("REpairchecked", 1)
+	TNT1 A 0 A_GIVEInventory("Craftingchecked", 1)
+	TNT1 A 0 A_takeInventory("Dismantlechecked", 1)
+	TNT1 A 0 A_takeInventory("Ammochecked", 1)
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(3,"craftingCHECKBOX")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "craftingSelected")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "craftingselected")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "craftingSelected")
+	Craftingloop:
+	SK1T G 1 a_overlay(3,"craftingCHECKBOX")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "DismantleSelected")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "RepairSelected")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+	TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingMenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "CLOSEKIT")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingMenu")
+	loop
+	
+	DismantleSelected:
+	TNT1 A 0 A_takeInventory("REpairchecked", 1)
+	TNT1 A 0 A_takeInventory("Craftingchecked", 1)
+	TNT1 A 0 A_GIVEInventory("Dismantlechecked", 1)
+	TNT1 A 0 A_takeInventory("Ammochecked", 1)
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(3,"dismantleCHECKBOX")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantleSelected")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "dismantleselected")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantleSelected")
+	Dismantleloop:
+	SK1T G 1 a_overlay(3,"dismantleCHECKBOX")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoSelected")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftingSelected")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+	TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "DismantleMenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "CLOSEKIT")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "DismantleMenu")
+	loop
+	
+	AmmoSelected:
+	TNT1 A 0 A_takeInventory("REpairchecked", 1)
+	TNT1 A 0 A_takeInventory("Craftingchecked", 1)
+	TNT1 A 0 A_takeInventory("Dismantlechecked", 1)
+	TNT1 A 0 A_GIVEInventory("Ammochecked", 1)
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(3,"ammoCHECKBOX")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "ammoSelected")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "ammoselected")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "ammoSelected")
+	ammoloop:
+	SK1T G 1 a_overlay(3,"ammoCHECKBOX")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "RepairSelected")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "DismantleSelected")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+	TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "ammoMenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "CLOSEKIT")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "ammoMenu")
+	loop
+
+////				MAIN MENU OVERLAYS	
+	MAINMENUOVERLAY:
+		SK1T H 1 
+		stop	
+	Repaircheckbox:
+		SK1T H 1 a_overlay(4,"repairoverlay")
+		stop
+	Craftingcheckbox:
+		SK1T H 1 a_overlay(4,"craftingoverlay")
+		stop
+	Dismantlecheckbox:
+		SK1T H 1 a_overlay(4,"dismantleoverlay")
+		stop	
+	Ammocheckbox:
+		SK1T H 1 a_overlay(4,"ammooverlay")
+		stop
+		
+	Repairoverlay:
+		CHEC K 1 A_WEAPONREADY(WRF_NOFIRE | WRF_NOBOB)
+		STOP
+	Craftingoverlay:
+		CHEC K 1 offset(0,15) A_WEAPONREADY(WRF_NOFIRE | WRF_NOBOB)
+		STOP
+	Dismantleoverlay:
+		CHEC K 1 offset(0,30) A_WEAPONREADY(WRF_NOFIRE | WRF_NOBOB)
+		STOP
+	Ammooverlay:
+		CHEC K 1 offset(0,45) A_WEAPONREADY(WRF_NOFIRE | WRF_NOBOB)
+		STOP
+
+///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////		REPAIR 		///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////			
+	
+STARTREPAIR:
+	TNT1 A 0 A_GIVEINVENTORY("REPAIRMODE", 1)
+	TNT1 A 0 SetPlayerProperty(0,0,0)
+	SK1T GFEDCB 1
+	SK1T A 1 ThrustThingZ(0,5,0,0)
+	TNT1 A 0 acs_namedexecute("REPAIRMODE",0)
+Startrepair2:
+	TNT1 A 1 A_Lower
+	TNT1 A 0 a_selectweapon("Melee_attacks")
+	loop
+
+///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////		DISMANTLE 		///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////				
+ DismantleMenu:
+ PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+ 
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantle9mmoverlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantleMENU")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantleMENU")
+	TNT1 A 0 A_PLAYSOUND("Crafting/pageflip",1)
+	
+//// 9mm	
+	Dismantle9mm:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantle9mmoverlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantle9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantle9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantle9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantle9mm")
+	
+	Dismantle9mmloop:
+	SK1T G 1 a_overlay(4,"dismantle9mmoverlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "DismantleHORN")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "Dismantlebuck")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Dismantling9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Dismantling9mm")
+	loop	
+	
+	Dismantling9mm:
+	SK1T G 1 a_overlay(4,"dismantle9mmoverlay")
+	TNT1 A 0 A_JumpIfinventory("Clip1",30,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto Dismantle9mm
+	TNT1 A 0 A_takeinventory("Clip1",30)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantle9mmoverlay")
+	goto Dismantle9mm
+
+/// buckshots		
+Dismantlebuck:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantlebuckoverlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantlebuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantlebuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantlebuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantlebuck")
+	
+	Dismantlebuckloop:
+	SK1T G 1 a_overlay(4,"dismantlebuckoverlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "Dismantle9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "Dismantleslug")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Dismantlingbuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Dismantlingbuck")
+	loop	
+	
+	Dismantlingbuck:
+	SK1T G 1 a_overlay(4,"dismantlebuckoverlay")
+	TNT1 A 0 A_JumpIfinventory("ammoshell",4,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto Dismantlebuck
+	TNT1 A 0 A_takeinventory("ammoshell",4)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantlebuckoverlay")
+	goto Dismantlebuck
+	
+/// slugs	
+Dismantleslug:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantleslugoverlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantleslug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantleslug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantleslug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantleslug")
+	
+	Dismantleslugloop:
+	SK1T G 1 a_overlay(4,"dismantleslugoverlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "Dismantlebuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "Dismantle50")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Dismantlingslug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Dismantlingslug")
+	loop	
+	
+	Dismantlingslug:
+	SK1T G 1 a_overlay(4,"dismantleslugoverlay")
+	TNT1 A 0 A_JumpIfinventory("ammoslug",3,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto Dismantleslug
+	TNT1 A 0 A_takeinventory("ammoslug",3)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantleslugoverlay")
+	goto Dismantleslug
+	
+/// .500 s&w	
+Dismantle50:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantle50overlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantle50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantle50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantle50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantle50")
+	
+	Dismantle50loop:
+	SK1T G 1 a_overlay(4,"dismantle50overlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "Dismantleslug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "Dismantle556")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Dismantling50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Dismantling50")
+	loop	
+	
+	Dismantling50:
+	SK1T G 1 a_overlay(4,"dismantle50overlay")
+	TNT1 A 0 A_JumpIfinventory("50ammo",6,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto Dismantle50
+	TNT1 A 0 A_takeinventory("50ammo",6)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantle50overlay")
+	goto Dismantle50
+	
+/// 5.56mm 
+Dismantle556:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantle556overlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantle556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantle556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantle556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantle556")
+	
+	Dismantle556loop:
+	SK1T G 1 a_overlay(4,"dismantle556overlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "Dismantle50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "Dismantle762")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Dismantling556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Dismantling556")
+	loop	
+	
+	Dismantling556:
+	SK1T G 1 a_overlay(4,"dismantle556overlay")
+	TNT1 A 0 A_JumpIfinventory("minigunammo",20,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto Dismantle556
+	TNT1 A 0 A_takeinventory("minigunammo",20)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantle556overlay")
+	goto Dismantle556
+	
+/// 5.56mm 
+Dismantle556:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantle556overlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantle556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantle556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantle556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantle556")
+	
+	Dismantle556loop:
+	SK1T G 1 a_overlay(4,"dismantle556overlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "Dismantle50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "Dismantle762")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Dismantling556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Dismantling556")
+	loop	
+	
+	Dismantling556:
+	SK1T G 1 a_overlay(4,"dismantle556overlay")
+	TNT1 A 0 A_JumpIfinventory("minigunammo",20,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto Dismantle556
+	TNT1 A 0 A_takeinventory("minigunammo",20)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantle556overlay")
+	goto Dismantle556
+	
+/// 7.62mm 
+Dismantle762:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantle762overlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantle762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantle762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantle762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantle762")
+	
+	Dismantle762loop:
+	SK1T G 1 a_overlay(4,"dismantle762overlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "Dismantle556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "Dismantlerocket")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Dismantling762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Dismantling762")
+	loop	
+	
+	Dismantling762:
+	SK1T G 1 a_overlay(4,"dismantle762overlay")
+	TNT1 A 0 A_JumpIfinventory("clip2",12,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto Dismantle762
+	TNT1 A 0 A_takeinventory("clip2",12)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantle762overlay")
+	goto Dismantle762
+	
+/// Rocket  
+DismantleRocket:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantleRocketoverlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantleRocket")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantleRocket")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantleRocket")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantleRocket")
+	
+	DismantleRocketloop:
+	SK1T G 1 a_overlay(4,"dismantleRocketoverlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "Dismantle762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "DismantleSpike")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "DismantlingRocket")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "DismantlingRocket")
+	loop	
+	
+	DismantlingRocket:
+	SK1T G 1 a_overlay(4,"dismantleRocketoverlay")
+	TNT1 A 0 A_JumpIfinventory("ammorocket",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto DismantleRocket
+	TNT1 A 0 A_takeinventory("ammorocket",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",2)
+	TNT1 A 0 A_giveinventory("scrapmetal",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantleRocketoverlay")
+	goto DismantleRocket
+
+/// Spike
+DismantleSpike:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantleSpikeoverlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantleSpike")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantleSpike")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantleSpike")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantleSpike")
+	
+	DismantleSpikeloop:
+	SK1T G 1 a_overlay(4,"dismantleSpikeoverlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "DismantleRocket")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "DismantleHorn")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "DismantlingSpike")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "DismantlingSpike")
+	loop	
+	
+	DismantlingSpike:
+	SK1T G 1 a_overlay(4,"dismantleSpikeoverlay")
+	TNT1 A 0 A_JumpIfinventory("impspike",2,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto DismantleSpike
+	TNT1 A 0 A_takeinventory("impspike",2)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantleSpikeoverlay")
+	goto DismantleSpike
+	
+/// Horn
+DismantleHorn:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"dismantleHornoverlay")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "dismantleHorn")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "dismantleHorn")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "dismantleHorn")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "dismantleHorn")
+	
+	DismantleHornloop:
+	SK1T G 1 a_overlay(4,"dismantleHornoverlay")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+	
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "DismantleSpike")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "Dismantle9mm")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "DismantlingHorn")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "DismantlingHorn")
+	loop	
+	
+	DismantlingHorn:
+	SK1T G 1 a_overlay(4,"dismantleHornoverlay")
+	TNT1 A 0 A_JumpIfinventory("bruiserhorn",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto DismantleHorn
+	TNT1 A 0 A_takeinventory("bruiserhorn",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("gunpowder",1)
+	TNT1 A 0 A_log("$DISMANTLE")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"dismantleHornoverlay")
+	goto DismantleHorn
+
+///////////////////////////////////////		
+///////////////////////////////////////		
+
+////		DISMANTLE OVERLAYS
+
+Dismantlebase:
+	SK1T I 2 A_WEAPONREADY(WRF_NOFIRE | WRF_NOBOB)
+	STOP
+
+Dismantle9MMOVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantle9mm",0)
+	SK1T J 2 a_overlay(3,"dismantlebase")
+	stop	
+	
+DismantlebuckOVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantlebuck",0)
+	SK1T K 2 a_overlay(3,"dismantlebase")
+	stop	
+	
+DismantleSLUGOVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantleslug",0)
+	SK1T L 2 a_overlay(3,"dismantlebase")
+	stop	
+
+Dismantle50OVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantle50",0)
+	SK1T M 2 a_overlay(3,"dismantlebase")
+	stop	
+
+Dismantle556OVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantle556",0)
+	SK1T N 2 a_overlay(3,"dismantlebase")
+	stop	
+
+Dismantle762OVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantle762",0)
+	SK1T O 2 a_overlay(3,"dismantlebase")
+	stop	
+
+DismantleROCKETOVERLAY:
+	TNT1 A 0 acs_namedexecute("DismantleROCKET",0)
+	SK1T P 2 a_overlay(3,"dismantlebase")
+	stop	
+	
+DismantleSPIKEOVERLAY:
+	TNT1 A 0 acs_namedexecute("DismantleSPIKE",0)
+	SK1T Q 2 a_overlay(3,"dismantlebase")
+	stop
+	
+DismantleHORNOVERLAY:
+	TNT1 A 0 acs_namedexecute("DismantleHORN",0)
+	SK1T R 2 a_overlay(3,"dismantlebase")
+	stop	
+
+///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////		AMMO  CRAFTING		///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////				
+ AMMOMenu:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+ 
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"AmmoCraft9MMOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "AMMOMenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "AMMOMenu")
+	TNT1 A 0 A_PLAYSOUND("Crafting/pageflip",1)
+	
+//// 9mm	
+	AmmoCraft9mm:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"AmmoCraft9MMOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "AmmoCraft9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "AmmoCraft9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraft9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraft9mm")
+	
+	AmmoCraft9mmloop:
+	SK1T G 1 a_overlay(4,"AmmoCraft9MMOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraft762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraftbuck")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Crafting9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Crafting9mm")
+	loop	
+	
+	Crafting9mm:
+	SK1T G 1 a_overlay(4,"AmmoCraft9MMOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("scrapmetal",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraft9mm
+	TNT1 A 0 A_JumpIfinventory("gunpowder",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraft9mm
+	TNT1 A 0 A_takeinventory("scrapmetal",1)
+	TNT1 A 0 A_takeinventory("gunpowder",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("Clip1",30)
+	TNT1 A 0 A_log("$AMMOCRAFT")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"AmmoCraft9MMOVERLAY")
+	goto AmmoCraft9mm
+	
+//// Buckshots 
+	AmmoCraftBuck:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"AmmoCraftBuckOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "AmmoCraftBuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "AmmoCraftBuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraftBuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraftBuck")
+	
+	AmmoCraftBuckloop:
+	SK1T G 1 a_overlay(4,"AmmoCraftBuckOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraft9mm")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraftslug")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingBuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingBuck")
+	loop	
+	
+	CraftingBuck:
+	SK1T G 1 a_overlay(4,"AmmoCraftBuckOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("scrapmetal",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraftBuck
+	TNT1 A 0 A_JumpIfinventory("gunpowder",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraftBuck
+	TNT1 A 0 A_takeinventory("scrapmetal",1)
+	TNT1 A 0 A_takeinventory("gunpowder",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("ammoshell",4)
+	TNT1 A 0 A_log("$AMMOCRAFT")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"AmmoCraftBuckOVERLAY")
+	goto AmmoCraftBuck
+	
+//// Slugs
+	AmmoCraftSlug:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"AmmoCraftSlugOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "AmmoCraftSlug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "AmmoCraftSlug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraftSlug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraftSlug")
+	
+	AmmoCraftSlugloop:
+	SK1T G 1 a_overlay(4,"AmmoCraftSlugOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraftBuck")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraft50")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingSlug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingSlug")
+	loop	
+	
+	CraftingSlug:
+	SK1T G 1 a_overlay(4,"AmmoCraftSlugOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("scrapmetal",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraftSlug
+	TNT1 A 0 A_JumpIfinventory("gunpowder",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraftSlug
+	TNT1 A 0 A_takeinventory("scrapmetal",1)
+	TNT1 A 0 A_takeinventory("gunpowder",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("ammoslug",3)
+	TNT1 A 0 A_log("$AMMOCRAFT")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"AmmoCraftSlugOVERLAY")
+	goto AmmoCraftSlug
+
+//// .500 S&W
+	AmmoCraft50:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"AmmoCraft50OVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "AmmoCraft50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "AmmoCraft50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraft50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraft50")
+	
+	AmmoCraft50loop:
+	SK1T G 1 a_overlay(4,"AmmoCraft50OVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraftSlug")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraft556")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Crafting50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Crafting50")
+	loop	
+	
+	Crafting50:
+	SK1T G 1 a_overlay(4,"AmmoCraft50OVERLAY")
+	TNT1 A 0 A_JumpIfinventory("scrapmetal",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraft50
+	TNT1 A 0 A_JumpIfinventory("gunpowder",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraft50
+	TNT1 A 0 A_takeinventory("scrapmetal",1)
+	TNT1 A 0 A_takeinventory("gunpowder",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("50ammo",6)
+	TNT1 A 0 A_log("$AMMOCRAFT")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"AmmoCraft50OVERLAY")
+	goto AmmoCraft50
+	
+	//// 5.56mm
+	AmmoCraft556:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"AmmoCraft556OVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "AmmoCraft556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "AmmoCraft556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraft556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraft556")
+	
+	AmmoCraft556loop:
+	SK1T G 1 a_overlay(4,"AmmoCraft556OVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraft50")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraft762")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Crafting556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Crafting556")
+	loop	
+	
+	Crafting556:
+	SK1T G 1 a_overlay(4,"AmmoCraft556OVERLAY")
+	TNT1 A 0 A_JumpIfinventory("scrapmetal",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraft556
+	TNT1 A 0 A_JumpIfinventory("gunpowder",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraft556
+	TNT1 A 0 A_takeinventory("scrapmetal",1)
+	TNT1 A 0 A_takeinventory("gunpowder",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("minigunammo",20)
+	TNT1 A 0 A_log("$AMMOCRAFT")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"AmmoCraft556OVERLAY")
+	goto AmmoCraft556
+	
+	//// 7.62mm
+	AmmoCraft762:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"AmmoCraft762OVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "AmmoCraft762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "AmmoCraft762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraft762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraft762")
+	
+	AmmoCraft762loop:
+	SK1T G 1 a_overlay(4,"AmmoCraft762OVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "AmmoCraft556")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "AmmoCraft9mm")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Crafting762")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Crafting762")
+	loop	
+	
+	Crafting762:
+	SK1T G 1 a_overlay(4,"AmmoCraft762OVERLAY")
+	TNT1 A 0 A_JumpIfinventory("scrapmetal",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraft762
+	TNT1 A 0 A_JumpIfinventory("gunpowder",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto AmmoCraft762
+	TNT1 A 0 A_takeinventory("scrapmetal",1)
+	TNT1 A 0 A_takeinventory("gunpowder",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("clip2",12)
+	TNT1 A 0 A_log("$AMMOCRAFT")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"AmmoCraft762OVERLAY")
+	goto AmmoCraft762	
+
+///////////////////////////////////////		
+///////////////////////////////////////		
+
+////		AMMO CRAFT OVERLAYS
+
+AmmoCraftbase:
+	SK1T S 2 A_WEAPONREADY(WRF_NOFIRE | WRF_NOBOB)
+	STOP
+
+AmmoCraft9MMOVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantle9mm",0)
+	SK1T T 2 a_overlay(3,"AmmoCraftbase")
+	stop	
+	
+AmmoCraftBUCKOVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantlebuck",0)
+	SK1T U 2 a_overlay(3,"AmmoCraftbase")
+	stop	
+	
+AmmoCraftSLUGOVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantleslug",0)
+	SK1T V 2 a_overlay(3,"AmmoCraftbase")
+	stop	
+
+AmmoCraft50OVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantle50",0)
+	SK1T W 2 a_overlay(3,"AmmoCraftbase")
+	stop	
+
+AmmoCraft556OVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantle556",0)
+	SK1T X 2 a_overlay(3,"AmmoCraftbase")
+	stop	
+
+AmmoCraft762OVERLAY:
+	TNT1 A 0 acs_namedexecute("Dismantle762",0)
+	SK1T Y 2 a_overlay(3,"AmmoCraftbase")
+	stop	
+
+///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////		IMPROVISED  CRAFTING		///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////				
+ CRAFTINGMenu:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+ 
+
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftBANDAGESOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTINGMenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTINGMenu")
+	TNT1 A 0 A_PLAYSOUND("Crafting/pageflip",1)
+	
+//// BANDAGES	
+	CRAFTBANDAGES:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftBANDAGESOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTBANDAGES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTBANDAGES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTBANDAGES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CRAFTBANDAGES")
+	
+	CRAFTBANDAGESloop:
+	SK1T G 1 a_overlay(4,"CRAFTBANDAGESOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftTRAP")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTARMOR")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingBANDAGES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingBANDAGES")
+	loop	
+	
+	CraftingBANDAGES:
+	SK1T G 1 a_overlay(4,"CraftBANDAGESOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("FABRIC",2,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTBANDAGES
+	TNT1 A 0 A_takeinventory("FABRIC",2)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("BANDAGES",1)
+	TNT1 A 0 A_log("$CRAFTED")
+	TNT1 A 0 A_PLAYSOUND("CLOTHPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"CraftBANDAGESOVERLAY")
+	goto CRAFTBANDAGES 
+	
+//// ARMOR
+	CRAFTARMOR:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftARMOROVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTARMOR")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTARMOR")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTARMOR")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CRAFTARMOR")
+	
+	CRAFTARMORloop:
+	SK1T G 1 a_overlay(4,"CRAFTARMOROVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftBANDAGES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTFLARES")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingARMOR")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingARMOR")
+	loop	
+	
+	CraftingARMOR:
+	SK1T G 1 a_overlay(4,"CraftARMOROVERLAY")
+	TNT1 A 0 A_JumpIfinventory("FABRIC",2,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTARMOR 
+	TNT1 A 0 A_JumpIfinventory("SCRAPMETAL",3,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTARMOR 
+	TNT1 A 0 A_takeinventory("FABRIC",2)
+	TNT1 A 0 A_takeinventory("SCRAPMETAL",3)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_GiveInventory("ArmorUniform")
+	TNT1 A 0 A_GiveInventory("ArmorBoots")
+	TNT1 A 0 A_log("$CRAFTED")
+	TNT1 A 0 A_PLAYSOUND("ARMRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"CraftARMOROVERLAY")
+	goto CRAFTARMOR 
+	
+//// FLARES
+	CRAFTFLARES:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftFLARESOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTFLARES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTFLARES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTFLARES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CRAFTFLARES")
+	
+	CRAFTFLARESloop:
+	SK1T G 1 a_overlay(4,"CRAFTFLARESOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftARMOR")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTKNIFE")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingFLARES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingFLARES")
+	loop	
+	
+	CraftingFLARES:
+	TNT1 A 0 A_JumpIfinventory("ISSURVIVALISTCLASS",1,2)
+	TNT1 A 0 A_log("$SURVIVALISTONLY")
+	goto CRAFTFLARES
+	SK1T G 1 a_overlay(4,"CraftFLARESOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("FABRIC",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTFLARES
+	TNT1 A 0 A_JumpIfinventory("SCRAPMETAL",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTFLARES
+	TNT1 A 0 A_JumpIfinventory("GUNPOWDER",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTFLARES
+	
+	TNT1 A 0 A_takeinventory("FABRIC",1)
+	TNT1 A 0 A_takeinventory("GUNPOWDER",1)
+	TNT1 A 0 A_takeinventory("SCRAPMETAL",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("FLARE",5)
+	TNT1 A 0 A_log("$CRAFTED")
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"CraftFLARESOVERLAY")
+	goto CRAFTFLARES 
+	
+//// KNIFE
+	CRAFTKNIFE:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftKNIFEOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTKNIFE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTKNIFE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTKNIFE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CRAFTKNIFE")
+	
+	CRAFTKNIFEloop:
+	SK1T G 1 a_overlay(4,"CRAFTKNIFEOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftFLARES")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTBACKPACK")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingKNIFE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingKNIFE")
+	loop	
+	
+	CraftingKNIFE:
+	SK1T G 1 a_overlay(4,"CraftKNIFEOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("FABRIC",2,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTKNIFE
+	TNT1 A 0 A_JumpIfinventory("SCRAPMETAL",2,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTKNIFE
+	TNT1 A 0 A_takeinventory("FABRIC",2)
+	TNT1 A 0 A_takeinventory("SCRAPMETAL",2)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("KNIFENEW",1)
+	TNT1 A 0 A_log("$CRAFTED")
+	TNT1 A 0 A_PLAYSOUND("KNIFEPKP")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"CraftKNIFEOVERLAY")
+	goto CRAFTKNIFE 
+
+//// BACKPACK
+	CRAFTBACKPACK:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftBACKPACKOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTBACKPACK")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTBACKPACK")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTBACKPACK")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CRAFTBACKPACK")
+	
+	CRAFTBACKPACKloop:
+	SK1T G 1 a_overlay(4,"CRAFTBACKPACKOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftKNIFE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTANTIDOTE")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingBACKPACK")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingBACKPACK")
+	loop	
+	
+	CraftingBACKPACK:
+	SK1T G 1 a_overlay(4,"CraftBACKPACKOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("FABRIC",3,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTBACKPACK
+	TNT1 A 0 A_JumpIfinventory("SCRAPMETAL",2,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTBACKPACK
+	TNT1 A 0 A_takeinventory("FABRIC",3)
+	TNT1 A 0 A_takeinventory("SCRAPMETAL",2)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("EMPTYBACKPACK",1)
+	TNT1 A 0 A_log("$CRAFTED")
+	TNT1 A 0 A_PLAYSOUND("BACKPACK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"CraftBACKPACKOVERLAY")
+	goto CRAFTBACKPACK 
+
+//// ANTIDOTE
+	CRAFTANTIDOTE:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftANTIDOTEOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTANTIDOTE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTANTIDOTE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTANTIDOTE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CRAFTANTIDOTE")
+	
+	CRAFTANTIDOTEloop:
+	SK1T G 1 a_overlay(4,"CRAFTANTIDOTEOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftBACKPACK")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTTOOLS")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingANTIDOTE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingANTIDOTE")
+	loop	
+	
+	CraftingANTIDOTE:
+	SK1T G 1 a_overlay(4,"CraftANTIDOTEOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("IMPSPIKE",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTANTIDOTE
+	TNT1 A 0 A_JumpIfinventory("ACIDVIAL",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTANTIDOTE
+	TNT1 A 0 A_takeinventory("IMPSPIKE",1)
+	TNT1 A 0 A_takeinventory("acidvial",1)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("ANTIDOTESTIM",1)
+	TNT1 A 0 A_log("$CRAFTED")
+	TNT1 A 0 A_PLAYSOUND("GLVIALPK")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"CraftANTIDOTEOVERLAY")
+	goto CRAFTANTIDOTE 
+	
+//// TOOLS
+	CRAFTTOOLS:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftTOOLSOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTTOOLS")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTTOOLS")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTTOOLS")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CRAFTTOOLS")
+	
+	CRAFTTOOLSloop:
+	SK1T G 1 a_overlay(4,"CRAFTTOOLSOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftANTIDOTE")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTTRAP")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingTOOLS")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingTOOLS")
+	loop	
+	
+	CraftingTOOLS:
+	TNT1 A 0 A_JumpIfinventory("ISSURVIVALISTCLASS",1,2)
+	TNT1 A 0 A_log("$SURVIVALISTONLY")
+	goto CRAFTTOOLS
+	SK1T G 1 a_overlay(4,"CraftTOOLSOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("FABRIC",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTTOOLS
+	TNT1 A 0 A_JumpIfinventory("SCRAPMETAL",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTTOOLS
+	TNT1 A 0 A_JumpIfinventory("ELECTRONICPARTS",1,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTTOOLS
+	TNT1 A 0 A_takeinventory("FABRIC",1)
+	TNT1 A 0 A_takeinventory("ELECTRONICPARTS",1)
+	TNT1 A 0 A_takeinventory("SCRAPMETAL",1)
+	TNT1 A 0 A_giveinventory("SURVIVALKITUSES",8)
+	TNT1 A 0 A_log("$CRAFTED")
+	TNT1 A 0 A_PLAYSOUND("WIRECUT")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"CraftTOOLSOVERLAY")
+	goto CRAFTTOOLS 
+	
+//// BEAR TRAP
+	CRAFTTRAP:
+	PIST F 0 A_JumpIfInventory("survivalkituses",1,2)
+	PIST F 0 A_Jump(256,"kitbroke")
+	
+	TNT1 A 0 A_JumpIfInventory("startdualwield", 1, "SpecialAction")
+	 SK1T G 1 a_overlay(4,"CraftTRAPOVERLAY")
+	 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CRAFTTRAP")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CRAFTTRAP")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTTRAP")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CRAFTTRAP")
+	
+	CRAFTTRAPloop:
+	SK1T G 1 a_overlay(4,"CRAFTTRAPOVERLAY")
+	TNT1 A 0 SetPlayerProperty(0,1,0)
+		
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_forward, "CraftTOOLS")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_back, "CRAFTBANDAGES")
+	TNT1 A 0 A_jumpifinventory("Startdualwield",1,"SpecialAction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+	TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "CraftingTRAP")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "mainmenu")
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "CraftingTRAP")
+	loop	
+	
+	CraftingTRAP:
+	TNT1 A 0 A_JumpIfinventory("ISSURVIVALISTCLASS",1,2)
+	TNT1 A 0 A_log("$SURVIVALISTONLY")
+	goto CRAFTTRAP
+	SK1T G 1 a_overlay(4,"CraftTRAPOVERLAY")
+	TNT1 A 0 A_JumpIfinventory("SCRAPMETAL",2,2)
+	TNT1 A 0 A_log("$NOMATS")
+	goto CRAFTTRAP
+	TNT1 A 0 A_takeinventory("SCRAPMETAL",2)
+	TNT1 A 0 A_takeinventory("survivalkituses",1)
+	TNT1 A 0 A_giveinventory("BEARTRAP",1)
+	TNT1 A 0 A_log("$CRAFTED")
+	TNT1 A 0 A_PLAYSOUND("Claymore/Place")
+	SK1T GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 a_overlay(4,"CraftTRAPOVERLAY")
+	goto CRAFTTRAP 
+	
+///////////////////////////////////////		
+///////////////////////////////////////		
+
+////		IMPROVISED CRAFTING OVERLAYS
+
+Craftbase:
+	SKI7 A 2 A_WEAPONREADY(WRF_NOFIRE | WRF_NOBOB)
+	STOP
+
+CraftBANDAGESOVERLAY:
+	TNT1 A 0 acs_namedexecute("SURVKITMATS",0)
+	SKI7 B 2 a_overlay(3,"Craftbase")
+	stop	
+	
+CraftARMOROVERLAY:
+	TNT1 A 0 acs_namedexecute("SURVKITMATS",0)
+	SKI7 C 2 a_overlay(3,"Craftbase")
+	stop	
+	
+CraftFLARESOVERLAY:
+	TNT1 A 0 acs_namedexecute("SURVKITMATS",0)
+	SKI7 D 2 a_overlay(3,"Craftbase")
+	stop	
+	
+CraftKNIFEOVERLAY:
+	TNT1 A 0 acs_namedexecute("SURVKITMATS",0)
+	SKI7 H 2 a_overlay(3,"Craftbase")
+	stop	
+	
+CraftBACKPACKOVERLAY:
+	TNT1 A 0 acs_namedexecute("SURVKITMATS",0)
+	SKI7 I 2 a_overlay(3,"Craftbase")
+	stop	
+	
+CraftANTIDOTEOVERLAY:
+	TNT1 A 0 acs_namedexecute("SURVKITMATS",0)
+	SKI7 E 2 a_overlay(3,"Craftbase")
+	stop	
+	
+CraftTOOLSOVERLAY:
+	TNT1 A 0 acs_namedexecute("SURVKITMATS",0)
+	SKI7 F 2 a_overlay(3,"Craftbase")
+	stop	
+	
+CraftTRAPOVERLAY:
+	TNT1 A 0 acs_namedexecute("SURVKITMATS",0)
+	SKI7 G 2 a_overlay(3,"Craftbase")
+	stop	
+
+  }
+}
+
+//// MENU TOKENS
+ACTOR READINGKIT : Inventory {Inventory.MaxAmount 1}
+
+ACTOR Repairchecked : Inventory {Inventory.MaxAmount 1}
+ACTOR Craftingchecked : Inventory {Inventory.MaxAmount 1}
+ACTOR Dismantlechecked : Inventory {Inventory.MaxAmount 1}
+ACTOR Ammochecked : Inventory {Inventory.MaxAmount 1}
+
+ACTOR REPAIRMODE : Inventory {Inventory.MaxAmount 1}
+
+ACTOR Disarm: FastProjectile
+{
+	Radius 4
+	Height 14
+	DamageType Disarm
+	+MISSILE
+	+FORCEXYBILLBOARD
+	+FORCERADIUSDMG
+	+BLOODSPLATTER
+	+FORCEPAIN
+	+spectral
+	RenderStyle Add
+	Alpha 0.6
+    Damage (random(1,1))
+    Speed 60
+	SeeSound "none"
+	DeathSound "none"
+	decal "none"
+	Scale 0.01
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 BRIGHT
+		Stop
+	Death:
+		TNT1 A 0 a_explode(1,20,0,0,20,0,0,"bulletpuff","disarm")
+		Stop
+  }
+}

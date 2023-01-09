@@ -1,0 +1,770 @@
+// SOUL CRYSTAL
+ACTOR Soulcrystal : Custominventory //Replaces HealthBonus
+{
+	Game Doom
+	SpawnID 152
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.NEVERRESPAWN
+	Tag "Health Bonus"
+	Inventory.PickupMessage "$GOTCRYSTAL"
+	Inventory.PickupSound ""
+	 tag"Soul Crystal"
+	Scale 0.3	  
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		TNT1 A 0 
+		"####" "#" 0 A_SetScale(frandom(0.3,0.4),0)
+		"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+		VIAL A 0 A_Jump(170,"Crystal2", "Crystal3")
+				
+	Crystal1:	
+        TNT1 A 0 A_CheckSight ("Crystal1b")
+		CRY1 ABCDCB 2  BRIGHT A_SpawnItem("BlueFlareSmallItem",0,7)
+		Loop
+	Crystal1b:
+		CRY1 A 9 BRIGHT
+		Goto Crystal1
+	
+		Crystal2:	
+        TNT1 A 0 A_CheckSight ("Crystal2b")
+		CRY2 ABCDCB 2  BRIGHT A_SpawnItem("BlueFlareSmallItem",0,7)
+		Loop
+	Crystal2b:
+		CRY2 A 9 BRIGHT
+		Goto Crystal2
+		
+		Crystal3:	
+        TNT1 A 0 A_CheckSight ("Crystal3b")
+		CRY3 ABCDCB 2  BRIGHT A_SpawnItem("BlueFlareSmallItem",0,7)
+		Loop
+	Crystal3b:
+		CRY3 A 9 BRIGHT
+		Goto Crystal3
+	
+	Pickup:
+		TNT1 A 0
+		TNT1 A 1 A_Playsound("CRYSHATR", 3, 0.20)
+		TNT1 A 0 A_takeinventory("UsedStamina",20,0)
+		TNT1 AAAAAA 0 A_SpawnItemEx("SoulcrystalChunk",random(6,12),random(6,12),random(2,3),random(1,3),random(1,3), random(1,6),random(0,359),0,30)
+		TNT1 A 0 A_giveinventory("HealthPlus2",2,0)
+		TNT1 A 8 A_SpawnItemEx ("DamnedSoul", 60, 0, 0, 0, 0, Args[3], 0, 0, Args[2])
+		Stop
+	}
+}
+
+
+
+ACTOR EnduranceSoulcrystal : Custominventory 
+{
+	Game Doom
+	SpawnID 152
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.NEVERRESPAWN
+	Tag "Health Bonus"
+	Inventory.PickupMessage "$GOTCRYSTAL2"
+	Inventory.PickupSound ""
+	 tag"Dim Soul Crystal"
+	Scale 0.3	  
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		VIAL A 0
+		"####" "#" 0 A_SetScale(frandom(0.15,0.30),0)
+		"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+		VIAL A 0 A_Jump(170,"Crystal2", "Crystal3")
+				
+	Crystal1:	
+        TNT1 A 0 A_CheckSight ("Crystal1b")
+		CRY1 ABCDCB 4 BRIGHT 
+		Loop
+	Crystal1b:
+		CRY1 A 9 BRIGHT
+		Goto Crystal1
+	
+		Crystal2:	
+        TNT1 A 0 A_CheckSight ("Crystal2b")
+		CRY2 ABCDCB 4 BRIGHT 
+		Loop
+	Crystal2b:
+		CRY2 A 9 BRIGHT
+		Goto Crystal2
+		
+		Crystal3:	
+        TNT1 A 0 A_CheckSight ("Crystal3b")
+		CRY3 ABCDCB 4 BRIGHT 
+		Loop
+	Crystal3b:
+		CRY3 A 9 BRIGHT
+		Goto Crystal3
+	
+	Pickup:
+		TNT1 A 0
+		TNT1 A 1 A_Playsound("CRYSHATR", 3, 0.20)
+		TNT1 A 0 A_takeinventory("UsedStamina",20,0)
+		TNT1 AAAA 0 A_SpawnItemEx("SoulcrystalChunk",random(6,12),random(6,12),random(2,3),random(1,3),random(1,3), random(1,6),random(0,359),0,30)
+		TNT1 A 0 A_giveinventory("EnduranceBonus")
+		TNT1 A 8 A_SpawnItemEx ("DamnedSoul", 60, 0, 0, 0, 0, Args[3], 0, 0, Args[2])
+		Stop
+	}
+}
+
+
+ACTOR UNFAIRcrystal : Custominventory 
+{
+	Game Doom
+	SpawnID 152
+	+COUNTITEM
+	-INVENTORY.ALWAYSPICKUP
+	+INVENTORY.NEVERRESPAWN
+	Tag "Health Bonus"
+	Inventory.PickupMessage "$GOTCRYSTAL3"
+	Inventory.PickupSound ""
+	 tag"Smothered Soul Crystal"
+	Scale 0.3	
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		VIAL A 0
+		"####" "#" 0 A_SetScale(frandom(0.15,0.35),0)
+		"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+		VIAL A 0 A_Jump(170,"Crystal2","Crystal3")
+		
+		
+	Crystal1:	
+        TNT1 A 0 A_CheckSight ("Crystal1b")
+		CRY4 A 1 BRIGHT
+		Loop
+	Crystal1b:
+		CRY4 A 9 BRIGHT
+		Goto Crystal1
+	
+		Crystal2:	
+        TNT1 A 0 A_CheckSight ("Crystal2b")
+		CRY4 B 2 BRIGHT
+		Loop
+	Crystal2b:
+		CRY4 b 9 BRIGHT
+		Goto Crystal2
+		
+	Crystal3:	
+        TNT1 A 0 A_CheckSight ("Crystal3b")
+		CRY4 C 2 BRIGHT
+		Loop
+	Crystal3b:
+		CRY4 C 9 BRIGHT
+		Goto Crystal3
+
+	Pickup:
+		TNT1 A 0 A_jumpifinventory("usedstamina",2,1)
+		fail
+		TNT1 AA 0 A_SpawnItemEx("SoulcrystalChunk",random(6,12),random(6,12),random(2,3),random(3,6),random(1,3), random(1,6),random(0,359),0,30)
+		TNT1 A 1 A_Playsound("CRYSHATR", 3, 0.25)
+		TNT1 A 0 A_takeinventory("UsedStamina",30,0)
+		Stop
+	}
+}
+
+actor BloodMarathonCrystal : RandomSpawner 
+{
+    DropItem "EnduranceSoulcrystal"
+    DropItem "EnduranceSoulcrystal"
+    DropItem "EnduranceSoulcrystal"
+	DropItem "Soulcrystal"
+    DropItem "UnfairCrystal"
+	DropItem "UnfairCrystal"
+}
+
+actor FUGITIVECrystal : RandomSpawner 
+{
+    DropItem "UnfairCrystal"
+    DropItem "UnfairCrystal"
+	DropItem "UnfairCrystal"
+    DropItem "UnfairCrystal"
+	DropItem "UnfairCrystal"
+	DropItem "UnfairCrystal"
+	DropItem "EnduranceSoulcrystal"
+    DropItem "EnduranceSoulcrystal"
+	DropItem "EnduranceSoulcrystal"
+	DropItem "Soulcrystal"
+}
+
+
+//  PAINKILLERS & vodka
+
+ACTOR Vodka : Custominventory
+{
++INVENTORY.ALWAYSPICKUP
++INVENTORY.NEVERRESPAWN
+scale 0.1
+Inventory.MaxAmount 300
+Inventory.PickupMessage "You drank a cossacks vodka! BLYAT!"
+Inventory.Pickupsound "GLVIALPK"
+	States
+	{
+	Spawn:
+		VIAL A 0
+		VODK A -1
+		stop
+		
+	Pickup:
+		TNT1 A 1 ACS_NamedTerminate("poisoned",0)
+		TNT1 A 0 A_takeinventory("UsedStamina",150,0)
+		TNT1 A 0 A_giveinventory("HealthPlus2",8,0)
+		TNT1 A 0
+		Stop
+}}
+
+ACTOR Healthplus : Custominventory
+{
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.NEVERRESPAWN
+	height 16
+	radius 20
+scale 0.2
+Inventory.PickupMessage "$GOTPAINKILLER"  
+Inventory.Pickupsound "STMPPK"
+	 tag"Painkillers"
+	 +FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		VIAL A 0
+		SMBS B -1 A_ChangeFlag("XFLIP",random(0,1))
+		stop
+		
+	Pickup:
+	TNT1 A 0 A_JUMPIFINVENTORY("painkillersinv",100,"fail")
+	TNT1 A 0 A_giveinventory("painkillersINV",random(2,5))
+	stop
+	}
+}
+
+ACTOR PainkillersINV : Custominventory
+{
++INVBAR
++UNDROPPABLE
+height 10
+radius 10
+scale 0.2
+Inventory.PickupMessage "$GOTPAINKILLER"  
+Inventory.Pickupsound "STMPPK"
+inventory.icon "SMBSC0"
+Inventory.InterHubAmount 100
+Inventory.MaxAmount 100
+tag"Painkillers"
++FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		VIAL A 0
+		SMBS B -1 A_ChangeFlag("XFLIP",random(0,1))
+		stop
+	
+	Use:
+		TNT1 A 0 A_JUMPIFhealthlower(200,2)
+		TNT1 A 0 a_print("You can't get past 200 health points with painkillers alone",3)
+		fail
+		TNT1 A 0 A_giveinventory("REPAIRTOKEN",1)
+		TNT1 A 0 A_GiveInventory("painkillerstoken", 1)
+	USE2:
+		TNT1 A 0 A_JUMPIFhealthlower(200,1)
+		fail
+		TNT1 A 0 A_takeinventory("UsedStamina",5)
+		TNT1 A 0 A_giveinventory("endurancebonus",1)
+		TNT1 A 0 A_takeinventory("painkillersinv",1)
+		TNT1 A 0 A_JUMPIFinventory("PAINKILLERSINV",1,"USE2")
+		Stop
+}}
+
+ACTOR Painkillers15 : Custominventory
+{	
+height 16
+radius 20
+scale 0.2
+Inventory.PickupMessage "$GOTPAINKILLER"  
+Inventory.Pickupsound "STMPPK"
++FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		VIAL A 0
+		SMBS B -1 A_ChangeFlag("XFLIP",random(0,1))
+		stop
+		
+	Pickup:
+		TNT1 A 0 A_JUMPIFINVENTORY("painkillersinv",86,"fail")
+		TNT1 A 0 a_giveinventory("painkillersinv",15)
+		stop
+	}
+}
+
+ACTOR Healthplus2 : Health
+{
+	Game Doom
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.NEVERRESPAWN
+	height 5
+	radius 5
+	Inventory.Amount 3
+	Inventory.MaxAmount 300
+	scale 0.2
+	Inventory.PickupMessage "$GOTPAINKILLER"  
+	Inventory.Pickupsound "STMPPK"
+	 tag"Painkillers"
+	 +FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		SMBS B 1
+		SMBS B -1 A_ChangeFlag("XFLIP",random(0,1))
+		STOP
+	}
+}
+
+ACTOR EnduranceBonus : Healthplus2
+{
+	Inventory.Amount 1
+}
+
+Actor HealthPlusNoCount : HealthPlus2
+{
+	-COUNTITEM
+}
+
+
+//////// DEMON ADRENALINE
+
+Actor HealthPlusFatalityBonus1 : HealthPlus2
+{
+	radius 50
+	Inventory.Amount 5
+	Inventory.MaxAmount 300
+	Inventory.Pickupmessage "$GOTADRENALINE"
+	Inventory.Pickupsound "ADRENAPK"
+	 tag"Demon Adrenaline"
+	Scale 0.5	
+	+THRUACTORS
+	-COUNTITEM
+	States
+	{
+	Spawn:
+		HORB A 1
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		HORB AAABBBCCCDDDCCCBBB 2 bright A_SpawnItem("BlueFlareSmallItem",0,7)
+		loop
+	
+	Pickup:
+		TNT1 A 0 A_takeinventory("UsedStamina",50,0)
+		Stop
+	}
+}
+
+
+Actor HealthPlusFatalityBonus2 : HealthPlusFatalityBonus1
+{
+	Inventory.Amount 5
+	Inventory.MaxAmount 300
+}
+
+Actor HealthPlusFatalityBonus : CustomInventory
+{
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.NEVERRESPAWN
+	Inventory.Pickupmessage "$GOTADRENALINE"
+	Inventory.Pickupsound "ADRENAPK"
+	 tag"Demon Adrenaline"
+	Scale 0.5	
+	+THRUACTORS
+	-COUNTITEM
+	States
+	{
+	Spawn:
+		HORB A 0
+		HORB AAABBBCCCDDDCCCBBB 2 bright A_SpawnItem("BlueFlareSmallItem",0,7)
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		loop
+		
+		Pickup:
+		TNT1 A 0 A_giveinventory("HealthPlusFatalityBonus1",1,0)
+		TNT1 A 0 A_takeinventory("UsedStamina",50,0)
+		Stop
+	}
+}
+
+
+/////////// MEDIKITS
+
+ACTOR Stimpack3 : Health //Replaces Stimpack
+{
+	Game Doom
+	+NOGRAVITY
+	SpawnID 23
+	Inventory.Amount 10
+	Inventory.PickupMessage "$GOTSTIM"
+	Inventory.PickupSound "MEDKPK"
+	tag"Stimpack"
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 
+		Stay:
+		MEDK B 2
+		MEDK B 0 A_checkproximity("bench","recombinerstatic",50)
+		MEDK B 0 A_checkproximity("bench","recombinerstart",50)
+		MEDK B 1 A_changeflag("NOGRAVITY", 0)
+		MEDK B -1
+		Stop
+	
+	BENCH:
+		MEDK B 1
+		CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+		CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+		GOTO SPAWN
+	}
+}
+
+// Medikit -----------------------------------------------------------------
+
+ACTOR Medikit3 : Health //Replaces Medikit
+{
+	Game Doom
+	SpawnID 24
+	Inventory.Amount 25
+	Inventory.PickupMessage "$GOTMEDIKIT"
+	Health.LowMessage 25, "$GOTMEDINEED"
+	Inventory.PickupSound "MEDKPK"
+	tag"Medikit"
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 
+		Stay:
+        MEDK A 1
+		MEDK A -1
+		Stop	
+	}
+}
+
+//Cruelty & Fatality Bonus-----------------------------------------------------
+
+
+
+Actor HealthCrueltyBonus : HealthPlus2
+{
+	Inventory.Amount 5
+	Inventory.MaxAmount 300
+	Inventory.PickupMessage "*** Cruelty Bonus! +5 Health ***"
+	+THRUACTORS
+	-COUNTITEM
+	States
+	{
+	Spawn:
+		BON1 EFGHGF 2 bright A_SpawnItem("RedFlareSmall",0,5)
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		Goto Spawn2
+	Spawn2:
+		BON1 EFGHGF 2 bright A_SpawnItem("RedFlareSmall",0,5)
+		Loop
+	}
+}
+
+Actor HealthCrueltyBonus2 : HealthCrueltyBonus
+{
+	Scale 0.75
+	Inventory.Amount 2
+	Inventory.MaxAmount 300
+	Inventory.PickupMessage "*** Cruelty Bonus! +2 Health ***"
+}
+
+
+///////////////FOOD
+Actor FOOD1 : CustomInventory
+{
+scale 0.4
+height 5
+radius 5
+Inventory.PickupMessage "$GOTFOOD"  
+Inventory.Pickupsound "FOODGRAB"
+tag"MRE ration"
+STATES
+	{
+	Spawn: 
+	FOOD B -1
+	stop
+	
+	Pickup:
+	TNT1 A 0 A_giveinventory("fooditem",2)
+	stop
+	}
+}
+
+Actor FOOD2 : food1
+{
+tag"Salted Tuna and Crackers"
+STATES
+	{
+	Spawn: 
+	FOOD A -1
+	stop
+	
+	Pickup:
+	TNT1 A 0 A_giveinventory("fooditem",1)
+	stop
+	}	
+}
+
+
+Actor FOOD3 : food2
+{
+tag"Canned Meat"
+scale 0.1
+STATES
+	{
+	Spawn: 
+	FOOD C -1
+	stop
+	}
+}
+
+Actor FOOD4 : food2
+{
+tag"Canned Fish"
+scale 0.1
+STATES
+	{
+	Spawn: 
+	FOOD D -1
+	stop
+	}
+}
+
+Actor FOOD5 : food2
+{
+tag"landjäger sausage and canned bread"
+scale 0.46
+STATES
+	{
+	Spawn: 
+	FOOD G -1
+	stop
+	}
+}
+
+Actor DRINK1 : food2
+{
+tag"Iodinized water canteen"
+Inventory.PickupMessage "$GOTDRINK"  
+scale 0.18
+STATES
+	{
+	Spawn: 
+	FOOD E -1
+	stop
+	}
+}
+
+Actor DRINK2 : food1
+{
+tag"UACola Energy Drink"
+Inventory.PickupMessage "$GOTDRINK"  
+scale 0.19
+STATES
+	{
+	Spawn: 
+	FOOD F -1
+	stop
+	}
+}
+	
+Actor foodSpawner : CustomInventory
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(25, "Water", "Drink", "Meat", "Fish", "Crackers", "MRE")
+		stop
+		
+	Water:
+		TNT1 A 0 A_SpawnItemEx ("DRINK1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Drink:
+		TNT1 A 0 A_SpawnItemEx ("DRINK2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Meat:
+		TNT1 A 0 A_SpawnItemEx ("FOOD3",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	 Fish:
+		TNT1 A 0 A_SpawnItemEx ("FOOD4",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Crackers:
+		TNT1 A 0 A_SpawnItemEx ("FOOD2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	MRE:
+		TNT1 A 0 A_SpawnItemEx ("FOOD1",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+Actor foodSpawnerSURE : CustomInventory
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(256, "Water", "Drink", "Meat", "Fish", "Crackers", "MRE")
+		stop
+	}
+}
+
+ACTOR FOODITEM : Custominventory
+{
+scale 0.4
++INVBAR
++UNDROPPABLE
+height 5
+radius 5
+inventory.icon "FOODZ0"
+Inventory.MaxAmount 300
+tag"sustenance"
+	States
+	{
+	Spawn:
+		VIAL A 0
+		FOOD B -1
+		stop
+	
+	Use:
+		TNT1 A 0 A_giveinventory("REPAIRTOKEN",1)
+		TNT1 A 0 A_GiveInventory("foodtoken", 1)
+		TNT1 A 0 A_takeinventory("UsedStamina",200)
+	USE2:
+		TNT1 A 0 A_JumpIf(CallACS("Check max health2") == TRUE, 2)
+		TNT1 A 0 a_print("You can't heal past your maximum health value using food",4)
+		stop
+		TNT1 A 0 A_giveinventory("HealthPlus2",1,0)
+		TNT1 A 0 A_JumpIf(CallACS("Check max health2") == TRUE, 2)
+		TNT1 A 0 a_print("You can't heal past your maximum health value using food",4)
+		stop
+		TNT1 A 0 A_giveinventory("HealthPlus2",1,0)
+		Stop
+}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ACTOR GiveHealth : Health
+{
+	Game Doom
+	SpawnID 152
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.Amount 1
+	Inventory.MaxAmount 9999
+	Inventory.PickupMessage "$GOTHTHBONUS"
+	States
+	{
+	Spawn:
+		BON1 AAABBBCCCDDDCCCBBB 2
+		Loop
+	}
+}
+
+//  bonus --------------------------------------------------------------
+
+	Actor crystalspawnerstandard : CustomInventory
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 AAA 0 A_SpawnItemEx ("CUSTOMBONUS",RANDOM(10,35),0,0,0,0,0,RANDOM(0,360),0,100)
+		Stop
+    }
+}
+
+	Actor crystalspawnerlow : CustomInventory
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 AA 0 A_SpawnItemEx ("CUSTOMBONUS",RANDOM(10,35),0,0,0,0,0,RANDOM(0,360),0,150)
+		Stop
+    }
+}
+
+	Actor crystalspawnerlowest : CustomInventory
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 AA 0 A_SpawnItemEx ("CUSTOMBONUS",RANDOM(10,35),0,0,0,0,0,RANDOM(0,360),0,220)
+		Stop
+    }
+}
+
+
+ACTOR CrueltyBonus5health : Health
+{
+	Game Doom
+	SpawnID 152
+	-COUNTITEM
+	Radius 220
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.Amount 10
+	Inventory.MaxAmount 9999
+	Inventory.PickupMessage "*** Cruelty Bonus awarded! +10 health ***"
+	States
+	{
+	Spawn:
+        TNT1 A 50
+		Stop
+	}
+}
+
+ACTOR CrueltyBonus1health : CrueltyBonus5health
+{
+	Inventory.Amount 1
+	Inventory.PickupMessage "*** Cruelty Bonus awarded! +2 Health ***"
+}
+
+/*
+ACTOR CrueltyBonus15armor : CrueltyBonus5armor
+{
+	Armor.Saveamount 15
+	Inventory.PickupMessage "*** Cruelty Bonus awarded! +15 Armor ***"
+}
+
+ACTOR CrueltyBonus10armor : CrueltyBonus5armor
+{
+	Armor.Saveamount 20
+	Inventory.PickupMessage "*** Cruelty Bonus awarded! +20 Armor ***"
+}
+
+

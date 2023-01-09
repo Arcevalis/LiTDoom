@@ -1,0 +1,738 @@
+class RandomSpawnerSpacecheck : RandomSpawner
+{
+    override Name ChooseSpawn()
+    {       
+        for (int i = 0; i < 50; i++)
+        {
+            let chosen = Super.ChooseSpawn();
+           
+            if (CanSpawn(chosen))
+            {
+                return chosen;
+            }
+        }
+
+        return 'None';
+    }
+	
+private bool CanSpawn(Name what)
+{
+    bool result = true;
+   
+    if (what != 'None')
+    {
+        let probe = Spawn(what, Pos);
+
+        if (probe != null)
+        {
+            result = probe.TestMobjLocation();
+
+            // prevent the statistics counters from increasing
+            probe.ClearCounters();
+            probe.Destroy();
+        }
+    }
+
+    return result;
+}}
+
+
+
+//////////////////////////////////////
+/////////////////////////////////////
+////////////////////////////////////
+
+
+																											//// CVAR CHECKERS 
+
+
+class CustomZombieman : Eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'ZombieMan') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'PossessedSpawner';
+      break;
+    case 1:
+      e.Replacement = 'LessZombiemen';
+      break;
+    case 2:
+      e.Replacement = 'Tier1Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleZombie';
+      break;
+	case 4:
+      e.Replacement = 'VanillaZombie';
+      break;
+}}}}																											   
+
+class CustomSergeant : Eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'Shotgunguy') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'SergeantSpawner';
+      break;
+    case 1:
+      e.Replacement = 'LessSergeants';
+      break;
+    case 2:
+      e.Replacement = 'Tier2Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleSergeant';
+      break;
+	case 4:
+      e.Replacement = 'Shotgunguy1';
+      break;
+}}}}
+
+class CustomCommando : Eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'Chaingunguy') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'CommandoSpawner';
+      break;
+    case 1:
+      e.Replacement = 'LessCommandos';
+      break;
+    case 2:
+      e.Replacement = 'Tier3Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleCommando';
+      break;
+	case 4:
+      e.Replacement = 'Chaingunguy1';
+      break;
+}}}}
+
+class CustomImp : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'DoomImp') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'ImpSpawner';
+      break;
+    case 1:
+      e.Replacement = 'ImpSpawner';
+      break;
+    case 2:
+      e.Replacement = 'Tier2Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleImp';
+      break;
+	case 4:
+      e.Replacement = 'Imp';
+      break;
+}}}}
+
+class CustomDemon : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'Demon') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'DemonSpawner';
+      break;
+    case 1:
+      e.Replacement = 'DemonSpawner';
+      break;
+    case 2:
+      e.Replacement = 'Tier2Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleDemon';
+      break;
+	case 4:
+      e.Replacement = 'BullDemon';
+      break;
+}}}}
+
+class CustomCaco : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'CacoDemon') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'Cacodemon_';
+      break;
+    case 1:
+      e.Replacement = 'Cacodemon_';
+      break;
+    case 2:
+      e.Replacement = 'FlyingMob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleCaco';
+      break;
+	case 4:
+      e.Replacement = 'Cacodemon_';
+      break;
+}}}}
+
+class CustomPainElemental : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'PainElemental') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'PainElemental1';
+      break;
+    case 1:
+      e.Replacement = 'Painelemental1';
+      break;
+    case 2:
+      e.Replacement = 'FlyingMob';
+      break;
+    case 3:
+      e.Replacement = 'SubtlePainElemental';
+      break;
+	case 4:
+      e.Replacement = 'PainElemental1';
+      break;
+}}}}
+
+class CustomKnight : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'Hellknight') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'KnightSpawner';
+      break;
+    case 1:
+      e.Replacement = 'KnightSpawner';
+      break;
+    case 2:
+      e.Replacement = 'Tier4Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleKnight';
+      break;
+	case 4:
+      e.Replacement = 'Hellknight2';
+      break;
+}}}}
+
+class CustomBaron : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+	{
+	let cls = e.Replacee.GetClassName();
+    if (cls == 'Baronofhell') 
+		{
+   if (level.mapName ~== "E1M8" && level.levelName ~== "Phobos Anomaly")
+   {e.Replacement = 'BaronBoss1';}
+  
+		Else
+		{
+		switch (monsterspawns)
+			{case 0:
+			e.Replacement = 'BaronSpawner';
+			break;
+			case 1:
+			e.Replacement = 'BaronSpawner';
+			break;
+			case 2:
+			e.Replacement = 'Tier5Mob';
+			break;
+			case 3:
+			e.Replacement = 'SubtleBaron';
+			break;
+			case 4:
+			e.Replacement = 'BaronofHell2';
+			break;
+			}
+		}
+	}
+}}
+
+
+class CustomMancubus : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'Fatso') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'Mancubus';
+      break;
+    case 1:
+      e.Replacement = 'Mancubus';
+      break;
+    case 2:
+      e.Replacement = 'Tier4Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleMancubus';
+      break;
+	case 4:
+      e.Replacement = 'Mancubus';
+      break;
+}}}}
+
+class CustomRevenant : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'Revenant') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'RevenantSpawner';
+      break;
+    case 1:
+      e.Replacement = 'RevenantSpawner';
+      break;
+    case 2:
+      e.Replacement = 'Tier3Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleRevenant';
+      break;
+	case 4:
+      e.Replacement = 'Revenant1';
+      break;
+}}}}
+
+class CustomSpider : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'Arachnotron') 
+  {switch (monsterspawns)
+    {case 0:
+      e.Replacement = 'SpiderSpawner';
+      break;
+    case 1:
+      e.Replacement = 'SpiderSpawner';
+      break;
+    case 2:
+      e.Replacement = 'Tier4Mob';
+      break;
+    case 3:
+      e.Replacement = 'SubtleSpider';
+      break;
+	case 4:
+      e.Replacement = 'Arachnotron1';
+      break;
+}}}}
+
+class CustomCyberdemon : eventhandler
+{override void CheckReplacement(ReplaceEvent e)
+{let cls = e.Replacee.GetClassName();
+  if (cls == 'Cyberdemon') 
+  {
+   if (level.mapName ~== "E2M8" && level.levelName ~== "Tower of Babel")
+   {e.Replacement = 'CyberdemonBoss';}
+   
+   Else
+  {e.Replacement = 'CyberDemonSpawner';}
+}}}
+
+																													/////						/////
+																											//// MONSTER SPAWNERS ////
+																												   ////				  		 //////
+																											
+//// DEFAULT
+
+class PossessedSpawner : RandomSpawner
+{
+    Default
+    {
+        DropItem 'RocketGuy', 255, 2;
+        DropItem 'Major', 255, 3;
+        DropItem 'RiotShieldGuy', 255, 15;
+        DropItem 'ChainsawZombie', 255, 8;
+        DropItem 'MinigunGuy', 255, 10;
+        DropItem 'RifleZombie',255, 50;
+		DropItem 'PistolZombiePatch', 255, 220;
+		}
+   
+}
+
+//////
+class SergeantSpawner : RandomSpawner
+{
+    Default
+    {
+        DropItem 'SuperShotgunZombie';DropItem 'SuperShotgunZombie';
+        DropItem 'Major';
+        DropItem 'PyroSergeant'; DropItem 'RifleZombie'; DropItem 'RifleZombie';
+        DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';
+        DropItem 'ASGGuy';DropItem 'ASGGuy';DropItem 'ASGGuy';DropItem 'ASGGuy';DropItem 'ASGGuy';DropItem 'ASGGuy';DropItem 'ASGGuy';
+        DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';
+		DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';DropItem 'Shotgunguy1';
+    }
+   
+}
+
+/////
+class CommandoSpawner : RandomSpawner
+{
+    Default
+    {
+        DropItem 'PyroSergeant';
+		DropItem 'RocketGuy';DropItem 'RocketGuy';
+		Dropitem "XVSTEALTHZSPECOPS";
+		Dropitem "ZSPECOPS"; DropItem 'RifleZombie'; DropItem 'RifleZombie';
+        DropItem 'Major';DropItem 'Major';DropItem 'Major';DropItem 'Major';DropItem 'Major';
+        DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';DropItem 'RiotShieldGuy';
+        DropItem 'PlasmaZombie';DropItem 'PlasmaZombie';DropItem 'PlasmaZombie';
+		DropItem 'RifleCommando';DropItem 'RifleCommando';DropItem 'RifleCommando';DropItem 'RifleCommando';DropItem 'RifleCommando';DropItem 'RifleCommando';DropItem 'RifleCommando';DropItem 'RifleCommando';DropItem 'RifleCommando';DropItem 'RifleCommando';
+        DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';
+		DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';DropItem 'Chaingunguy1';
+    }   
+}
+
+////
+class ImpSpawner : RandomSpawner
+{
+    Default
+    {
+        DropItem 'NetherDarkImp';
+		DropItem 'VoidDarkImp';
+		Dropitem "NamiDarkImp";Dropitem "NamiDarkImp";
+		Dropitem "BuffBDMummy";Dropitem "BuffBDMummy";
+		Dropitem "DarkImp";Dropitem "DarkImp";Dropitem "DarkImp";Dropitem "DarkImp";Dropitem "DarkImp";
+        DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';
+		DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';DropItem 'Imp';
+    }}
+
+class DemonSpawner : RandomSpawner
+{
+    Default
+    {
+        DropItem 'BloodDemon', 255, 15;
+		DropItem 'BuffBullDemon', 255, 20;
+		DropItem 'BullDemon', 255, 240;
+	}}
+
+class KnightSpawner : RandomSpawner
+{
+    Default
+    {
+		DropItem 'BruiserDemon', 255, 10;
+        DropItem 'Cyberknight', 255, 20;
+		DropItem 'Satyr', 255, 40;
+		DropItem 'Hellknight2', 255, 220;
+	}}
+
+class BaronSpawner : RandomSpawner
+{
+    Default
+    {
+		DropItem 'PyroDemon', 255, 7;
+		DropItem 'BruiserDemon', 255, 7;
+        DropItem 'Cyberbaron', 255, 20;
+		DropItem 'TerminatorDemon', 255, 9;
+		DropItem 'BaronofHell2', 255, 220;
+	}}
+
+class RevenantSpawner : RandomSpawner
+{
+    Default
+    {
+		DropItem 'Incarnate', 255, 7;
+		DropItem 'Revenant1', 255, 240;
+	}}
+
+
+class SpiderSpawner : RandomSpawner
+{
+    Default
+    {
+		DropItem 'Arachnotron2', 255, 10;
+		DropItem 'Aracnorb', 255, 30;
+		DropItem 'Arachnotron1', 255, 240;
+	}}
+
+
+class CyberDemonSpawner : RandomSpawner 
+{
+    Default
+    {
+		DropItem 'Superdemon', 255, 80;
+		DropItem 'Belphegor2', 255, 30;
+		DropItem 'TheCyberDemon', 256, 256;
+	}}
+
+//// LESS FORMER HUMANS
+
+class LessZombiemen : RandomSpawner
+{
+    Default
+    {
+        DropItem 'Imp';
+        DropItem 'PossessedSpawner';
+        DropItem 'FleshSpawn';
+    }
+   
+}
+
+////
+class LessSergeants : RandomSpawner
+{
+    Default
+    {
+		dropitem "SergeantSpawner";
+		dropitem "SergeantSpawner";
+		dropitem "FleshSpawn";
+		dropitem "TehLostSoul";
+		dropitem "BullDemon";
+		dropitem "Impspawner";
+    }
+   
+}
+
+////
+class LessCommandos : RandomSpawner
+{
+    Default
+    {
+	dropitem "CommandoSpawner";
+	dropitem "CommandoSpawner";
+	dropitem "DarkImp";
+	dropitem "Impspawner";
+	dropitem "Aracnorb";
+	dropitem "BullDemon";
+    }
+   
+}
+
+//// TIERED RANDOMIZER
+
+class Tier1Mob : RandomSpawner
+{
+Default
+    {
+dropitem "PossessedSpawner";
+dropitem "PossessedSpawner";
+dropitem "PossessedSpawner";
+dropitem "ImpSpawner";
+dropitem "ImpSpawner";
+dropitem "FleshSpawn";
+dropitem "FleshSpawn";
+dropitem "BullDemon";
+dropitem "Tier2Mob";
+}
+}
+
+class Tier2Mob : RandomSpawner
+{
+Default
+    {
+dropitem "SergeantSpawner";
+dropitem "SergeantSpawner";
+dropitem "SergeantSpawner";
+dropitem "PossessedSpawner";
+dropitem "PossessedSpawner";
+dropitem "ImpSpawner";
+dropitem "ImpSpawner";
+dropitem "ImpSpawner";
+dropitem "TehLostSoul";
+dropitem "DemonSpawner";
+dropitem "DemonSpawner";
+dropitem "DemonSpawner";
+dropitem "Tier3Mob";
+}
+}
+
+class Tier3Mob : RandomSpawner
+{
+Default
+    {
+dropitem "SergeantSpawner";
+dropitem "CommandoSpawner";
+dropitem "CommandoSpawner";
+dropitem "CommandoSpawner";
+dropitem "ImpSpawner";
+dropitem "DarkImpSpawner";
+dropitem "DemonSpawner";
+dropitem "DemonSpawner";
+dropitem "DemonSpawner";
+dropitem "RevenantSpawner";
+dropitem "RevenantSpawner";
+dropitem "KnightSpawner";
+dropitem "Tier4Mob";
+	}
+}
+
+class Tier4Mob : RandomSpawner
+{
+Default
+    {
+dropitem "KnightSpawner";
+dropitem "KnightSpawner";
+dropitem "RevenantSpawner";
+dropitem "BaronSpawner";
+dropitem "Mancubus";
+dropitem "Mancubus";
+dropitem "SpiderSpawner";
+dropitem "FlyingMob";
+}
+}
+
+class FlyingMob : RandomSpawner
+{
+    Default
+    {
+    dropitem "Cacodemon_";
+	dropitem "Aracnorb";
+	dropitem "Cacodemon_";
+	Dropitem "Cacodemon_";
+	dropitem "HerdSpawner";
+	dropitem "HerdSpawner";
+	dropitem "PainElemental1";
+	}
+ } 
+ 
+  class Tier5Mob : RandomSpawner
+{
+Default
+    {
+dropitem "BaronSpawner";
+dropitem "BaronSpawner";
+dropitem "BaronSpawner";
+dropitem "Mancubus";
+dropitem "Mancubus";
+dropitem "SpiderSpawner";
+dropitem "SpiderSpawner";
+dropitem "SpiderSpawner";
+dropitem "SpiderSpawner";
+dropitem "Superdemon";
+}}
+   
+
+//SUBTLE RANDOMIZER
+
+ class SubtleZombie : RandomSpawner
+{
+Default
+    {
+dropitem "PossessedSpawner";
+dropitem "PossessedSpawner";
+dropitem "LessZombiemen";
+dropitem "Tier1Mob";
+}}
+
+ class SubtleSergeant : RandomSpawner
+{
+Default
+    {
+dropitem "SergeantSpawner";
+dropitem "SergeantSpawner";
+dropitem "LessSergeants";
+dropitem "Tier2Mob";
+}}
+
+ class SubtleCommando : RandomSpawner
+{
+Default
+    {
+dropitem "CommandoSpawner";
+dropitem "CommandoSpawner";
+dropitem "LessCommandos";
+dropitem "Tier3Mob";
+}}
+
+ class SubtleImp : RandomSpawner
+{
+Default
+    {
+dropitem "Impspawner";
+dropitem "Impspawner";
+dropitem "Impspawner";
+dropitem "Tier2Mob";
+}}
+
+ class SubtleDemon : RandomSpawner
+{
+Default
+    {
+dropitem "Demonspawner";
+dropitem "Demonspawner";
+dropitem "Demonspawner";
+dropitem "Tier2Mob";
+}}
+
+ class SubtleCaco : RandomSpawner
+{
+Default
+    {
+dropitem "Cacodemon_";
+dropitem "Cacodemon_";
+dropitem "FlyingMob";
+}}
+
+ class SubtlePainElemental : RandomSpawner
+{
+Default
+    {
+dropitem "PainElemental1";
+dropitem "PainElemental1";
+dropitem "FlyingMob";
+}}
+
+ class SubtleKnight : RandomSpawner
+{
+Default
+    {
+dropitem "KnightSpawner";
+dropitem "KnightSpawner";
+dropitem "KnightSpawner";
+dropitem "Tier4Mob";
+}}
+
+ class SubtleRevenant : RandomSpawner
+{
+Default
+    {
+dropitem "RevenantSpawner";
+dropitem "RevenantSpawner";
+dropitem "RevenantSpawner";
+dropitem "Tier4Mob";
+}}
+
+ class SubtleBaron : RandomSpawner
+{
+Default
+    {
+dropitem "BaronSpawner";
+dropitem "BaronSpawner";
+dropitem "BaronSpawner";
+dropitem "Tier5Mob";
+}}
+
+ class SubtleSpider : RandomSpawner
+{
+Default
+    {
+dropitem "SpiderSpawner";
+dropitem "SpiderSpawner";
+dropitem "SpiderSpawner";
+dropitem "Tier5Mob";
+}}
+
+ class SubtleMancubus : RandomSpawner
+{
+Default
+    {
+dropitem "Mancubus";
+dropitem "Mancubus";
+dropitem "Mancubus";
+dropitem "Tier4Mob";
+}}
+
+/// VANILLA DOOM
+ class VanillaZombie : RandomSpawner
+{
+Default
+    {
+dropitem "Riflezombie";
+dropitem "PistolZombiePatch";
+dropitem "PistolZombiePatch";
+}}

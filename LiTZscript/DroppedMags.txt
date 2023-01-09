@@ -1,0 +1,622 @@
+
+/////////////////////////////////////////////////////////////////////////////////////////// PISTOL
+Class DROPPEDpistolmag : Inventory
+{
+    Default
+        {
+	Scale 0.2;
+	speed 1;
+	Radius 10;
+	Height 10;
+	Inventory.Pickupmessage "$GOT9MM";
+	Inventory.Icon "P9MMB0";
+	inventory.amount 1;
+	inventory.maxamount 2;
+    Inventory.PickupSound "CLIPICK";
+	BounceSound "mbounce1";
+	DeathSound "smolmag";
+	 tag"partially spent 9mm magazine";
+	 gravity 1.0;
+	 BounceFactor 0.5;
+	BounceCount 2;
+	+inventory.tossed
+	WallBounceFactor 0.5;
+	+bounceonfloors
+	+bounceonwalls
+	 +cannotpush
+	 +THRUACTORS
+	 +ROLLSPRITE
+	+ROLLCENTER
+	+touchy
+	+missile
+        }
+    int currentmag;
+	int droppedammo;
+    int store;
+	 
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+			let currentmag = owner.FindInventory("BDpistolammo",true);
+            droppedammo = currentmag.Amount; 
+            
+            }
+            store = droppedammo-1; 
+            if(store < 0) store = 0;
+				
+            Super.DetachFromOwner();
+			}
+
+Override bool TryPickup(in out Actor toucher)
+         {
+        Super.TryPickup(toucher);
+          
+             if (!(toucher.countinv("DROPPingmag"))){
+                        toucher.GiveInventory("clip1",store);
+                        if (toucher.countinv("DROPPEDpistolmag") > 1) { toucher.TakeInventory("DROPPEDpistolmag",999);}
+                        return true;
+                        }
+          
+            return true;
+        } 
+		
+    States
+    {
+    Spawn:
+		CLIP D 0;
+		CLIP DDD 1 ThrustThing(angle*256/360+90,2,0,0);
+	Flying:
+        CLIP D 1 a_setroll(roll+15);
+		loop;
+     Death:
+        CLIP D 120 a_setroll(0);
+        CLIP D 0 { bThruactors = false;}
+        CLIP D -1;
+        stop;
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////// SMG
+
+Class DROPPEDSMGmag : Inventory
+{
+    Default
+        {
+	XScale 0.27;
+	YScale 0.18;
+	speed 1;
+	Radius 10;
+	Height 10;
+	Inventory.Pickupmessage "$GOT9MM";
+	Inventory.Icon "P9MMB0";
+	inventory.amount 1;
+	inventory.maxamount 2;
+    Inventory.PickupSound "CLIPICK";
+	BounceSound "mbounce1";
+	DeathSound "smolmag";
+	 tag"partially spent 9mm magazine";
+	 gravity 1.0;
+	 BounceFactor 0.4;
+	BounceCount 2;
+	+inventory.tossed
+	WallBounceFactor 0.4;
+	+bounceonfloors
+	+bounceonwalls
+	 +cannotpush
+	 +THRUACTORS
+	 +ROLLSPRITE
+	+ROLLCENTER
+	+touchy
+	+missile
+        }
+    int currentmag;
+	int droppedammo;
+    int store;
+	 
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+			let currentmag = owner.FindInventory("BDSMGammo",true);
+            droppedammo = currentmag.Amount; 
+            
+            }
+            store = droppedammo-1; 
+            if(store < 0) store = 0;
+				
+            Super.DetachFromOwner();
+			}
+
+Override bool TryPickup(in out Actor toucher)
+         {
+        Super.TryPickup(toucher);
+          
+             if (!(toucher.countinv("DROPPingmag"))){
+                        toucher.GiveInventory("clip1",store);
+                        if (toucher.countinv("DROPPEDSMGmag") > 1) { toucher.TakeInventory("DROPPEDSMGmag",999);}
+                        return true;
+                        }
+          
+            return true;
+        } 
+		
+    States
+    {
+    Spawn:
+		CLIP D 0;
+		CLIP DDD 1 ThrustThing(angle*256/360+90,2,0,0);
+	Flying:
+        CLIP D 1 a_setroll(roll+10);
+		loop;
+     Death:
+        CLIP D 120 a_setroll(0);
+        CLIP D 0 { bThruactors = false;}
+        CLIP D -1;
+        stop;
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////// ASG
+
+Class DROPPEDASGmag : Inventory
+{
+    Default
+        {
+	scale 0.2;
+	speed 1;
+	Radius 10;
+	Height 10;
+	Inventory.Pickupmessage "$GOTSHELLS3";
+	Inventory.Icon "BUCKA0";
+	inventory.amount 1;
+	inventory.maxamount 2;
+    Inventory.PickupSound "SHELPK3";
+	BounceSound "mbounce2";
+	DeathSound "medmag";
+	 tag"partially spent Assault Shotgun Drum";
+	 gravity 1.5;
+	 BounceFactor 0.5;
+	BounceCount 3;
+	+inventory.tossed
+	WallBounceFactor 0.5;
+	+bounceonfloors
+	+bounceonwalls
+	 +cannotpush
+	 +THRUACTORS
+	 +ROLLSPRITE
+	+ROLLCENTER
+	+touchy
+	+missile
+        }
+    int currentmag;
+	int droppedammo;
+    int store;
+	 
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+			let currentmag = owner.FindInventory("AssaultShotgunammo",true);
+            droppedammo = currentmag.Amount; 
+            
+            }
+            store = droppedammo-1; 
+            if(store < 0) store = 0;
+				
+            Super.DetachFromOwner();
+			}
+
+Override bool TryPickup(in out Actor toucher)
+         {
+        Super.TryPickup(toucher);
+          
+             if (!(toucher.countinv("DROPPingmag"))){
+                        toucher.GiveInventory("ammoshell",store);
+                        if (toucher.countinv("DROPPEDASGmag") > 1) { toucher.TakeInventory("DROPPEDASGmag",999);}
+                        return true;
+                        }
+          
+            return true;
+        } 
+		
+    States
+    {
+    Spawn:
+		CLIP D 0;
+		ASGB OOO 1 ThrustThing(angle*256/360+90,2,0,0);
+	Flying:
+        ASGB O 1 a_setroll(roll+15);
+		loop;
+     Death:
+        ASGB O 2 a_setroll(35);
+		ASGB O 2 a_setroll(-35);
+		ASGB O 2 a_setroll(30);
+		ASGB O 2 a_setroll(-30);
+		ASGB O 1 a_setroll(20);
+		ASGB O 1 a_setroll(-20);
+		ASGB O 1 a_setroll(20);
+		ASGB O 1 a_setroll(-20);
+		ASGB O 1 a_setroll(10);
+		ASGB O 1 a_setroll(-10);
+		ASGB O 1 a_setroll(10);
+		ASGB O 1 a_setroll(-10);
+		ASGB O 1 a_setroll(10);
+		ASGB O 1 a_setroll(-10);
+		ASGB O 1 a_setroll(0);
+		ASGB O 120;
+        CLIP D 0 { bThruactors = false;}
+        ASGB O -1;
+        stop;
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////// RIFLE
+
+Class DROPPEDriflemag473 : Inventory
+{
+    Default
+        {
+	Scale 0.085;
+	speed 1;
+	Radius 10;
+	Height 10;
+	Inventory.Pickupmessage "$GOTCLIP3";
+	Inventory.Icon "R556A0";
+	inventory.amount 1;
+	inventory.maxamount 2;
+    Inventory.PickupSound "CLIPICK";
+	BounceSound "mbounce1";
+	DeathSound "riflemag";
+	 tag"partially spent 4.73mm magazine";
+	 gravity 1.0;
+	 BounceFactor 0.1;
+	BounceCount 2;
+	+inventory.tossed
+	WallBounceFactor 0.1;
+	+bounceonfloors
+	+bounceonwalls
+	 +cannotpush
+	 +THRUACTORS
+	 +ROLLSPRITE
+	+ROLLCENTER
+	+touchy
+	+missile
+        }
+    int currentmag;
+	int droppedammo;
+    int store;
+	 
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+			let currentmag = owner.FindInventory("Rifleammo",true);
+            droppedammo = currentmag.Amount; 
+            
+            }
+            store = droppedammo-1; 
+            if(store < 0) store = 0;
+				
+            Super.DetachFromOwner();
+			}
+
+Override bool TryPickup(in out Actor toucher)
+         {
+        Super.TryPickup(toucher);
+          
+             if (!(toucher.countinv("DROPPingmag"))){
+                        toucher.GiveInventory("minigunammo",store);
+                        if (toucher.countinv("DROPPEDriflemag473") > 1) { toucher.TakeInventory("DROPPEDriflemag473",999);}
+                        return true;
+                        }
+          
+            return true;
+        } 
+		
+    States
+    {
+    Spawn:
+		CLIP D 0;
+		CLIP EEE 1 ThrustThing(angle*256/360+90,2,0,0);
+	Flying:
+        CLIP E 1 a_setroll(roll+10);
+		loop;
+     Death:
+        CLIP E 120 a_setroll(0);
+        CLIP E 0 { bThruactors = false;}
+        CLIP E -1;
+        stop;
+	}
+}
+
+
+Class DROPPEDriflemag762 : DROPPEDriflemag473
+{
+    Default
+        {
+	Inventory.PickupMessage "$GOTCLIP";
+	Inventory.PickupSound "CLIPICK2";
+	Inventory.Icon "R762A0";
+	 tag"partially spent 7.62mm magazine";
+        }
+
+Override bool TryPickup(in out Actor toucher)
+         {
+        Super.TryPickup(toucher);
+          
+             if (!(toucher.countinv("DROPPingmag"))){
+                        toucher.GiveInventory("clip2",store);
+                        if (toucher.countinv("DROPPEDriflemag762") > 1) { toucher.TakeInventory("DROPPEDriflemag762",999);}
+                        return true;
+                        }
+          
+            return true;
+        } 
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////// MMG
+
+Class DROPPEDMMGmag : Inventory
+{
+    Default
+        {
+	scale 0.55;
+	speed 1;
+	Radius 10;
+	Height 10;
+	Inventory.PickupMessage "$GOTCLIPBOX";
+	Inventory.PickupSound "MGMAGIN";
+	Inventory.Icon "R762A0";
+	inventory.amount 1;
+	inventory.maxamount 2;
+		BounceSound "mbounce2";
+	DeathSound "bigmag";
+	 tag"partially spent MMG ammo box";
+	 gravity 1.5;
+	 BounceFactor 0.5;
+	BounceCount 3;
+	+inventory.tossed
+	WallBounceFactor 0.5;
+	+bounceonfloors
+	+bounceonwalls
+	 +cannotpush
+	 +THRUACTORS
+	 +ROLLSPRITE
+	+ROLLCENTER
+	+touchy
+	+missile
+        }
+    int currentmag;
+	int droppedammo;
+    int store;
+	 
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+			let currentmag = owner.FindInventory("LMGammo",true);
+            droppedammo = currentmag.Amount; 
+            
+            }
+            store = droppedammo; 
+            if(store < 0) store = 0;
+				
+            Super.DetachFromOwner();
+			}
+
+Override bool TryPickup(in out Actor toucher)
+         {
+        Super.TryPickup(toucher);
+          
+             if (!(toucher.countinv("DROPPingmag"))){
+                        toucher.GiveInventory("clip2",store);
+                        if (toucher.countinv("DROPPEDMMGmag") > 1) { toucher.TakeInventory("DROPPEDMMGmag",999);}
+                        return true;
+                        }
+          
+            return true;
+        } 
+		
+    States
+    {
+    Spawn:
+		CLIP D 0;
+		LMGB XXX 1 ThrustThing(angle*256/360+90,2,0,0);
+	Flying:
+        LMGB X 1 a_setroll(roll+15);
+		loop;
+	
+	 Death:
+		TNT1 A 0 A_JUMP(127, "Death2","Death3","Death4");
+		LMGB X 120 a_setroll(0);
+		CLIP D 0 { bThruactors = false;}
+        LMGB X -1;
+        stop;
+	 Death2:
+		LMGB X 120 a_setroll(90);
+		CLIP D 0 { bThruactors = false;}
+        LMGB X -1;
+        stop;
+	Death3:
+		LMGB X 120 a_setroll(195);
+		CLIP D 0 { bThruactors = false;}
+        LMGB X -1;
+        stop;
+	Death4:
+		LMGB X 120 a_setroll(270);
+		CLIP D 0 { bThruactors = false;}
+        LMGB X -1;
+        stop;
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////// PLASMAGUN
+
+Class DROPPEDplasmamag : Inventory
+{
+    Default
+        {
+	Scale 0.25;
+	speed 1;
+	Radius 10;
+	Height 10;
+	Inventory.Icon "CELLA0";
+	Inventory.PickupMessage "$GOTCELL";
+	Inventory.Pickupsound "CELLGET";
+	inventory.amount 1;
+	inventory.maxamount 2;
+	 tag"partially depleted energy cell";
+	 	BounceSound "mbounce1";
+	DeathSound "smolmag";
+	 gravity 1.0;
+	 BounceFactor 0.4;
+	BounceCount 2;
+	+inventory.tossed
+	WallBounceFactor 0.4;
+	+bounceonfloors
+	+bounceonwalls
+	 +cannotpush
+	 +THRUACTORS
+	 +ROLLSPRITE
+	+ROLLCENTER
+	+touchy
+	+missile
+        }
+    int currentmag;
+	int droppedammo;
+    int store;
+	 
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+			let currentmag = owner.FindInventory("plasmaAmmo",true);
+            droppedammo = currentmag.Amount; 
+            
+            }
+            store = droppedammo; 
+            if(store < 0) store = 0;
+				
+            Super.DetachFromOwner();
+			}
+
+Override bool TryPickup(in out Actor toucher)
+         {
+        Super.TryPickup(toucher);
+          
+             if (!(toucher.countinv("DROPPingmag"))){
+                        toucher.GiveInventory("ammocell",store);
+                        if (toucher.countinv("DROPPEDplasmamag") > 1) { toucher.TakeInventory("DROPPEDplasmamag",999);}
+                        return true;
+                        }
+          
+            return true;
+        } 
+		
+    States
+    {
+    Spawn:
+		CELL B 0;
+		CELL BBB 1 ThrustThing(angle*256/360+90,2,0,0);
+	Flying:
+        CELL B 1 a_setroll(roll+15);
+		loop;
+     Death:
+		TNT1 A 0 A_JUMP(127, "Death2");
+        CELL B 120 a_setroll(90);
+        CELL B 0 { bThruactors = false;}
+        CELL B -1;
+        stop;
+	Death2:
+	    CELL B 120 a_setroll(-90);
+        CELL B 0 { bThruactors = false;}
+        CELL B -1;
+        stop;
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////// PLASMA LANCE
+
+Class DROPPEDLancemag : Inventory
+{
+    Default
+        {
+	Scale 0.25;
+	speed 1;
+	Radius 10;
+	Height 10;
+	Inventory.Icon "CELLA0";
+	Inventory.PickupMessage "$GOTCELL";
+	Inventory.Pickupsound "CELLGET";
+	inventory.amount 1;
+	inventory.maxamount 2;
+		BounceSound "mbounce1";
+	DeathSound "smolmag";
+	 tag"partially depleted energy cell";
+	 gravity 1.0;
+	 BounceFactor 0.4;
+	BounceCount 2;
+	+inventory.tossed
+	WallBounceFactor 0.4;
+	+bounceonfloors
+	+bounceonwalls
+	 +cannotpush
+	 +THRUACTORS
+	 +ROLLSPRITE
+	+ROLLCENTER
+	+touchy
+	+missile
+        }
+    int currentmag;
+	int droppedammo;
+    int store;
+	 
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+			let currentmag = owner.FindInventory("PlasmaLanceAmmo",true);
+            droppedammo = currentmag.Amount; 
+            
+            }
+            store = droppedammo; 
+            if(store < 0) store = 0;
+				
+            Super.DetachFromOwner();
+			}
+
+Override bool TryPickup(in out Actor toucher)
+         {
+        Super.TryPickup(toucher);
+          
+             if (!(toucher.countinv("DROPPingmag"))){
+                        toucher.GiveInventory("ammocell",store);
+                        if (toucher.countinv("DROPPEDlancemag") > 1) { toucher.TakeInventory("DROPPEDlancemag",999);}
+                        return true;
+                        }
+          
+            return true;
+        } 
+		
+    States
+    {
+    Spawn:
+		CELL B 0;
+		CELL BBB 1 ThrustThing(angle*256/360+90,2,0,0);
+	Flying:
+        CELL B 1 a_setroll(roll+15);
+		loop;
+     Death:
+		TNT1 A 0 A_JUMP(127, "Death2");
+        CELL B 120 a_setroll(90);
+        CELL B 0 { bThruactors = false;}
+        CELL B -1;
+        stop;
+	Death2:
+	    CELL B 120 a_setroll(-90);
+        CELL B 0 { bThruactors = false;}
+        CELL B -1;
+        stop;
+	}
+}

@@ -1,0 +1,450 @@
+#library "WEAPONTAKERACS"
+#include "zcommon.acs"
+
+script "WEAPONTAKER" ENTER
+ {
+   str equiploss = "weapontaker";
+   str pistolstart = "pistolstart";
+   
+ 
+   if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 || GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 3)
+   {
+   
+		if (GetCvar("Equiplossmode") == 3)
+			{
+			delay(1);	
+			GIVEINVENTORY(pistolstart,1);
+			delay(1);
+			}				
+			
+		Else
+			{
+			delay(1);	
+			GIVEINVENTORY(equiploss,1);
+			delay(1);
+			}
+   } 
+ }
+ 
+ script "KILLREWARD" ENTER
+{
+DELAY(35*1);
+while(true)
+  {
+      int mtotal = GetLevelInfo (LEVELINFO_TOTAL_MONSTERS),
+           mkilled = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+		   
+    if (mtotal >= 5 && mkilled == mtotal && GetCVar("rewardcrate")==true && (GameType () != GAME_TITLE_MAP))
+    {
+		SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, TRUE);
+		ACS_NamedTerminate("rupture",0);
+		ACS_namedexecute("POISONCURE",0);
+		giveinventory("choosingreward",1);
+		delay(35*2);
+		SetHudSize(640, 480, true);
+		setweapon("Blankweapon");
+		
+		while(CHECKINVENTORY("choosingreward"))
+		{
+		setfont("bigfont");
+		HudMessage(s:"Everything's dead, and you don't hear anything else prowling around. You can now rest up or try and find some extra gear before heading out." ; HUDMSG_plain,402, CR_white, 320.0, 40.0, 0.2);
+		
+			If(CHECKINVENTORY("restchecked"))
+			{HudMessage(s:"Resting" ; HUDMSG_plain,403, CR_SAPPHIRE, 320.0, 370.0, 0.1);
+			setfont("smallfont");
+			HudMessage(s:"It will restore the whole stamina bar, plus a decent chunk of health." ; HUDMSG_plain,404, CR_white, 320.0, 390.0, 0.1);}
+			
+			else If(CHECKINVENTORY("militarychecked"))
+			{HudMessage(s:"Military Equipment" ; HUDMSG_plain,403, CR_SAPPHIRE, 320.0, 370.0, 0.1);
+			setfont("smallfont");
+			HudMessage(s:"You will search for ammunitions, armor, and if you're lucky you could even find a weapon!" ; HUDMSG_plain,404, CR_white, 320.0, 390.0, 0.1);}
+			
+			else If(CHECKINVENTORY("medicalchecked"))
+			{HudMessage(s:"Medical Supplies" ; HUDMSG_plain,403, CR_SAPPHIRE, 320.0, 370.0, 0.1);
+			setfont("smallfont");
+			HudMessage(s:"You will search for portable means of healing like bandages, syringes and medical backpacks." ; HUDMSG_plain,404, CR_white, 320.0, 390.0, 0.1);}
+			
+			else If(CHECKINVENTORY("craftchecked"))
+			{HudMessage(s:"Crafting Materials" ; HUDMSG_plain,403, CR_SAPPHIRE, 320.0, 370.0, 0.1);
+			setfont("smallfont");
+			HudMessage(s:"Any kind of crafting materials, including chemicals, monster parts or even power cells for the recombiner." ; HUDMSG_plain,404, CR_white, 320.0, 390.0, 0.1);}
+			
+			else If(CHECKINVENTORY("Surprisechecked"))
+			{HudMessage(s:"Surprise" ; HUDMSG_plain,403, CR_SAPPHIRE, 320.0, 370.0, 0.1);
+			setfont("smallfont");
+			HudMessage(s:"Feeling lucky today?" ; HUDMSG_plain,404, CR_white, 320.0, 390.0, 0.1);}		
+		delay(1);
+		}
+		delay(1);
+		terminate;
+	 }
+   delay(1);
+  }
+}
+
+ script "RESTINGREWARD" (void)
+{
+		SetHudSize(640, 480, true);
+		setfont("FADEBL");
+		HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA ,199, CR_UNTRANSLATED, 320.0, 240.0, 5.0, 2.0, 2.0, 1.0);
+		DELAY(35);
+		PLAYSOUND(0,"RSUP",1);
+		DELAY(35);
+		PLAYSOUND(0,"BANDAGE1",1);
+		DELAY(35*4);
+		HEALTHING(30);
+		TAKEINVENTORY("USEDSTAMINA",4000);
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		setfont("BIGfont");
+		HudMessage(s:"YOU FEEL WELL RESTED" ; HUDMSG_plain,404, CR_white, 320.0, 250.0, 2.0);
+		DELAY(30);	
+		terminate;
+}
+
+///MILITARY
+
+ script "militaryREWARD" (void)
+{
+		int mtotal = GetLevelInfo (LEVELINFO_TOTAL_MONSTERS);
+				
+		SetHudSize(640, 480, true);
+		setfont("FADEBL");
+		HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA ,199, CR_UNTRANSLATED, 320.0, 240.0, 5.0, 2.0, 2.0, 1.0);
+		DELAY(35);
+		PLAYSOUND(0,"SCAVENGE",1);
+		DELAY(35*5);
+		int playerangle = Getactorangle(0)>> 8;
+		
+		if (mtotal > 200)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"LMILBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}
+		
+		else if (mtotal > 100 && mtotal <= 200)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"MMILBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}
+		
+		else if (mtotal > 50 && mtotal <= 100)
+		{
+			Switch(random(1,2))
+			{
+			CASE 1:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"MMILBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			
+			CASE 2:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"SMILBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			}
+		}
+		
+		else if (mtotal >= 30 && mtotal <= 50)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"SMILBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}	
+		Else
+		{
+			Switch(random(1,2))
+			{
+			CASE 1:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"SMILBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			
+			CASE 2:
+			log(s:"You couldn't find anything interesting...");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			}
+		}		
+}	
+
+///MEDICAL
+ script "medicalREWARD" (void)
+{
+		int mtotal = GetLevelInfo (LEVELINFO_TOTAL_MONSTERS);
+				
+		SetHudSize(640, 480, true);
+		setfont("FADEBL");
+		HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA ,199, CR_UNTRANSLATED, 320.0, 240.0, 5.0, 2.0, 2.0, 1.0);
+		DELAY(35);
+		PLAYSOUND(0,"SCAVENGE",1);
+		DELAY(35*5);
+		int playerangle = Getactorangle(0)>> 8;
+		
+		if (mtotal > 200)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"LMEDBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}
+		
+		else if (mtotal > 100 && mtotal <= 200)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"MMEDBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}
+		
+		else if (mtotal > 50 && mtotal <= 100)
+		{
+			Switch(random(1,2))
+			{
+			CASE 1:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"SMEDBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			
+			CASE 2:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"MMEDBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			}
+		}
+		
+		else if (mtotal >= 30 && mtotal <= 50)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"SMEDBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}	
+		Else
+		{
+			Switch(random(1,2))
+			{
+			CASE 1:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"SMEDBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			
+			CASE 2:
+			log(s:"You couldn't find anything interesting...");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			}
+		}		
+}	
+
+///CRAFTING MATERIALS
+ script "CRAFTREWARD" (void)
+{
+		int mtotal = GetLevelInfo (LEVELINFO_TOTAL_MONSTERS);
+				
+		SetHudSize(640, 480, true);
+		setfont("FADEBL");
+		HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA ,199, CR_UNTRANSLATED, 320.0, 240.0, 5.0, 2.0, 2.0, 1.0);
+		DELAY(35);
+		PLAYSOUND(0,"SCAVENGE",1);
+		DELAY(35*5);
+		int playerangle = Getactorangle(0)>> 8;
+		
+		if (mtotal > 200)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"LMATSBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}
+		
+		else if (mtotal > 100 && mtotal <= 200)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"MMATSBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}
+		
+		else if (mtotal > 50 && mtotal <= 100)
+		{
+			Switch(random(1,2))
+			{
+			CASE 1:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"MMATSBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			
+			CASE 2:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"SMATSBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			}
+		}
+		
+		else if (mtotal >= 30 && mtotal <= 50)
+		{
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"SMATSBAGspawner",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}	
+		Else
+		{
+			Switch(random(1,2))
+			{
+			CASE 1:
+			PLAYSOUND(0,"ZIPPER2",1);
+			spawnprojectile(0,"SMATSBAGspawner",playerangle,10,10,0.5,0);
+			log(s:"You found something!");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			
+			CASE 2:
+			log(s:"You couldn't find anything interesting...");
+			DELAY(35*2);		
+			SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+			SetActorProperty(0, APROP_Invulnerable, FALSE);
+			DELAY(30);	
+			terminate;
+			}
+		}		
+}	
+
+///SURPRISE
+ script "SURPRISEREWARD" (void)
+{
+		int mtotal = GetLevelInfo (LEVELINFO_TOTAL_MONSTERS);
+				
+		SetHudSize(640, 480, true);
+		setfont("FADEBL");
+		HudMessage(s:"A"; HUDMSG_FADEINOUT | HUDMSG_ALPHA ,199, CR_UNTRANSLATED, 320.0, 240.0, 5.0, 2.0, 2.0, 1.0);
+		DELAY(35);
+		PLAYSOUND(0,"SCAVENGE",1);
+		DELAY(35*5);
+		int playerangle = Getactorangle(0)>> 8;
+		
+		Switch(random(1,6))
+		{
+		CASE 1:
+		CASE 2:
+		CASE 3:
+		CASE 4:
+		CASE 5:
+		PLAYSOUND(0,"ZIPPER2",1);
+		spawnprojectile(0,"SURPRISEdufflebag",playerangle,10,10,0.5,0);
+		log(s:"You found something!");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		
+		CASE 6:
+		log(s:"You couldn't find anything... better luck next time.");
+		DELAY(35*2);		
+		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+		SetActorProperty(0, APROP_Invulnerable, FALSE);
+		DELAY(30);	
+		terminate;
+		}
+}	
+
+
+/// TURRET AMMO TAKER 
+script "TURRETAMMOTAKER" (void)
+{
+setactivator(0,AAPTR_PLAYER1);
+takeinventory("sentryturretammo",1);
+}

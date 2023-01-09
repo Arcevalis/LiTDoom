@@ -1,0 +1,3031 @@
+#library "WEAPONSCRIPTS"
+#include "zcommon.acs"
+
+script "QUICKPISTOLNEW" (void)
+ {
+					if (CheckInventory("BrutalPistol"))
+					{
+					Takeinventory("Zoomed",1);							
+					Takeinventory("ADSmode",1);
+					TakeInventory("TossGrenade", 1);
+					TakeInventory("Kicking",1);
+					TakeInventory("Taunting",1);
+					TakeInventory("Reloading",1);
+					TakeInventory("Unloading",1);
+					TakeInventory("Salute1", 1);
+					TakeInventory("Salute2", 1);
+					Takeinventory("RifleSelected",1);
+					Takeinventory("StartDualWield",1);
+					Giveinventory("GoSpecial",1);
+					Takeinventory("FistsSelected",1);
+					Takeinventory("SawSelected",1);
+					Takeinventory("ShotgunSelected",1);
+					Takeinventory("SSGSelected",1);
+					Takeinventory("MinigunSelected",1);
+					Takeinventory("PlasmaGunSelected",1);
+					Takeinventory("RocketLauncherSelected",1);
+					Takeinventory("GrenadeLauncherSelected",1);
+					Takeinventory("BFGSelected",1);
+					Takeinventory("bfg11kSelected",1);
+					Takeinventory("RailGunSelected",1);
+					Takeinventory("SubMachineGunSelected",1);
+					Takeinventory("RevenantLauncherSelected",1);
+					Takeinventory("LostSoulSelected",1);
+					Takeinventory("FlameCannonSelected",1);
+					Takeinventory("HasBarrel",1);
+					TakeInventory("TossGrenade", 1);
+					TakeInventory("IsRunning", 1);
+					delay(1);
+					setweapon("BrutalPistol");
+					delay(1);
+					terminate;
+		
+		}
+}
+
+script "SELECTCRAFT" (void)
+ {
+	if (CheckInventory("craftdropper"))
+	{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("craftdropper");
+		delay(1);
+		terminate;
+		
+		}
+}
+
+script "QUICKFLARE" (void)
+ {
+ giveinventory("flaretoken",1);
+ delay(1);
+ terminate;
+ }
+		
+script "FAVORITEWEAPON" (void)
+{ //0
+int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+
+	If (buttons & BT_crouch && buttons & BT_user1)
+	{ // 1
+	str weapon = GetWeapon();
+		If(StrIcmp(weapon, "hellfirevial") == 0 || StrIcmp(weapon, "acidmistvial") == 0 | StrIcmp(weapon, "proxbomb") == 0 | StrIcmp(weapon, "handgrenades") == 0 | StrIcmp(weapon, "clustergrenades") == 0)
+		{	// 2
+	
+		takeinventory("grenadefavorite",1);
+		takeinventory("hellfirefavorite",1);
+		takeinventory("acidmistfavorite",1);
+		takeinventory("minesfavorite",1);
+		takeinventory("clusterfavorite",1);
+		delay(1);
+	
+				If (StrIcmp(weapon, "hellfirevial") == 0)
+				{
+				GiveInventory("hellfirefavorite", 1);
+				Log(s:"HELLFIRE vials assigned to the quick-throw slot");
+				}
+				
+				Else if (StrIcmp(weapon, "acidmistvial") == 0)
+				{
+				GiveInventory("acidmistfavorite", 1);
+				Log(s:"ACID MIST vials assigned to the quick-throw slot");
+				}
+				
+				Else if (StrIcmp(weapon, "proxbomb") == 0)
+				{
+				GiveInventory("minesfavorite", 1);
+				Log(s:"PROXIMITY BOMBS assigned to the quick-throw slot");
+				}
+				
+				Else if (StrIcmp(weapon, "handgrenades") == 0)
+				{
+				GiveInventory("grenadefavorite", 1);
+				Log(s:"HAND GRENADES assigned to the quick-throw slot");
+				}
+				
+				Else if (StrIcmp(weapon, "clustergrenades") == 0)
+				{
+				GiveInventory("clusterfavorite", 1);
+				Log(s:"CLUSTER GRENADES assigned to the quick-throw slot");
+				}
+		} //2
+		
+		
+		Else
+		{ //3
+		takeinventory("LITriflefavorite",1);
+		takeinventory("favorite",1);
+		takeinventory("smgfavorite",1);
+		takeinventory("revolverfavorite",1);
+		takeinventory("shotgunfavorite",1);
+		takeinventory("ssgfavorite",1);
+		takeinventory("ashotgunfavorite",1);
+		takeinventory("riflefavorite",1);
+		takeinventory("m60favorite",1);
+		takeinventory("minigunfavorite",1);
+		takeinventory("rocketfavorite",1);
+		takeinventory("glfavorite",1);
+		takeinventory("plasmafavorite",1);
+		takeinventory("railgunfavorite",1);
+		takeinventory("bfg9kfavorite",1);
+		takeinventory("bfg11kfavorite",1);
+		takeinventory("flamefavorite",1);
+		takeinventory("flame2favorite",1);
+		takeinventory("brutalaxefavorite",1);
+		takeinventory("knifefavorite",1);
+		takeinventory("sawfavorite",1);
+		takeinventory("revenantfavorite",1);
+		takeinventory("dsfavorite",1);
+		takeinventory("unmakerfavorite",1);
+		takeinventory("mp40favorite",1);
+		DELAY(3);;
+	  
+	  
+	  
+				//PISTOL
+				If(StrIcmp(weapon, "BrutalPistol") == 0)
+				{
+				Log(s:"There's already a keybind to quickly switch to the pistol, use that instead!");
+				}
+  
+  				//LITRIFLE
+				Else If(StrIcmp(weapon, "LITrifle") == 0)
+				{
+				GiveInventory("LitRiflefavorite", 1);
+				Log(s:"The Combat Rifle is now your favorite weapon.");
+				}
+  
+				//SMG
+				Else If(StrIcmp(weapon, "BrutalSMG") == 0)
+				{
+				GiveInventory("SMGfavorite", 1);
+				Log(s:"The Submachinegun is now your favorite weapon.");
+				}
+
+				//REVOLVER
+				Else If(StrIcmp(weapon, "Revolver") == 0)
+				{
+				GiveInventory("Revolverfavorite", 1);
+				Log(s:"The Revolver is now your favorite weapon.");
+				}
+
+				//SHOTGUN
+				Else If(StrIcmp(weapon, "Shot_gun") == 0)
+				{
+				GiveInventory("shotgunfavorite", 1);
+				Log(s:"The Pump Shotgun is now your favorite weapon.");
+				}
+ 
+				//SAWED-OFF  
+				Else If(StrIcmp(weapon, "SSG") == 0)
+				{
+				GiveInventory("SSGfavorite" ,1);
+				Log(s:"The Akrafena Shotgun is now your favorite weapon.");
+				}
+
+				//AUTOSHOTGUN
+				Else If(StrIcmp(weapon, "AssaultShotgun") == 0)
+				{
+				GiveInventory("AShotgunfavorite", 1);
+				Log(s:"The Assault Shotgun is now your favorite weapon.");
+				}
+
+				//MMG
+				Else If(StrIcmp(weapon, "Machinegun") == 0)
+				{
+				GiveInventory("m60favorite", 1);
+				Log(s:"The Machinegun is now your favorite weapon.");
+				}
+  
+				//MINIGUN
+				Else If(StrIcmp(weapon, "Minigun") == 0)
+				{
+				GiveInventory("minigunfavorite", 1);
+				Log(s:"The Minigun is now your favorite weapon.");
+				}
+
+				//ROCKET LAUNCHER
+				Else If(StrIcmp(weapon, "Rocket_Launcher") == 0)
+				{
+				GiveInventory("rocketfavorite", 1);
+				Log(s:"The Rocket Launcher is now your favorite weapon.");
+				}
+
+				//GRENADE LAUNCHER
+				Else If(StrIcmp(weapon, "GrenadeLauncher") == 0)
+				{
+				GiveInventory("GLfavorite", 1);
+				Log(s:"The Grenade Launcher is now your favorite weapon.");
+				}
+  
+				//PLASMA GUN
+				Else If(StrIcmp(weapon, "Plasma_gun") == 0)
+				{
+				GiveInventory("Plasmafavorite", 1);
+				Log(s:"The Plasma Rifle is now your favorite weapon.");
+				}
+  
+				//RAILGUN
+				Else If(StrIcmp(weapon, "Plasmalance") == 0)
+				{
+				GiveInventory("railgunfavorite", 1);
+				Log(s:"The Plasma Lance is now your favorite weapon.");
+				}
+
+				//BFG 11000
+				Else If(StrIcmp(weapon, "BFG11k") == 0)
+				{
+				GiveInventory("bfg11kfavorite", 1);
+				Log(s:"The BFG is now your favorite weapon.");
+				}
+
+				//FLAMECANNON
+				Else If(StrIcmp(weapon, "Flamecannon") == 0)
+				{
+				GiveInventory("flamefavorite", 1);
+				Log(s:"The Flame Cannon is now your favorite weapon.");
+				}
+  
+				//FLAMETHROWER
+				Else If(StrIcmp(weapon, "Flamethrower2") == 0)
+				{
+				GiveInventory("Flame2favorite", 1);
+				Log(s:"The Flamethrower is now your favorite weapon.");
+				}
+  
+				//REVENANT MISSILES
+				Else If(StrIcmp(weapon, "hellishmissilelauncher") == 0)
+				{
+				GiveInventory("revenantfavorite", 1);
+				Log(s:"The Hellish Missile Launcher is now your favorite weapon.");
+				}
+  
+				//AXE
+				Else If(StrIcmp(weapon, "BrutalAxe") == 0)
+				{
+				GiveInventory("Axefavorite", 1);
+				Log(s:"The Axe is now your favorite weapon.");
+				}
+  
+				// KNIFE
+				Else If(StrIcmp(weapon, "kNIFE") == 0)
+				{
+				GiveInventory("KnifeFavorite", 1);
+				Log(s:"The Knife is now your favorite weapon.");
+				}
+				
+				//CHAINSAW
+				Else If(StrIcmp(weapon, "Chain_Saw") == 0)
+				{
+				GiveInventory("sawfavorite", 1);
+				Log(s:"The Chainsaw is now your favorite weapon.");
+				}
+
+				//UNMAKER
+				Else If(StrIcmp(weapon, "Unmaker") == 0)
+				{
+				GiveInventory("Unmakerfavorite", 1);
+				Log(s:"The Unmaker is now your favorite weapon.");
+				}
+
+				//DRAGONSLAYER
+				Else If(StrIcmp(weapon, "DSweap2") == 0)
+				{
+				GiveInventory("DSfavorite", 1);
+				Log(s:"The Dragonslayer sword is now your favorite weapon.");
+				}
+  
+				Else Print(s:"You can't set this as a favorite weapon. Favorite weapon reset.");
+		} //3
+	} //1
+
+Else
+{
+ACS_Namedexecute("Switchfavorite",0);
+delay(1);
+}
+}
+
+
+script "SWITCHFAVORITE" (void)
+ {	
+ 
+ //SMG
+		if (CheckInventory("smgfavorite") && CheckInventory("Brutalsmg") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("BFG11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("BrutalSMG");
+		delay(1);
+		}
+		
+//REVOLVER
+		else if (CheckInventory("revolverfavorite") && CheckInventory("revolver") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("revolver");
+		delay(1);
+  }
+  
+ //LITRIFLE
+  		else if (CheckInventory("LitRiflefavorite") && CheckInventory("LitRifle") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("LitRifle");
+		delay(1);
+  }
+
+//SHOTGUN
+		else if (CheckInventory("shotgunfavorite") && CheckInventory("Shot_gun") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("shot_gun");
+		delay(1);
+  }
+  
+//SAWED-OFF  
+		else if (CheckInventory("ssgfavorite") && CheckInventory("ssg") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("ssg");
+		delay(1);
+  }
+
+//AUTOSHOTGUN
+		else if (CheckInventory("ashotgunfavorite") && CheckInventory("AssaultShotgun") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("AssaultShotgun");
+		delay(1);
+  }
+  
+//HMG
+		else if (CheckInventory("m60favorite") && CheckInventory("machinegun") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("machinegun");
+		delay(1);
+  }
+  
+//MINIGUN
+		else if (CheckInventory("minigunfavorite") && CheckInventory("minigun") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("minigun");
+		delay(1);
+  }
+
+//ROCKET LAUNCHER
+		else if (CheckInventory("rocketfavorite") && CheckInventory("rocket_launcher") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("rocket_launcher");
+		delay(1);
+  }
+
+//GRENADE LAUNCHER
+		else if (CheckInventory("GLfavorite") && CheckInventory("grenadelauncher") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("grenadelauncher");
+		delay(1);
+  }
+  
+//PLASMA GUN
+		else if (CheckInventory("plasmafavorite") && CheckInventory("Plasma_gun") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("Plasma_gun");
+		delay(1);
+  }
+  
+//RAILGUN
+		else if (CheckInventory("railgunfavorite") && CheckInventory("plasmalance") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("plasmalance");
+		delay(1);
+  }
+  
+
+//BFG 10000
+		else if (CheckInventory("bfg11kfavorite") && CheckInventory("bfg11k") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("bfg11k");
+		delay(1);
+  }
+
+//FLAMECANNON
+		else if (CheckInventory("FLAMEfavorite") && CheckInventory("Flamecannon") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("Flamecannon");
+		delay(1);
+  }
+  
+//FLAMETHROWER
+		else if (CheckInventory("Flame2favorite") && CheckInventory("Flamethrower2") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("Flamethrower2");
+		delay(1);
+  }
+  
+//REVENANT MISSILES
+		else if (CheckInventory("revenantfavorite") && CheckInventory("hellishmissilelauncher") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("hellishmissilelauncher");
+		delay(1);
+  }
+  
+//AXE
+		else if (CheckInventory("axefavorite") && CheckInventory("Brutalaxe") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("Brutalaxe");
+		delay(1);
+  }
+  
+ // KNIFE
+  		else if (CheckInventory("knifefavorite") && CheckInventory("knivesammo") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("knife");
+		delay(1);
+  }
+  
+  
+//CHAINSAW
+		else if (CheckInventory("sawfavorite") && CheckInventory("chain_saw") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("chain_saw");
+		delay(1);
+  }
+
+//UNMAKER
+		else if (CheckInventory("unmakerfavorite") && CheckInventory("Unmaker") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("Unmaker");
+		delay(1);
+  }
+
+//MINES
+		else if (CheckInventory("minesfavorite") && CheckInventory("proxbomb") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("proxbomb");
+		delay(1);
+  }
+
+//DRAGONSLAYER
+		else if (CheckInventory("dsfavorite") && CheckInventory("dsweap2") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("SubMachineGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
+        setweapon("dsweap2");
+		delay(1);
+  }
+
+
+  Else Print(s:"Favorite weapon not assigned or lost. Press the button while \cA CROUCHING \cF to assign a new weapon!");
+}
+
+
+////REAL RELOAD
+
+Script "REALISTICRELOAD" ENTER
+{
+while (TRUE)
+  {
+	IF(GetCvar("realreload") == 0)
+	{
+	giveinventory("realreloadOFF",1);
+	delay(1);
+	}
+	
+	Else
+	{
+	takeinventory("realreloadOFF",1);
+	delay(1);
+	}
+	delay(1);
+  }
+  }
+ 
+ 
+ //// MOUNTED MACHINEGUN SPEED CHANGE
+  
+ script "HMGSPEED1" (void)
+{ 
+IF (checkinventory("UsedStamina") < 70 && GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0 || GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 1)
+{
+ACS_NamedTerminate("Fatigue",0);
+setactorproperty(0,APROP_Speed,0.1);
+delay(1);
+}
+
+Else IF (checkinventory("UsedStamina") < 1400 && GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2)
+{
+ACS_Namedterminate("Fatigue",0);
+setactorproperty(0,APROP_Speed,0.1);
+delay(1);
+}
+
+Else
+{
+ACS_NamedTerminate("Fatigue",0);
+SetPlayerProperty(false, ON, PROP_TOTALLYFROZEN);
+delay(1);
+}
+}
+
+
+script "HMGSPEED0" (void)
+{SetPlayerProperty(false, ON, PROP_TOTALLYFROZEN);
+DELAY(3);;
+SetPlayerProperty(false, OFF, PROP_TOTALLYFROZEN);
+ACS_Namedexecute("Fatigue",0);
+}
+
+
+/// QUICK KNIFE
+
+Script "QUICKKNIFE" (void)
+{
+ IF (Checkinventory("KnivesAmmo") >= 1)
+ {
+ giveinventory("slashtoken",1);
+ delay(1);
+ terminate;
+ }
+ 
+ Else
+ {
+ Print(s:"No knives left");
+  delay(1);
+ terminate;
+ }
+}
+
+Script "QUICKTHROW" (void)
+{
+ IF (Checkinventory("KnivesAmmo") >= 1)
+ {
+ giveinventory("throwtoken",1);
+ delay(35);
+ terminate;
+ }
+ 
+  Else
+  {
+ Print(s:"No knives left");
+  delay(1);
+ terminate;
+ }
+}
+
+Script "PICKFLARE" (void)
+{
+	SetActivator(0, AAPTR_PLAYER1);
+	giveinventory("LitflarePickup",1);
+
+	IF (Checkinventory("pistolselected") >= 1)
+		{
+		delay(1);
+		giveinventory("startdualwield",1);
+		setweapon("NewFlare");
+		}
+
+	Else	
+		{
+		setweapon("NewFlare");
+		}
+	
+	delay(40);
+	takeinventory("LitflarePickup",1);
+	terminate;
+}
+
+
+
+///// AMMO CAPACITY
+script "EmptyBackpack" (void)
+{		
+	if (GetAmmoCapacity("Clip2") < 300)
+		{
+			SetAmmoCapacity("Clip1", 400);
+			SetAmmoCapacity("Mauser9mm", 400);
+			SetAmmoCapacity("50ammo", 50);
+			SetAmmoCapacity("Clip2", 300);
+			SetAmmoCapacity("Minigunammo", 500);
+			SetAmmoCapacity("AmmoShell", 60);
+			SetAmmoCapacity("AmmoSlug", 50);
+			SetAmmoCapacity("AmmoRocket", 10);
+			SetAmmoCapacity("Nuke", 2);
+			SetAmmoCapacity("gasAMMO", 60);
+			SetAmmoCapacity("ammoCell", 600);
+			SetAmmoCapacity("grenadeammo", 30);
+			SetAmmoCapacity("clusterammo", 15);
+			SetAmmoCapacity("proxbombAMMO", 12);
+			SetAmmoCapacity("hellfireammo", 12);
+			SetAmmoCapacity("acidmistammo", 12);
+			SetAmmoCapacity("knivesammo", 10);
+			SetAmmoCapacity("Flare", 40);
+			delay(1);
+			terminate;
+		}
+		
+		Else
+		delay(1);
+		terminate;
+}
+
+
+//// CYCLE EXPLOSIVE QUICK SLOT
+script "CYCLEEXPLOSIVES" (void)
+{
+If(checkinventory("grenadefavorite"))
+		{
+		
+		If(checkinventory("clusterammo"))
+		{takeinventory("grenadefavorite",1);
+		giveinventory("clusterfavorite",1);}
+		
+		else If(checkinventory("MiniHellRocketAmmo") && checkinventory("revenantdurability"))
+		{takeinventory("grenadefavorite",1);
+		giveinventory("quickrevenantfavorite",1);}
+		
+		else If(checkinventory("acidmistammo"))
+		{takeinventory("grenadefavorite",1);
+		giveinventory("acidmistfavorite",1);}
+		
+		Else if(checkinventory("hellfireammo"))
+		{takeinventory("grenadefavorite",1);
+		giveinventory("hellfirefavorite",1);}
+		
+		Else if(checkinventory("flare"))
+		{takeinventory("grenadefavorite",1);
+		giveinventory("flarefavorite",1);}
+		
+		Else if(checkinventory("knivesammo"))
+		{takeinventory("grenadefavorite",1);
+		giveinventory("quickknifefavorite",1);}
+		
+		Else if(checkinventory("proxbombAMMO"))
+		{takeinventory("grenadefavorite",1);
+		giveinventory("minesfavorite",1);}
+		}
+		
+Else If(checkinventory("clusterfavorite"))
+		{
+		If(checkinventory("MiniHellRocketAmmo") && checkinventory("revenantdurability"))
+		{takeinventory("clusterfavorite",1);
+		giveinventory("quickrevenantfavorite",1);}
+		
+		else If(checkinventory("acidmistammo"))
+		{takeinventory("clusterfavorite",1);
+		giveinventory("acidmistfavorite",1);}
+		
+		Else if(checkinventory("hellfireammo"))
+		{takeinventory("clusterfavorite",1);
+		giveinventory("hellfirefavorite",1);}
+		
+		Else if(checkinventory("flare"))
+		{takeinventory("clusterfavorite",1);
+		giveinventory("flarefavorite",1);}
+		
+		Else if(checkinventory("knivesammo"))
+		{takeinventory("clusterfavorite",1);
+		giveinventory("quickknifefavorite",1);}
+		
+		Else if(checkinventory("proxbombAMMO"))
+		{takeinventory("clusterfavorite",1);
+		giveinventory("minesfavorite",1);}
+
+		Else if(checkinventory("grenadeammo"))
+		{takeinventory("clusterfavorite",1);
+		giveinventory("minesfavorite",1);}
+		}
+		
+Else If(checkinventory("quickrevenantfavorite"))
+		{
+	
+		If(checkinventory("acidmistammo"))
+		{takeinventory("quickrevenantfavorite",1);
+		giveinventory("acidmistfavorite",1);}
+		
+		Else if(checkinventory("hellfireammo"))
+		{takeinventory("quickrevenantfavorite",1);
+		giveinventory("hellfirefavorite",1);}
+		
+		Else if(checkinventory("flare"))
+		{takeinventory("quickrevenantfavorite",1);
+		giveinventory("flarefavorite",1);}
+		
+		Else if(checkinventory("knivesammo"))
+		{takeinventory("quickrevenantfavorite",1);
+		giveinventory("quickknifefavorite",1);}
+		
+		Else if(checkinventory("proxbombAMMO"))
+		{takeinventory("quickrevenantfavorite",1);
+		giveinventory("minesfavorite",1);}
+
+		Else if(checkinventory("grenadeammo"))
+		{takeinventory("quickrevenantfavorite",1);
+		giveinventory("minesfavorite",1);}
+		
+		else If(checkinventory("clusterammo"))
+		{takeinventory("quickrevenantfavorite",1);
+		giveinventory("clusterfavorite",1);}
+		}		
+		
+Else if(checkinventory("acidmistfavorite"))
+		{
+		if(checkinventory("hellfireammo"))
+		{takeinventory("acidmistfavorite",1);
+		giveinventory("hellfirefavorite",1);}
+		
+		Else if(checkinventory("flare"))
+		{takeinventory("acidmistfavorite",1);
+		giveinventory("flarefavorite",1);}
+		
+		Else if(checkinventory("knivesammo"))
+		{takeinventory("acidmistfavorite",1);
+		giveinventory("quickknifefavorite",1);}
+		
+		Else if(checkinventory("proxbombAMMO"))
+		{takeinventory("acidmistfavorite",1);
+		giveinventory("minesfavorite",1);}
+		
+		Else if(checkinventory("grenadeammo"))
+		{takeinventory("acidmistfavorite",1);
+		giveinventory("grenadefavorite",1);}
+		
+		else If(checkinventory("clusterammo"))
+		{takeinventory("acidmistfavorite",1);
+		giveinventory("clusterfavorite",1);}
+		
+		else If(checkinventory("MiniHellRocketAmmo") && checkinventory("revenantdurability"))
+		{takeinventory("acidmistfavorite",1);
+		giveinventory("quickrevenantfavorite",1);}
+		}
+		
+Else if(checkinventory("hellfirefavorite"))
+		{
+		if(checkinventory("flare"))
+		{takeinventory("hellfirefavorite",1);
+		giveinventory("flarefavorite",1);}
+		
+		Else if(checkinventory("knivesammo"))
+		{takeinventory("hellfirefavorite",1);
+		giveinventory("quickknifefavorite",1);}
+		
+		else if(checkinventory("proxbombAMMO"))
+		{takeinventory("hellfirefavorite",1);
+		giveinventory("minesfavorite",1);}
+		
+		Else if(checkinventory("grenadeammo"))
+		{takeinventory("hellfirefavorite",1);
+		giveinventory("grenadefavorite",1);}
+		
+		else If(checkinventory("clusterammo"))
+		{takeinventory("hellfirefavorite",1);
+		giveinventory("clusterfavorite",1);}
+		
+		else If(checkinventory("MiniHellRocketAmmo") && checkinventory("revenantdurability"))
+		{takeinventory("hellfirefavorite",1);
+		giveinventory("quickrevenantfavorite",1);}
+		
+		Else if(checkinventory("acidmistammo"))
+		{takeinventory("hellfirefavorite",1);
+		giveinventory("acidmistfavorite",1);}
+		}
+		
+Else if(checkinventory("minesfavorite"))
+		{
+		
+		if(checkinventory("grenadeammo"))
+		{takeinventory("minesfavorite",1);
+		giveinventory("grenadefavorite",1);}
+		
+		else If(checkinventory("clusterammo"))
+		{takeinventory("minesfavorite",1);
+		giveinventory("clusterfavorite",1);}
+		
+		else If(checkinventory("MiniHellRocketAmmo") && checkinventory("revenantdurability"))
+		{takeinventory("minesfavorite",1);
+		giveinventory("quickrevenantfavorite",1);}
+		
+		Else if(checkinventory("acidmistammo"))
+		{takeinventory("minesfavorite",1);
+		giveinventory("acidmistfavorite",1);}
+		
+		Else if(checkinventory("hellfireammo"))
+		{takeinventory("minesfavorite",1);
+		giveinventory("hellfirefavorite",1);}
+		
+		Else if(checkinventory("flare"))
+		{takeinventory("minesfavorite",1);
+		giveinventory("flarefavorite",1);}
+		
+		Else if(checkinventory("knivesammo"))
+		{takeinventory("minesfavorite",1);
+		giveinventory("quickknifefavorite",1);}
+		}
+
+Else if(checkinventory("flarefavorite"))
+		{
+		If(checkinventory("knivesammo"))
+		{takeinventory("flarefavorite",1);
+		giveinventory("quickknifefavorite",1);}
+		
+		else if(checkinventory("proxbombAMMO"))
+		{takeinventory("flarefavorite",1);
+		giveinventory("minesfavorite",1);}
+		
+		else if(checkinventory("grenadeammo"))
+		{takeinventory("flarefavorite",1);
+		giveinventory("grenadefavorite",1);}
+		
+		else If(checkinventory("clusterammo"))
+		{takeinventory("flarefavorite",1);
+		giveinventory("clusterfavorite",1);}
+		
+		else If(checkinventory("MiniHellRocketAmmo") && checkinventory("revenantdurability"))
+		{takeinventory("flarefavorite",1);
+		giveinventory("quickrevenantfavorite",1);}
+		
+		Else if(checkinventory("acidmistammo"))
+		{takeinventory("flarefavorite",1);
+		giveinventory("acidmistfavorite",1);}
+		
+		Else if(checkinventory("hellfireammo"))
+		{takeinventory("flarefavorite",1);
+		giveinventory("hellfirefavorite",1);}
+		
+		}
+		
+Else if(checkinventory("quickknifefavorite"))
+		{
+		if(checkinventory("proxbombAMMO"))
+		{takeinventory("quickknifefavorite",1);
+		giveinventory("minesfavorite",1);}
+		
+		else if(checkinventory("grenadeammo"))
+		{takeinventory("quickknifefavorite",1);
+		giveinventory("grenadefavorite",1);}
+		
+		else If(checkinventory("clusterammo"))
+		{takeinventory("quickknifefavorite",1);
+		giveinventory("clusterfavorite",1);}
+		
+		else If(checkinventory("MiniHellRocketAmmo") && checkinventory("revenantdurability"))
+		{takeinventory("quickknifefavorite",1);
+		giveinventory("quickrevenantfavorite",1);}
+		
+		Else if(checkinventory("acidmistammo"))
+		{takeinventory("quickknifefavorite",1);
+		giveinventory("acidmistfavorite",1);}
+		
+		Else if(checkinventory("hellfireammo"))
+		{takeinventory("quickknifefavorite",1);
+		giveinventory("hellfirefavorite",1);}
+		
+		Else if(checkinventory("flare"))
+		{takeinventory("quickknifefavorite",1);
+		giveinventory("flarefavorite",1);}
+		}
+}
+	
+	
+Script "WEAPONSELECT" (VOID)
+{
+str weapon = GetWeapon();
+
+		If(StrIcmp(weapon, "Blankweapon") == 0 )
+		{
+		Giveinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		/// FISTS
+		Else If(StrIcmp(weapon, "melee_ATTACKS") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Giveinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		
+		/// KNIFE
+		ELSE If(StrIcmp(weapon, "kNIFE") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		GIVEinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		//CHAINSAW
+		ELSE If(StrIcmp(weapon, "CHAIN_SAW") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		GIVEinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		//PISTOL
+		ELSE If(StrIcmp(weapon, "BRUTALPISTOL") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		GIVEinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		//SMG
+		ELSE If(StrIcmp(weapon, "BRUTALSMG") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		GIVEinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		//REVOLVER
+		ELSE If(StrIcmp(weapon, "REVOLVER") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		GIVEinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		///SHOTGUN
+		ELSE If(StrIcmp(weapon, "SHOT_GUN") == 0 || STRICMP(WEAPON, "SLUGSHOTGUN") == 0)
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		GIVEinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		
+		/// SSG
+		ELSE If(StrIcmp(weapon, "SSG") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		GIVEinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		///ASG
+		ELSE If(StrIcmp(weapon, "ASSAULTSHOTGUN") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		GIVEinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		//RIFLE
+		ELSE If(StrIcmp(weapon, "LITRIFLE") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		GIVEinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		/// LMG
+		ELSE If(StrIcmp(weapon, "MACHINEGUN") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		GIVEinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		/// MINIGUN	
+		ELSE If(StrIcmp(weapon, "MINIGUN") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		GIVEinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		// ROCKET
+		ELSE If(StrIcmp(weapon, "ROCKET_LAUNCHER") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		GIVEinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		/// GRENADE LAUNCHER
+		ELSE If(StrIcmp(weapon, "GRENADELAUNCHER") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		GIVEinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		//REVENANT LAUNCHER
+		ELSE If(StrIcmp(weapon, "HELLISHMISSILELAUNCHER") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		GIVEinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		/// PLASMA
+		ELSE If(StrIcmp(weapon, "PLASMA_GUN") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		GIVEinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		/// RAILGUN 
+		ELSE If(StrIcmp(weapon, "plasmalance") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		GIVEinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		
+		///BFG 10K
+		ELSE If(StrIcmp(weapon, "BFG11K") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		GIVEinventory("BFG11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		/// FLAMECANNON
+		ELSE If(StrIcmp(weapon, "FLAMECANNON") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		GIVEinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		///FLAMETHROWER
+		ELSE If(StrIcmp(weapon, "FLAMETHROWER2") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		GIVEinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		takeinventory("PROXBOMBSelected",1);
+		}
+		
+		///PROXBOMBS
+		ELSE If(StrIcmp(weapon, "PROXBOMB") == 0 )
+		{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+			
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("HasBarrel",1);
+		GIVEinventory("PROXBOMBSelected",1);
+		}
+DELAY(1);
+}
+
+SCRIPT "WEAPONDESELECT" (VOID)
+{
+		Takeinventory("blankselected",1);
+		
+		Takeinventory("FistsSelected",1);
+		Takeinventory("KnifeSelected",1);
+		Takeinventory("SawSelected",1);
+		
+		Takeinventory("PistolSelected",1);
+		Takeinventory("SubmachinegunSelected",1);
+		Takeinventory("RevolverSelected",1);
+		
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("ASGSelected",1);
+		
+		Takeinventory("RIFLESelected",1);
+		Takeinventory("LMGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("bfg11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("FlameTHROWERSelected",1);
+		takeinventory("PROXBOMBSelected",1);
+}
+
+ Script "DURABILITYTOGGLE" ENTER
+ {
+	IF(GetCvar("Firearmsdurability") == 1)
+	{
+	takeinventory("firearmsdurabilityOFF",1);
+	giveinventory("firearmsdurabilityON",1);
+	terminate;
+	}
+	
+	Else
+	{
+	giveinventory("firearmsdurabilityOFF",1);
+	takeinventory("firearmsdurabilityON",1);
+	terminate;
+	}
+}
+
+
+Script "REPAIRWEAPONFULL" (void)
+{
+int i;
+str weapon = GetWeapon();		
+				//PISTOL
+				If(StrIcmp(weapon, "BrutalPistol") == 0)
+				{
+					If(Checkinventory("pistoldurability") == 200)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{				
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+					for (i=0;i<10;i++)
+						{	
+						giveinventory("PISTOLdurability",20);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+					
+  				//LITRIFLE
+				Else If(StrIcmp(weapon, "LITrifle") == 0)
+				{
+				If(Checkinventory("rifledurability") == 250)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+					for (i=0;i<10;i++)
+						{	
+						giveinventory("RIFLEdurability",25);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");				
+					}}
+			
+				//SMG
+				Else If(StrIcmp(weapon, "BrutalSMG") == 0)
+				{
+				If(Checkinventory("smgdurability") == 300)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+					for (i=0;i<10;i++)
+						{	
+						giveinventory("SMGdurability",30);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+
+				//REVOLVER
+				Else If(StrIcmp(weapon, "Revolver") == 0)
+				{
+				If(Checkinventory("revolverdurability") == 100)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);			
+					for (i=0;i<10;i++)
+						{	
+						giveinventory("REVOLVERdurability",10);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+
+				//SHOTGUN
+				Else If(StrIcmp(weapon, "Shot_gun") == 0 || StrIcmp(weapon, "slugshotgun") == 0)
+				{
+				If(Checkinventory("shotgundurability") == 100)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("shotgundurability",10);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");					
+					}}
+
+				//SAWED-OFF  
+				Else If(StrIcmp(weapon, "SSG") == 0)
+				{
+					delay(1);
+					print(s:"You won't be able to repair it this way.");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+				}
+
+				//AUTOSHOTGUN
+				Else If(StrIcmp(weapon, "AssaultShotgun") == 0)
+				{
+				If(Checkinventory("asgdurability") == 100)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("ASGdurability",10);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+  
+				//HMG
+				Else If(StrIcmp(weapon, "Machinegun") == 0)
+				{
+				If(Checkinventory("lmgdurability") == 300)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);					
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("LMGdurability",30);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+  
+				//MINIGUN
+				Else If(StrIcmp(weapon, "Minigun") == 0)
+				{
+				If(Checkinventory("minigundurability") == 600)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);					
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("MINIGUNdurability",60);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+
+				//ROCKET LAUNCHER
+				Else If(StrIcmp(weapon, "Rocket_Launcher") == 0)
+				{
+				If(Checkinventory("rldurability") == 50)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);					
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("RLdurability",5);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+
+				//GRENADE LAUNCHER
+				Else If(StrIcmp(weapon, "GrenadeLauncher") == 0)
+				{
+				If(Checkinventory("gldurability") == 50)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("GLdurability",15);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+  
+				//PLASMA GUN
+				Else If(StrIcmp(weapon, "Plasma_gun") == 0)
+				{
+				If(Checkinventory("plasmadurability") == 200)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);					
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("PLASMAdurability",20);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+  
+				//RAILGUN
+				Else If(StrIcmp(weapon, "Plasmalance") == 0 )
+				{
+				If(Checkinventory("railgundurability") == 300)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("RAILGUNdurability",50);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+
+				//BFG 11000
+				Else If(StrIcmp(weapon, "BFG11k") == 0)
+				{
+				If(Checkinventory("bfg11kdurability") == 600)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("BFG11Kdurability",600);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+
+				//FLAMECANNON
+				Else If(StrIcmp(weapon, "Flamecannon") == 0)
+				{
+				If(Checkinventory("napalmdurability") == 100)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);			
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("NAPALMdurability",10);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+  
+				//FLAMETHROWER
+				Else If(StrIcmp(weapon, "Flamethrower2") == 0)
+				{
+				If(Checkinventory("flamedurability") == 300)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("FLAMEdurability",30);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+  
+				//REVENANT MISSILES
+				Else If(StrIcmp(weapon, "hellishmissilelauncher") == 0)
+				{
+				If(Checkinventory("revenantdurability") == 60)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);				
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("REVENANTdurability",6);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+  
+				//AXE
+				Else If(StrIcmp(weapon, "BrutalAxe") == 0)
+				{
+				If(Checkinventory("axedurability") == 100)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);					
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("AXEdurability",10);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+  
+				// KNIFE
+				Else If(StrIcmp(weapon, "kNIFE") == 0)
+				{
+				If(Checkinventory("knifedurability") == 40)
+					{
+					delay(1);
+					print(l:"PERFCONDITION");
+					giveinventory("repairdevice",1);
+					TERMINATE;
+					}
+					ELSE
+					{
+					giveinventory("REPAIRTOKEN",1);
+					delay(90);
+					SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);					
+						for (i=0;i<10;i++)
+						{	
+						giveinventory("KNIFEdurability",2);
+						DELAY(3);
+						}
+					SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+					print(l:"REPAIRED");
+					}}
+				
+			Else
+			{
+			delay(1);
+			print(l:"CANTREPAIR");
+			giveinventory("repairdevice",1);
+			TERMINATE;
+			}
+	} 
+	
+Script "PLASMATEMPERATURE" (void)
+{	
+DELAY(1);
+        if (Checkinventory("PLASMATEMPERATURE") >= 400)
+        { DELAY(5);
+		PLAYSOUND(0,"PLSBOOP",0);
+		RESTART; }
+		
+		ELSE if (Checkinventory("PLASMATEMPERATURE") >= 250)
+        { DELAY(15);
+		PLAYSOUND(0,"PLSBOOP",0);
+		RESTART; }
+		
+		ELSE if (Checkinventory("PLASMATEMPERATURE") >= 150)
+        { DELAY(30);
+		PLAYSOUND(0,"PLSBOOP",0);
+		RESTART; }
+		
+		ELSE IF (Checkinventory("PLASMATEMPERATURE") < 150)
+        { DELAY(10);
+		RESTART; }
+}
+
+script "PLAYERDISARMED" (void)
+{ 
+	str selectedweapon = GetWeapon();
+	setweapon("Melee_attacks");
+	delay(1);
+	takeinventory(selectedweapon,1);
+	int playerangle = Getactorangle(0)>> 8;
+	spawnprojectile(0,selectedweapon,playerangle,60,20,0.5,0);
+}
+
+script "BROKENDISARM" (void)
+{ 
+	str selectedweapon = GetWeapon();
+	giveinventory("weaponbroke",1);
+	setweapon("Melee_attacks");
+	delay(1);
+	takeinventory(selectedweapon,1);
+	delay(1);
+	takeinventory("weaponbroke",1);
+}
+
+script "ELECTRODISARM" (void)
+{ 
+	str selectedweapon = GetWeapon();
+	delay(1);
+	int playerangle = Getactorangle(0)>> 8;
+	spawnprojectile(0,selectedweapon,playerangle,60,20,0.5,0);
+	DELAY(91);
+	setweapon("Melee_attacks");
+	delay(1);
+	takeinventory(selectedweapon,1);
+}
+
+script "PARRYDISARM" (void)
+{ 
+	str selectedweapon = GetWeapon();
+	delay(1);
+	int playerangle = Getactorangle(0)>> 8;
+	spawnprojectile(0,selectedweapon,playerangle,60,20,0.5,0);
+	DELAY(56);
+	setweapon("Melee_attacks");
+	delay(1);
+	takeinventory(selectedweapon,1);
+}
+
+script "AxeAfterThrow" (void)
+{ 
+	setweapon("Melee_attacks");
+	delay(1);
+	takeinventory("BrutalAxe",1);
+}
+
+script "BodyAfterThrow" (void)
+{ 
+delay(2); 
+setweapon("BrutalPistol"); 
+	delay(1);
+	takeinventory("ZmanShield",1);
+	takeinventory("SguyShield",1);
+	takeinventory("ImpShield",1);
+	takeinventory("CguyShield",1);
+	takeinventory("NaziShield",1);
+	takeinventory("EvilMarineShield",1);
+	takeinventory("ZombieCivilianShield",1);
+}
+
+Script "ASGaccumulatingGas" (void)
+{	
+DELAY(1);
+        if (Checkinventory("accumulatinggas") >= 150)
+        { DELAY(5);
+		playsound(0,"SSTEAM",2,0.5);
+		takeinventory("accumulatinggas",150);
+		giveinventory("gascharges",1);
+		RESTART; }
+		
+		ELSE
+		RESTART; 
+}

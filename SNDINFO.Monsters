@@ -1,0 +1,288 @@
+IMPCHAR1 IMPCHAR1
+IMPCHAR2 IMPCHAR2
+IMPCHAR3 IMPCHAR3
+
+IMPSHOT1 IMPSHOT1
+IMPSHOT2 IMPSHOT2
+
+IMP/ATTACK IMPBALL1
+
+$random imp/shotx { IMPSHOT1 IMPSHOT2 }
+$random baron/shotx { IMPSHOT1 IMPSHOT2 }
+$random IMPCHARG { IMPCHAR1 IMPCHAR2 IMPCHAR3 }
+$random baron/attack { IMPCHAR1 IMPCHAR2 IMPCHAR3 }
+
+//Imp
+$random imp/melee { imp/melee1 imp/melee2 imp/melee3 imp/melee4 } 
+imp/melee1	IMPCLAW1
+imp/melee2	IMPCLAW2
+imp/melee3	IMPCLAW3
+imp/melee4	IMPCLAW4
+
+$random imp/pain		{ imp/pain1 }
+imp/pain1                       pain_te1
+
+$random imp/sight		{ imp/sight1  imp/sight2 imp/sight3 imp/sight4 }
+imp/sight1			imp_sig1
+imp/sight2			imp_sig2
+imp/sight3                      imp_sig3
+
+
+$random imp/death               { imp/death1 imp/death2 imp/death3 imp/death4 }
+imp/death1			imp_dea1
+imp/death2			imp_dea2
+imp/death3                      imp_dea3
+imp/death4                      imp_dea4
+
+$random imp/active		{ imp/active1 imp/active2 imp/active3 }
+imp/active1                     breath_1
+imp/active2                     breath_2
+imp/active3                     breath_3
+
+//ARCHVILE
+
+$random vile/sight { vile/sight1	vile/sight2	vile/sight3 vile/sight4	vile/sight5	vile/sight6	}
+
+vile/sight1	vilesee1
+vile/sight2	vilesee2
+vile/sight3	vilesee3
+vile/sight4	vilesee4
+vile/sight5	vilesee5
+vile/sight6	vilesee6
+
+$random vile/pain { vile/pain1 vile/pain2 vile/pain3 vile/pain4 }
+
+vile/pain1	vilpain1
+vile/pain2	vilpain2
+vile/pain3	vilpain3
+vile/pain4	vilpain4
+
+$random vile/death { vile/death1 vile/death2 vile/death3 vile/death4 }
+
+vile/death1	viledie1
+vile/death2	viledie2
+vile/death3	viledie3
+vile/death4	viledie4
+
+$random vile/active		{ vile/active1 vile/active2 vile/active3 }
+vile/active1                    breath1
+vile/active2                    breath2
+vile/active3                    breath3
+
+// Demon
+$random demon/sight		{ demon/sight1 demon/sight2 demon/sight3 }
+demon/sight1			pinkse1
+demon/sight2			pinkse2
+demon/sight3			pinkse3
+
+$random demon/active		{ demon/active1 demon/active2 demon/active3 demon/active4 }
+demon/active1			pinkidl1
+demon/active2			pinkidl2
+demon/active3			pinkidl3
+demon/active4          pinkidl4
+
+$random demon/pain	{ demon/pain1 }
+demon/pain1	 pinkpai
+
+$random demon/melee	{ demon/melee1 }
+demon/melee1   pinkme1
+
+$random demon/death		{ demon/death1 demon/death2 demon/death3 }
+demon/death1			pinkdea1
+demon/death2			pinkdea2
+demon/death3          pinkdea3
+
+
+// Cacodemon
+$random caco/sight		{ caco/sight1 caco/sight2 caco/sight3 caco/sight4 }
+caco/sight1                     caco_si1
+caco/sight2                     caco_si2
+caco/sight3                     caco_si3
+caco/sight4                     caco_si4
+$random caco/active		{ caco/active1 caco/active2 caco/active3 caco/active4 caco/active5 caco/active6 }
+caco/active1                    caco_ch1
+caco/active2                    caco_ch2
+caco/active3                    caco_ch3
+caco/active4                    caco_ch4
+caco/active5                    caco_ch5
+caco/active6                    caco_ch6
+$random caco/pain		{ caco/pain1 caco/pain2 caco/pain3 caco/pain4 caco/pain5 }
+caco/pain1                      caco_pa1
+caco/pain2                      caco_pa2
+caco/pain3                      caco_pa3
+caco/pain4                      caco_pa4
+caco/pain5                      caco_pa5
+$random caco/death		{ caco/death1 caco/death2 caco/death3 caco/death4 caco/death5 caco/death6 }
+caco/death1                     caco_de1
+caco/death2                     caco_de2
+caco/death3                     caco_de3
+caco/death4                     caco_de5
+caco/death5                     caco_de4
+caco/death6                     caco_de6
+$random caco/attack		{ caco/attack1 caco/attack2 caco/attack3 caco/attack4 }
+caco/attack1                     fire_01
+caco/attack2                     fire_02
+caco/attack3                     fire_03
+caco/attack4                     fire_04
+$random caco/shotx		{ caco/shotx1 caco/shotx2 caco/shotx3 }
+caco/shotx1                      pimpact1
+caco/shotx2                      pimpact2
+caco/shotx3                      pimpact3
+
+// Baron of Hell
+
+$random baron/sight		{ baron/sight1 baron/sight2 baron/sight3 baron/sight4 baron/sight5 baron/sight6 }
+baron/sight1                    sight1_1
+baron/sight2                    sight1_2
+baron/sight3                    sight2_1
+baron/sight4                    sight2_2
+baron/sight5                    sight3_1
+baron/sight6                    sight3_2
+$random baron/active		{ baron/active1 baron/active2 baron/active3 }
+baron/active1                   baronid6
+baron/active2                   baronid5
+baron/active3                   baronid4
+$random baron/pain		{ baron/pain1 baron/pain2 baron/pain3 baron/pain4 baron/pain5 baron/pain6 }
+baron/pain1                     ncc_01
+baron/pain2                     ncc_01
+baron/pain3                     ncc_01
+baron/pain4                     baronid1
+baron/pain5                     baronid2
+baron/pain6                     baronid3
+$random baron/melee		{ baron/melee1 baron/melee2 baron/melee3 }
+baron/melee1                    chomp1
+baron/melee2                    chomp2
+baron/melee3                    chomp3
+$random baron/death             { baron/death1 baron/death2 baron/death3 }
+baron/death                     die1
+baron/death                     die2
+baron/death			die3
+//baron/attack			baronfir
+
+// Hellknight
+
+$random knight/sight		{ knight/sight1 knight/sight2 knight/sight3 knight/sight4 knight/sight5 knight/sight6 }
+knight/sight1                    sight1_1
+knight/sight2                    sight1_2
+knight/sight3                    sight2_1
+knight/sight4                    sight2_2
+knight/sight5                    sight3_1
+knight/sight6                    sight3_2
+$random knight/active		{ knight/active1 knight/active2 knight/active3 }
+knight/active1                   baronid6
+knight/active2                   baronid5
+knight/active3                   baronid4
+$random knight/pain		{ knight/pain1 knight/pain2 knight/pain3 knight/pain4 knight/pain5 knight/pain6 }
+knight/pain1                     ncc_01
+knight/pain2                     ncc_01
+knight/pain3                     ncc_01
+knight/pain4                     baronid1
+knight/pain5                     baronid2
+knight/pain6                     baronid3
+$random knight/melee		{ knight/melee1 knight/melee2 knight/melee3 }
+knight/melee1                    chomp1
+knight/melee2                    chomp2
+knight/melee3                    chomp3
+$random knight/death             { knight/death1 knight/death2 knight/death3 }
+knight/death                     die1
+knight/death                     die2
+knight/death			die3
+knight/attack			baronfir
+
+
+// Lost Soul
+
+$random skull/active		{ skull/active1 skull/active2 skull/active3 }
+skull/active1                   chatter1
+skull/active2                   chatter2
+skull/active3                   chatter3 
+$random skull/pain	        { skull/pain1 skull/pain2 }
+skull/pain1                     pain_01
+skull/pain2                     pain_02
+$random skull/melee		{ skull/melee1 skull/melee2 }
+skull/melee1                    attack1
+skull/melee2                    attack2
+$random skull/death		{ skull/death1 skull/death2 skull/death3 skull/death4 }
+skull/death1                    death_01
+skull/death2                    death_02
+skull/death3                    death_03
+skull/death4                    death_04
+
+// Revenant
+
+$random skeleton/sight		{ skeleton/sight1 skeleton/sight2 skeleton/sight3 skeleton/sight4 skeleton/sight5 }
+skeleton/sight1                 revsee1
+skeleton/sight2                 revsee2
+skeleton/sight3                 revsee3
+skeleton/sight4                 revsee4
+skeleton/sight5                 revsee5
+$random skeleton/active		{ skeleton/active1 skeleton/active2 skeleton/active3 skeleton/active4 skeleton/active5 skeleton/active6 skeleton/active7 }
+skeleton/active1                revidle1
+skeleton/active2                revidle2 
+skeleton/active3                revidle3 
+skeleton/active4                revidle4 
+skeleton/active5                revidle5 
+skeleton/active6                revidle6 
+skeleton/active7                revidle7 
+$random skeleton/pain		{ skeleton/pain1 skeleton/pain2 skeleton/pain3 }
+skeleton/pain1                  revouch1
+skeleton/pain2                  revouch2
+skeleton/pain3                  revouch3 
+skeleton/melee			dsskepch
+skeleton/swing			melee1
+$random skeleton/death		{ skeleton/death1 skeleton/death2 skeleton/death3 }
+skeleton/death1                 revdie1 
+skeleton/death2                 revdie2
+skeleton/death3                 revdie3 
+skeleton/attack			dsskeatk
+skeleton/tracex			dsbarexp
+
+// Fatso
+
+$random fatso/sight		{ fatso/sight1 fatso/sight2 fatso/sight3 fatso/sight4 }
+fatso/sight1                    mancsee1
+fatso/sight2                    mancsee1
+fatso/sight3                    mancsee1
+fatso/sight4                    mancsee1
+$random fatso/active		{ fatso/active1 fatso/active2 fatso/active3 fatso/active4 fatso/active5 fatso/active6 }
+fatso/active1                   mancidl1
+fatso/active2                   mancidl1
+fatso/active3                   mancidl1
+fatso/active4                   mancidl1
+fatso/active5                   mancidl1
+fatso/active6                   mancidl1
+$random fatso/pain		{ fatso/pain1 fatso/pain2 fatso/pain3 fatso/pain4 }
+fatso/pain1                     pain5
+fatso/pain2                     pain6
+fatso/pain3                     pain7
+fatso/pain4                     pain8
+fatso/raiseguns			ft_02
+$random fatso/death		{ fatso/death1 fatso/death2 fatso/death3 }
+fatso/death1                    mancdie1
+fatso/death2                    mancdie2
+fatso/death3                    mancdie3
+fatso/attack			ft_04
+fatso/shotx			dsfirxpl
+
+// Cyber Demon
+
+$random cyber/sight		{ cyber/sight1 cyber/sight2 cyber/sight3 }
+cyber/sight1                    dscybsit
+cyber/sight2                    cybsee2
+cyber/sight3                    cybsee3
+$random cyber/active		{ cyber/active1 cyber/active2 cyber/active3 cyber/active4 }
+cyber/active1                   cybidle1
+cyber/active2                   cybidle2
+cyber/active3                   cybidle3
+cyber/active4                   cybidle4
+$random cyber/pain		{ cyber/pain1 cyber/pain2 cyber/pain3 cyber/pain4 }
+cyber/pain1                     cybpain1
+cyber/pain2                     cybpain2
+cyber/pain3                     cybpain3
+cyber/pain4                     cybpain4
+cyber/death			dscybdth
+$random cyber/hoof              { cyber/hoof1 cyber/hoof2 cyber/hoof3 cyber/hoof4 }
+cyber/hoof1                     cybhoof1
+cyber/hoof2                     cybhoof2
+cyber/hoof3                     cybhoof3
+cyber/hoof4                     cybhoof4

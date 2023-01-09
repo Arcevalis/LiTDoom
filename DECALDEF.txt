@@ -1,0 +1,347 @@
+decal SawVertical
+{
+	pic SawVert
+	shade "00 00 00"
+	x-scale 0.2
+	y-scale 2.0
+	randomflipy
+	randomflipx
+}
+
+decal SawHorizontal
+{
+	pic SawHori
+	shade "00 00 00"
+	x-scale 2.0
+	y-scale 0.2
+	randomflipy
+	randomflipx
+}
+
+decal Crack1
+{
+	pic BFGLITE1
+	shade "00 00 00"
+	randomflipy
+	randomflipx
+}
+
+decal Crack2
+{
+	pic BFGLITE2
+	shade "00 00 00"
+	randomflipy
+	randomflipx
+}
+
+decal BFGScorch3
+{
+	pic BFGSCRC1
+	shade "00 00 00"
+	randomflipx
+	randomflipy
+	x-scale 0.4
+	y-scale 0.4
+}
+
+decal BFGScorch4
+{
+	pic BFGSCRC2
+	shade "00 00 00"
+	randomflipx
+	randomflipy
+	x-scale 0.4
+	y-scale 0.4
+}
+
+decalgroup BFGScorchSMALL
+{
+	BFGScorch3	1
+	BFGScorch4	1
+}
+
+decal BFGLightningSMALL
+{
+	pic BFGLITE1
+	shade "80 ff 80"
+	fullbright
+	randomflipx
+	x-scale 0.5
+	y-scale 0.5
+	animator GoAway2
+	lowerdecal BFGScorchSMALL
+}
+
+decalgroup Crack
+{
+	Crack1	1
+	Crack2	1
+}
+
+decal Scorchbase
+{
+	pic Scorch1
+	x-scale 0.7
+	y-scale 0.7
+	randomflipx
+	randomflipy
+}
+
+decal GiantScorchbase
+{
+	pic SCORCH1
+	x-scale 4.0
+	y-scale 4.0
+	randomflipx
+	randomflipy
+}
+
+decal FlamethrowerScorch
+{
+	pic SCORCH75
+	shade "00 00 00"
+	x-scale 1.75
+	y-scale 1.75
+	randomflipx
+	randomflipy
+}
+
+decal SkullScorch1 
+{ 
+   pic PLASMA1 
+   shade "00 00 00" 
+   x-scale 0.6 
+   y-scale 0.6 
+   randomflipx 
+   randomflipy 
+} 
+
+decal SkullScorch2 
+{ 
+   pic PLASMA2 
+   shade "00 00 00" 
+   x-scale 0.6 
+   y-scale 0.6 
+   randomflipx 
+   randomflipy 
+} 
+
+decalgroup SkullScorch 
+{ 
+   SkullScorch1   1 
+   SkullScorch2   1 
+} 
+
+decal BigScorchbase
+{
+	pic SCORCH1
+	x-scale 1.0
+	y-scale 1.0
+	randomflipx
+	randomflipy
+}
+
+decal BiggerScorchbase
+{
+	pic SCORCH1
+	x-scale 2.0
+	y-scale 2.0
+	randomflipx
+	randomflipy
+}
+
+decal FireworxScorch
+{
+	pic SCORCH1
+	x-scale 1.1
+	y-scale 1.1
+	randomflipx
+	randomflipy
+}
+
+decal SmallerScorchbase
+{
+	pic SCORCH1
+	x-scale 0.2
+	y-scale 0.2
+	randomflipx
+	randomflipy
+}
+
+decal tinyScorch
+{
+	pic SCORCH1
+	x-scale 0.08
+	y-scale 0.08
+	randomflipx
+	randomflipy
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////								//////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////// 		LITDOOM		//////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////								//////////////////////////////////////////////////////////////////////////////////////////////////
+
+fader GlowAway
+{
+	DecayStart	5.0
+	DecayTime	3.0
+}
+
+//////////// ORANGE SCORCH
+
+decal Scorch
+{
+	pic ScorchOR
+	fullbright
+	x-scale 0.7
+	y-scale 0.7
+	animator GlowAway
+	lowerdecal ScorchBase
+}
+
+decal bigScorch
+{
+	pic ScorchOR
+	fullbright
+	x-scale 1.0
+	y-scale 1.0
+	animator GlowAway
+	lowerdecal bigScorchBase
+}
+
+decal biggerScorch
+{
+	pic ScorchOR
+	fullbright
+	x-scale 1.5
+	y-scale 1.5
+	animator GlowAway
+	lowerdecal biggerScorchBase
+}
+
+decal GiantScorch
+{
+	pic ScorchOR
+	fullbright
+	x-scale 3.0
+	y-scale 3.0
+	animator GlowAway
+	lowerdecal giantScorchBase
+}
+
+decal smallerScorch
+{
+	pic ScorchOR
+	fullbright
+	x-scale 0.3
+	y-scale 0.3
+	animator GlowAway
+	lowerdecal smallerScorchBase
+}
+
+decal smallburn
+{
+	pic ScorchOR
+	fullbright
+	x-scale 0.1
+	y-scale 0.1
+	animator GlowAway
+	lowerdecal tinyscorch
+}
+
+///// BLUE SCORCH
+decal smallPLASMAScorch
+{
+	pic ScorchBL
+	fullbright
+	x-scale 0.2
+	y-scale 0.2
+	animator GlowAway
+	lowerdecal smallerScorchBase
+}
+
+decal PLASMAScorch
+{
+	pic ScorchBL
+	fullbright
+	x-scale 0.5
+	y-scale 0.5
+	animator GlowAway
+	lowerdecal ScorchBase
+}
+
+///// GREEN SCORCH
+decal acidspurt
+{
+	pic ScorchGR
+	fullbright
+	x-scale 0.1
+	y-scale 0.1
+	animator GlowAway
+}
+
+decal acidscorchsmall
+{
+	pic ScorchGR
+	fullbright
+	x-scale 0.2
+	y-scale 0.2
+	animator GlowAway
+	lowerdecal smallerscorchbase
+}
+
+decal acidscorch
+{
+	pic ScorchGR
+	fullbright
+	x-scale 0.5
+	y-scale 0.5
+	animator GlowAway
+	lowerdecal scorchbase
+}
+
+///claws and cuts
+decal CLAWMARKS
+{
+	pic CLAWMARK
+	x-scale 0.16
+	y-scale 0.25
+	translucent 0.47
+	randomflipx
+	randomflipy
+}
+
+decal horizontalcut
+{
+	pic cuthori
+	x-scale 0.8
+	y-scale 0.1
+	translucent 0.3
+}
+
+decal verticalcut
+{
+	pic cutvert
+	x-scale 0.1
+	y-scale 0.8
+	translucent 0.3
+}
+
+decal bonkdecal
+{
+	pic bonkmark
+	x-scale 0.2
+	y-scale 0.2
+	translucent 0.7
+}
+
+decal GASDECAL
+{
+	pic bonkmark
+	x-scale 0.5
+	y-scale 0.5
+	translucent 0.7
+}
+
+// monsterexpansion
+Generator SuperDemonBall		BigScorch

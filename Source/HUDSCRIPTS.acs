@@ -1,0 +1,470 @@
+#library "HUDSCRIPTS"
+#include "zcommon.acs"
+
+script "KILLSTAT" ENTER
+{
+   SetHudSize(GetScreenWidth(),GetScreenHeight(),0);
+   int wid = GetScreenWidth() * 1.0;
+   SetFont("BIGFONT");
+while (TRUE)
+  {
+	IF(GetCvar("hudkills") == 1 && (GameType () != GAME_TITLE_MAP))
+	{
+      HudMessage(s:"KILLS:";HUDMSG_PLAIN | HUDMSG_COLORSTRING,996,"cyan",(wid-125.0)+0.2,5.1,0.0);
+      HudMessage(i:GetLevelInfo(LEVELINFO_KILLED_MONSTERS);HUDMSG_PLAIN,997,CR_UNTRANSLATED,(wid-80.0)+0.2,5.1,0.0);
+      HudMessage(s:"/";HUDMSG_PLAIN | HUDMSG_COLORSTRING,998,"cyan",(wid-55.0)+0.2,5.1,0.0);
+      HudMessage(i:GetLevelInfo(LEVELINFO_TOTAL_MONSTERS);HUDMSG_PLAIN,999,CR_UNTRANSLATED,(wid-10.0)+0.2,5.1,0.0);
+	DELAY(1);
+	}
+	
+	Else
+	{
+	HudMessage(s:""; 0, 996, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 997, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 998, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 999, 0, 0, 0, 0);
+	delay(1);
+	}
+	delay(1);
+  }
+  }
+  
+  
+ script "ITEMSTAT" ENTER
+{
+SetHudSize(GetScreenWidth(),GetScreenHeight(),0);
+int wid = GetScreenWidth() * 1.0;
+SetFont("BIGFONT");
+while (TRUE)
+  {
+	IF(GetCvar("hudITEMS") == 1 && (GameType () != GAME_TITLE_MAP))
+	{
+	  HudMessage(s:"ITEMS:";HUDMSG_PLAIN | HUDMSG_COLORSTRING,1000,"cyan",(wid-125.0)+0.2,75.1,0.0);
+      HudMessage(i:GetLevelInfo(LEVELINFO_FOUND_ITEMS);HUDMSG_PLAIN,1001,CR_UNTRANSLATED,(wid-80.0)+0.2,75.1,0.0);
+      HudMessage(s:"/";HUDMSG_PLAIN | HUDMSG_COLORSTRING,1002,"cyan",(wid-55.0)+0.2,75.1,0.0);
+      HudMessage(i:GetLevelInfo(LEVELINFO_TOTAL_ITEMS);HUDMSG_PLAIN,1003,CR_UNTRANSLATED,(wid-10.0)+0.2,75.1,0.0);
+	delay(1);
+	}
+	
+	Else
+	{
+	HudMessage(s:""; 0, 1000, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 1001, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 1002, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 1003, 0, 0, 0, 0);
+	delay(1);
+	}
+	delay(1);
+  }
+  }
+  
+script "SECRETSTAT" ENTER
+{
+SetHudSize(GetScreenWidth(),GetScreenHeight(),0);
+int wid = GetScreenWidth() * 1.0;
+SetFont("BIGFONT");
+while (TRUE)
+  {
+	IF(GetCvar("hudsecrets") == 1 && (GameType () != GAME_TITLE_MAP))
+	{
+	  HudMessage(s:"SECRETS:";HUDMSG_PLAIN | HUDMSG_COLORSTRING,992,"cyan",(wid-125.0)+0.2,40.1,0.0);
+      HudMessage(i:GetLevelInfo(LEVELINFO_FOUND_SECRETS);HUDMSG_PLAIN,993,CR_UNTRANSLATED,(wid-80.0)+0.2,40.1,0.0);
+      HudMessage(s:"/";HUDMSG_PLAIN | HUDMSG_COLORSTRING,994,"cyan",(wid-55.0)+0.2,40.1,0.0);
+      HudMessage(i:GetLevelInfo(LEVELINFO_TOTAL_SECRETS);HUDMSG_PLAIN,995,CR_UNTRANSLATED,(wid-10.0)+0.2,40.1,0.0);
+	delay(1);
+	}
+	
+	Else
+	{
+	HudMessage(s:""; 0, 992, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 993, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 994, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 995, 0, 0, 0, 0);
+	delay(1);
+	}
+	delay(1);
+  }
+  }
+  
+  
+Script "MINHUDARMOR" Enter     //Minimal HUD  Armor Icons
+{
+    While(TRUE)
+    {
+			int armorsave = GetArmorInfo(ARMORINFO_SAVEPERCENT);
+			
+			If(armorsave >= 0.2 && armorsave < 0.4)   // uniform armor
+			{	
+				takeinventory("hasmediumarmor",1);
+				takeinventory("hasheavyarmor",1);
+				takeinventory("hasplatearmor",1);
+				takeinventory("haslightarmor",1);
+				giveinventory("HasUniformArmor",1);
+            }
+			
+            Else if(armorsave >= 0.4 && armorsave < 0.6)   // light armor
+            {	
+				takeinventory("hasuniformarmor",1);
+				takeinventory("hasmediumarmor",1);
+				takeinventory("hasheavyarmor",1);
+				takeinventory("hasplatearmor",1);
+				giveinventory("haslightarmor",1);
+            }
+            Else If(armorsave >= 0.6 && armorsave < 0.8) // medium armor
+            {
+				takeinventory("hasuniformarmor",1);
+				takeinventory("hasplatearmor",1);
+				takeinventory("haslightarmor",1);	
+				takeinventory("hasheavyarmor",1);
+				giveinventory("hasmediumarmor",1);
+            }
+            Else If(armorsave >= 0.8 && armorsave < 0.9) //heavy armor
+            {
+				takeinventory("hasuniformarmor",1);
+				giveinventory("hasheavyarmor",1);
+				takeinventory("haslightarmor",1);
+				takeinventory("hasmediumarmor",1);
+				takeinventory("hasplatearmor",1);
+            }
+			
+			Else If(armorsave >= 0.9) //tech armor
+            {
+				takeinventory("hasuniformarmor",1);
+				giveinventory("hasplatearmor",1);
+				takeinventory("haslightarmor",1);
+				takeinventory("hasmediumarmor",1);
+				takeinventory("hasheavyarmor",1);
+            }
+			
+			Else
+			{
+				takeinventory("hasuniformarmor",1);
+				takeinventory("hasplatearmor",1);
+				takeinventory("haslightarmor",1);
+				takeinventory("hasmediumarmor",1);
+				takeinventory("hasheavyarmor",1);
+			}
+	delay(1);
+}
+}
+
+ Script "JAMMEDHUD" ENTER
+ {
+	WHILE(1)
+	{
+		SetHudSize(320, 200,FALSE);
+		setfont("nofire");
+		
+		IF (Checkinventory("jammedpistol") && Checkinventory("pistolselected"))
+		{Hudmessage(s:"a";HUDMSG_PLAIN, 8888, CR_UNTRANSLATED, 153.1,92.1,0.2);}
+		IF (Checkinventory("jammedrifle") && Checkinventory("rifleselected"))
+		{Hudmessage(s:"a";HUDMSG_PLAIN, 8888, CR_UNTRANSLATED, 153.1,92.1,0.2);}
+		IF (Checkinventory("jammedshotgun") && Checkinventory("shotgunselected"))
+		{Hudmessage(s:"a";HUDMSG_PLAIN, 8888, CR_UNTRANSLATED, 153.1,92.1,0.2);}
+		IF (Checkinventory("jammedasg") && Checkinventory("asgselected"))
+		{Hudmessage(s:"a";HUDMSG_PLAIN, 8888, CR_UNTRANSLATED, 153.1,92.1,0.2);}
+		IF (Checkinventory("jammedsmg") && Checkinventory("submachinegunselected"))
+		{Hudmessage(s:"a";HUDMSG_PLAIN, 8888, CR_UNTRANSLATED, 153.1,92.1,0.2);}
+		IF (Checkinventory("jammedlmg") && Checkinventory("lmgselected"))
+		{Hudmessage(s:"a";HUDMSG_PLAIN, 8888, CR_UNTRANSLATED, 153.1,92.1,0.2);}
+		
+	delay(1);
+	}
+}
+
+Script "BANDAGECROUCH" (void)
+{
+		setactorproperty(0,APROP_viewheight,35.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,30.0);
+		delay(1);
+	   	setactorproperty(0,APROP_viewheight,22.0);
+		delay(60);
+		setactorproperty(0,APROP_viewheight,30.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,35.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,44.0);
+		terminate;
+}
+
+Script "MINIGUNCROUCH" (void)
+{
+		setactorproperty(0,APROP_viewheight,40.0);
+		delay(2);
+		setactorproperty(0,APROP_viewheight,35.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,30.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,25.0);
+		delay(1);
+	   	setactorproperty(0,APROP_viewheight,22.0);
+		delay(65);
+		setactorproperty(0,APROP_viewheight,25.0);
+		delay(2);
+		setactorproperty(0,APROP_viewheight,30.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,35.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,40.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,44.0);
+		terminate;
+}
+
+
+Script "CROUCH" (void)
+{		
+		setactorproperty(0,APROP_viewheight,40.0);
+		delay(3);
+		setactorproperty(0,APROP_viewheight,35.0);
+		delay(3);
+		setactorproperty(0,APROP_viewheight,30.0);
+		delay(3);
+		setactorproperty(0,APROP_viewheight,25.0);
+		delay(3);
+		setactorproperty(0,APROP_viewheight,22.0);
+		delay(35);
+}
+
+Script "GETUP" (void)
+{
+		setactorproperty(0,APROP_viewheight,25.0);
+		delay(2);
+		setactorproperty(0,APROP_viewheight,30.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,35.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,40.0);
+		delay(1);
+		setactorproperty(0,APROP_viewheight,44.0);
+		delay(1);
+}
+
+
+///// GL SELECT
+SCRIPT "CLEARGLSELECT" (VOID)
+{
+ACS_NAMEDTERMINATE("selectflares",0);
+ACS_NAMEDTERMINATE("selectacid",0);
+ACS_NAMEDTERMINATE("selecthellfire",0);
+ACS_NAMEDTERMINATE("selectsyringe",0);
+ACS_NAMEDTERMINATE("selectmetal",0);
+ACS_NAMEDTERMINATE("selectgrenade",0);
+ACS_NAMEDTERMINATE("selectcluster",0);
+ACS_NAMEDTERMINATE("selectmines",0);
+ACS_NAMEDTERMINATE("GRENADEQUANTITY",0);
+delay(1);
+TERMINATE;
+}
+
+/////// GRENADE LAUNCHER MENU
+script "GRENADEQUANTITY" (void)
+{	
+	SetHudSize(320, 200,FALSE);
+	SetFont("SMALLFONT");
+   HudMessage(f:CheckInventory("Flare")<<16; HUDMSG_PLAIN, 800, CR_cyan, 27.1, 137.1, 0.1);
+   HudMessage(f:CheckInventory("acidmistammo")<<16; HUDMSG_PLAIN, 801, CR_cyan, 58.1, 137.1, 0.1);
+   HudMessage(f:CheckInventory("hellfireammo")<<16; HUDMSG_PLAIN, 802, CR_cyan, 93.1, 137.1, 0.1);
+   HudMessage(f:CheckInventory("pheromones")<<16; HUDMSG_PLAIN, 803, CR_cyan, 125.1, 137.1, 0.1);
+   HudMessage(f:CheckInventory("scrapmetal")<<16; HUDMSG_PLAIN, 804, CR_cyan, 169.1, 137.1, 0.1);
+   HudMessage(f:CheckInventory("grenadeammo")<<16; HUDMSG_PLAIN, 805, CR_cyan, 208.1, 137.1, 0.1, 0.1);
+   HudMessage(f:CheckInventory("clusterammo")<<16; HUDMSG_PLAIN, 806, CR_cyan, 248.1, 137.1, 0.1);
+   HudMessage(f:CheckInventory("PROXBOMBammo")<<16; HUDMSG_PLAIN, 807, CR_cyan, 287.1, 137.1, 0.1);
+   Delay(1);
+		
+}
+
+SCRIPT "selectflares" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("SELECTAR");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 22.1,92.1,0.5,0.2,0.2);
+delay(17);
+RESTART;
+}
+
+SCRIPT "selectacid" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("SELECTAR");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 53.1,92.1,0.5,0.2,0.2);
+delay(17);
+RESTART;
+}
+
+SCRIPT "selecthellfire" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("SELECTAR");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 88.1,92.1,0.5,0.2,0.2);
+delay(17);
+RESTART;
+}
+
+SCRIPT "selectsyringe" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("SELECTAR");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 120.1,92.1,0.5,0.2,0.2);
+delay(17);
+RESTART;
+}
+
+SCRIPT "selectmetal" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("SELECTAR");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 162.1,92.1,0.5,0.2,0.2);
+delay(17);
+RESTART;
+}
+
+SCRIPT "selectgrenade" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("SELECTAR");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 205.1,92.1,0.5,0.2,0.2);
+delay(17);
+RESTART;
+}
+
+SCRIPT "selectcluster" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("SELECTAR");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 244.1,92.1,0.5,0.2,0.2);
+delay(17);
+RESTART;
+}
+
+SCRIPT "selectmines" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("SELECTAR");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 283.1,92.1,0.5,0.2,0.2);
+delay(17);
+RESTART;
+}
+
+/////// RIFLE MENU
+SCRIPT "selectrechamber" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("ARSELECT");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 9.1,130.1,0.5,0.2,0.2);
+setfont("smallfont");
+HudMessage(s:"Rechamber Caliber" ; HUDMSG_plain,8888, CR_CYAN, 0.1,55.1,0.6);
+HudMessage(s:"Currently holds:" ; HUDMSG_plain,8887, CR_white, 0.1,65.1,0.6);
+
+	if (checkinventory("loaded762"))
+	{
+	int remaining473 = Checkinventory("minigunammo");
+	HudMessage(s:"7.62mm" ; HUDMSG_plain,8886, CR_cyan, 95.1,65.1,0.6); 
+	HudMessage(s:"reserve 4.73mm:" ; HUDMSG_plain,8885, CR_white, 0.1,75.1,0.6); 
+	HudMessage(i:remaining473 ; HUDMSG_plain,8884, CR_cyan, 95.1,75.1,0.6);
+	}
+	Else
+	{
+	int remaining762 = Checkinventory("clip2");
+	HudMessage(s:"4.73mm" ; HUDMSG_plain,8886, CR_cyan, 95.1,65.1,0.6); 
+	HudMessage(s:"reserve 7.62mm:" ; HUDMSG_plain,8885, CR_white, 0.1,75.1,0.6); 
+	HudMessage(i:remaining762 ; HUDMSG_plain,8884, CR_cyan, 95.1,75.1,0.6);
+	}
+	
+setfont("");
+HudMessage(s:"" ; HUDMSG_plain,8883, CR_CYAN, 0.1,65.1,0.6);
+delay(17);
+TERMINATE;
+}
+
+SCRIPT "selectplasmaswitch" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("ARSELECT");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 54.1,130.1,0.5,0.2,0.2);
+setfont("smallfont");
+HudMessage(s:"ETC Module Switch" ; HUDMSG_plain,8888, CR_CYAN, 0.1,55.1,0.6);
+HudMessage(s:"Current state:" ; HUDMSG_plain,8887, CR_white, 0.1,65.1,0.6);
+
+int remainingcells = Checkinventory("ammocell");
+	HudMessage(s:"reserve plasma:" ; HUDMSG_plain,8885, CR_white, 0.1,75.1,0.6); 
+	HudMessage(i:remainingcells ; HUDMSG_plain,8884, CR_cyan, 95.1,75.1,0.6);
+
+	if (checkinventory("plasmaenhancedrifle"))
+	{HudMessage(s:"ON" ; HUDMSG_plain,8886, CR_cyan, 83.1,65.1,0.6);}
+	Else
+	{HudMessage(s:"OFF" ; HUDMSG_plain,8886, CR_cyan, 83.1,65.1,0.6);}
+
+setfont("");
+HudMessage(s:"" ; HUDMSG_plain,8883, CR_CYAN, 0.1,65.1,0.6);
+delay(17);
+TERMINATE;
+}
+
+SCRIPT "selectplasmacharge" (void)
+{
+int plasmacharges = Checkinventory("plasmacharges");
+SetHudSize(320, 200,FALSE);
+setfont("ARSELECT");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 98.1,130.1,0.5,0.2,0.2);
+setfont("smallfont");
+HudMessage(s:"Recharge Module" ; HUDMSG_plain,8888, CR_CYAN, 0.1,55.1,0.6);
+
+HudMessage(s:"Current charges:" ; HUDMSG_plain,8887, CR_white, 0.1,65.1,0.6);
+HudMessage(i:plasmacharges ; HUDMSG_plain,8886, CR_CYAN, 95.1,65.1,0.6);
+HudMessage(s:"/ 30" ; HUDMSG_plain,8885, CR_white, 109.1,65.1,0.6);
+
+int remainingcells = Checkinventory("ammocell");
+HudMessage(s:"reserve plasma:" ; HUDMSG_plain,8885, CR_white, 0.1,75.1,0.6); 
+HudMessage(i:remainingcells ; HUDMSG_plain,8884, CR_cyan, 95.1,75.1,0.6);
+
+delay(17);
+TERMINATE;
+}
+
+/// ASG MENU
+SCRIPT "selectGASswitch" (void)
+{
+SetHudSize(320, 200,FALSE);
+setfont("ARSELECT");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 10.1,130.1,0.5,0.2,0.2);
+setfont("smallfont");
+HudMessage(s:"Combust Recycling Module" ; HUDMSG_plain,8888, CR_CYAN, 0.1,55.1,0.6);
+HudMessage(s:"Current state:" ; HUDMSG_plain,8887, CR_white, 0.1,65.1,0.6);
+
+	if (checkinventory("gaspoweredASG"))
+	{HudMessage(s:"ON" ; HUDMSG_plain,8886, CR_cyan, 83.1,65.1,0.6);}
+	Else
+	{HudMessage(s:"OFF" ; HUDMSG_plain,8886, CR_cyan, 83.1,65.1,0.6);}
+
+int remainingpowder = Checkinventory("gunpowder");
+HudMessage(s:"reserve powder:" ; HUDMSG_plain,8889, CR_white, 0.1,75.1,0.6); 
+HudMessage(i:remainingpowder ; HUDMSG_plain,8884, CR_cyan, 95.1,75.1,0.6);
+
+setfont("");
+HudMessage(s:"" ; HUDMSG_plain,8885, CR_CYAN, 0.1,65.1,0.6);
+delay(17);
+TERMINATE;
+}
+
+SCRIPT "selectGAScharge" (void)
+{
+int gascharges = Checkinventory("gascharges");
+SetHudSize(320, 200,FALSE);
+setfont("ARSELECT");
+Hudmessage(s:"a";HUDMSG_FADEINOUT, 8999, CR_UNTRANSLATED, 54.1,130.1,0.5,0.2,0.2);
+setfont("smallfont");
+HudMessage(s:"Gas Refilling" ; HUDMSG_plain,8888, CR_CYAN, 0.1,55.1,0.6);
+
+HudMessage(s:"Current charges:" ; HUDMSG_plain,8887, CR_white, 0.1,65.1,0.6);
+HudMessage(i:gascharges ; HUDMSG_plain,8886, CR_CYAN, 95.1,65.1,0.6);
+HudMessage(s:"/ 20" ; HUDMSG_plain,8885, CR_white, 109.1,65.1,0.6);
+
+int remainingpowder = Checkinventory("gunpowder");
+HudMessage(s:"reserve powder:" ; HUDMSG_plain,8885, CR_white, 0.1,75.1,0.6); 
+HudMessage(i:remainingpowder ; HUDMSG_plain,8884, CR_cyan, 95.1,75.1,0.6);
+
+delay(17);
+TERMINATE;
+}

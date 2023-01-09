@@ -1,0 +1,143 @@
+#library "ColorLight"
+#include "zcommon.acs"
+
+/*
+script 32660 (void) NET
+{
+Delay(5);
+ACS_ExecuteAlways(32659,0);
+}
+*/
+
+Script "SaveColorLight" (void) NET
+{
+SetCVAR(  "save_lightred", GetCVAR(  "bdmut_getlred"));
+SetCVAR(  "save_lightgreen",GetCVAR(  "bdmut_getlgreen"));
+SetCVAR(  "save_lightblue",GetCVAR(  "bdmut_getlblue"));
+SetCVAR(  "save_ldesat",GetCVAR(  "bdmut_getldesat"));
+SetCVAR(  "save_enabdes",GetCVAR( "bdmut_enabdes"));
+}
+
+Script "LoadColorLight" (void) NET
+{
+SetCVAR( "bdmut_getlred", GetCVAR( "save_lightred"));
+SetCVAR( "bdmut_getlgreen", GetCVAR( "save_lightgreen"));
+SetCVAR( "bdmut_getlblue", GetCVAR( "save_lightblue"));
+SetCVAR( "bdmut_getldesat", GetCVAR( "save_ldesat"));
+SetCVAR( "bdmut_enabdes", GetCVAR( "save_enabdes"));
+SetCVAR(  "bdmut_lightcolor", 0);
+ACS_NamedExecute("ColorLight", 0);
+}
+
+script "ColorLight" ENTER NET
+{
+//Delay(1);
+		int Lightcolor = GetCVAR(  "bdmut_lightcolor");
+		int enabledes = GetCVAR(  "bdmut_enabdes");
+		int LightRed;
+		int LightGreen;
+		int LightBlue;
+		int LightDesat;
+		int fog_getred = GetCVAR(  "bdmut_getred");
+		int fog_getgreen = GetCVAR(  "bdmut_getgreen");
+		int fog_getblue = GetCVAR(  "bdmut_getblue");
+		
+	If(Lightcolor == 2) //Random
+	{
+		LightRed = random(0,255);
+		LightGreen = random(0,255);
+		LightBlue = random(0,255);
+		SetCVAR(  "bdmut_getlred", LightRed);
+		SetCVAR(  "bdmut_getlgreen", LightGreen);
+		SetCVAR(  "bdmut_getlblue", LightBlue);
+		if (enabledes)
+		{
+		LightDesat = random(0,255);
+		SetCVAR(  "bdmut_getldesat", LightDesat);
+		}
+		else LightDesat = 0;
+	}
+	Else If(LightColor == 1) //Match Fog
+	{
+		If ( fog_getred > 0 ) { LightRed = fog_getred + 60; }
+		Else { LightRed = fog_getred; }
+		If ( fog_getgreen > 0 )	{ LightGreen = fog_getgreen + 60; }
+		Else { LightGreen = fog_getgreen; } 
+		If ( fog_getblue > 0 ) { LightBlue = fog_getblue + 60; }
+		Else { LightBlue = fog_getblue; }
+		SetCVAR(  "bdmut_getlred", LightRed);
+		SetCVAR(  "bdmut_getlgreen", LightGreen);
+		SetCVAR(  "bdmut_getlblue", LightBlue);
+		if (enabledes)
+		{
+		LightDesat=GetCVAR(  "bdmut_getldesat");
+		}
+		else LightDesat = 0;
+	}
+	Else //Manual
+	{
+		LightRed = GetCVAR(  "bdmut_getlred");
+		LightGreen = GetCVAR(  "bdmut_getlgreen");
+		LightBlue = GetCVAR(  "bdmut_getlblue");
+		if (enabledes)
+		{
+		LightDesat = GetCVAR(  "bdmut_getldesat");
+		}
+		else LightDesat = 0;
+	}	
+	
+	If(GetCVAR("bdmut_togglelight"))
+	{
+		/*
+		For(darkcheck; darkcheck == 0; darkcheck++)
+		{
+		CheckDarkRandom();
+		}
+		*/
+		//Delay(10);
+		int local0;
+		If(PlayerNumber() == 0)
+		{
+			for(local0 = 0; local0 <= 10000; local0++)
+			{
+				Sector_SetColor(local0,LightRed,LightGreen,LightBlue,LightDesat);
+			}
+		}
+	}
+}
+
+Script "light_default" (void)
+{
+	SetCVAR("bdmut_getlred", 255);
+	SetCVAR("bdmut_getlgreen", 255);
+	SetCVAR("bdmut_getlblue", 255);
+	SetCVAR("bdmut_getldesat", 0);
+}
+Script "light_red" (void)
+{
+	SetCVAR("bdmut_getlred", 255);
+	SetCVAR("bdmut_getlgreen", 0);
+	SetCVAR("bdmut_getlblue", 0);
+	SetCVAR("bdmut_getldesat", 0);
+}
+Script "light_green" (void)
+{
+	SetCVAR("bdmut_getlred", 0);
+	SetCVAR("bdmut_getlgreen", 255);
+	SetCVAR("bdmut_getlblue", 0);
+	SetCVAR("bdmut_getldesat", 0);
+}
+Script "light_blue" (void)
+{
+	SetCVAR("bdmut_getlred", 0);
+	SetCVAR("bdmut_getlgreen", 0);
+	SetCVAR("bdmut_getlblue", 255);
+	SetCVAR("bdmut_getldesat", 0);
+}
+Script "light_dark" (void)
+{
+	SetCVAR("bdmut_getlred", 128);
+	SetCVAR("bdmut_getlgreen", 128);
+	SetCVAR("bdmut_getlblue", 128);
+	SetCVAR("bdmut_getldesat", 0);
+}

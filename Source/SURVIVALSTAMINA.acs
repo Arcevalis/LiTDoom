@@ -1,0 +1,435 @@
+#library "SURVIVALSTAMINA"
+#include "zcommon.acs"
+
+
+///// STAMINA POOL
+script "SURVIVALSTAMINA" ENTER
+{
+While(1)
+{
+ if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2)
+ {
+ setammocapacity("UsedStamina", 2000);
+ }
+ 
+ Else
+ {
+ setammocapacity("UsedStamina", 110);
+ }
+ delay(1);
+ }
+ delay(1);
+}
+
+
+///// REFILL
+
+script "SURVIVALSTAMINAREFILL" ENTER
+{
+While(1)
+{
+delay(1);
+//SCIENTIST
+ If(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 3 && Checkactorstate(0,"StandStill") && Checkinventory("UsedStamina") > 0 && !Checkinventory("poisoned") == 1)
+ {
+ takeinventory("usedstamina", 1);
+ delay(60);
+ }
+
+//SURVIVALIST
+ Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 && Checkactorstate(0,"StandStill") && Checkinventory("UsedStamina") > 0 && !Checkinventory("poisoned") == 1)
+ {
+ takeinventory("usedstamina", 1);
+ delay(20);
+ }
+ 
+ // SPACE MARINE
+ Else if (GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 1 && Checkactorstate(0,"StandStill") && Checkinventory("UsedStamina") > 0 && !Checkinventory("poisoned") == 1) 
+ {
+ takeinventory("usedstamina", 1);
+ delay(3);
+ } 
+ 
+ Else
+ delay(1);
+ } }
+ 
+/////////////////////// 
+ //// SURVIVAL INSTINCT
+ //////////////////////
+ 
+int musicVolume = 1.0; 
+ //ACTIVATE
+script "ISTINCTKEY" (void)
+{
+if(Checkinventory ("Istinctactive"))
+{takeinventory("istinctactive",1);
+PlaySound(0, "Slomo_off", CHAN_NOPAUSE, 1.0, FALSE, ATTN_NONE);
+Stopsound(0, CHAN_6);
+musicvolume = 1.0;
+SetMusicVolume(musicvolume);}
+
+Else
+{giveinventory("istinctactive",1);
+PlaySound(0, "Slomo_on", CHAN_NOPAUSE, 1.0, FALSE, ATTN_NONE);
+PlaySound(0, "Slomo_loop", CHAN_6, 1.0, TRUE, ATTN_NONE);
+delay(1);
+ACS_NamedExecute("SLOWMO",0);}
+}
+ 
+ // SLOWMO
+script "SLOWMO" (void)
+{
+While(1)
+{
+
+////SURVIVALIST
+if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 && Checkinventory ("Istinctactive") && Checkinventory ("UsedStamina") < 2000)
+ {
+ musicVolume -= 0.15;
+ SetMusicVolume(musicVolume);
+giveinventory("SlomoScreen", 1);
+giveinventory("SlomoGiver", 1);
+giveinventory("UsedStamina", 30);
+setactorproperty(0,APROP_Speed,0.7);
+delay(4);
+takeinventory("SMPowerTimeFreezerSound",1);
+delay(2);
+ }
+ 
+ //// SPACE MARINE
+ Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 1 && Checkinventory ("Istinctactive") && Checkinventory ("UsedStamina") < 100)
+ {
+ musicVolume -= 0.15;
+ SetMusicVolume(musicVolume);
+giveinventory("SlomoScreen", 1);
+giveinventory("SlomoGiver", 1);
+giveinventory("UsedStamina", 15);
+setactorproperty(0,APROP_Speed,0.7);
+delay(5);
+takeinventory("SMPowerTimeFreezerSound",1);
+delay(2);
+ }
+
+////FRENZIED SCIENTIST 
+  Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 3 && Checkinventory ("Istinctactive") && Checkinventory ("UsedStamina") < 100 && Checkinventory("staminafrenzy"))
+ {
+ musicVolume -= 0.15;
+ SetMusicVolume(musicVolume);
+giveinventory("SlomoScreen", 1);
+giveinventory("SlomoGiver", 1);
+giveinventory("UsedStamina", 15);
+setactorproperty(0,APROP_Speed,0.7);
+delay(5);
+takeinventory("SMPowerTimeFreezerSound",1);
+delay(2);
+ }
+ 
+ Else if (GetActorProperty(0, APROP_Health) < 1)
+ {takeinventory("PowerSlomoUseless", 1);
+takeinventory("SMPowerTimeFreezerSound", 1);
+takeinventory("istinctactive",1);
+Stopsound(0, CHAN_6);
+musicvolume = 1.0;
+SetMusicVolume(musicvolume);
+ terminate; 
+ } 
+ 
+ Else
+ {
+
+takeinventory("PowerSlomoUseless", 1);
+takeinventory("SMPowerTimeFreezerSound", 1);
+takeinventory("istinctactive",1);
+Stopsound(0, CHAN_6);
+PlaySound(0, "tired", CHAN_VOICE, 1.0, FALSE, ATTN_NONE);
+PlaySound(0, "Slomo_off", CHAN_NOPAUSE, 1.0, FALSE, ATTN_NONE);
+setactorproperty(0,APROP_Speed,1.0);
+delay(2);
+musicvolume = 1.0;
+SetMusicVolume(musicvolume);
+terminate;
+ }} } 
+
+
+////
+
+Script "TRIP" (void)
+{
+SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);
+setactorstate(0,"TripAnimation");
+Playsound(0,"SLIDSTRT1",0,1.0);
+setactorproperty(0,APROP_viewheight,20.0);
+delay(17);
+Playsound(0,"FOOTWALL",0,1.0);
+setactorproperty(0,APROP_viewheight,5.0);
+SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
+delay(1);
+SetPlayerProperty(TRUE, On, PROP_FROZEN);
+delay(37);
+setactorproperty(0,APROP_viewheight,10.0);
+delay(1);
+setactorproperty(0,APROP_viewheight,15.0);
+delay(1);
+Playsound(0,"KICK",0,1.0);
+setactorproperty(0,APROP_viewheight,20.0);
+delay(17);
+setactorproperty(0,APROP_viewheight, 27.0);
+delay(1);
+setactorproperty(0,APROP_viewheight,35.0);
+delay(1);
+setactorproperty(0,APROP_viewheight,40.0);
+delay(1);
+setactorproperty(0,APROP_viewheight,44.0);
+SetPlayerProperty(TRUE, Off, PROP_FROZEN);
+terminate;
+}
+
+SCRIPT "DASH" enter
+{
+	While(1)
+	{
+	int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+	
+	
+	////DASH LEFT
+		If (buttons & BT_MOVELEFT && buttons & BT_USER2)
+		{
+			If(CHECKINVENTORY("FREEDASHCHARGE") == 5 && !Checkinventory("playerisdead"))
+				{
+				TAKEINVENTORY("FREEDASHCHARGE",5);
+				SetactorState(0,"dashleft");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+				
+			Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0)
+				{
+				delay(1);
+				restart;
+				}
+				
+			Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 && Checkinventory("usedstamina") < 1400 && !Checkinventory("playerisdead"))
+				{
+				giveINVENTORY("usedstamina",200);
+				SetactorState(0,"dashleft");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+			
+			Else if(Checkinventory("usedstamina") < 70 && !Checkinventory("playerisdead"))
+				{
+				giveINVENTORY("usedstamina",35);
+				SetactorState(0,"dashleft");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+				
+			Else
+				{
+				log(s:"you're too tired to dash or sprint!");
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+		}
+
+
+	////DASH RIGHT	
+		Else if (buttons & BT_MOVERIGHT && buttons & BT_USER2)
+		{
+				If(CHECKINVENTORY("FREEDASHCHARGE") == 5 && !Checkinventory("playerisdead"))
+				{
+				TAKEINVENTORY("FREEDASHCHARGE",5);
+				SetactorState(0,"dashright");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+				
+			Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0)
+				{
+				delay(1);
+				restart;
+				}
+				
+			Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 && Checkinventory("usedstamina") < 1400 && !Checkinventory("playerisdead"))
+				{
+				giveINVENTORY("usedstamina",200);
+				SetactorState(0,"dashright");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+			
+			Else if(Checkinventory("usedstamina") < 70 && !Checkinventory("playerisdead"))
+				{
+				giveINVENTORY("usedstamina",35);
+				SetactorState(0,"dashright");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+				
+			Else
+				{
+				log(s:"you're too tired to dash or sprint!");
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+		
+		}
+
+
+	////DASH BACKWARDS	
+		Else if (buttons & BT_back && buttons & BT_USER2)
+		{
+				If(CHECKINVENTORY("FREEDASHCHARGE") == 5 && !Checkinventory("playerisdead"))
+				{
+				TAKEINVENTORY("FREEDASHCHARGE",5);
+				SetactorState(0,"dashbackwards");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+				
+			Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0)
+				{
+				delay(1);
+				restart;
+				}
+				
+			Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 && Checkinventory("usedstamina") < 1400 && !Checkinventory("playerisdead"))
+				{
+				giveINVENTORY("usedstamina",200);
+				SetactorState(0,"dashbackwards");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+			
+			Else if(Checkinventory("usedstamina") < 70 && !Checkinventory("playerisdead"))
+				{
+				giveINVENTORY("usedstamina",35);
+				SetactorState(0,"dashbackwards");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+				
+			Else
+				{
+				log(s:"you're too tired to dash or sprint!");
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+		}
+
+
+	////DASH FORWARD	
+		Else if (buttons & BT_FORWARD && buttons & BT_USER2)
+		{
+				If(CHECKINVENTORY("FREEDASHCHARGE") == 5 && !Checkinventory("playerisdead"))
+				{
+				TAKEINVENTORY("FREEDASHCHARGE",5);
+				SetactorState(0,"dashFORWARD");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+				
+			Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0)
+				{
+				delay(1);
+				restart;
+				}
+				
+			Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 && Checkinventory("usedstamina") < 1400 && !Checkinventory("playerisdead"))
+				{
+				giveINVENTORY("usedstamina",200);
+				SetactorState(0,"dashFORWARD");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+			
+			Else if(Checkinventory("usedstamina") < 70 && !Checkinventory("playerisdead"))
+				{
+				giveINVENTORY("usedstamina",35);
+				SetactorState(0,"dashFORWARD");
+				GIVEINVENTORY("DASHRESIST",1);
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+				
+			Else
+				{
+				log(s:"you're too tired to dash or sprint!");
+				delay(35);
+				SetActorRoll(0,1.0);
+				}
+		}
+		delay(1);
+	}
+delay(1);
+}
+
+script "FREEDASHREFILL" ENTER
+{
+While(1)
+{
+
+//SCIENTIST
+ if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 3 && Checkactorstate(0,"StandStill") && Checkinventory("freedashcharge") < 5)
+ {
+ giveinventory("freedashcharge", 1);
+ delay(35*10);
+ }
+
+//SURVIVALIST
+ Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 && Checkactorstate(0,"StandStill") && Checkinventory("freedashcharge") < 5)
+ {
+ giveinventory("freedashcharge", 1);
+ delay(35*5);
+ }
+ 
+ // SPACE MARINE
+ Else if (GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 1 && Checkactorstate(0,"StandStill") && Checkinventory("freedashcharge") < 5) 
+ {
+ giveinventory("freedashcharge", 1);
+ delay(35*5);
+ } 
+ 
+ Else
+ delay(1);
+ restart;
+ } }	
+ 
+ /*
+ SCRIPT "LEANING" enter
+{
+	While(1)
+	{
+	int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+	
+	
+	//// LEAN LEFT
+		If (buttons & BT_MOVELEFT && buttons & BT_crouch)
+		{
+		giveinventory("isleaningleft",1);
+		delay(1);
+		}
+
+
+	//// LEAN RIGHT	
+		Else if (buttons & BT_MOVERIGHT && buttons & BT_crouch)
+		{
+		giveinventory("isleaningright",1);
+		delay(1);
+		}
+		delay(1);
+}
+}	
+	

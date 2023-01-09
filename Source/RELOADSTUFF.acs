@@ -1,0 +1,761 @@
+#library "RELOADSTUFF"
+#include "zcommon.acs"
+
+
+//////////////////////////////////////////// PISTOL
+
+Script "DropPISTOLMAG" (void)
+{	
+				TakeInventory("DROPPEDpistolmag",999);
+				giveinventory("DroppingMag",1);
+				giveinventory("DroppedPistolMag",1);
+				delay(1);
+				dropinventory(0,"DroppedPistolMag");
+				takeinventory("DroppingMag",1);
+				delay(1);
+				TakeInventory("DROPPEDpistolmag",999);
+}
+
+Script "PISTOLMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("BDPISTOLAMMO");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo == 1)
+{HudMessage(s:"A \cvsingle round\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+if (magazineammo > 1 && magazineammo < 3)
+{HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 3 && magazineammo < 6)
+{HudMessage(s:"The magazine feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 6 && magazineammo < 9)
+{HudMessage(s:"The magazine feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 9 && magazineammo < 12)
+{HudMessage(s:"The magazine feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 12 && magazineammo < 15)
+{HudMessage(s:"The magazine feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 15)
+{HudMessage(s:"The magazine feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+
+//////////////////////////////////////////// REVOLVER
+Script "REVOLVERMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("revolverammo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo == 1)
+{HudMessage(s:"\cv1 \c-round left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo == 2)
+{HudMessage(s:"\cv2 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo == 3)
+{HudMessage(s:"\cv3 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo == 4)
+{HudMessage(s:"\cv4 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo == 5)
+{HudMessage(s:"\cv5 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 6)
+{HudMessage(s:"\cv6 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+//////////////////////////////////////////// SMG
+Script "DropSMGMAG" (void)
+{	
+				TakeInventory("DROPPEDsmgmag",999);
+				giveinventory("DroppingMag",1);
+				giveinventory("DroppedSMGMag",1);
+				delay(1);
+				dropinventory(0,"DroppedSMGMag");
+				takeinventory("DroppingMag",1);
+				delay(1);
+				TakeInventory("DROPPEDsmgmag",999);
+}
+
+Script "SMGMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("BDSMGAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo == 1)
+{HudMessage(s:"A \cvsingle round\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+if (magazineammo > 1 && magazineammo < 8)
+{HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 8 && magazineammo < 16)
+{HudMessage(s:"The magazine feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 16 && magazineammo < 23)
+{HudMessage(s:"The magazine feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 23 && magazineammo < 30)
+{HudMessage(s:"The magazine feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 30 && magazineammo < 40)
+{HudMessage(s:"The magazine feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 40)
+{HudMessage(s:"The magazine feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+//////////////////////////////////////////// SHOTGUN
+Script "SHOTGUNMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("shotgunAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo == 1)
+{HudMessage(s:"A \cvsingle shell\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+if (magazineammo == 2 )
+{HudMessage(s:"The tube feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 2 && magazineammo < 4)
+{HudMessage(s:"The tube feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo == 4 )
+{HudMessage(s:"The tube feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 5 && magazineammo < 7)
+{HudMessage(s:"The tube feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 7 && magazineammo < 8)
+{HudMessage(s:"The tube feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 8)
+{HudMessage(s:"The tube feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+//////////////////////////////////////////// ASG
+
+Script "DropASGMAG" (void)
+{	
+				TakeInventory("DROPPEDasgmag",999);
+				giveinventory("DroppingMag",1);
+				giveinventory("DroppedASGMag",1);
+				delay(1);
+				dropinventory(0,"DroppedASGMag");
+				takeinventory("DroppingMag",1);
+				delay(1);
+				TakeInventory("DROPPEDasgmag",999);
+}
+
+Script "ASGMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("assaultShotgunAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo == 1)
+{HudMessage(s:"A \cvsingle shell\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+if (magazineammo > 1 && magazineammo < 4)
+{HudMessage(s:"The drum feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 4 && magazineammo < 8)
+{HudMessage(s:"The drum feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 8 && magazineammo < 13)
+{HudMessage(s:"The drum feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 13 && magazineammo < 17)
+{HudMessage(s:"The drum feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 17 && magazineammo < 20)
+{HudMessage(s:"The drum feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 20)
+{HudMessage(s:"The drum feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+//////////////////////////////////////////// SSG
+
+
+//////////////////////////////////////////// RIFLE 
+
+Script "DropRIFLEMAG473" (void)
+{	
+				TakeInventory("DROPPEDriflemag473",999);
+				giveinventory("DroppingMag",1);
+				giveinventory("DroppedRIFLEMag473",1);
+				delay(1);
+				dropinventory(0,"DroppedRIFLEMag473");
+				takeinventory("DroppingMag",1);
+				delay(1);
+				TakeInventory("DROPPEDriflemag473",999);
+}
+
+Script "DropRIFLEMAG762" (void)
+{	
+				TakeInventory("DROPPEDriflemag762",999);
+				giveinventory("DroppingMag",1);
+				giveinventory("DroppedRIFLEmag762",1);
+				delay(1);
+				dropinventory(0,"DroppedRIFLEmag762");
+				takeinventory("DroppingMag",1);
+				delay(1);
+				TakeInventory("DROPPEDriflemag762",999);				
+}
+
+Script "RIFLEMAGCHECK473" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("RifleAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo == 1 )
+{HudMessage(s:"A \cvsingle round\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+if (magazineammo > 1 && magazineammo < 8)
+{HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 8 && magazineammo < 13)
+{HudMessage(s:"The magazine feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 13 && magazineammo < 18)
+{HudMessage(s:"The magazine feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 18 && magazineammo < 25)
+{HudMessage(s:"The magazine feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 25 && magazineammo < 30)
+{HudMessage(s:"The magazine feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 30)
+{HudMessage(s:"The magazine feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+Script "RIFLEMAGCHECK762" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("RifleAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo == 1 )
+{HudMessage(s:"A \cvsingle round\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+if (magazineammo > 1 && magazineammo < 5)
+{HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+
+else if (magazineammo >= 5 && magazineammo < 8)
+{HudMessage(s:"The magazine feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 8 && magazineammo < 12)
+{HudMessage(s:"The magazine feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 12 && magazineammo < 16)
+{HudMessage(s:"The magazine feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 16 && magazineammo < 20)
+{HudMessage(s:"The magazine feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 20)
+{HudMessage(s:"The magazine feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+//////////////////////////////////////////// MMG
+
+Script "DropMMGMAG" (void)
+{	
+				TakeInventory("DROPPEDmmgmag",999);
+				giveinventory("DroppingMag",1);
+				giveinventory("DroppedMMGMag",1);
+				delay(1);
+				dropinventory(0,"DroppedMMGMag");
+				takeinventory("DroppingMag",1);
+				delay(1);
+				TakeInventory("DROPPEDmmgmag",999);
+}
+
+Script "MMGMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("LMGAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo >= 1 && magazineammo < 20)
+{HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 20 && magazineammo < 40)
+{HudMessage(s:"The magazine feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 40 && magazineammo < 60)
+{HudMessage(s:"The magazine feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 60 && magazineammo < 80)
+{HudMessage(s:"The magazine feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 80 && magazineammo < 100)
+{HudMessage(s:"The magazine feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 100)
+{HudMessage(s:"The magazine feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////  ROCKET LAUNCHER
+
+Script "RLMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("Rocketrounds");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo >= 1 && Checkinventory("nukeloaded") )
+{HudMessage(s:"A \cvthermobaric warhead \c-is loaded" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+Else if (magazineammo >= 1)
+{HudMessage(s:"An \cv84mm AT rocket \c-is loaded" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+}
+
+//////////////////////////////////////////// GRENADE LAUNCHER
+
+Script "GLMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("GLAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo == 1)
+{HudMessage(s:"\cv1 \c-round left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo == 2)
+{HudMessage(s:"\cv2 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo == 3)
+{HudMessage(s:"\cv3 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo == 4)
+{HudMessage(s:"\cv4 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+if (magazineammo == 5)
+{HudMessage(s:"\cv5 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo == 6)
+{HudMessage(s:"\cv6 \c-rounds left" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+//////////////////////////////////////////// PLASMAGUN
+
+Script "DropPLASMAMAG" (void)
+{	
+				TakeInventory("DROPPEDplasmamag",999);
+				giveinventory("DroppingMag",1);
+				giveinventory("DroppedPLASMAMag",1);
+				delay(1);
+				dropinventory(0,"DroppedPLASMAMag");
+				takeinventory("DroppingMag",1);
+				delay(1);
+				TakeInventory("DROPPEDplasmamag",999);
+}
+
+Script "plasmagunMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("PlasmaAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo >= 1 && magazineammo < 10)
+{HudMessage(s:"The energy cell looks \cvalmost depleted" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 10 && magazineammo < 20)
+{HudMessage(s:"The energy cell looks \cvmostly depleted" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 20 && magazineammo < 30)
+{HudMessage(s:"The energy cell looks \cvhalf depleted" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 30 && magazineammo < 40)
+{HudMessage(s:"The energy cell looks \cvmostly charged" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 40 && magazineammo < 50)
+{HudMessage(s:"The energy cell looks \cvalmost fully charged" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 50)
+{HudMessage(s:"The energy cell looks \cvcompletely charged" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+//////////////////////////////////////////// PLASMA LANCE
+
+Script "DropLANCEMAG" (void)
+{	
+				TakeInventory("DROPPEDlancemag",999);
+				giveinventory("DroppingMag",1);
+				giveinventory("DroppedLANCEMag",1);
+				delay(1);
+				dropinventory(0,"DroppedLANCEMag");
+				takeinventory("DroppingMag",1);
+				delay(1);
+				TakeInventory("DROPPEDlancemag",999);
+				
+}
+
+Script "plasmalanceMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("PlasmaLanceAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo >= 1 && magazineammo < 10)
+{HudMessage(s:"The energy cell looks \cvalmost depleted" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 10 && magazineammo < 20)
+{HudMessage(s:"The energy cell looks \cvmostly depleted" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 20 && magazineammo < 30)
+{HudMessage(s:"The energy cell looks \cvhalf depleted" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 30 && magazineammo < 40)
+{HudMessage(s:"The energy cell looks \cvmostly charged" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 40 && magazineammo < 50)
+{HudMessage(s:"The energy cell looks \cvalmost fully charged" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 50)
+{HudMessage(s:"The energy cell looks \cvcompletely charged" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+/////////////////////////////////////////////  FLAMETHROWER
+Script "flamerMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("fueltankammo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo >= 1 && magazineammo < 20)
+{HudMessage(s:"The fuel tank feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 20 && magazineammo < 40)
+{HudMessage(s:"The fuel tank feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 40 && magazineammo < 60)
+{HudMessage(s:"The fuel tank feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 60 && magazineammo < 80)
+{HudMessage(s:"The fuel tank feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 80 && magazineammo < 100)
+{HudMessage(s:"The fuel tank feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 100)
+{HudMessage(s:"The fuel tank feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////// CHAINSAW
+
+Script "chainsawMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("sawfuel");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo >= 1 && magazineammo < 10)
+{HudMessage(s:"The fuel tank feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 10 && magazineammo < 20)
+{HudMessage(s:"The fuel tank feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 20 && magazineammo < 30)
+{HudMessage(s:"The fuel tank feels \cvhalf empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 30 && magazineammo < 40)
+{HudMessage(s:"The fuel tank feels \cvmostly full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 40 && magazineammo < 50)
+{HudMessage(s:"The fuel tank feels \cvalmost full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 50)
+{HudMessage(s:"The fuel tank feels \cvcompletely full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////// MINIGUN
+
+Script "MinigunMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("minigunammo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo >= 1 && magazineammo < 50)
+{HudMessage(s:"The ammo pack feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 50 && magazineammo < 100)
+{HudMessage(s:"The ammo pack feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 100 && magazineammo < 200)
+{HudMessage(s:"The ammo pack feels \cvreasonably full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 200 && magazineammo < 300)
+{HudMessage(s:"ammo pack feels \cvwell stocked" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 300 && magazineammo < 500)
+{HudMessage(s:"The ammo pack feels \cvheavy with lots of ammo" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 500)
+{HudMessage(s:"The ammo pack feels \cvlike you could take on an army by yourself" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////// REVENANT LAUNCHER 
+
+Script "REVENANTMAGCHECK" (void)
+{
+delay(1);
+int magazineammo = Checkinventory("MiniHellRocketAmmo");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (magazineammo >= 1 && magazineammo < 5)
+{HudMessage(s:"The ammo pack feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 5 && magazineammo < 10)
+{HudMessage(s:"The ammo pack feels \cvmostly empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 10 && magazineammo < 30)
+{HudMessage(s:"The ammo pack feels \cvreasonably full" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 30 && magazineammo < 50)
+{HudMessage(s:"ammo pack feels \cvwell stocked" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else if (magazineammo >= 50 && magazineammo < 100)
+{HudMessage(s:"The ammo pack feels \cvheavy with lots of ammo" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else	if (magazineammo >= 100)
+{HudMessage(s:"The ammo pack feels \cvlike you could take on an army by yourself" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Your weapon is \cvempty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}

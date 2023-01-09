@@ -1,0 +1,166 @@
+#library "ARMORSCRIPTS"
+#include "zcommon.acs"
+
+Script "CheckMaxArmor" (void)
+{
+
+int armorpoints = CheckInventory("basicarmor");
+int armorsave = GetArmorInfo(ARMORINFO_SAVEPERCENT);
+	
+	// heavy armor
+	if (armorsave >= 0.8 && armorpoints <= 399)
+    {SetResultValue(TRUE);}
+	
+	//medium armor
+	Else If(armorsave >= 0.6 && armorsave < 0.8 && armorpoints <= 249)
+	 {SetResultValue(TRUE);}
+	
+	//lightarmor
+	Else If(armorsave >= 0.4 && armorsave < 0.6 && armorpoints <= 149)
+	 {SetResultValue(TRUE); }
+	
+	//uniform
+	Else If(armorsave >= 0.25 && armorsave < 0.4  && armorpoints <= 99)
+	 {SetResultValue(TRUE); }
+	
+	//no armor or max armor points reached
+	Else 
+     {SetResultValue(FALSE);}
+}
+
+Script "CheckArmorType" (void)
+{
+int armorsave = GetArmorInfo(ARMORINFO_SAVEPERCENT);
+SetActivator(0, AAPTR_PLAYER1);
+	
+	// heavy armor
+	if (armorsave >= 0.8)
+    {SetResultValue(1);
+	giveinventory("hasheavyarmor",1);
+	delay(10);
+	takeinventory("hasheavyarmor",1);
+	}
+	
+	//medium armor
+	Else If(armorsave >= 0.6 && armorsave < 0.8)
+	 {SetResultValue(2);
+	giveinventory("hasmediumarmor",1);
+	delay(10);
+	takeinventory("hasmediumarmor",1);
+	 }
+	
+	//lightarmor
+	Else If(armorsave >= 0.4 && armorsave < 0.6)
+	 {SetResultValue(3); 
+	giveinventory("haslightarmor",1);
+	delay(10);
+	takeinventory("haslightarmor",1);
+	 }
+	
+	//uniform
+	Else If(armorsave >= 0.25 && armorsave < 0.4)
+	 {SetResultValue(4); 
+	giveinventory("hasuniformarmor",1);
+	delay(10);
+	takeinventory("hasuniformarmor",1);
+	 }
+	
+	//no armor
+	Else 
+     {SetResultValue(5);
+	 }
+}
+
+Script "DropArmor" (void)
+{
+int armorsave = GetArmorInfo(ARMORINFO_SAVEPERCENT);
+    
+   If(armorsave >= 0.25)
+
+	{
+		giveinventory("droppingarmor",1);
+		Setweapon("blankweapon");
+		SetPlayerProperty(FALSE, ON, PROP_TOTALLYFROZEN);
+		Delay(5);
+		
+		IF (Checkinventory("lifemoduleon") >= 1)
+			{
+			dropitem(0,"lifemodule",1);
+			takeinventory("lifemoduleon",2);
+			}
+			
+	    IF (Checkinventory("radartoken") >= 1)
+			{
+			dropitem(0,"radar",1);
+			takeinventory("radartoken",2);
+			}
+			
+	// heavy armor
+			if (armorsave >= 0.8)
+			{
+			
+				giveinventory("droppedheavyarmor",1);
+				playsound(0,"items/ELITE_armor",2,1.0);
+				delay(35);
+				dropinventory(0,"droppedheavyarmor");
+				delay(3);
+				takeinventory("droppingarmor",1);
+				delay(15);
+				Setweapon("melee_attacks");
+				SetPlayerProperty(FALSE, OFF, PROP_TOTALLYFROZEN);
+			}
+			
+			//medium armor
+			Else If(armorsave >= 0.6 && armorsave < 0.8)
+			{
+		
+				giveinventory("droppedmediumarmor",1);
+				
+				playsound(0,"items/yellow_armor",2,1.0);
+				delay(35);
+				dropinventory(0,"droppedmediumarmor");
+				delay(3);
+				takeinventory("droppingarmor",1);
+				delay(15);
+				Setweapon("melee_attacks");
+				SetPlayerProperty(FALSE, OFF, PROP_TOTALLYFROZEN);
+			}
+			
+			//lightarmor
+			Else If(armorsave >= 0.4 && armorsave < 0.6)
+			{
+			
+				giveinventory("droppedlightarmor",1);
+				
+				playsound(0,"ARMRPK",2,1.0);
+				delay(35);
+				dropinventory(0,"droppedlightarmor");
+				delay(3);
+				takeinventory("droppingarmor",1);
+				delay(15);
+				Setweapon("melee_attacks");
+				SetPlayerProperty(FALSE, OFF, PROP_TOTALLYFROZEN);
+			}
+			
+			//uniform
+			Else If(armorsave >= 0.25 && armorsave < 0.4)
+			{
+			
+			giveinventory("droppeduniform",1);
+			
+			playsound(0,"ARMRPK",2,1.0);
+			delay(35);
+			dropinventory(0,"droppeduniform");
+			delay(3);
+			takeinventory("droppingarmor",1);
+			delay(15);
+			Setweapon("melee_attacks");
+			SetPlayerProperty(FALSE, OFF, PROP_TOTALLYFROZEN);
+			}
+    }
+    //no armor 
+    Else 
+     {print(s:"You're not wearing any armor");}
+	takeinventory("droppingarmor",1);
+}
+

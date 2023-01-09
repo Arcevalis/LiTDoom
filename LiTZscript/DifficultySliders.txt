@@ -1,0 +1,695 @@
+/////
+///AMMO SPAWNERS
+////
+class CustomCLIP : Actor //replaces Clip
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+
+        //set up an actor pointer so we can append specials, etc.
+        actor replacer;
+
+        //determine what the newly spawned item is depending on a CVAR value
+        if(ammospawn==0) replacer = spawn("fugitiveammosmall",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("unfairbullets",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("realismbullets",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("miserybullets",pos,ALLOW_REPLACE);
+		 else if(ammospawn==4) replacer = spawn("bulletsspawner",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("DOOMEDammosmall",pos,ALLOW_REPLACE);
+        else replacer = spawn("bulletsspawner",pos,ALLOW_REPLACE);
+        //set some stuff
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+
+        //get rid of this dummy actor since it doesn't actually do anything
+        destroy();
+    }
+} 
+
+class CustomCLIPBOX : Actor //replaces Clipbox
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("fugitiveammobig",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("unfairbulletbox",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("realismbulletbox",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("miserybullets",pos,ALLOW_REPLACE);
+		else if(ammospawn==4) replacer = spawn("bulletbox",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("DOOMEDammoBIG",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+
+class CustomSHELLS : Actor //replaces SHELL
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("fugitiveammosmall",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("unfairshell",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("realismshell",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("miseryshell2",pos,ALLOW_REPLACE);
+		else if(ammospawn==4) replacer = spawn("shellspawner",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("DOOMEDammosmall",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+
+class CustomSHELLBOX : Actor //replaces SHELLBOX
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("fugitiveammoBIG",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("unfairshellbox",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("realismshellbox",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("miseryshell",pos,ALLOW_REPLACE);
+		else if(ammospawn==4) replacer = spawn("shellfuel",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("DOOMEDammoBIG",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+
+
+class CustomROCKET : Actor //replaces ROCKETAMMO
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("REALISMROCKET",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("FUGITIVEEXPLOSIVES",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("realismROCKET",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("ROCKETSPAWN",pos,ALLOW_REPLACE);
+		else if(ammospawn==4) replacer = spawn("rocketspawn",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("REALISMROCKET",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+
+class CustomROCKETBOX : Actor //replaces ROCKETBOX
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("REALISMROCKETBOX",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("REALISMROCKETBOX",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("realismROCKETBOX",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("miseryROCKETS",pos,ALLOW_REPLACE);
+		else if(ammospawn==4) replacer = spawn("rocknade",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("FUGITIVEEXPLOSIVES",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomCELL : Actor //replaces CELL
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("FUGITIVECELL",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("REALISMCELL",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("realismCELL",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("ammocell",pos,ALLOW_REPLACE);
+		else if(ammospawn==4) replacer = spawn("ammocell",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("DOOMEDCELL",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomCELLPACK : Actor //replaces CELLPACK
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("realismcell",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("REALISMCELL",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("ammoCELL",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("ammocell",pos,ALLOW_REPLACE);
+		else if(ammospawn==4) replacer = spawn("ammocellpack",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("realismcell",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+
+class CustomBACKPACK : Actor //replaces BACKPACK
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("FUGITIVEBACKPACK",pos,ALLOW_REPLACE);
+        else if(ammospawn==1) replacer = spawn("REALISMbackpack",pos,ALLOW_REPLACE);
+        else if(ammospawn==2) replacer = spawn("REALISMBACKPACK",pos,ALLOW_REPLACE);
+        else if(ammospawn==3) replacer = spawn("BD_Mut_BackPackSpawner",pos,ALLOW_REPLACE);
+		else if(ammospawn==4) replacer = spawn("BD_Mut_BackPackSpawner",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("FUGITIVEBACKPACK",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+
+/////
+///MEDS SPAWNERS
+////
+
+class MEDIKIT2 : Actor 
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(noinstaheal==true) replacer = spawn("Healstim",pos,ALLOW_REPLACE);
+        else if(noinstaheal==false) replacer = spawn("medikit3",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class STIMPACK2 : Actor 
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+		 if(noinstaheal==true) replacer = spawn("bandages",pos,ALLOW_REPLACE);
+        else if(noinstaheal==false) replacer = spawn("stimpack3",pos,ALLOW_REPLACE);
+
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomMEDIKIT : Actor replaces MEDIKIT
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(medspawn==0) replacer = spawn("UNFAIRMEDS",pos,ALLOW_REPLACE);
+        else if(medspawn==1) replacer = spawn("ENDURANCEMEDS",pos,ALLOW_REPLACE);
+        else if(medspawn==2) replacer = spawn("MISERYMEDS",pos,ALLOW_REPLACE);
+        else if (medspawn==3) replacer = spawn("BD_Mut_MedikitSpawner",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+
+class CustomSTIMPACK : Actor replaces STIMPACK
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(medspawn==0) replacer = spawn("UNFAIRStimpArmor",pos,ALLOW_REPLACE);
+        else if(medspawn==1) replacer = spawn("EnduranceStimpArmor",pos,ALLOW_REPLACE);
+        else if(medspawn==2) replacer = spawn("STIMPARMOR",pos,ALLOW_REPLACE);
+        else if(medspawn==3) replacer = spawn("STIMPARMOR",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class LITBONUS : Actor replaces HEALTHBONUS
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(postapocalypsehealth==0) replacer = spawn("CUSTOMBONUS",pos,ALLOW_REPLACE);
+        else if(postapocalypsehealth==1) replacer = spawn("FOODSPAWNER",pos,ALLOW_REPLACE);
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomBONUS : Actor //replaces HEALTHBONUS
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(medspawn==0) replacer = spawn("FUGITIVECRYSTAL",pos,ALLOW_REPLACE);
+        else if(medspawn==1) replacer = spawn("BLOODMARATHONCRYSTAL",pos,ALLOW_REPLACE);
+        else if(medspawn==2) replacer = spawn("SOULCRYSTAL",pos,ALLOW_REPLACE);
+        else replacer = spawn("SOULCRYSTAL",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CrystalSpawner : Actor //replaces HEALTHBONUS
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(crystalspawn==0) replacer = spawn("CRYSTALSPAWNERLOWEST",pos,ALLOW_REPLACE);
+        else if(crystalspawn==1) replacer = spawn("CRYSTALSPAWNERLOW",pos,ALLOW_REPLACE);
+        else replacer = spawn("CRYSTALSPAWNERSTANDARD",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+/////
+///// ARMOR
+/////
+
+class LITSHARD : Actor replaces ARMORBONUS
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(postapocalypseshards==0) replacer = spawn("CUSTOMARMORSHARD",pos,ALLOW_REPLACE);
+        else if(postapocalypseshards==1) replacer = spawn("SHARDBOXSPAWNER",pos,ALLOW_REPLACE);
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class SHARDBOXSPAWNER : Actor 
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(armorspawn==0) replacer = spawn("shardspawnerlowest",pos,ALLOW_REPLACE);
+        else if(armorspawn==1) replacer = spawn("shardspawnerlow",pos,ALLOW_REPLACE);
+        else if(armorspawn==2) replacer = spawn("shardspawnerstandard",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomARMORSHARD : Actor //replaces ARMORBONUS
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(armorspawn==0) replacer = spawn("UNFAIRSHARDSPAWNER",pos,ALLOW_REPLACE);
+        else if(armorspawn==1) replacer = spawn("RARESHARDSPAWNER",pos,ALLOW_REPLACE);
+        else if(armorspawn==2) replacer = spawn("ARMORSHARD",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class FlareArmor : Actor
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(armorspawn==0) replacer = spawn("UnfairFlareArmor",pos,ALLOW_REPLACE);
+        else if(armorspawn==1) replacer = spawn("RareFlareArmor",pos,ALLOW_REPLACE);
+        else if(armorspawn==2) replacer = spawn("CommonFlareArmor",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomLIGHTARMOR : Actor //replaces GREENARMOR
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(armorspawn==0) replacer = spawn("unfairlightarmor",pos,ALLOW_REPLACE);
+        else if(armorspawn==1) replacer = spawn("rarelightarmor",pos,ALLOW_REPLACE);
+        else if(armorspawn==2) replacer = spawn("lightarmorspawner",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomHEAVYARMOR : Actor //replaces BLUEARMOR
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(armorspawn==0) replacer = spawn("UnfairHeavyArmor",pos,ALLOW_REPLACE);
+        else if(armorspawn==1) replacer = spawn("RareHeavyArmor",pos,ALLOW_REPLACE);
+        else if(armorspawn==2) replacer = spawn("HEAVYARMORSpawner",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+/////
+///// WEAPON SPAWNERS
+/////
+class CustomSHOTGUN : Actor //replaces SHOTGUN
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("Fugitiveshotgun",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("Fugitiveshotgun",pos,ALLOW_REPLACE);
+        else replacer = spawn("ShotgunRevolver",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomSSG : Actor //replaces SUPERSHOTGUN
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("FugitiveSSG",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("FugitiveSSG",pos,ALLOW_REPLACE);
+        else replacer = spawn("SSGSPAWNERREPLACER",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomCHAINGUN : Actor //replaces CHAINGUN
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("FugitiveCHAINGUN",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("FugitiveCHAINGUN",pos,ALLOW_REPLACE);
+        else replacer = spawn("CHAINGUNSPAWNERREPLACER",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomROCKETLAUNCHER : Actor //replaces ROCKETLAUNCHER
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("FugitiveROCKETLAUNCHER",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("FugitiveROCKETLAUNCHER",pos,ALLOW_REPLACE);
+        else replacer = spawn("RLSPAWNERREPLACER",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomPLASMA : Actor //replaces PLASMARIFLE
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("FugitivePLASMA",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("FugitivePLASMA",pos,ALLOW_REPLACE);
+        else replacer = spawn("PLASMAGUNREPLACER",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomSargedrop : Actor //replaces Sargeloot
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("Unfairdroppedshells",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("Unfairdroppedshells",pos,ALLOW_REPLACE);
+        else replacer = spawn("Droppedshells",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomZombiedrop : Actor //replaces Zombiemanloot
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("Unfairdroppedmagazine",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("Unfairdroppedmagazine",pos,ALLOW_REPLACE);
+        else replacer = spawn("Droppedmagazine",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+///// DROPPED WEAPONS
+class CustomRifleSpawn : Actor
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("UnfairRifle",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("UnfairRifle",pos,ALLOW_REPLACE);
+        else replacer = spawn("RifleSpawnerdropped",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 
+
+class CustomPistolSpawn : Actor
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(ammospawn==0) replacer = spawn("UnfairPistol",pos,ALLOW_REPLACE);
+		else if(ammospawn==5) replacer = spawn("UnfairPistol",pos,ALLOW_REPLACE);
+        else replacer = spawn("PistolSpawner",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+}
+
+//////  OTHER ITEMS
+class CustomBerserk : Actor 
+{
+    override void PostBeginPlay()
+    {
+        super.PostBeginPlay();
+        actor replacer;
+
+        if(medspawn==0) replacer = spawn("UnfairBerserkPack",pos,ALLOW_REPLACE);
+        else if(medspawn==1) replacer = spawn("UnfairBerserkPack",pos,ALLOW_REPLACE);
+        else if(medspawn==2) replacer = spawn("Berserkaxe",pos,ALLOW_REPLACE);
+        else replacer = spawn("Berserkaxe",pos,ALLOW_REPLACE);
+
+        if(replacer)
+        {
+            replacer.angle = angle;
+            replacer.special = special;
+        }
+        destroy();
+    }
+} 

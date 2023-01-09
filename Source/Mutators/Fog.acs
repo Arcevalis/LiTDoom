@@ -1,0 +1,150 @@
+#library "fog"
+#include "zcommon.acs"
+
+Script "SaveFog" (void) NET
+{
+SetCVAR( "save_fogred", GetCVAR( "bdmut_getred"));
+SetCVAR( "save_foggreen",GetCVAR( "bdmut_getgreen"));
+SetCVAR( "save_fogblue",GetCVAR( "bdmut_getblue"));
+SetCVAR( "save_fogdensity",GetCVAR( "bdmut_fogdensity"));
+}
+
+Script "LoadFog" (void) NET
+{
+SetCVAR("bdmut_getred", GetCVAR("save_fogred"));
+SetCVAR("bdmut_getgreen", GetCVAR("save_foggreen"));
+SetCVAR("bdmut_getblue", GetCVAR("save_fogblue"));
+SetCVAR("bdmut_fogdensity", GetCVAR("save_fogdensity"));
+SetCVAR("bdmut_fograndom", false);
+SetCVAR("bdmut_fogcolor", false);
+ACS_NamedExecute("Fog", 0);
+}
+
+Script "RunFog" (void) NET
+{
+ACS_NamedExecuteAlways("Fog",0);
+}
+
+Script "Fog" Enter NET//(void)
+{
+	int local0 = 0;
+	int fogdensity = GetCVAR( "bdmut_fogdensity");
+	int fograndom = GetCVAR( "bdmut_fograndom");
+	int fogcolor = GetCVAR( "bdmut_fogcolor");
+	int getred;
+	int getgreen;
+	int getblue;
+	
+	If(fogcolor)
+	{
+		getred = random(0,60);
+		getgreen = random(0,60);
+		getblue = random(0,60);
+		Delay(1);
+		SetCVAR( "bdmut_getred", getred);
+		SetCVAR( "bdmut_getgreen", getgreen);
+		SetCVAR( "bdmut_getblue", getblue);
+	}
+	Else
+	{
+		getred = GetCVAR( "bdmut_getred");
+		getgreen = GetCVAR( "bdmut_getgreen");
+		getblue = GetCVAR( "bdmut_getblue");
+	}
+	If(GetCVAR( "bdmut_togglefog"))
+	{
+		If(fogdensity > 0 && !fograndom )//If(GetCVAR("bdmut_togglefog"))
+		{
+				//Until(local0 > 10000) 
+				for(local0 = 0; local0 <= 10000; local0++)
+				{
+					Sector_SetFade(local0, getred, getgreen, getblue);
+					//PrintBold(d:local0);
+					//local0++;
+				}
+				SetGlobalFogParameter(0, 64*fogdensity);//256);
+				SetGlobalFogParameter(1, 32*fogdensity);//128);
+				SetGlobalFogParameter(2, 32*fogdensity);//128);
+				local0=0;
+				//Delay(1);
+		}
+		Else If(fogdensity > 0 && fograndom )
+		{
+			int fog1 = random(0, fogdensity);
+			int fog2 = random(0, fogdensity);
+			int fog3 = random(0, fogdensity);
+			
+				//Until(local0 > 10000) 
+				for(local0 = 0; local0 <= 10000; local0++)
+				{
+					Sector_SetFade(local0, getred, getgreen, getblue);
+					//PrintBold(d:local0);
+					//local0++;
+				}
+				SetGlobalFogParameter(0, 64*fog1);//256);
+				SetGlobalFogParameter(1, 32*fog2);//128);
+				SetGlobalFogParameter(2, 32*fog3);//128);
+				local0=0;
+				//Delay(1);
+			
+		}
+		/*
+		Else
+		{
+				//Until(local0 > 10000) 
+				for(local0; local0 <= 10000; local0++)
+				{
+					Delay(1);
+					Sector_SetFade(local0, 0, 0, 0);
+					Delay(5);
+					Sector_SetFade(local0, 0, 0, 0);
+					//local0++;
+				}
+				SetGlobalFogParameter(0, 0);
+				SetGlobalFogParameter(1, 0);
+				SetGlobalFogParameter(2, 0);
+		}
+		*/
+		//Terminate;
+	}
+}
+
+Script "fog_default" (void)
+{
+	SetCVAR("bdmut_fogcolor", 0);
+	SetCVAR("bdmut_getred", 25);
+	SetCVAR("bdmut_getgreen", 25);
+	SetCVAR("bdmut_getblue", 25);
+}
+
+Script "fog_red" (void)
+{
+	SetCVAR("bdmut_fogcolor", 0);
+	SetCVAR("bdmut_getred", 25);
+	SetCVAR("bdmut_getgreen", 0);
+	SetCVAR("bdmut_getblue", 0);
+}
+
+Script "fog_green" (void)
+{
+	SetCVAR("bdmut_fogcolor", 0);
+	SetCVAR("bdmut_getred", 0);
+	SetCVAR("bdmut_getgreen", 25);
+	SetCVAR("bdmut_getblue", 0);
+}
+
+Script "fog_blue" (void)
+{
+	SetCVAR("bdmut_fogcolor", 0);
+	SetCVAR("bdmut_getred", 0);
+	SetCVAR("bdmut_getgreen", 0);
+	SetCVAR("bdmut_getblue", 25);
+}
+
+Script "fog_dark" (void)
+{
+	SetCVAR("bdmut_fogcolor", 0);
+	SetCVAR("bdmut_getred", 8);
+	SetCVAR("bdmut_getgreen", 8);
+	SetCVAR("bdmut_getblue", 8);
+}

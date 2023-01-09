@@ -1,0 +1,868 @@
+
+///////////////////////////////////////////////////////////// 					BROKEN WEAPONS			 ///////////////////////////////////
+actor hasbeendropped : inventory {inventory.maxamount 1}	
+
+actor BrokenPistol
+{
+scale 0.25
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     PIST Z 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	PIST Z 1
+	TNT1 A 0 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	 PIST Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("pistolpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0 
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(80,1)
+	stop
+	TNT1 A 0 A_spawnitem("clip1",1)
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	stop
+	}}
+	
+actor BrokenRevolver
+{
+scale 0.4
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	RVIC Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	 RVIC Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("REVOLVERpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(80,1)
+	stop
+	TNT1 A 0 A_spawnitem("50AMMO",1)
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	stop
+	}}
+
+actor BrokenSMG
+{
+scale 0.57
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	SMGZ Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	 SMGZ Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("SMGpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(150,1)
+	stop
+	TNT1 A 0 A_spawnitem("clip1",1)
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	stop
+	}}
+	
+actor BrokenShotgun
+{
+Yscale 0.51
+XSCALE 0.49
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	SGNW Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	 SGNW Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("SHOTGUNpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(60,1)
+	stop
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	TNT1 A 0 A_jump(50,2)
+	TNT1 A 0 A_spawnitem("AMMOSHELLSMALL",1)
+	STOP
+	TNT1 A 0 A_spawnitem("AMMOSHELL",1)
+	stop
+	}}
+	
+actor BrokenASG
+{
+scale 0.39
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	A12P Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	A12P Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("ASGpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(80,1)
+	stop
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	TNT1 A 0 A_jump(80,2)
+	TNT1 A 0 A_spawnitem("AMMOSHELLSMALL",1)
+	STOP
+	TNT1 A 0 A_spawnitem("AMMOSHELL",1)
+	stop
+	}}
+	
+actor BrokenRifle
+{
+scale 0.4
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	BADP Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	 BADP Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("riflepart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(75,1)
+	stop
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	TNT1 A 0 A_jump(75,2)
+	TNT1 A 0 A_spawnitem("clip3",1)
+	STOP
+	TNT1 A 0 A_spawnitem("clip2",1)
+	stop
+	}}
+
+actor BrokenMMG
+{
+scale 0.45
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	MGN2 Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	 MGN2 Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("mmgpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(80,1)
+	stop
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	TNT1 A 0 A_spawnitem("CLIPbox3",1)
+	stop
+	}}
+
+actor BrokenMINIGUN
+{
+scale 0.8
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	MGUN Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	MGUN Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("minigunpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(60,1)
+	stop
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	TNT1 A 0 A_spawnitem("minigunammodropped",1)
+	stop
+	}}
+	
+actor BrokenPLASMAGUN
+{
+ scale 0.24
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	PLAS Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	PLAS Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+	 
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("electronicparts",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(150,1)
+	stop
+	TNT1 A 0 a_print("You somehow managed to save its energy cell!")
+	TNT1 A 0 A_spawnitem("ammocell",1)
+	stop
+	}}
+	
+actor BrokenPLASMALANCE
+{
+ scale 0.24
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	SNPP Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	SNPP Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+	 
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("electronicparts",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(200,1)
+	stop
+	TNT1 A 0 a_print("You somehow managed to save its energy cell!")
+	TNT1 A 0 A_spawnitem("ammocell",1)
+	stop
+	}}
+	
+actor BrokenSSG
+{
+ scale 0.35
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	SOSP Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	SOSP Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 a_print("You managed to free some demonic adrenaline lingering inside the weapon!")
+	TNT1 AAAA 0 A_SpawnItemEx("HealthPlusFatalityBonus", 0, 0, 5, random (-1, 1), random (-1, 1), 8)
+	stop
+	}}
+	
+actor BrokenROCKET
+{
+SCALE 0.345
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	RLAU Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	RLAU Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("RLpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(40,1)
+	stop
+	TNT1 A 0 a_print("There was still a functional rocket stuck in it!")
+	TNT1 A 0 A_spawnitem("ammorocket",1)
+	stop
+	}}
+	
+actor BrokenGL 
+{
+ scale 0.348
+ radius 24
+ height 24
+ health 500
+ +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+ damagefactor "Disarm", 1000.0
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	 TNT1 A 0 A_JUMP(127,"FLIP")
+STAY:	
+	GLAP Z 1 a_checkproximity("death.disarm","Disarm",20,1)
+	loop
+FLIP:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	GLAP Z -1 a_checkproximity("death.disarm","Disarm",20,1)
+	 stop
+pain.disarm:
+death.disarm:
+	TNT1 A 0 A_spawnitem("GLpart2",1)
+	TNT1 A 0 A_jumpifinventory("hasbeendropped",1,1)
+	goto chanceforammo
+	TNT1 A 0
+	stop
+ChanceforAmmo:
+	TNT1 A 0 A_jump(75,1)
+	stop
+	TNT1 A 0 a_print("There was still some functional ammo stuck in it!")
+	TNT1 A 0 A_spawnitem("grenadeammo",1)
+	stop
+	}}
+
+//// Melee
+	
+ACTOR BrokenAxe
+{
+	scale 0.5
+	+rollsprite
+	+rollcenter
+	+touchy
+	+missile
+	+thruactors
+	Species "marines"
+	 +THRUACTORS +FORCEXYBILLBOARD +shootable +NOBLOOD
+	damagefactor "Disarm", 1000.0
+	States
+	{
+	Spawn:
+		TNT1 A 0  nodelay a_spawnitemex("axehandle",0,-2,0,random(-1,1),random(-1,-3),2)
+	Fly:
+		BRAX AAAAAAAAAAAA 2 a_setroll(roll+45)
+	Death:
+		BRAX A 3 a_setroll(15)
+		BRAX A 3 a_setroll(-15)
+		BRAX A 3 a_setroll(15)
+		BRAX A 3 a_setroll(-15)
+		BRAX A 1 a_setroll(-10)
+	Waiting:
+		BRAX A 1 a_checkproximity("Dismantle","Disarm",30,1)
+		loop
+	
+	Dismantle:
+	TNT1 A 0 A_spawnitem("scrapmetal",1)
+	stop
+
+	}
+}
+
+ACTOR AxeHandle : BrokenAxe
+{
+-shootable
+	States
+	{
+	Spawn:
+		TNT1 A 0 
+	Fly:
+		BRAX BBBBBBBBBBBB 2 a_setroll(roll-45)
+	Death:
+		BRAX B 3 a_setroll(15)
+		BRAX B 3 a_setroll(-15)
+		BRAX B 3 a_setroll(15)
+		BRAX B 3 a_setroll(-15)
+		BRAX B 1 a_setroll(15)
+		BRAX B -1
+		stop
+	}
+}
+
+ACTOR BrokenKnife
+{
+	PROJECTILE
+	-NOGRAVITY
+	+thruactors
+	scale 0.15
+	+ROLLSPRITE
+	+ROLLCENTER
+	Bouncetype Doom
+	BounceFactor 0.5
+	Speed 4
+	BounceSound "TINK1"
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		BRKN A -1 NODELAY A_ChangeFlag("XFLIP",random(0,1))
+		stop
+	Death:
+		"####" "#" -1 //{ A_SetRoll(Randompick(0,180); A_ChangeFlag("XFLIP",random(0,1)); }
+		stop
+	}
+}	
+ACTOR BrokenKnife2: BrokenKnife
+{
+	scale 0.15
+	Speed 2
+	States
+	{
+	Spawn:
+		BRKN B -1 NODELAY A_ChangeFlag("XFLIP",random(0,1))
+		stop
+	}
+}	
+ACTOR BrokenKnife3: BrokenKnife
+{
+	scale 0.15
+	Speed 2
+	States
+	{
+	Spawn:
+		BRKN C -1 NODELAY A_ChangeFlag("XFLIP",random(0,1))
+		stop
+	}
+}	
+
+///////////////////////////////////////////////////////////// 					WEAPON PARTS			 ///////////////////////////////////
+actor WeaponPartBase : custominventory
+{
+ scale 0.13
+ radius 24
+ height 24
+ +FORCEXYBILLBOARD
+ inventory.pickupsound"METALPK"
+ inventory.pickupmessage""
+  states
+  {
+  Spawn:
+     TNT1 A 0
+	WPAR T -1
+	stop
+	
+Pickup:
+	TNT1 A 0 
+	 stop
+	}}
+
+actor PistolPart : inventory {inventory.maxamount 2}	
+actor PistolPart2 : WeaponPartBase
+{
+ tag"Pistol parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("PistolPart",1)
+	TNT1 A 0 A_jumpifinventory("pistolpart",2,"merge")
+	TNT1 A 0 A_log("$PISTOLPART1")
+	Stop
+Merge:
+	TNT1 A 0 A_takeinventory("pistolpart",2)
+	TNT1 A 0 A_jumpifinventory("brutalpistol",1,"repair")
+	TNT1 A 0 A_giveinventory("brutalpistol",1)
+	TNT1 A 0 A_giveinventory("pistoldurability",5)
+	TNT1 A 0 A_log("$PISTOLPART2")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("pistoldurability",50)
+	TNT1 A 0 A_log("$PISTOLPARTrepair")
+	stop
+}}
+
+actor revolverPart : inventory {inventory.maxamount 2}	
+actor RevolverPart2 : WeaponPartBase
+{
+ tag"Revolver parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("revolverPart",1)
+	TNT1 A 0 A_jumpifinventory("revolverpart",2,"merge")
+	TNT1 A 0 A_log("$revolverPART1")
+	Stop
+Merge:
+	TNT1 A 0 A_takeinventory("revolverpart",2)
+	TNT1 A 0 A_jumpifinventory("revolver",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("revolver",1)
+	TNT1 A 0 A_giveinventory("revolverdurability",5)
+	TNT1 A 0 A_log("$revolverPART2")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("revolverdurability",30)
+	TNT1 A 0 A_log("$revolverPARTrepair")
+	stop
+}}
+
+actor SMGPART : inventory {inventory.maxamount 2}	
+actor SMGPART2 : WeaponPartBase
+{
+ tag"SMG parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("SMGPART",1)
+	TNT1 A 0 A_jumpifinventory("SMGPART",2,"merge")
+	TNT1 A 0 A_log("$SMGPART1")
+	Stop
+Merge:
+	TNT1 A 0 A_takeinventory("SMGPART",2)
+	TNT1 A 0 A_jumpifinventory("brutalsmg",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("brutalsmg",1)
+	TNT1 A 0 A_giveinventory("smgdurability",5)
+	TNT1 A 0 A_log("$SMGPART2")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("smgdurability",40)
+	TNT1 A 0 A_log("$SMGPARTrepair")
+	stop
+}}
+
+actor shotgunPart : inventory {inventory.maxamount 3}	
+actor ShotgunPart2 : WeaponPartBase
+{
+ tag"Pump Shotgun parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("shotgunpart",1)
+	TNT1 A 0 A_jumpifinventory("shotgunpart",3,"merge")
+	TNT1 A 0 A_jumpifinventory("shotgunpart",2,2)
+	TNT1 A 0 A_log("$shotgunpart1")
+	Stop
+	TNT1 A 0 A_log("$shotgunpart2")
+	Stop	
+Merge:
+	TNT1 A 0 A_takeinventory("shotgunpart",3)
+	TNT1 A 0 A_jumpifinventory("shot_gun",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("shot_gun",1)
+	TNT1 A 0 A_giveinventory("shotgundurability",5)
+	TNT1 A 0 A_log("$shotgunpart3")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("shotgundurability",30)
+	TNT1 A 0 A_log("$shotgunpartrepair")
+	stop
+}}
+
+actor ASGPart : inventory {inventory.maxamount 3}	
+actor ASGPart2 : WeaponPartBase
+{
+ tag"Assault Shotgun parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("ASGpart",1)
+	TNT1 A 0 A_jumpifinventory("ASGpart",2,"merge")
+	TNT1 A 0 A_log("$ASGpart1")
+	Stop
+
+Merge:
+	TNT1 A 0 A_takeinventory("ASGpart",3)
+	TNT1 A 0 A_jumpifinventory("assaultshotgun",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("assaultshotgun",1)
+	TNT1 A 0 A_giveinventory("asgdurability",5)
+	TNT1 A 0 A_log("$ASGpart2")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("asgdurability",30)
+	TNT1 A 0 A_log("$ASGpartrepair")
+	stop
+}}
+
+actor RiflePart : inventory {inventory.maxamount 3}	
+actor RiflePart2 : WeaponPartBase
+{
+ tag"Rifle parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("riflepart",1)
+	TNT1 A 0 A_jumpifinventory("riflepart",3,"merge")
+	TNT1 A 0 A_jumpifinventory("riflepart",2,2)
+	TNT1 A 0 A_log("$riflepart1")
+	Stop
+	TNT1 A 0 A_log("$riflepart2")
+	Stop	
+Merge:
+	TNT1 A 0 A_takeinventory("riflepart",3)
+	TNT1 A 0 A_jumpifinventory("litrifle",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("litrifle",1)
+	TNT1 A 0 A_giveinventory("rifledurability",5)
+	TNT1 A 0 A_log("$riflepart3")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("rifledurability",40)
+	TNT1 A 0 A_log("$riflepartrepair")
+	stop
+}}
+
+actor MINIGUNPART : inventory {inventory.maxamount 3}	
+actor MINIGUNPart2 : WeaponPartBase
+{
+ tag"Microgun parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("MINIGUNpart",1)
+	TNT1 A 0 A_jumpifinventory("MINIGUNpart",3,"merge")
+	TNT1 A 0 A_jumpifinventory("MINIGUNpart",2,2)
+	TNT1 A 0 A_log("$MINIGUNpart1")
+	Stop
+	TNT1 A 0 A_log("$MINIGUNpart2")
+	Stop	
+Merge:
+	TNT1 A 0 A_takeinventory("MINIGUNpart",3)
+	TNT1 A 0 A_jumpifinventory("MINIGUN",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("MINIGUN",1)
+	TNT1 A 0 A_giveinventory("MINIGUNdurability",5)
+	TNT1 A 0 A_log("$MINIGUNpart3")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("MINIGUNdurability",120)
+	TNT1 A 0 A_log("$MINIGUNpartrepair")
+	stop
+}}
+
+actor MMGPart : inventory {inventory.maxamount 3}	
+actor MMGPart2 : WeaponPartBase
+{
+ tag"Machinegun parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("MMGpart",1)
+	TNT1 A 0 A_jumpifinventory("MMGpart",2,"merge")
+	TNT1 A 0 A_log("$MMGpart1")
+	Stop
+Merge:
+	TNT1 A 0 A_takeinventory("MMGpart",3)
+	TNT1 A 0 A_jumpifinventory("MACHINEGUN",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("MACHINEGUN",1)
+	TNT1 A 0 A_giveinventory("LMGdurability",5)
+	TNT1 A 0 A_log("$MMGpart2")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("LMGdurability",60)
+	TNT1 A 0 A_log("$MMGpartrepair")
+	stop
+}}
+
+actor RLPart : inventory {inventory.maxamount 2}	
+actor RLPart2 : WeaponPartBase
+{
+ tag"Rocket Launcher parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("RLPART",1)
+	TNT1 A 0 A_jumpifinventory("RLPART",2,"merge")
+	TNT1 A 0 A_log("$RLPART1")
+	Stop
+Merge:
+	TNT1 A 0 A_takeinventory("RLPART",2)
+	TNT1 A 0 A_jumpifinventory("ROCKET_LAUNCHER",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("ROCKET_LAUNCHER",1)
+	TNT1 A 0 A_giveinventory("RLdurability",2)
+	TNT1 A 0 A_log("$RLPART2")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("RLdurability",4)
+	TNT1 A 0 A_log("$RLPARTrepair")
+	stop
+}}
+
+actor GLPART : inventory {inventory.maxamount 2}	
+actor GLPART2 : WeaponPartBase
+{
+ tag"Grenade Launcher parts"
+states
+	{
+Pickup:
+	TNT1 A 0 A_giveinventory("GLPART",1)
+	TNT1 A 0 A_jumpifinventory("GLPART",2,"merge")
+	TNT1 A 0 A_log("$GLPART1")
+	Stop
+Merge:
+	TNT1 A 0 A_takeinventory("GLPART",2)
+	TNT1 A 0 A_jumpifinventory("GRENADELAUNCHER",1,"repair")
+	
+	TNT1 A 0 A_giveinventory("GRENADELAUNCHER",1)
+	TNT1 A 0 A_giveinventory("GLdurability",5)
+	TNT1 A 0 A_log("$GLPART2")
+	stop
+Repair:
+	TNT1 A 0 A_giveinventory("gLdurability",20)
+	TNT1 A 0 A_log("$GLPARTrepair")
+	stop
+}}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////// 		RANDOM SPAWNER			 //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+actor BrokenWeaponSpawner : randomspawner
+{
+dropitem "brokenpistol"
+dropitem "brokenshotgun"
+dropitem "brokenrifle"
+dropitem "brokenpistol"
+dropitem "brokensmg"
+dropitem "BrokenWeaponSpawnerRare"
+}
+
+actor BrokenWeaponSpawnerRare : randomspawner
+{
+dropitem "brokenASG"
+dropitem "brokenMMG"
+dropitem "brokenRocket"
+dropitem "brokenplasmagun"
+dropitem "brokenrevolver"
+dropitem "brokenminigun"
+dropitem "brokenGL"
+}

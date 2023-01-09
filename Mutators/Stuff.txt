@@ -1,0 +1,2 @@
+Actor BD_Mut_CapturedMarine : CapturedMarine
+{}

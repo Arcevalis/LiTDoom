@@ -1,0 +1,14 @@
+Version "3.4"
+
+#include "UseToPickup/INIFile.zc"
+// See https://gitlab.com/Gutawer/gzdoom-gutamatics/
+#include "U2P_Gutamatics/Include.zsc"
+
+#include "UseToPickup/UseToPickup.zc"
+#include "UseToPickup/ActorClassInfo.zc"
+#include "UseToPickup/DrawContext.zc"
+#include "UseToPickup/ItemReachabilityTracer.zc"
+#include "UseToPickup/PlayerSettings.zc"
+#include "UseToPickup/PlayerState.zc"
+#include "UseToPickup/ActorAdjustedGeometry.zc"
+#include "UseToPickup/ItemHighlight.zc"

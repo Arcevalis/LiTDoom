@@ -1,0 +1,896 @@
+#library "AMMOLIST"
+#include "zcommon.acs"
+
+Script "AMMOCHECK" (void)
+{
+		SetHudSize(620, 360, false);
+
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////WEAPONS
+///////////////////////////////////////////////////////////////////////////		
+//
+//
+//
+//////COLUMN1
+
+		//PISTOL
+		If (Checkinventory("BRUTALpistol"))
+		{
+		SetFont("PISTICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 800, CR_CYAN, 40.1, 50.1, 0.1);
+			If (Checkinventory("BDPistolAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("BDPistolAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 801, CR_cyan, 97.1, 56.1, 0.1);}
+		}
+		
+		
+		//REVOLVER
+		If (Checkinventory("Revolver"))
+		{
+		SetFont("REVOICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 802, CR_CYAN, 40.1, 73.1, 0.1);
+			If (Checkinventory("RevolverAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("revolverammo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 803, CR_cyan, 97.1, 80.1, 0.1);}
+		}
+		
+		//SMG
+		If (Checkinventory("BrutalSMG"))
+		{
+		SetFont("SMGICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 804, CR_CYAN, 45.1, 103.1, 0.1);
+			If (Checkinventory("BDSMGAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("BDSMGAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 805, CR_cyan, 140.1, 110.1, 0.1);}
+		}
+		
+		//SHOTGUN
+		If (Checkinventory("Shot_Gun"))
+		{
+		SetFont("SGICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 806, CR_CYAN, 40.1, 130.1, 0.1);
+			If (Checkinventory("ShotgunAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("ShotgunAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 807, CR_cyan, 140.1, 132.1, 0.1);}
+		}
+		
+		//ASG
+		If (Checkinventory("AssaultShotgun"))
+		{
+		SetFont("ASGICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 808, CR_CYAN, 40.1, 150.1, 0.1);
+			If (Checkinventory("AssaultShotgunAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("AssaultShotgunAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 809, CR_cyan, 140.1, 160.1, 0.1);}
+		}
+		
+		//SSG
+		If (Checkinventory("SSG"))
+		{
+		SetFont("SSGICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 810, CR_CYAN, 45.1, 179.1, 0.1);
+			If (Checkinventory("SSGAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("SsgAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 811, CR_cyan, 140.1, 183.1, 0.1);}
+		}
+//
+//
+//
+//////COLUMN2
+		//RIFLE
+		If (Checkinventory("LITRIFLE"))
+		{		
+		SetFont("RIFLICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 812, CR_CYAN, 194.1, 48.1, 0.1);
+			If (Checkinventory("RIFLEAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("RIFLEAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 813, CR_cyan, 297.1, 53.1, 0.1);}
+		}
+		
+		//MACHINEGUN
+		If (Checkinventory("MACHINEGUN"))
+		{				
+		SetFont("LMGICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 814, CR_CYAN, 190.1, 75.1, 0.1);
+			If (Checkinventory("LMGAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("LMGAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 815, CR_cyan, 297.1, 85.1, 0.1);}
+		}
+		
+		//MINIGUN
+		If (Checkinventory("MINIGUN"))
+		{		
+		SetFont("MIGNICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 816, CR_CYAN, 205.1, 104.1, 0.1);
+		}
+		
+		//GRENADE LAUNCHER
+		If (Checkinventory("GRENADELAUNCHER"))
+		{		
+		SetFont("GLAUICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 818, CR_CYAN, 197.1, 144.1, 0.1);
+			If (Checkinventory("GLAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("GLAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 819, CR_cyan, 310.1, 152.1, 0.1);}
+		}
+		
+		//ROCKET LAUNCHER
+		If (Checkinventory("ROCKET_LAUNCHER"))
+		{			
+		SetFont("RLAUICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 820, CR_CYAN, 190.1, 172.1, 0.1);
+			If (Checkinventory("ROCKETROUNDS"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("ROCKETROUNDS")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 821, CR_cyan, 310.1, 180.1, 0.1);}
+		}
+//
+//
+//
+//////COLUMN3
+		//PLASMA
+		If (Checkinventory("PLASMA_GUN"))
+		{	
+		SetFont("PLASICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 822, CR_CYAN, 365.1, 50.1, 0.1);
+			If (Checkinventory("PlasmaAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("PLASMAAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 823, CR_cyan, 450.1, 60.1, 0.1);}
+		}
+		
+		//PlasmaLance
+		If (Checkinventory("Plasmalance"))
+		{	
+		SetFont("RAILICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 824, CR_CYAN, 350.1, 95.1, 0.1);
+			If (Checkinventory("PlasmaLanceAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("plasmalanceAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 825, CR_cyan, 450.1, 115.1, 0.1);}
+		}
+		
+		//BFG11K
+		If (Checkinventory("BFG11K"))
+		{	
+		SetFont("BFGICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 827, CR_CYAN, 345.1, 138.1, 0.1);
+			
+			If (Checkinventory("BFGCOREAMMO")>=1)		
+		{SetFont("COREICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 700, CR_CYAN, 430.1, 163.1, 0.1);}
+			If (Checkinventory("BFGCOREAMMO")>=2)	
+		{SetFont("COREICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 701, CR_CYAN, 440.1, 163.1, 0.1);}
+			If (Checkinventory("BFGCOREAMMO")==3)	
+		{SetFont("COREICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 702, CR_CYAN, 450.1, 163.1, 0.1);}		
+		
+		}
+   
+//////COLUMN4
+
+		//KNIVES
+		If (Checkinventory("KNIVESAMMO"))
+		{	
+		SetFont("KNIFICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 829, CR_CYAN, 505.1, 50.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("KNIVESAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 830, CR_cyan, 583.1, 52.1, 0.1);
+		}
+		
+		//AXE
+		If (Checkinventory("BRUTALAXE"))
+		{	
+		SetFont("AXEICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 831, CR_CYAN, 495.1, 75.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("AXEDURABILITY")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 832, CR_cyan, 583.1, 77.1, 0.1);
+		}
+		
+		//CHAINSAW
+		If (Checkinventory("CHAIN_SAW"))
+		{	
+		SetFont("SAWICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 833, CR_CYAN, 505.1, 108.1, 0.1);
+			If (Checkinventory("sawfuel"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("sawfuel")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 880, CR_cyan, 583.1, 124.1, 0.1);}
+		}
+		
+		//FLAMETHROWER
+		If (Checkinventory("FLAMETHROWER2"))
+		{	
+		SetFont("FLAMICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 834, CR_CYAN, 505.1, 140.1, 0.1);
+			If (Checkinventory("fueltankAmmo"))
+		{SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("fueltankAmmo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 881, CR_cyan, 583.1, 157.1, 0.1);}
+		}
+
+////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////// AMMO
+///////////////////////////////////////////////////////////////////////////
+//
+//
+//			
+//////ROW 1
+
+	//9MM
+		If (Checkinventory("CLIP1"))
+		{	
+		SetFont("P9MMICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 835, CR_CYAN, 42.1, 218.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("CLIP1")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 836, CR_cyan, 70.0, 220.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9835, CR_white, 70.0, 223.1, 0.1);
+		HudMessage(f:getammocapacity("Clip1")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 837, CR_white, 70.0, 235.0, 0.1);
+		}
+	
+	//.50AE
+		If (Checkinventory("50AMMO"))
+		{	
+		SetFont("50AEICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 838, CR_CYAN, 100.1, 213.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("50AMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 839, CR_cyan, 138.0, 220.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9836, CR_white, 138.0, 223.1, 0.1);
+		HudMessage(f:getammocapacity("50AMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 840, CR_white, 138.0, 235.0, 0.1);
+		}
+		
+	//4.73
+		If (Checkinventory("MINIGUNAMMO"))
+		{	
+		SetFont("R556ICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 841, CR_CYAN, 167.1, 213.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("MINIGUNAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 842, CR_cyan,202.0, 220.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9837, CR_white, 202.0, 223.1, 0.1);
+		HudMessage(f:getammocapacity("MINIGUNAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 843, CR_white, 202.0, 235.0, 0.1);
+		}
+	
+	//7.62
+		If (Checkinventory("CLIP2"))
+		{	
+		SetFont("R762ICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 844, CR_CYAN, 233.1, 213.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("CLIP2")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 845, CR_cyan, 261.0, 220.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9838, CR_white, 261.0, 223.1, 0.1);
+		HudMessage(f:getammocapacity("CLIP2")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 846, CR_white, 261.0, 235.0, 0.1);
+		}
+	
+	//BUCKSHOTS
+		If (Checkinventory("AMMOSHELL"))
+		{	
+		SetFont("BUCKICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 847, CR_CYAN, 302.1, 217.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("AMMOSHELL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 848, CR_cyan, 336.0, 220.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9839, CR_white, 336.0, 223.1, 0.1);
+		HudMessage(f:getammocapacity("AMMOSHELL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 849, CR_white, 336.0, 235.0, 0.1);
+		}
+		
+	//SLUGS
+		If (Checkinventory("AMMOSLUG"))
+		{	
+		SetFont("SLUGICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 850, CR_CYAN,359.1, 213.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("AMMOSLUG")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 851, CR_cyan, 390.0, 220.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9840, CR_white,390.0, 223.1, 0.1);
+		HudMessage(f:getammocapacity("AMMOSLUG")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 852, CR_white, 390.0, 235.0, 0.1);
+		}
+		
+	//SENTRY TURRET
+		If (Checkinventory("SENTRYTURRETAMMO"))
+		{	
+		SetFont("TURICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 910, CR_CYAN,463.1, 206.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("SENTRYTURRETAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 911, CR_cyan, 504.0, 220.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9950, CR_white,504.0, 223.1, 0.1);
+		HudMessage(f:getammocapacity("SENTRYTURRETAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 912, CR_white, 504.0, 235.0, 0.1);
+		}
+	
+	//CELLS
+		If (Checkinventory("AMMOCELL"))
+		{	
+		SetFont("CELLICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 853, CR_CYAN, 548.1, 215.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("AMMOCELL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 854, CR_cyan, 548.0, 240.0, 0.1);
+		HudMessage(s:("/"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9848, CR_white, 562.0, 240.0, 0.1);
+		HudMessage(f:getammocapacity("AMMOCELL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 855, CR_white, 577.0, 240.0, 0.1);
+		}
+		
+		
+//
+//
+//
+//////ROW 2
+
+	//ROCKETS
+		If (Checkinventory("AMMOROCKET"))
+		{	
+		SetFont("ROCKICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_UNDERHUD, 856, CR_CYAN, 44.1, 260.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("AMMOROCKET")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 857, CR_cyan, 66.0, 277.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9841, CR_white, 66.0, 280.1, 0.1);
+		HudMessage(f:getammocapacity("AMMOROCKET")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 858, CR_white, 66.0, 290.0, 0.1);
+		}
+		
+		//WARHEADS
+		If (Checkinventory("nuke"))
+		{	
+		SetFont("nukeICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_UNDERHUD, 900, CR_CYAN, 90.1, 260.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("nuke")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 901, CR_cyan, 114.0, 277.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9900, CR_white, 114.0, 280.1, 0.1);
+		HudMessage(f:getammocapacity("nuke")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 902, CR_white, 114.0, 290.0, 0.1);
+		}
+	
+	//GRENADES
+		If (Checkinventory("GRENADEAMMO"))
+		{	
+		SetFont("GRNDICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 859, CR_CYAN, 172.1, 273.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("GRENADEAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 860, CR_cyan, 196.0, 277.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9842, CR_white, 196.0, 280.1, 0.1);
+		HudMessage(f:getammocapacity("GRENADEAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 861, CR_white, 196.0, 290.0, 0.1);
+		}
+	
+	//CLUSTERS
+		If (Checkinventory("CLUSTERAMMO"))
+		{	
+		SetFont("CLUSICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 862, CR_CYAN, 224.1, 271.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("CLUSTERAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 863, CR_cyan, 250.0, 277.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9843, CR_white, 250.0, 280.1, 0.1);
+		HudMessage(f:getammocapacity("CLUSTERAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 864, CR_white, 250.0, 290.0, 0.1);
+		}
+	
+	//PROXIMITY
+		If (Checkinventory("PROXBOMBAMMO"))
+		{	
+		SetFont("PROXICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 865, CR_CYAN, 278.1, 271.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("PROXBOMBAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 866, CR_cyan, 302.0, 277.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9844, CR_white, 302.0, 280.1, 0.1);
+		HudMessage(f:getammocapacity("PROXBOMBAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 867, CR_white, 302.0, 290.0, 0.1);
+		}
+	
+	//ACID
+		If (Checkinventory("ACIDMISTAMMO"))
+		{	
+		SetFont("ACIDICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 868, CR_CYAN, 331.1, 270.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("ACIDMISTAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 869, CR_cyan, 355.0, 277.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9845, CR_white, 355.0, 280.1, 0.1);
+		HudMessage(f:getammocapacity("ACIDMISTAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 870, CR_white, 355.0, 290.0, 0.1);
+		}
+		
+	//HELLFIRE
+		If (Checkinventory("HELLFIREAMMO"))
+		{	
+		SetFont("HELFICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 871, CR_CYAN, 385.1, 270.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("HELLFIREAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 872, CR_cyan, 409.0, 277.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9846, CR_white, 409.0, 280.1, 0.1);
+		HudMessage(f:getammocapacity("HELLFIREAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 873, CR_white, 409.0, 290.0, 0.1);
+		}
+		
+	//FUEL
+		If (Checkinventory("GASAMMO"))
+		{	
+		SetFont("GASOICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 874, CR_CYAN, 473.1, 269.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("GASAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 875, CR_cyan, 504.0, 277.0, 0.1);
+		HudMessage(s:("---"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9847, CR_white, 504.0, 280.1, 0.1);
+		HudMessage(f:getammocapacity("GASAMMO")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 876, CR_white, 504.0, 290.0, 0.1);
+		}
+	
+	//BATTERY
+		If (Checkinventory("BATTERY"))
+		{	
+		SetFont("BATTICON");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 877, CR_CYAN, 555.1, 265.1, 0.1);
+		SetFont("SMALLFONT");
+		HudMessage(f:CheckInventory("BATTERY")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 878, CR_cyan, 548.0, 295.0, 0.1);
+		HudMessage(s:("/"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 9849, CR_white, 562.0, 295.0, 0.1);
+		HudMessage(f:getammocapacity("BATTERY")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD, 879, CR_white, 577.0, 295.0, 0.1);
+		}
+
+ Delay(1);
+}
+
+
+////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////// CURSOR
+///////////////////////////////////////////////////////////////////////////
+
+
+//////////ROW 1
+//
+SCRIPT "9MMSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 34.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 34.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 34.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 34.1, 212.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 34.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 34.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 34.1, 212.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "50AESELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED,96.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 96.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 96.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 96.1, 212.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 96.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 96.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 96.1, 212.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "556SELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 162.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 162.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 162.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 162.1, 212.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 162.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 162.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 162.1, 212.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "762SELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 225.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 225.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 225.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 225.1, 212.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 225.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 225.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 225.1, 212.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "SHELLSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 298.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED,  298.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED,  298.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED,  298.1, 212.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED,  298.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED,  298.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED,  298.1, 212.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "SLUGSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 353.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 353.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 353.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 353.1, 212.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 353.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 353.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 353.1, 212.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "TURRETAMMOSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 463.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 463.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 463.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 463.1, 212.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 463.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 463.1, 212.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 463.1, 212.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "CELLSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 547.1, 210.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 547.1, 210.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 547.1, 210.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 547.1, 210.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 547.1, 210.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 547.1, 210.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 547.1, 210.1, 0.1);
+delay(1);
+terminate;
+}
+
+///////////ROW 2
+//
+SCRIPT "ROCKETSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 33.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 33.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 33.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 33.1, 262.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 33.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 33.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 33.1, 262.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "NUKESELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 79.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 79.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 79.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 79.1, 262.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 79.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 79.1, 262.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 79.1, 262.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "GRENADESELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 161.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 161.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 161.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED,161.1, 267.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 161.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 161.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 161.1, 267.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "CLUSTERSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 213.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 213.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 213.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 213.1, 267.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 213.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 213.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 213.1, 267.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "MINESSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 267.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 267.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 267.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 267.1, 267.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 267.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 267.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 267.1, 267.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "ACIDSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 320.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 320.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 320.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 320.1, 267.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 320.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 320.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 320.1, 267.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "HELLFIRESELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 374.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 374.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 374.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 374.1, 267.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 374.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 374.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 374.1, 267.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "FUELSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 469.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 469.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 469.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 469.1, 267.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 469.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 469.1, 267.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 469.1, 267.1, 0.1);
+delay(1);
+terminate;
+}
+
+SCRIPT "BATTERYSELECT" (void)
+{
+SetHudSize(620, 360,false);
+setfont("AMSEA0");
+delay(1);
+Hudmessage(s:"a";HUDMSG_PLAIN, 9850, CR_UNTRANSLATED, 548.1, 258.1, 0.1);
+delay(1);
+setfont("AMSEA0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9851, CR_UNTRANSLATED, 548.1, 258.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9852, CR_UNTRANSLATED, 548.1, 258.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9853, CR_UNTRANSLATED, 548.1, 258.1, 0.1);
+delay(1);
+setfont("AMSED0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9854, CR_UNTRANSLATED, 548.1, 258.1, 0.1);
+delay(1);
+setfont("AMSEC0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9855, CR_UNTRANSLATED, 548.1, 258.1, 0.1);
+delay(1);
+setfont("AMSEB0");
+Hudmessage(s:"a";HUDMSG_PLAIN, 9856, CR_UNTRANSLATED, 548.1, 258.1, 0.1);
+delay(1);
+terminate;
+}

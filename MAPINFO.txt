@@ -1,0 +1,173 @@
+gameinfo
+{
+NoRandomPlayerClass = true
+infoPage = "HELP1", "HELP2","HELP3"
+AddEventHandlers = "UseToPickup",
+									/// monster spawners
+									"CustomZombieman", "Customsergeant", "CustomCommando", "CustomImp", "CustomDemon", "CustomCaco", "CustomPainElemental","CustomKnight", "CustomBaron", "CustomRevenant", "CustomMancubus", "CustomSpider", "CustomCyberdemon",
+									/// keybindings
+									"DroppedArmorHandler",
+									//gameplay tweaks
+									"GameplayTweaksHandler",
+									// Enemy armors
+									"EnemyArmorhandler"
+
+
+DimColor = "00 00 00"
+DimAmount = 0.4
+PickupColor = "00 00 FF"
+BlurAmount = 0.1
+	menufontcolor_title = "fire" 
+	menufontcolor_label = "lightblue"
+	menufontcolor_value = "white"
+	menufontcolor_action = "lightblue"
+	menufontcolor_highlight = "sapphire"
+	menufontcolor_selection = "sapphire"
+
+//AddQuitMessages = "LITQUITMSG1", "LITQUITMSG2", "LITQUITMSG4", "LITQUITMSG5", "LITQUITMSG6", "LITQUITMSG7", "LITQUITMSG8","LITQUITMSG9", "LITQUITMSG10", "LITQUITMSG11", "LITQUITMSG12", "LITQUITMSG13", "LITQUITMSG14", "LITQUITMSG15"					
+QuitMessages = "$LITQUITMSG1", "$LITQUITMSG2", "$LITQUITMSG4", "$LITQUITMSG5", "$LITQUITMSG6", "$LITQUITMSG7", "$LITQUITMSG8","$LITQUITMSG9", "$LITQUITMSG10", "$LITQUITMSG11", "$LITQUITMSG12", "$LITQUITMSG13", "$LITQUITMSG14", "$LITQUITMSG15", "$LITQUITMSG16", "$LITQUITMSG17", "$LITQUITMSG18", "$LITQUITMSG19", "$LITQUITMSG20", "$LITQUITMSG21", "$LITQUITMSG22", "$LITQUITMSG23", "$LITQUITMSG24", "$LITQUITMSG25"		
+} 
+
+Damagetype Bleeding
+{
+    Factor = 1.0
+	Noarmor
+	Replacefactor
+	obituary = "%o bled to death."
+}
+
+Damagetype BleedingArmor
+{
+    Factor = 1.0
+	Replacefactor
+	obituary = "%o bled to death."
+}
+
+Damagetype frenzytrigger
+{
+    Factor = 1.0
+	Noarmor
+	Replacefactor
+}
+
+Damagetype shock
+{
+    Factor = 1.0
+	Noarmor
+}
+
+Damagetype Litpoison
+{
+    Factor = 1.0
+	Noarmor
+	Replacefactor
+	obituary = "%o died from poisoning"
+}
+
+
+episode EDAY01
+{
+optional
+name = "Extermination Day"
+}
+
+map Titlemap "Live Through DOOM"
+{}
+
+
+
+map TEST "UAC Testing Center"
+{
+next = "MAP02"
+secretnext = "MAP02"
+sky1 = "SKYEAR1", 0.1
+cluster = 1
+//par = 60
+music = D_RUNNIN
+}
+
+
+clearskills
+
+skill easy
+{
+   DamageFactor = 1.0
+   FriendlyHealth = 1.0
+   ACSReturn = 32
+   SpawnFilter = easy
+   EasyBossBrain 
+   name = "UAC Recruit"
+   TextColor = "green"
+   mustconfirm ="-- Minimum enemy count.\
+						Press Y/N" 
+}
+
+skill normal
+{
+   AmmoFactor = 1
+   DamageFactor = 1.0
+   FriendlyHealth = 1.0
+   SpawnFilter = normal
+   name = "Lone Marine"
+   TextColor = "green"
+   mustconfirm ="-- Medium enemy count.\
+						Press Y/N" 
+}
+
+skill Hard
+{
+   AmmoFactor = 1
+   DamageFactor = 1.0
+   FriendlyHealth = 1.0
+   SpawnFilter = hard
+   DefaultSkill 
+   name = "Demon Hunter"
+   TextColor = "green"
+   mustconfirm ="-- Maximum enemy count.\
+						Press Y/N" 
+}
+
+skill Invasion
+{
+   ACSReturn = 32
+   Aggressiveness = 0.5
+   FriendlyHealth = 1.0
+   SpawnFilter = normal
+   name = "Invasion"
+	NoInfighting
+   TextColor = "darkBROWN"
+   mustconfirm = "-- Medium enemy count.\
+					-- Enemies have better armor.\
+						 -- Enemies will never infight.\
+						Press Y/N" 
+}
+skill Horde
+{
+   FriendlyHealth = 1.0
+   ACSReturn = 32
+   SpawnFilter = hard
+   Aggressiveness = 0.5
+   name = "Unchained Horde"
+  TextColor = "darkBROWN"
+   mustconfirm = "-- Maximum enemy count.\
+						 -- More aggressive monsters.\
+Press Y/N"
+}
+
+skill Unhappy
+{
+   FriendlyHealth = 1.0
+   ACSReturn = 32
+   Aggressiveness = 1.0
+   fastmonsters
+   SpawnFilter = easy
+   NoInfighting
+   name = "We (Un)happy Few"						   																								   
+
+   TextColor = "darkred"
+   mustconfirm = "-- Minimum enemy count.\
+							 -- Enemies will never infight.\
+					  -- Enemies have better armor.\
+				 -- Extremely aggressive monsters.\
+   Press Y/N"
+}

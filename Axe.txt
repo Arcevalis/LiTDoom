@@ -1,0 +1,1470 @@
+ACTOR BrutalAxe : BrutalWeapon
+{
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive1 0			  						 
+	Obituary "%o was choped down by %k's axe."
+    AttackSound "None"
+    Inventory.PickupSound "AXESELE"
+	Inventory.Pickupmessage "$GOTAXE3"
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOAUTOFIRE
+    +FORCEXYBILLBOARD
+	damagetype Saw
+	+WEAPON.NOALERT
+	+WEAPON.AXEBLOOD
+	Weapon.SelectionOrder 3000
+	XScale 0.4
+	YSCALE 0.4
+	Tag "Axe"
+	States
+	{
+	
+	Steady:
+		TNT1 A 1
+		Goto Ready	
+	Spawn:
+		AXEK B 1
+		AXEK B -1
+		Stop
+	
+	Inspect:
+		AXEG A 0 A_startSound("AXEINSPE", 15,0,1.0,0,0,1.0)
+		TNT1 A 9
+		TNT1 A 0 A_TakeInventory("neverfoundaxe", 1)
+		AXEG A 0 A_startSound("AXESW1", 11,0,0.6)	
+		TNT1 A 0 A_TakeInventory("JustStartedGame",1)
+		AXEI ABCDEFGHIJKLMNOPQR 1 A_JumpifInventory("Kicking",1,"InspectCancel")
+		AXEI STUUUUVVVVWXYZ 1 A_JumpifInventory("Kicking",1,"InspectCancel")
+		AXE1 ABCDEFGH 1 A_JumpifInventory("Kicking",1,"InspectCancel")
+		AXE1 IJKKKKKKKKKKKK 1 A_JumpifInventory("Kicking",1,"InspectCancel")
+		AXE1 LMNO 1 A_JumpifInventory("Kicking",1,"InspectCancel")
+		AXEG A 0 A_startSound("ADSIN", 11)
+		AXE1 PQRSTU 1 A_JumpifInventory("Kicking",1,"InspectCancel")
+		goto Ready3	
+	
+	Select:
+		TNT1 A 0  A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)	
+		TNT1 A 0 SetPlayerProperty(0,0,2)
+		TNT1 A 0 A_TakeInventory("axethrowmode", 1)
+		TNT1 A 0 A_TakeInventory("raredropselected",1)
+		AXEG A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 ACS_NAMEDEXECUTE("WEAPONSELECT",0)
+		AXEG A 0 A_Giveinventory("HasCutingWeapon",1)
+		TNT1 A 0 A_SetRoll(0)
+		AXEG A 0 A_PlaySound("AXESELE")
+	Select2:
+		TNT1 A 0 A_Raise
+		loop
+		
+	SelectAnimation:
+		TNT1 A 1
+	    AXEG A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+        AXES ABCDEFG 1
+		TNT1 A 0 A_SetROLL(0)
+		AXEG A 0 A_JumpIfInventory("AxeDurability",1, 4)
+		TNT1 A 1 A_Print("The axe has broken!")
+		TNT1 A 0 A_spawnItemex("BrokenAxe",-5,0,30,5)	
+		TNT1 A 1 A_TakeInventory("BrutalAxe",1)
+        AXEG A 0 
+		Goto Ready3
+	
+	Ready:
+		TNT1 A 0 A_JumpIfInventory("neverfoundaxe",1,"Inspect")
+		goto SelectAnimation
+	Ready3:
+		AXEG A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		//DURABILITY CHECK
+		AXEG A 0 A_JumpIfInventory("AxeDurability",1, 5)
+		TNT1 A 1 A_Print("The axe has broken!")
+		TNT1 A 0 A_spawnItemex("BrokenAxe",-5,0,30,5)	
+		TNT1 A 1 A_TakeInventory("BrutalAxe",1)
+		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
+		///
+		 AXEG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        AXEG A 0 A_JumpIfInventory("Kicking",1,"DOKICKAXE")
+		AXEG A 0 A_Giveinventory("HasCutingWeapon",1)
+		AXEG A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		AXEG A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		AXEG A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		AXEG A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		AXEG A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		AXEG A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		AXEG A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		AXEG A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		AXEG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		AXEG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck")
+		RIFG A 0 A_JumpIfInventory("StartDualWield",1,"Throwswitch")
+		AXES G 1 A_WeaponReady(WRF_ALLOWRELOAD)	
+		AXES G 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		AXEG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		Loop
+	
+	Deselect:
+		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
+		AXEG A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		TNT1 A 0 A_TakeInventory("firstslash", 1)
+		TNT1 A 0 A_TakeInventory("secondslash", 1)
+		TNT1 A 0 A_TakeInventory("axecleave", 1)
+		TNT1 A 0 A_TakeInventory("flaretoken", 1)
+		AXEG A 0 A_TakeInventory("TossGrenade", 1)
+		AXEG A 0 A_startSound("AXEPREP", 19,0,0.6)	
+        AXES GFEDCBA 1
+		TNT1 A 0 A_TakeInventory("axethrowmode", 1)
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+		
+	goingtoaction:
+		AXEG A 0 A_startSound("AXEPREP", 19,0,0.6)	
+		AXES GFEDCBA 1
+		TNT1 A 0 A_TakeInventory("axethrowmode", 1)
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		TNT1 A 0 A_TakeInventory("flaretoken", 1)
+		AXEG A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair
+	
+    Fire:
+		AXEG A 0
+		AXEG A 0 A_TakeInventory("AxeHit", 1)
+		AXEG A 0 A_JumpIfInventory("axethrowmode",1, "Throw")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_CROUCH, "Sweep")
+		AXEG A 0 A_JumpIfInventory("firstslash",1, "LeftSlash")
+		AXEG A 0 A_JumpIfInventory("secondslash",1, "LastSlash")
+		AXEG A 0 A_JumpIfInventory("axecleave",1, "LeftSlash")
+		NULL A 0 A_JumpIf (momZ > 0, "JumpingSlash")
+		NULL A 0 A_JumpIf (momZ < 0, "JumpingSlash")
+	Firestart:
+        AXEA ABCD 1 A_SetROLL(ROLL+2)
+	Hold:
+		AXEG A 0
+		AXEG A 0 A_TakeInventory("AxeHit", 1)
+		AXEA E 1 A_WeaponReady(WRF_NOFIRE)
+		AXEG A 0 A_Refire
+		
+	RightSlash:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 6)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 4)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",90,"TiredAttack")
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1980,"TiredAttack")
+		TNT1 A 0 A_Giveinventory("UsedStamina",15)
+	    AXEG A 0 A_PlaySound("AXESW1", 1)
+		 AXEG A 0 A_OVERLAY(3,"RightSwingOverlay")
+		AXEA FGHI 1
+		AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("AxeAttack", 0, 0, 0, 0)
+		
+		AXEA JKLM 1 A_SetROLL(ROLL-1)
+		TNT1 A 0 A_Giveinventory("firstslash",1)
+		TNT1 AAAA 1 A_SetROLL(ROLL -1)
+		TNT1 AA 1
+		TNT1 AAAAAAAAA 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		Goto Endswing
+	
+	JumpingSlash:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",90,"StopSprintTired")
+		TNT1 A 0 A_JumpifInventory("usedstamina", 1980,"StopSprintTired")
+		TNT1 A 0 a_recoil(4)
+		AXE4 ABC 1
+		TNT1 A 1	
+	LeftSlash:	
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		TNT1 A 0 A_Giveinventory("UsedStamina",20)
+		AXEG A 0 A_OVERLAY(3,"LEFTSwingOverlay")
+		AXEA OP 1 A_SetROLL(ROLL+1)
+	   AXEG A 0 A_PlaySound("AXESW2", 1)
+		AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("AxeAttack", 0, 0, 0, 0)
+		
+		AXEA QRST 1 A_SetROLL(ROLL+1)
+		TNT1 A 0 A_takeinventory("firstslash",1)
+		TNT1 A 0 A_Giveinventory("secondslash",1)
+		TNT1 A 0 A_takeinventory("axecleave",1)
+		TNT1 AAAAAA 1 A_SetROLL(ROLL -1)
+		TNT1 AAAAAAAAA 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		Goto Endswing
+		
+	LastSlash:
+		TNT1 A 5
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 6)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 4)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",90,"stopsprinttired")
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1980,"stopsprinttired")
+		TNT1 A 0 A_Giveinventory("UsedStamina",25)
+	    AXEG A 0 A_STARTSound("AXESW1", 1,0,1.0,0,0.8)
+		 AXEG A 0 A_OVERLAY(3,"RightSwingOverlay")
+		AXEA FGHI 1
+		AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("AxeAttack", 0, 0, 0, 0)
+		
+		AXEA JKLM 1 A_SetROLL(ROLL-1)
+		TNT1 A 0 A_takeinventory("firstslash",1)
+		TNT1 A 0 A_takeinventory("secondslash",1)
+		TNT1 A 0 A_takeinventory("axecleave",1)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		TNT1 AAAA 1 A_SetROLL(ROLL -1)
+		TNT1 A 2
+		Goto Endswing
+	
+	Cleave:
+		AXEG A 0 A_PlaySound("AXESW3", 1)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 6)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 4)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",50,"stopsprinttired")
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1900,"stopsprinttired")
+		TNT1 A 0 A_Giveinventory("UsedStamina",100)
+		AXEG A 0 A_CLEAROVERLAYS(3,4)
+		AXEG A 0 A_OVERLAY(4,"CleaveOverlay")
+		AXEG A 0 a_recoil(-6)
+		TNT1 A 0 A_GIVEinventory("AXECLEAVE",1)
+		AXEG A 0 A_JumpIfInventory("secondslash", 1, 4)
+		AXE4 ABC 1
+		TNT1 A 5
+		AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+		AXE4 D 1 A_SetROLL(ROLL-1)
+		AXE4 EFG 1 A_SetROLL(ROLL-2)
+		TNT1 A 0 A_TAKEinventory("firstslash",1)
+		TNT1 A 0 A_TAKEinventory("secondslash",1)
+		AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("ALTAxeAttack", 0, 0, 0, 0)
+		AXE4 GHIJ 1 A_SetROLL(ROLL-2)
+		AXEG A 0 A_OVERLAY(4,"CleaveOverlay2")
+		TNT1 A 8
+		TNT1 AAAAA 1 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOsecondary)
+		goto EndSwing
+	
+	Sweep:
+		TNT1 A 0 A_TAKEinventory("firstslash",1)
+		TNT1 A 0 A_TAKEinventory("secondslash",1)
+		TNT1 A 0 A_takeinventory("axecleave",1)
+		
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 6)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 4)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",90,"Firestart")
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1980,"Firestart")
+		TNT1 A 0 A_Giveinventory("UsedStamina",25)		
+		AXES FEDCBA 1
+		TNT1 A 3
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 1); a_overlayflags(1, pspf_mirror, 1);}
+		AXEA C 1 offset(0,60)
+		AXEA C 1 offset(0,32)
+		AXEA D 1 offset(0,60)
+		AXEA D 1 offset(0,32)
+		AXEA EFG 2
+	SweepHold:
+		AXEA G 1
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "SweepHold")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_CROUCH, 2)
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 0); a_overlayflags(1, pspf_mirror, 0);}
+		goto leftslash
+		AXEG A 0 A_STARTSOUND("PREGRNT", 22, 0,1.0,0,0.9)
+		AXEG A 0 A_OVERLAY(3,"LEFTSwingOverlay")
+		AXEG A 0 A_setpitch(15)
+		AXEA HI 1
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("AxeSweep", 0, 0, 0, 0)
+		AXEA JKLM 1
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 0); a_overlayflags(1, pspf_mirror, 0);}
+		goto endswing
+	
+	SprintAttack:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 6)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 4)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",20,"Trip2")
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1900,"Trip2")
+		TNT1 A 0 A_Giveinventory("UsedStamina",50)
+		
+		NULL A 0 ThrustThing(angle*256/360,20,0,0)
+		//prepare
+		AXEG A 0 A_startSound("AXEPREP", 19,0,1.0)	
+		AXEG A 0 A_overlay(5,"sprintattackoverlay")
+		AXEC ABC 1
+		TNT1 A 1
+		TNT1 A 0 A_startSound("AXESW2", 17,0,0.6)
+		AXEC D 1 offset(1,32)
+		AXEC D 1 offset(-20,32)
+		AXEC E 1 offset(1,32)
+		AXEC E 1 offset(-20,32)
+		AXEC F 1 offset(1,32)
+		AXEC F 1 offset(-20,32)
+		AXEC G 1 offset(1,32)
+		AXEC G 1 offset(-20,32)
+		AXEC H 1 offset(1,32)
+		TNT1 A 0 A_OverlayPivotAlign(0, PSPA_CENTER,PSPA_CENTER)
+		AXEC H 1 offset(-30,32) 
+		AXEC H 1 offset(-60,17) A_overlayrotate(0,10)
+		AXEC H 1 offset(-90,1) A_overlayrotate(0,20)
+		AXEC H 1 offset(-120,-18) A_overlayrotate(0,30)
+		TNT1 A 1 offset(1,32) A_overlayrotate(0,0)
+		// first attack
+		AXEG A 0 A_PlaySound("AXESW2", 1)
+		AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+		AXE4 D 1 A_SetROLL(ROLL-1)
+		AXE4 EFG 1 A_SetROLL(ROLL-2)
+		TNT1 A 0 A_TAKEinventory("firstslash",1)
+		TNT1 A 0 A_TAKEinventory("secondslash",1)
+		AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("ALTAxeAttack", 0, 0, 0, 0)
+		AXE4 GHIJ 1 A_SetROLL(ROLL-2)
+		AXEG A 0 A_OVERLAY(4,"CleaveOverlay2")
+		TNT1 A 8
+		// second attack
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		TNT1 A 0 A_Giveinventory("UsedStamina",20)
+		TNT1 A 0 A_startSound("AXESW1", 18,0,1.0,0,1.3)
+		AXEG A 0 A_OVERLAY(3,"LEFTSwingOverlay")
+		AXEA OPQ 1 A_SetROLL(ROLL+1)
+	    
+	    AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("AxeAttack", 0, 0, 0, 0)
+		AXEA RST 1 A_SetROLL(ROLL+1)
+		TNT1 A 5
+		
+		// third attack
+		AXEG A 0 A_OVERLAY(3,"RIGHTSwingOverlay")
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		TNT1 A 0 A_Giveinventory("UsedStamina",20)
+		TNT1 A 0 A_startSound("AXESW2", 18,0,1.0,0,1.8)
+		AXER CDE 1 A_SetROLL(ROLL+2)
+		AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("AxeAttack", 0, 0, 0, 0)
+		AXER FGHIJ 1
+		TNT1 AAAAAA 1 A_SetROLL(ROLL-2)
+		goto endswing
+	
+	SprintattackOverlay:
+		TNT1 AAAAAAAAAAAAAAAAAAAA 1 A_setangle(angle+18)
+		stop
+	
+	EndSwing:	
+		TNT1 A 1 A_SetROLL(0)
+		TNT1 A 0 A_TAKEinventory("firstslash",1)
+		TNT1 A 0 A_TAKEinventory("secondslash",1)
+		TNT1 A 0 A_takeinventory("axecleave",1)
+		TNT1 A 0 A_SetROLL(0)
+		AXEG A 0 A_JumpIfInventory("AxeDurability",1, "Ready")
+		TNT1 A 1 A_Print("The axe has broken!")
+		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
+		TNT1 A 0 A_spawnItemex("BrokenAxe",-5,0,30,5)
+		TNT1 A 1 A_TakeInventory("BrutalAxe",1)
+		Goto Ready
+
+	
+	TiredAttack:
+		AXEG A 0 A_STARTSOUND("PREGRNT", 22, 0,1.0,0,0.9)
+		AXEA EEEEEFFFFFGGGGGGG 1
+		AXEG A 0 A_OVERLAY(3,"RightSwingOverlay")
+		AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+		AXEA FGHIJ 1
+	    AXEG A 0 A_PlaySound("AXESW1", 1)
+		AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		AXEG A 0 A_FireCustomMissile("AxeAttack", 0, 0, 0, 0)
+		AXEA KLM 1 A_SetROLL(ROLL-2)
+		TNT1 A 20 A_SetROLL(ROLL-2)
+		SHTZ A 0 A_STARTSound("Tired", 21)
+		Goto EndSwing
+
+	//Alt Fire Mode
+    AltFire:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",80,"StopSprintTired")
+		TNT1 A 0 A_JumpifInventory("usedstamina", 1980,"StopSprintTired")
+		ASEG A 0 A_TakeInventory("AxeHit", 1)
+		TNT1 A 0 A_JumpIfInventory("axethrowmode", 1, "Rend")
+		TNT1 A 0 A_JumpIfInventory("secondslash", 1, "Cleave")
+		NULL A 0 A_JumpIf (momZ > 0, "Cleave")
+		NULL A 0 A_JumpIf (momZ < 0, "Cleave")
+		AXEG A 0 A_startSound("AXEPREP", 19,0,1.0)	
+		AXEG A 0 A_STARTSOUND("PREGRNT", 22, 0,1.0,0,0.9)
+        AXEC ABC 1
+		TNT1 A 15
+		TNT1 A 0 A_startSound("AXESW", 17,0,0.3,0,0.8)
+		AXEC D 1 offset(1,32)
+		AXEC D 1 offset(-20,32)
+		AXEC E 1 offset(1,32)
+		AXEC E 1 offset(-20,32)
+		AXEC F 1 offset(1,32)
+		AXEC F 1 offset(-20,32)
+		AXEC G 1 offset(1,32)
+		AXEC G 1 offset(-20,32)
+		TNT1 A 3 A_OverlayPivotAlign(0, PSPA_CENTER,PSPA_CENTER)
+		AXEC H 1 offset(-100,-40) A_overlayrotate(0,30)
+		AXEC H 1 offset(-30,-25) A_overlayrotate(0,20)
+		AXEC H 1 offset(-10,5) A_overlayrotate(0,10)
+		AXEC H 1 offset(1,32) A_overlayrotate(0,0)
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, 3)	
+		AXEG A 0 A_OVERLAY(3,"RendOverlay2")
+	    AXEG A 0 A_startSound("AXESW3", 14,0,1.0,0,0,0.2)
+		goto RendStart		
+	AltHold:
+		ASEG A 0 A_TakeInventory("AxeHit", 1)
+		AXEY A 1 A_WeaponReady(WRF_NOFIRE)
+		AXEY A 0 A_Refire
+	REND:
+		TNT1 A 0 A_TAKEinventory("firstslash",1)
+		TNT1 A 0 A_TAKEinventory("secondslash",1)
+		AXEG A 0 A_OVERLAY(3,"RendOverlay")
+	    AXEG A 0 A_PlaySound("AXESW3", 1)
+		AXEY A 1 offset(0,20)
+		AXEY A 1 offset(0,0)
+		AXEY A 1 offset(0,-30)
+		AXEY A 7 offset(0,-40)
+		AXEY A 1 offset(0,32)
+	Rendstart:
+		AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+		AXEY A 1 offset(0,36)
+		AXEC HIJ 1
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		TNT1 A 0 A_Giveinventory("UsedStamina",35)
+		
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("ALTAxeAttack", 0, 0, 0, 0)
+		AXEG A 0 A_FireCustomMissile("ALTAxeAttackSCAN", 0, 0, 0, 0)
+		ASEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		AXEC KLM 1
+		
+	AltEndSwing:	
+		TNT1 A 15
+		ASEG A 0 A_TakeInventory("Axethrowmode", 1)
+		AXEG A 0 A_JumpIfInventory("AxeDurability",1, "Ready")
+		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
+		TNT1 A 1 A_Print("The axe has broken!")
+		TNT1 A 0 A_spawnItemex("BrokenAxe",-5,0,30,5)	
+		TNT1 A 1 A_TakeInventory("BrutalAxe",1)
+		Goto Ready
+	
+/// CAMERA SHAKES	
+	LeftSwingOverlay:
+		TNT1 AAAAAAAAAA 1 A_SetANGLE(angle-3)
+		TNT1 AAAA 1 A_SetANGLE(angle+1)
+		STOP
+	
+	//RightSwingOverlay:
+		//TNT1 AAAAAAAAAA 1 A_SetANGLE(angle+3)
+		//TNT1 AAAA 1 A_SetANGLE(angle-1)
+		//STOP
+	RightSwingOverlay:
+		TNT1 A 1 A_SetAngle(angle-0.3)
+		TNT1 A 1 A_SetAngle(angle-1)
+		TNT1 AAAAAA 1 A_SetANGLE(angle+5)
+		TNT1 AA 1 A_SetANGLE(angle+3)
+		TNT1 A 1 A_SetANGLE(angle+1)
+		TNT1 AAA 1 A_SetANGLE(angle-1)
+		TNT1 AA 1 A_SetANGLE(angle-0.5)
+		STOP
+		
+	CleaveOverlay:
+		TNT1 AAAAA 1 A_SetANGLE(angle+3)
+		TNT1 AAAA 1 A_SetPITCH(PITCH+3)
+		TNT1 AAAAA 1 A_SetANGLE(angle-3)
+		TNT1 AAAA 1 A_SetPITCH(PITCH-3)
+		STOP
+	CleaveOverlay2:
+		TNT1 AAAAAAAAAAAAAAAA 1 A_SetROLL(ROLL+1)
+		stop
+		
+	RendOverlay:
+		TNT1 AAAAAAAAA 1 A_Setpitch(pitch-1)
+		TNT1 A 2
+		TNT1 A 1 A_Setpitch(pitch+9)
+	RendOverlay2:
+		TNT1 A 1 A_SetPitch(PITCH+2)
+		TNT1 AAAAAAA 1 A_SetPitch(PITCH+6)
+		TNT1 A 1 A_SetPitch(PITCH+2)
+		TNT1 AA 1 A_SetPitch(PITCH-2)
+		TNT1 AAAAAAAAA 1 A_SetPitch(PITCH-4)
+		TNT1 A 1 A_SetPitch(PITCH-2)
+		TNT1 AAA 1 A_SetPitch(PITCH-1)
+		stop
+		
+
+///////////////////////////	
+	
+	RELOAD:
+	PARRY:
+		PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
+		TNT1 A 0 A_giveinventory("DashResist",1)	
+		AXEG A 0 A_STARTSound("SSGMACE2", 14,0,1.0,0,1.5)
+		AXER AB 1
+		TNT1 A 2
+		AXER CD 1
+		TNT1 A 0 A_spawnItemex("Axeparry", 0, 0, 40,0,0,0,0,SXF_SETMASTER)	
+		AXER EF 1
+		AXER GHIJ 1 A_JumpIfInventory("triptoken",1,"Knockdown")
+		TNT1 A 5 A_JumpIfInventory("triptoken",1,"Knockdown")
+		AXEG A 0 A_JumpIfInventory("triptoken",1,"Knockdown")
+		TNT1 A 0 A_jumpifinventory("parrytoken",1,2)
+		TNT1 A 30
+		TNT1 A 0 A_TakeInventory("parrytoken", 1)
+		goto Ready
+	
+	Throwswitch:
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		//swoosh
+		AXEG A 0 A_JumpIfInventory("axethrowmode",1,"ThrowmodeOut")
+	ThrowmodeIn:
+		AXEG A 0 A_startSound("AXEPREP", 19,0,1.0)	
+		AXEC ABC 1
+		TNT1 A 7
+		AXEC D 1 offset(1,32)
+		AXEC D 1 offset(-20,32)
+		AXEC E 1 offset(1,32)
+		AXEC E 1 offset(-20,32)
+		AXEC F 1 offset(1,32)
+		AXEC F 1 offset(-20,32)
+		AXEC G 1 offset(1,32)
+		AXEC G 1 offset(-20,32)
+		TNT1 A 3 A_OverlayPivotAlign(0, PSPA_CENTER,PSPA_CENTER)
+		AXEC H 1 offset(-100,-40) A_overlayrotate(0,30)
+		AXEC H 1 offset(-30,-25) A_overlayrotate(0,20)
+		AXEC H 1 offset(-10,5) A_overlayrotate(0,10)
+		AXEC H 1 offset(1,32) A_overlayrotate(0,0)
+		AXEG A 0 A_Giveinventory("axethrowmode",1)
+		goto ThrowReady
+	ThrowmodeOut:
+		AXEG A 0 A_PlaySound("AXESELE")
+		AXEC H 1
+		TNT1 A 1
+		AXEC GFED 1
+		TNT1 A 7
+		AXEC CBA 1
+		TNT1 A 0 A_TakeInventory("axethrowmode", 1)
+		goto Ready3
+		
+	ThrowReady:
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		//DURABILITY CHECK
+		AXEG A 0 A_JumpIfInventory("AxeDurability",1, 5)
+		TNT1 A 1 A_Print("The axe has broken!")
+		TNT1 A 0 A_spawnItemex("BrokenAxe",-5,0,30,5)	
+		TNT1 A 1 A_TakeInventory("BrutalAxe",1)
+		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
+		///
+        AXEG A 0 A_JumpIfInventory("Kicking",1,"DOKICKAXE")
+		AXEG A 0 A_Giveinventory("HasCutingWeapon",1)
+		 TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		AXEG A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		AXEG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		AXEG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "ThrowSwitch")
+		RIFG A 0 A_JumpIfInventory("StartDualWield",1,"Throwswitch")
+		AXEY A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		Loop
+	
+	Throw:
+		AXEG A 0 A_PlaySound("AXESW3", 1)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 6)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",90,"wimpythrow")
+		TNT1 A 0 A_JumpifInventory("usedstamina", 1990,"wimpythrow")
+		TNT1 A 0 A_Giveinventory("UsedStamina",15)
+		AXEY A 1 offset(0,30)
+		AXEY A 1 offset(0,15)
+		AXEY A 1 offset(0,1)
+		AXEY A 1 offset(0,-15)
+		AXEY A 1 offset(0,-30)
+		AXEY A 7 offset(0,-40)
+		AXEY A 1 offset(0,-30)
+		AXEY A 1 offset(0,1)
+		AXEY A 1 offset(0,32)
+		AXEC HIJ 1
+		AXEG A 0 A_TakeInventory ("AxeDurability", 3)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, "StrongThrow")
+		AXEG A 0 A_FireCustomMissile("ThrowedAxe", 0, 0, 0, 0)
+		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
+		AXEY BCD 1
+		Goto AxeAfterThrow
+	
+	WIMPYTHROW:
+	    TNT1 A 0 A_Giveinventory("UsedStamina",15)
+		AXEY A 2 offset(0,30)
+		AXEY A 2 offset(0,20)
+		AXEY A 2 offset(0,10)
+		AXEY A 2 offset(0,0)
+		AXEY A 2 offset(0,-10)
+		AXEY A 2 offset(0,-20)
+		AXEY A 2 offset(0,-30)
+		AXEY A 15 offset(0,-40)
+		AXEY A 1 offset(0,-30)
+		AXEY A 1 offset(0,-10)
+		AXEY A 1 offset(0,20)
+		AXEY A 1 offset(0,32)
+		AXEC HIJ 1
+		AXEG A 0 A_TakeInventory ("AxeDurability", 1)
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, "StrongThrow")
+		AXEG A 0 A_FireCustomMissile("WIMPYAxe", 0, 0, 0, 0)
+		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
+		AXEY BCD 1
+		Goto AxeAfterThrow
+	
+	StrongThrow:	
+		TNT1 A 0
+		AXEG A 0 A_TakeInventory ("AxeDurability", 3)
+		AXEG A 0 A_FireCustomMissile("ThrowedAxeStrong", 0, 0, 0, 0)
+		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
+		AXEY BCD 1
+		Goto AxeAfterThrow
+	
+	CheckSprint:
+		AXEG A 0
+		//AXES G 1 A_WeaponReady(WRF_NOFIRE)
+		AXEG A 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		AXEG A 0 A_JumpIfInventory("IsTacticalClass", 1, "StartSprint")
+		Goto Ready
+		
+	StartSprint:
+		AXES FED 1 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		AXEG A 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")	
+		
+	Sprinting:	
+		AXEP A 0 offset(-9,32) 
+		AXEG A 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		AXEG A 0 A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		PLAY A 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		AXEG A 0 offset(-9,32) A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 offset(-9,32) A_GiveInventory("UsedStamina", 5)
+		AXEG A 0 offset(-9,32) A_overlay(10,"sprintoverlay",false)
+		AXES C 1 offset(-9,34)  A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "Cleave")
+		AXES C 1 offset(-6,36) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altattack, "sprintAttack")
+		AXES C 1 offset(-3,38) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "Cleave")
+		AXES C 1 offset(0,38) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altattack, "sprintAttack")
+		AXES C 1 offset(3,36) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "Cleave")
+		AXES C 1 offset(6,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altattack, "sprintAttack")
+		AXES C 1 offset(9,32) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "Cleave")
+		AXEG A 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		AXEG A 0 A_JumpIfInventory("Kicking",1,"DOKICKAXE")
+        AXEG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		AXEG A 0 offset(-9,32) A_GiveInventory("usedstamina", 1)
+		AXEG A 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		AXES C 1 offset(9,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altattack, "sprintAttack")
+		AXES C 1 offset(6,36) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "Cleave")
+		AXES C 1 offset(3,38) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altattack, "sprintAttack")
+		AXES C 1 offset(0,38) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "Cleave")
+		AXES C 1 offset(-3,36) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altattack, "sprintAttack")
+		AXES C 1 offset(-6,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "Cleave")
+		AXES C 1 offset(-9,32) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altattack, "sprintAttack")
+		AXEG A 0 offset(-9,32) 
+		AXEG A 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		Goto StopSprint
+
+	SprintOverlay:
+		TNT1 AAAAAAA 1 A_SetPitch(pitch -0.5)
+		TNT1 AAAAAAA 1 A_SetPitch(pitch +0.5)
+		stop
+		
+
+	StopSprintTired:
+		AXES DEF 1
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		AXEG A 0 A_PlaySound("Tired", 2)
+		AXEG A 0 A_TakeInventory("usedstamina", 1)
+		TNT1 A 0 A_Jumpifhealthlower(25,"rupturesprint")												  
+		AXES G 5 A_WeaponReady
+		AXEG A 0 A_TakeInventory("usedstamina", 1)
+		AXES G 5 A_WeaponReady
+		AXEG A 0 A_TakeInventory("usedstamina", 1)
+		AXES G 5 A_WeaponReady
+		AXEG A 0 A_TakeInventory("usedstamina", 1)
+		AXES G 5 A_WeaponReady
+		AXEG A 0 A_TakeInventory("usedstamina", 1)
+		AXES G 5 A_WeaponReady
+		Goto Ready3
+	StopSprint:
+		AXES DEF 1
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		AXEG A 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		Goto Ready3	
+	
+WeaponCheck:
+		TNT1 A 0 a_STARTSOUND("MAGGRAB2", 120,0,0.6)
+		AXE1 UTSRQPON 1
+		AXEI R 1
+	CheckHold:
+		AXEI S 1 a_weaponready(WRF_NOFIRE | WRF_NOSWITCH)
+		TNT1 A 0 ACS_NAMEDEXECUTEalways("AXEDURABILITYCHECK",0)
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CHECKHOLD")
+		
+		TNT1 A 0 A_PlaySound("axesele")
+		AXEI R 1
+		AXE1 NOPQRSTU 1
+		goto Ready3
+
+	
+	
+	KITREPAIR:
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		AXES G 1
+		
+		TNT1 A 0 A_JumpIFInventory("AXEDurability",100, "NoNeedRepair")
+		PIST F 0 A_JumpIfInventory("scrapmetal",1, 2)
+		PIST F 0 A_Jump(256,"outofmetal")
+		
+	KITREPAIR2:
+		PIST F 0 A_GIVEinventory("AXEDurability",30)
+		BADF A 0 A_Takeinventory("survivalkituses",1)
+		BADF A 0 A_Takeinventory("scrapmetal",1)
+		TNT1 A 0 A_playsound("WIRECUT",1)
+		AXES GFEDCBA 1
+		TNT1 A 35
+		AXES ABCDEFG 1
+		
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		AXES G 1
+		goto Ready3	
+		
+	DoKICKAXE:
+		NULL A 0 A_JumpIf (momZ > 0, "SpecialKick")
+		NULL A 0 A_JumpIf (momZ < 0, "SpecialKick")
+		TNT1 A 0 A_JumpIfInventory("IsCrouching", 1, "SpecialKick")
+		
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,4)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,3)
+		
+	AXEBASH:
+		"####" A 0 A_Takeinventory("Kicking",1)
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		 TNT1 A 0 a_Setroll(0)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 5)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,"TiredAxeBash")
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,"TiredAxeBash")
+		TNT1 A 0 A_Giveinventory("UsedStamina",10)
+		
+		AXEP NABC 1
+		
+		TNT1 A 2
+		TNT1 A 0 A_JumpIfInventory("kicking", 1, "AxeBashHeavy")
+		AXEG A 0 A_PlaySound("AXEPARRY", 1)
+		AXEB BA 1
+		AXEP EFG 1
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		TNT1 A 0 A_FireCustomMissile("SuperKickAttack", 0, 0, 0, -7)
+		TNT1 A 0 A_FireCustomMissile("KickAttack", 0, 0, 0, -7)
+		AXEP HHHIJKLM 1
+		Goto SelectingAnimation
+		
+		
+	 AxeBashHeavy:
+		TNT1 A 7
+		AXEG A 0 A_PlaySound("AXEPARRY", 1)
+		AXEG A 0 A_STARTSOUND("PREGRNT", 22, 0,1.0,0,0.9)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		TNT1 A 0 A_Giveinventory("UsedStamina",15)
+		AXEB CDE 1
+		AXEG A 0 A_JumpIfInventory("powerstrength2", 1, 2)
+		AXEG A 0 A_Jump(256,2)
+		"####" AA 0 A_FireCustomMissile("AxeBash", 0, 0, 0, -7)
+		AXEB FGHHH 1
+		 AXEB IJKLMNOPQ 1
+		TNT1 A 0 SetPlayerProperty(0,0,0)
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		Goto SelectingAnimation
+
+	TiredAxeBash:
+		AXEB QPON 2
+		TNT1 A 10
+		AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+		AXEG A 0 A_PlaySound("AXEPARRY", 1)
+		AXEB MLKJ 1
+		"####" A 0 A_FireCustomMissile("Kickattack", 0, 0, 0, -7)
+		AXEB IIIIIIIIIIIIIHHHHHGFEDC 1
+		TNT1 A 15
+		Goto SelectingAnimation
+		
+	SpecialKick:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",90,"trip")
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1500,"trip")
+		TNT1 A 0 A_overlay(3,"loweredAxe")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3
+		TNT1 A 0 A_overlay(3,"loweredAXETired")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3	
+	LOWEREDaxe:
+		AXES FED 1
+		AXES C 9
+		AXES DEF 1
+		AXES G 6
+		STOP
+	LOWEREDaxeTIRED:
+		AXES FED 2
+		AXES C 37
+		AXES DEF 2
+		STOP
+	
+	Execution1Overlay:
+		TNT1 A 0 A_Setpitch(20)
+		TNT1 AAAAA 1 A_Setpitch(pitch+3)
+		TNT1 AAAAAA 1 A_Setangle(angle-3)
+		TNT1 AAAAAAAAAA 1 A_Setpitch(pitch-3)
+		TNT1 A 0 ACS_NAMEDEXECUTE("CROUCH",0)
+		TNT1 AAAAAAAA 1 A_Setangle(angle+7)
+		TNT1 AA 1 A_Setangle(angle-8)
+		TNT1 AA 1 A_Setpitch(pitch+6)
+		TNT1 AA 1 A_Setangle(angle-8)
+		TNT1 AA 1 A_Setpitch(pitch+6)
+		TNT1 AA 1 A_Setangle(angle-8)
+		TNT1 AA 1 A_Setpitch(pitch+6)
+		TNT1 AA 1 A_Setangle(angle-8)
+		TNT1 AA 1 A_Setpitch(pitch+6)
+		TNT1 A 0 ACS_NAMEDEXECUTE("GETUP",0)
+		TNT1 AAAAAAAAAA 1 A_Setpitch(pitch-5)
+		TNT1 AA 1 A_Setangle(angle+6)
+		TNT1 AA 1 A_Setpitch(pitch-2)
+		TNT1 AA 1 A_Setangle(angle+6)
+		TNT1 AA 1 A_Setpitch(pitch-2)
+		TNT1 AAAAAA 1 A_Setangle(angle+8)
+		TNT1 AAAA 1 A_Setpitch(pitch+2)
+		TNT1 AAAAAAAAAAA 1 A_Setangle(angle-9)
+		TNT1 AAAA 1 A_Setangle(angle+5)
+		stop
+	
+	Execution1: ////////  "MAIM"
+	// cut leg
+		AXES GGGGGG 1 A_RADIUSGIVE("AXEFINISHER",100, RGF_MONSTERS | RGF_NOSIGHT,1)
+		AXEP NMLKJI 1 A_RADIUSGIVE("AXEFINISHER",100, RGF_MONSTERS | RGF_NOSIGHT,1)
+		AXEG A 0 A_PlaySound("AXEPARRY", 1)
+		TNT1 A 0 A_startSound("KICKMON", 12)
+		AXEP H 5 
+		AXEP GFEDC 1 
+		TNT1 A 3  
+		AXEP BAN 1 
+		TNT1 A 0 a_overlay(5,"EXECUTION1OVERLAY")
+		AXEG A 0 A_startSound("AXEPREP", 19,0,1.0)	
+		AXEC ABC 2
+		TNT1 A 3 
+		TNT1 A 0 A_startSound("AXESW2", 17,0,0.5)
+		AXEC D 1 offset(1,32)
+		AXEC D 1 offset(-20,32)
+		AXEC E 1 offset(1,32)
+		AXEC E 1 offset(-20,32)
+		AXEC F 1 offset(1,32)
+		AXEC F 1 offset(-20,32)
+		AXEC G 1 offset(1,32)
+		AXEC G 1 offset(-20,32)
+		AXEC H 1 offset(1,32)
+		TNT1 A 0 A_OverlayPivotAlign(0, PSPA_CENTER,PSPA_CENTER)
+		AXEC H 2 offset(-30,32) 
+		AXEC H 2 offset(-60,17) A_overlayrotate(0,10)
+		AXEC H 2 offset(-90,1) A_overlayrotate(0,20)
+		AXEC H 2 offset(-120,-18) A_overlayrotate(0,30)
+		TNT1 A 10 offset(1,32) A_overlayrotate(0,0)
+		
+		AXEG A 0 A_startSound("axehit1", 1)
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 1); a_overlayflags(1, pspf_mirror, 1);}
+		AXE4 D 1 A_SetROLL(ROLL+3)
+		AXE4 EFG 1 A_SetROLL(ROLL+3)
+		AXEG A 0 A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16)
+		AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+		AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)
+		AXEG A 0 A_FireCustomMissile("AxeAttack", 0, 0, 0, 0)
+		AXE4 GHIJ 1 A_SetROLL(ROLL-3)
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 0); a_overlayflags(1, pspf_mirror, 0);}	
+	
+	// behead
+		TNT1 A 5
+		TNT1 A 0 A_startSound("AXESW1", 17,0,0.6)
+		AXEC D 1 offset(1,32)
+		AXEC D 1 offset(-20,32)
+		AXEC E 1 offset(1,32)
+		AXEC E 1 offset(-20,32)
+		AXEC F 1 offset(1,32)
+		AXEC F 1 offset(-20,32)
+		AXEC G 1 offset(1,32)
+		AXEC G 1 offset(-20,32)
+		AXEC H 1 offset(1,32)
+		AXEC H 2 offset(-30,32) 
+		AXEC H 2 offset(-60,17) A_overlayrotate(0,10)
+		AXEC H 2 offset(-90,1) A_overlayrotate(0,20)
+		AXEC H 2 offset(-120,-18) A_overlayrotate(0,30)
+		TNT1 A 1 offset(1,32) A_overlayrotate(0,0)
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 1); a_overlayflags(1, pspf_mirror, 1);}
+		AXEG A 0 A_startSound("axehit2", 1)
+		AXEA G 1 offset(0,20) A_SetROLL(ROLL+1)
+		AXEA G 1 offset(10,25) A_SetROLL(ROLL+1)
+		AXEA F 1 offset(20,30) A_SetROLL(ROLL+1)
+		AXEA F 1 offset(30,32) A_SetROLL(ROLL+1)
+		AXEA E 1
+		AXEA HI 1
+		AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)
+		AXEG A 0 A_FireCustomMissile("AxeAttack", 0, 0, 0, 0)
+		AXEA JKLM 1 
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 0); a_overlayflags(1, pspf_mirror, 0);}	
+		TNT1 AAAA 1 A_SetROLL(ROLL-1)
+		TNT1 A 1 A_SetROLL(0)
+		goto finishexecution+8
+	
+		Execution2:  //////// "SPLIT"
+		//hook
+		TNT1 A 0 A_SetPitch(50)
+		AXEG A 0 A_STARTSound("SSGMACE2", 14,0,1.0,0,1.8)
+		AXER ABZ 1 A_RADIUSGIVE("AXEFINISHER2",100, RGF_MONSTERS | RGF_NOSIGHT,1)
+		TNT1 A 0 A_takeInventory("PressedUSe", 1)
+		TNT1 A 0 A_Overlay(4,"Execution2Overlay2")
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 1); a_overlayflags(1, pspf_mirror, 1);}
+		AXER CDEFGH 1 A_RADIUSGIVE("AXEFINISHER2",100, RGF_MONSTERS | RGF_NOSIGHT,1)
+		AXEG A 0 Radius_Quake (2, 4, 0, 5, 0)
+		AXEG A 0 A_STARTSound("PARRIED", 14,0,1.0,0,1.3)
+		TNT1 A 0 A_startSound("HRDBODY",3)
+		AXER IJZ 1
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 0); a_overlayflags(1, pspf_mirror, 0);}	
+		AXER BA 1
+		AXES G 1
+		//taunt
+		AXE1 UTSRQPONMLKJIHGFEEEFG 1 
+		AXEG A 0 A_startSound("AXETAP", 11)
+		AXE1 HHHHHHHH 1 
+		AXE1 IJK 1 
+		AXE1 L 1 offset(10,40)
+		AXE1 L 1 offset(20,50)
+		AXE1 L 1 offset(30,60)
+		AXEG A 0 A_startSound("AXEPREP", 19,0,1.0)	
+		TNT1 A 3 offset(1,32)
+		//raise
+		TNT1 A 0 A_Overlay(4,"Execution2Overlay")
+		TNT1 A 0 A_startSound("AXESW", 17,0,0.4)
+		AXEC D 1 offset(1,32)
+		AXEC D 1 offset(-20,32)
+		AXEC E 1 offset(1,32)
+		AXEC E 1 offset(-20,32)
+		AXEC F 1 offset(1,32)
+		AXEC F 1 offset(-20,32)
+		AXEC G 1 offset(1,32)
+		AXEC G 1 offset(-20,32)
+		TNT1 A 3 A_OverlayPivotAlign(0, PSPA_CENTER,PSPA_CENTER)
+		AXEC H 1 offset(-100,-40) A_overlayrotate(0,30)
+		AXEC H 1 offset(-30,-25) A_overlayrotate(0,20)
+		AXEC H 1 offset(-10,5) A_overlayrotate(0,10)
+		AXEC H 1 offset(1,32) A_overlayrotate(0,0)
+		//first chop
+	    AXEG A 0 A_PlaySound("AXESW3", 1)
+		AXEY A 1 offset(0,20)
+		AXEY A 1 offset(0,0)
+		AXEY A 1 offset(0,-30)
+		AXEY A 3 offset(0,-40)
+		AXEY A 1 offset(0,32)
+		AXEY A 1 offset(0,36)
+		TNT1 A 0 A_startSound("AXEHIT2", 17,0,1.0)
+		AXEC HIJ 1
+		TNT1 A 0 A_startSound("AXEMEAT3", 18,0,1.0)
+		AXEG A 0 Radius_Quake (5, 6, 0, 5, 0)
+		AXEC KL 1 
+		AXEC N 3 offset(6,32)
+		AXEC N 3 offset(-6,32)
+		AXEC N 3 offset(1,32)
+		//raise again
+		TNT1 A 0 A_startSound("AXESW", 17,0,0.6)
+		AXEC LKJIH 2 
+		AXEY A 2 offset(0,20)
+		AXEY A 2 offset(0,10)
+		AXEY A 2 offset(0,1)
+		AXEY A 2 offset(0,-10)
+		AXEY A 2 offset(0,-20)
+		//second chop
+		AXEG A 0 
+		AXEY A 1 offset(0,-30)
+		AXEY A 9 offset(0,-40)
+		AXEY A 1 offset(1,-41)
+		AXEY A 1 offset(0,-40)
+		AXEY A 1 offset(-1,-41)
+		AXEY A 1 offset(0,-40)
+		AXEY A 1 offset(1,-41)
+		AXEY A 1 offset(1,-41)
+		AXEY A 1 offset(0,-40)
+		AXEY A 1 offset(-1,-41)
+		AXEY A 1 offset(0,-40)
+		AXEY A 1 offset(1,-41)
+		AXEG A 0 A_PlaySound("AXESW3", 1)
+		AXEY A 1 offset(0,32)
+		TNT1 A 0 A_startSound("AXEHIT1", 17,0,1.0)
+		AXEC HIJ 1
+		AXEG A 0 Radius_Quake (5, 6, 0, 5, 0)
+		AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+		TNT1 A 0 A_startSound("AXEMEAT2", 18,0,1.0)
+		AXEC KL 1 
+		TNT1 A 5 a_stop
+		goto finishexecution+8
+		
+	Execution2Overlay:
+		TNT1 AAAAAAAAAAAAAAAAAA 1 A_Setpitch(pitch-3)
+		TNT1 A 3
+		TNT1 AAAAA 1 A_Setpitch(pitch+12)
+		TNT1 AA 1 A_Setpitch(pitch+3)
+		TNT1 A 5
+		TNT1 AAAAAAAAAAAAAAAAAAAAA 1 A_Setpitch(pitch-3)
+		TNT1 A 19
+		TNT1 AAAAA 1 A_Setpitch(pitch+14)
+		TNT1 A 8
+		TNT1 AAAAAAA 1 A_Setpitch(pitch-4)
+		stop
+	
+	Execution2Overlay2:
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAA 1 a_setangle(angle-2)
+		stop
+	}
+}
+
+//////////////////////////////////////////////////// PARRY
+ACTOR Axeparry
+{
+scale 0.15
+alpha 0.7
+Radius 20
+  +NOBLOCKMAP
+  +NOGRAVITY
+  states
+  {
+		Spawn:	
+			TNT1 A 0
+			TNT1 AAAAAAAAA 1 A_Warp(AAPTR_MASTER,10,0,40)
+			Stop	
+  }
+}
+ 
+ ACTOR ParryEffect 
+{
+	+noclip
+	+thruactors
+	+nogravity
+	scale 0.1
+	radius 20
+	alpha 0.1
+	states
+	{
+	Spawn:
+	TNT1 A 0
+	SHWK ABCDEFGHIJKLMN 1 bright A_Warp(AAPTR_MASTER,5,0,35)
+	stop
+	}
+}
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ACTOR AxeBash : Kickattack
+{
+	Damage(random(40,40))
+	ProjectileKickBack 20
+}
+
+
+ACTOR AxeAttack: FastProjectile
+{
+	Radius 15
+	Height 14
+	DamageType "Cut"
+	+MISSILE
+	+FORCEXYBILLBOARD
+	+FORCERADIUSDMG
+	+BLOODSPLATTER
+	+FORCEPAIN
+	RenderStyle Add
+	Alpha 0.6
+    Damage (random(80,80))
+    Speed 50
+	SeeSound "none"
+	DeathSound "none"
+	decal "Horizontalcut"
+	Scale 0.01
+	States
+	{
+	Spawn:
+		GASO C 0
+		TNT1 A 1 BRIGHT
+		Stop
+	Death:
+				AXEG A 0
+				AXEG A 0
+				TNT1 AB 0 bright
+				TNT1 A 0 A_giveToTarget("AxeHit", 1)
+				AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+				AXEG A 0 A_CheckFloor("SpawnFloor")
+				AXEG A 0 A_SpawnItem ("Sparks", 0)
+				AXEG A 0 A_STARTSound("AXETHUD", 12)
+				AXEG A 0 A_TakeFromTarget ("AxeDurability", 1)												  
+				AXEG A 0 A_ALertMonsters(400)
+				
+				TNT1 AAAAAAAAAAAAAAAA 0 A_CustomMissile ("SparkX", 2, 0, random (0, 360), 2, random (30, 170))
+				//AXEG A 0 A_JumpIfInTargetInventory("powerstrength2", 1, "Berserk")
+				Stop
+				
+	
+	SpawnFloor:
+	AXEG A 0
+	AXEG A 0 Acs_namedexecutealways("BDCheckFloorType", 0, 0, 0, 0)//Check if is under a liquid
+	TNT1 A 2
+	AXEG A 0 A_ALertMonsters(400)
+	AXEG A 0 A_JumpIfInventory("IsOverWater", 1, "SpawnWater")
+	AXEG A 0 A_JumpIfInventory("IsOverNukage", 1, "SpawnNukage")
+	AXEG A 0 A_JumpIfInventory("IsOverSlime", 1, "SpawnSlime")
+	AXEG A 0 A_JumpIfInventory("IsOverBlood", 1, "SpawnBlood")
+	AXEG A 0 A_JumpIfInventory("IsOverLava", 1, "SpawnLava")
+	AXEG A 0 A_JumpIfInventory("IsOverGrass", 1, "SpawnDirt")
+	AXEG A 0 A_JumpIfInventory("IsOverSand", 1, "SpawnSand")
+	
+	AXEG A 0 A_JumpIfINTARGETInventory("SSGSELECTED", 1, 3)
+	AXEG A 0 A_STARTSound("AXETHUD", 12)
+	AXEG A 0 A_Jump(256,2)
+	AXEG A 0 A_STARTSound("SSGBONK", 12)
+	
+	
+	PUFF A 0 bright A_PlaySound("ricochet/hit")
+	AXEG A 0 A_SpawnItem ("YellowFlareSmall", 0)
+	AXEG A 0 A_SetScale(-0.6)
+    AXEG A 0 A_Jump (132, 15)
+    FX58 ABCD 1 BRIGHT 
+	AXEG A 0 A_CustomMissile("OldschoolRocketSmokeTrail2Bigger", 2, 0, random (0, 360), 2, random (0, 360))
+	FX58 EFGHIJ 1 bright
+    Stop
+    TNT1 AAAAA 0
+    FX57 ABCD 1 BRIGHT 
+	AXEG A 0 A_CustomMissile("OldschoolRocketSmokeTrail2Bigger", 2, 0, random (0, 360), 2, random (0, 360))
+	FX57 EFGHIJ 1 bright
+    stop
+	
+	SpawnWater:
+	AXEG A 0
+	TNT1 A 0 A_PlaySound("bigspl1", 1)
+	TNT1 AAAAA 0 A_CustomMissile ("WaterParticleXFAster", 8, 0, random (0, 360), 2, random (30, 160))
+	TNT1 AAAAA 0 A_CustomMissile ("WaterParticleXSuperFast", 24, 0, random (0, 360), 2, random (30, 160))
+	AXEG A 0 A_SpawnItem("WaterSplashWaves")
+	AXEG A 0 A_SetScale(0.5, 0.5)
+	SPHW ABCDE 3
+	Stop
+	
+	SpawnSlime:
+	AXEG A 0
+	TNT1 A 0 A_PlaySound("bigspl1", 1)
+	TNT1 AAAAA 0 A_CustomMissile ("SLimeParticleXFAster", 8, 0, random (0, 360), 2, random (30, 160))
+	TNT1 AAAAA 0 A_CustomMissile ("SlimeParticleXFAster", 24, 0, random (0, 360), 2, random (30, 160))
+	AXEG A 0 A_SpawnItem("SlimeSplashWaves")									   
+	AXEG A 0 A_SetScale(0.5, 0.5)
+	SPHB ABCDE 3
+	Stop
+	
+	
+	SpawnNukage:
+	AXEG A 0
+	TNT1 A 0 A_PlaySound("bigspl1", 1)
+	TNT1 AAAAA 0 A_CustomMissile ("nukageParticleXFAster", 8, 0, random (0, 360), 2, random (30, 160))
+	TNT1 AAAAA 0 A_CustomMissile ("nukageParticleXFAster", 24, 0, random (0, 360), 2, random (30, 160))
+	AXEG A 0 A_SpawnItem("NukageSplashWaves")										   
+	AXEG A 0 A_SetScale(0.5, 0.5)
+	SPHG ABCDE 3
+	Stop
+	
+	SpawnBlood:
+	AXEG A 0
+	TNT1 A 0 A_PlaySound("bigspl1", 1)
+	TNT1 AAAAA 0 A_CustomMissile ("BloodParticleXFAster", 8, 0, random (0, 360), 2, random (30, 160))
+	TNT1 AAAAA 0 A_CustomMissile ("BloodParticleXFAster", 24, 0, random (0, 360), 2, random (30, 160))
+	AXEG A 0 A_SpawnItem("BloodSplashWaves")
+	AXEG A 0 A_SetScale(0.5, 0.5)
+	SPHR ABCDE 3
+	Stop
+	
+	SpawnLava:
+	AXEG A 0											
+	AXEG A 0 A_CustomMissile ("OldschoolRocketSmokeTrailDarker", 12, 0, random (160, 210), 2, random (10, 90))
+	AXEG A 0 A_SpawnItemEx("TinyBurningPiece3", random (-5, 5), random (-5, 5))
+	TNT1 AAAAA 0 A_CustomMissile ("ExplosionParticleHeavy", 10, 0, random (0, 180), 2, random (10, 90))
+	AXEG A 0 A_SetScale(0.5, 0.5)
+	INFE ABCDEFGHIJKLMNOPQR 1 BRIGHT 
+	INFE ST 1 BRIGHT A_CustomMissile ("OldschoolRocketSmokeTrailDarker", 32, 0, random (160, 210), 2, random (10, 90))
+	TNT1 AAA 4 A_CustomMissile ("OldschoolRocketSmokeTrailDarker", 14, 0, random (160, 210), 2, random (10, 90))
+	Stop
+	
+	
+	SpawnDirt:
+	AXEG A 0
+	AXEG A 0 A_CustomMissile ("BrownCloudSmallLong", 0, 0, random (0, 360), 2, random (10, 150))
+	TNT1 AA 0 A_CustomMissile ("DirtChunk3", 0, 0, random (0, 360), 2, random (30, 150))
+	TNT1 AA 0 A_CustomMissile ("DirtChunk4", 0, 0, random (0, 360), 2, random (30, 150))
+	AXEG A 0 A_CustomMissile ("MudDustSmall", 4, 0, random (0, 360), 2, random (30, 150))
+	AXEG A 0 A_SpawnItem("DirtRicochet")
+	Stop
+	
+	SpawnSand:
+	AXEG A 0
+	AXEG A 0 A_CustomMissile ("SandCloudSmallLong", 0, 0, random (0, 360), 2, random (10, 90))
+	AXEG A 0 A_CustomMissile ("SandCloudSmall", 0, 0, random (0, 360), 2, random (10, 90))
+	AXEG A 0 A_CustomMissile ("SandDustSmall", 4, 0, random (0, 360), 2, random (30, 150))
+	Stop
+
+	XDeath:
+	Melee:
+	Crash:
+			AXEG A 0
+			TNT1 A 0 A_giveToTarget("AxeHit", 1)
+			AXEG A 0 A_STARTSound("AXEMEAT", 12, CHANF_NOSTOP)
+			AXEG A 0 A_TakeFromTarget ("AxeDurability", 1)												 
+			AXEG A 0 A_SpawnItemEx ("PLOFT2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+			//AXEG A 0 A_JumpIfInTargetInventory("powerstrength2", 1, "Berserk")
+			TNT1 A 10
+			Stop
+			
+	Berserk:
+		TNT1 A 1
+		AXEG A 0 A_explode(90, 5, 0)
+		TNT1 A 10
+		Stop
+	}
+}
+
+ACTOR Axesweep : axeattack
+{
+ Damage (random(125,130))
+ Damagetype "leg"
+ }
+
+Actor AltAxeAttack: AxeAttack
+{
+Radius 12
+Height 2
+Damagetype "saw"
+Damage (random(186, 186))
+decal "verticalcut"
+ProjectileKickBack 40
++FORCEPAIN
+}
+
+Actor AltAxeAttackScan: AxeAttack
+{
+Radius 12
+Height 2
+Damagetype "saw"
+decal "verticalcut"
+Damage (random(1, 1))
+States
+{
+
+	Death:
+				AXEG A 0
+				AXEG A 0
+				TNT1 AB 0 bright
+				TNT1 A 0 A_giveToTarget("AxeHit", 1)
+				AXEG A 0 Radius_Quake (5, 10, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+				AXEG A 0 A_CheckFloor("SpawnFloor")
+				AXEG A 0 A_SpawnItem ("Sparks", 0)
+				AXEG A 0 A_PlaySound("AXECLN", 6)
+				AXEG A 0 A_TakeFromTarget ("AxeDurability", 4)												  
+				AXEG A 0 A_ALertMonsters(400)
+				
+				TNT1 AAAAAAAAAAAAAAAA 0 A_CustomMissile ("SparkX", 2, 0, random (0, 360), 2, random (30, 170))
+				//AXEG A 0 A_JumpIfInTargetInventory("powerstrength2", 1, "Berserk")
+				Stop
+				
+			XDeath:
+	Melee:
+	Crash:
+			AXEG A 0
+			TNT1 A 0 A_giveToTarget("AxeHit", 1)
+			PUFF A 0 A_PlaySound("player/cyborg/fist", 3)
+			AXEG A 0 A_STARTSound("AXEMEAT", 12)
+			AXEG A 0 A_TakeFromTarget ("AxeDurability", 4)												 
+			AXEG A 0 A_SpawnItemEx ("PLOFT2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			AXEG A 0 Radius_Quake (5, 10, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+			//AXEG A 0 A_JumpIfInTargetInventory("powerstrength2", 1, "Berserk")
+			TNT1 A 10
+			Stop
+    }
+}
+
+ACTOR AxePuffs: HitPuff
+{
+  renderstyle Translucent
+scale 0.15
+alpha 0.7
+Radius 20
+damagetype "Cut"
+decal "none"
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +NOEXTREMEDEATH
+  +FORCEXYBILLBOARD
+  +BLOODSPLATTER
+  states
+  {
+Spawn:
+Death:
+XDeath:
+Melee:
+		
+		TNT1 A 20
+		
+Stop	
+  }
+}
+
+
+
+
+ACTOR ThrowedAxe : custominventory
+{
+	Radius 8
+	Height 8
+	Speed 30
+	Damage (random(180, 180))
+	DamageType "Saw"
+	+MISSILE
+	+FORCEXYBILLBOARD
+	-NOGRAVITY
+	+skyexplode
+	+NOEXTREMEDEATH
+	+THRUSPECIES
+	+BLOODSPLATTER
+	+CORPSE
+	+forcepain
+	+DONTTHRUST
+	+NODAMAGETHRUST
+	+NORADIUSDMG
+	 Inventory.PickupSound "AXEDRAW"
+	Inventory.Pickupmessage "$GOTAXE3"
+	Species "Marines"
+	tag "Fire Axe"
+	Gravity 1.0
+	scale 0.4
+	States
+	{
+	Spawn:
+		AXET ABCDEFGH 2 A_STARTSound("AXESW2", 11, CHANF_LOOPING)
+		Loop
+	Death:	
+		AXET A 2 A_STARTSound("AXETHUD", 11)
+		TNT1 A 0 A_Jumpifinventory("stopgravity", 1, "dropdown")	
+		TNT1 A 0 A_Jumpifintargetinventory("AxeDurability", 1, 2)		
+		TNT1 A 0 A_spawnItemex("BrokenAxe",0,0,0,0,1)
+		stop
+		TNT1 A 0 A_Jumpifintargetinventory("powerstrength2", 1, 2)		
+		AXET A 1 a_recoil(7)
+		TNT1 A 0 A_Jumpifinventory("stopgravity", 1, "dropdown")		
+		TNT1 A 0 a_changeflag("NOGRAVITY",1)	
+		AXET A 0 a_stop
+		AXET A -1
+		stop
+	
+	Pickup:
+		TNT1 A 0 a_giveinventory("BrutalAxe")
+		stop
+	
+	Dropdown:
+	Crash:	
+		AXET A 1 A_STARTSound("AXETHUD", 11)
+		TNT1 A 0 A_Jump(256,2)
+	XDeath:
+		AXET A 1 A_STARTSound("AXEHIT0", 11)
+		TNT1 A 0 A_explode(10,20,0,0,20,0,0,"none","kick")
+		TNT1 A 0 A_Jumpifintargetinventory("AxeDurability", 1, 2)		
+		TNT1 A 0 A_spawnItemex("BrokenAxe",0,0,0,0,1)
+		Stop
+		AXET A 0 a_stop
+		AXET AB 3 a_recoil(-2)
+		AXET Z -1
+		Stop
+	}
+}
+
+
+ACTOR ThrowedAxeStrong: ThrowedAxe
+{
+	+RIPPER
+	Speed 80
+	Damagetype "slug"
+	Damage (random(200, 200))
+}
+
+ACTOR WIMPYAxe: ThrowedAxe
+{
+	Speed 10
+	Damagetype "bullet"
+	Damage (random(70, 70))
+}
+
+
+ 
+ACTOR BrutalAxeOnWall: CustomInventory
+{
+ scale 0.5
+ +NOGRAVITY
+ +FLOAT
+    States
+    {
+
+	 Spawn:
+		AXET A 1
+		AXET A -1
+		Stop
+	Pickup:
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("IsPlayingAsPurist", 1, "Purist")
+	PickupNormal:	
+		TNT1 A 0 A_GiveInventory("BrutalAxe", 1)
+		Stop
+	Purist:
+	    TNT1 A 0 A_GiveInventory("Clip2", 10)
+		Stop
+    }
+}
+
+
+ACTOR axethrowmode : Inventory {Inventory.MaxAmount 1}
+ACTOR firstslash : Inventory {Inventory.MaxAmount 1}
+ACTOR secondslash : Inventory {Inventory.MaxAmount 1}
+ACTOR axecleave : Inventory {Inventory.MaxAmount 1}
+ACTOR parrytoken : Inventory {Inventory.MaxAmount 1}
+
+ACTOR AXEFINISHER : Inventory {Inventory.MaxAmount 1}
+ACTOR AXEFINISHER2 : Inventory {Inventory.MaxAmount 1}

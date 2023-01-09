@@ -1,0 +1,1806 @@
+//blehblehbleh
+//base Doom;
+height 32;
+monospacefonts true, "0";
+Resolution 320,200;
+
+mugshot "pain2", health
+{
+	KILL0 35;
+}
+
+statusbar fullscreen, fullscreenoffsets
+{
+	InInventory showitems,1
+	{
+	Alpha 0.75
+	drawimage "ITEMSTAT", 0, 0;
+	drawnumber 3, AMMOFONT, DoomNukemIndexGreen, items, drawshadow(2, 2), 0, 0;
+	Alpha 0.75
+	drawnumber 3, AMMOFONT, DoomNukemIndexGreen, totalitems, Alignment(left), drawshadow(2, 2), 0, 0;
+	}
+}
+
+statusbar fullscreen
+{
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MINIMAL
+// 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+InInventory sbartype2, 1
+{
+
+/////////////////////////////////////////////////LITDOOM STUFF //////////////////////////////////
+	//FLASHLIGHT  
+	InInventory flashlighton, 1 && ammocell,1
+	Ininventory not battery, 1
+	{
+	drawimage "CELLA0", -45, 185;
+	drawnumber 4, smallfont, yellow, Ammo Ammocell, -20, 173,0;
+	}
+	
+	InInventory Battery, 1 && flashlighton, 1
+	{
+	drawimage "BATTB0", -45, 185;
+	drawnumber 4, smallfont, yellow, Ammo Battery, -20, 173,0;
+	}
+	
+	//FORCEFIELD
+	InInventory ammocell, 1 && forcefieldon, 1
+	{
+	drawimage "CELLA0", -45, 185;
+	drawnumber 4, smallfont, yellow, Ammo Ammocell, -20, 173,0;
+	}
+	
+	
+	//////
+	//BANDOLIERS AND BACKPACKS
+	
+	//BANDOLIER
+	InInventory saveammo, 1
+	{
+	drawimage "SVAMA0", -185, 95;
+	drawnumber 4, indexfont, green, Ammo saveammo, -27, 190,0;
+	}
+	
+	//BACKPACK
+	InInventory saveweapon, 1
+	{
+	drawimage "SVWPA0", -202, 95;
+	drawnumber 4, indexfont, green, Ammo saveweapon, -47, 190,0;
+	}
+	
+	//////			
+	
+	// level stats
+	InInventory showkill,1
+	{
+	Alpha 0.75
+	drawimage "KILLSTAT", 163, 2;
+	drawnumber 4, AMMOFONT, DoomNukemIndexGreen, kills, drawshadow(2, 2), 342, 6;
+	Alpha 0.75
+	drawnumber 4, AMMOFONT, DoomNukemIndexGreen, monsters, Alignment(left), drawshadow(2, 2), 357, 6;
+	}
+	
+	
+	InInventory showsecrets,1
+	{	
+	Alpha 0.75
+	drawimage "SCRTSTAT", 163, -5;
+	drawnumber 2, AMMOFONT, DoomNukemIndexGreen, secrets, drawshadow(2, 2), 342, 15;
+	Alpha 0.75
+	drawnumber 2, AMMOFONT, DoomNukemIndexGreen, totalsecrets, Alignment(left), drawshadow(2, 2), 357, 15;
+	}	
+
+
+	// Keys
+	//drawimage "KEYS", 304, 0;
+	drawswitchableimage keyslot 2 && 5, "nullimage", "STKEYS0", "STKEYS3", "STKEYS6", 366, 176;
+	drawswitchableimage keyslot 3 && 6, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", 366, 184;
+	drawswitchableimage keyslot 1 && 4, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", 366, 192;
+
+
+/////////////////////////////////////////////////////////////
+// Inventory Items
+	drawselectedinventory alternateonempty, SMALLFONT, 243, 169
+	{
+		drawmugshot "STF", 5, 1143, 1168;
+	}
+
+
+
+// Armor
+		InInventory hasuniformarmor,1 {alpha 0.30 drawimage "LITARMOR", 65, 182;}
+		InInventory haslightarmor,1 {drawimage "LITARMOR", 65, 182;}
+		InInventory hasmediumarmor,1 {drawimage "MEDARMOR", 65, 182;}
+		InInventory hasheavyarmor,1 {drawimage "HVYARMOR", 65, 182;}
+		InInventory hasplatearmor,1 {drawimage "PLTARMOR", 65, 182;}
+        drawnumber 6, HUDFONT, green, armor, whennotzero, 110, 181, 0, yellow, 10, DARKGREEN, 100;
+			
+	
+// Health
+        drawnumber 6, HUDFONT, yellow, health, whennotzero, 50, 181, 0, red, 40, CYAN, 71;
+		drawimage "hudlife", 4, 182;		
+//CHAOS HEALTH
+	InInventory ChaosStamina, 1 {drawimage "CHAOSHP", 4, 176;}
+	InInventory ChaosStamina, 2 {drawimage "CHAOSHP", 8, 176;}
+	InInventory ChaosStamina, 3 {drawimage "CHAOSHP", 12, 176;}
+	InInventory ChaosStamina, 4 {drawimage "CHAOSHP", 16, 176;}
+	InInventory ChaosStamina, 5 {drawimage "CHAOSHP", 20, 176;}
+	
+//Ammo
+		drawnumber 4, HUDFONT, white, ammo2, 305, 176, 0;
+		drawnumber 4, HUDFONT, white, ammo1, 345, 176, 0;
+		
+		drawimage "ARTICAS2", 0, 124;	
+		drawimage "ARTICAS2", 0, 124;
+		
+//SPECIAL AMMO	
+	InInventory PistolBurstFire, 1 && Pistolselected,1 {alpha 0.5 drawimage "PISBURST", 293, 183;}
+	
+	
+				/// ROCKET LAUNCHER
+isselected ROCKET_LAUNCHER
+  ININVENTORY nukeloaded,1 
+	{
+	drawnumber 4, HUDFONT, white, ammo NUKE, 347, 176, 0;
+	}
+	
+	isselected ROCKET_LAUNCHER
+  ININVENTORY NOT nukeloaded,1 
+	{
+	alpha 0.8 drawimage "ROCKA0", 320, 175;
+	drawnumber 4, HUDFONT, white, ammo AMMOROCKET, 347, 176, 0;
+	}
+	
+	
+				//LMG
+	ININVENTORY LMGSELECTED,1 
+	{
+	alpha 0.8 drawimage "GRNDZ0", 285, 174;
+	drawnumber 4, SMALLFONT, white, ammo LMGGRENADE, 305, 165, 0;
+	drawnumber 4, SMALLFONT, white, ammo GrenadeAmmo, 327, 165, 0;
+	}	
+				// SHOTTIE
+	ININVENTORY SHOTGUNSELECTED,1 && slugselected,1
+	{
+	drawnumber 4, HUDFONT, white, ammo shotgunammo, 305, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo ammoslug, 345, 176, 0;
+	drawimage "SLUGI0", 288, 187;	
+	}
+	
+	ININVENTORY SHOTGUNSELECTED,1
+	ININVENTORY NOT slugselected,1
+	{
+	drawnumber 4, HUDFONT, white, ammo shotgunammo, 305, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo ammoshell, 345, 176, 0;
+	drawimage "BUCKI0", 288, 177;	
+	}	
+	
+			//PISTOL FLARE
+	ININVENTORY PISTOLFLARE,1
+	{
+	drawnumber 4, HUDFONT, white, ammo BDPISTOLAMMO, 305, 176, 0;
+	drawimage "P9MMB0", 293, 173;	
+	}
+	
+	//RIFLE
+	isselected LITRIFLE
+	ININVENTORY LOADED762,1
+	{drawnumber 4, HUDFONT, white, ammo CLIP2, 345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo rifleammo, 305, 176, 0;}
+	
+	isselected LITRIFLE
+	ININVENTORY LOADED556,1
+	{drawnumber 4, HUDFONT, white, ammo minigunammo, 345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo rifleammo, 305, 176, 0;}
+	
+	
+	//GRENADE LAUNCHER
+	ININVENTORY GrenadeLauncherSelected,1 && flareloaded,1
+	{drawnumber 4, HUDFONT, white, ammo flare, 345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo glammo, 305, 176, 0;
+	drawimage "FLARE0", 333, 173;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && acidloaded,1
+	{drawnumber 4, HUDFONT, white, ammo acidmistammo,  345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo glammo,  305, 176, 0;
+	drawimage "ACID", 343, 178;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && hellfireloaded,1
+	{drawnumber 4, HUDFONT, white, ammo hellfireammo, 345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo glammo, 305, 176, 0;
+	drawimage "HELF", 343, 178;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && syringeloaded,1
+	{drawnumber 4, HUDFONT, white, pheromones,  345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo glammo, 305, 176, 0;
+	drawimage "GSYRH0", 320, 145;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && metalloaded,1
+	{drawnumber 4, HUDFONT, white, ammo scrapmetal, 345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo glammo, 305, 176, 0;
+	drawimage "SCR4P0", 321, 155;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && grenadeloaded,1
+	{drawnumber 4, HUDFONT, white, ammo grenadeammo, 345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo glammo, 305, 176, 0;
+	drawimage "GRNDBI", 338, 176; }	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && clusterloaded,1
+	{drawnumber 4, HUDFONT, white, ammo clusterammo, 345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo glammo, 305, 176, 0;
+	drawimage "GRNDI0", 323, 150;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && mineloaded,1
+	{drawnumber 4, HUDFONT, white, ammo PROXBOMBAMMO, 345, 176, 0;
+	drawnumber 4, HUDFONT, white, ammo glammo, 305, 176, 0;
+	drawimage "PR0XZ0", 330, 176;}	
+	
+	isselected GrenadeLauncher
+	ININVENTORY mineloaded,1 && detonationmode,1
+	{drawimage "PROXZ0", 330, 176;}
+	
+	/// MINES MODE
+	ININVENTORY proxbombselected,1 && detonationmode,1
+	{drawimage "PROXZ0", 330, 176;}
+////////////////////////////////////////////////////////////////////////
+				///////
+	
+	//GRENADES
+	InInventory grenadeammo,1 && grenadefavorite
+	{
+	drawimage "GRNDBI", 317, 211;
+	drawnumber 4, SMALLFONT, white, Ammo GrenadeAmmo, 330, 193, 0;	
+	}
+	
+	InInventory clusterammo,1 && clusterfavorite
+	{
+	drawimage "GRNDI0", 305, 187;
+	drawnumber 4, SMALLFONT, white, Ammo ClusterAmmo, 330, 193, 0;	
+	}
+	
+	InInventory MiniHellRocketAmmo,1 && quickrevenantfavorite
+	{
+	drawimage "FATBD", 317, 204;
+	drawnumber 4, SMALLFONT, white, Ammo MiniHellRocketAmmo, 330, 193, 0;	
+	}
+	
+	InInventory hellfireammo,1 && hellfirefavorite
+	{
+	drawimage "HELF", 317, 211;
+	drawnumber 4, SMALLFONT, white, Ammo hellfireAmmo, 330, 193, 0;	
+	}
+	
+	InInventory acidmistammo,1 && acidmistfavorite
+	{
+	drawimage "ACID", 317, 211;
+	drawnumber 4, SMALLFONT, white, Ammo acidmistAmmo, 330, 193, 0;	
+	}
+	
+	InInventory PROXBOMBAMMO,1 && minesfavorite
+	{
+	drawimage "PR0XZ0", 308, 215;
+	drawnumber 4, SMALLFONT, white, Ammo PROXBOMBAMMO, 330, 193, 0;	
+	}
+	
+	//FLARES
+	//standard
+	InInventory flare,1
+	Ininventory not flarefavorite
+	{
+	drawimage "FLARE0", 285, 215;
+	drawnumber 4, SMALLFONT, white, Ammo Flare, 300, 193, 0;
+	}
+	//favorite
+	InInventory flare,1 && flarefavorite,1
+	{
+	drawimage "FLARE0", 310, 215;
+	drawnumber 4, SMALLFONT, white, Ammo Flare, 330, 193, 0;
+	}
+	//KNIVES
+	//standard
+	InInventory knivesammo,1
+	Ininventory not quickknifefavorite
+	{
+	drawimage "KNFAY0", 340, 212;
+	drawnumber 4, SMALLFONT, white, Ammo KnivesAmmo, 360, 193, 0;	
+	}
+	//favorite
+	InInventory knivesammo,1 && quickknifefavorite,1
+	{
+	drawimage "KNFAY0", 317, 217;
+	drawnumber 4, SMALLFONT, white, Ammo KnivesAmmo, 330, 193, 0;	
+	}
+	
+	//STAMINA	
+	InInventory UsedStamina, 1 && powerstrength2, 1
+	{
+	alpha 0.80
+	DrawBar "StamEHOR", "BerkFHOR", UsedStamina, horizontal, reverse, interpolate(8), 5, 188;
+	}	
+	
+	InInventory UsedStamina, 1 
+	{
+	alpha 0.40
+	DrawBar "StamEHOR", "StamFHOR", UsedStamina, horizontal, reverse, interpolate(8), 5, 188;
+	}	
+	//FREEDASH
+	Ininventory not ISDOOMGUY {drawimage "DASH0", 105, 192;}
+	InInventory Freedashcharge, 1 Ininventory not ISDOOMGUY {drawimage "DASH1", 105, 192;}
+	InInventory Freedashcharge, 2 Ininventory not ISDOOMGUY {drawimage "DASH2", 105, 192;}
+	InInventory Freedashcharge, 3 Ininventory not ISDOOMGUY {drawimage "DASH3", 105, 192;}
+	InInventory Freedashcharge, 4 Ininventory not ISDOOMGUY {drawimage "DASH4", 105, 192;}
+	InInventory Freedashcharge, 5 Ininventory not ISDOOMGUY {drawimage "DASH5", 105, 192;}
+	
+	// WEAPONS durability
+	InInventory Pistolselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", pistoldurability, horizontal, interpolate(8), 180, 188;}
+	InInventory Shotgunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", shotgundurability, horizontal, interpolate(8), 180, 188;}
+	InInventory Revolverselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", revolverdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory submachinegunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", smgdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory rifleselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", rifledurability, horizontal, interpolate(8), 180, 188;}
+	InInventory ASGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", ASGdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory SSGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", SSGdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory MINIGUNselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", MINIGUNdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory LMGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", LMGdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory RocketLauncherselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", RLdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory GrenadeLauncherselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", GLdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory plasmagunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", plasmadurability, horizontal, interpolate(8), 180, 188;}
+	InInventory RevenantLauncherSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", revenantdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory RailgunSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", railgundurability, horizontal, interpolate(8), 180, 188;}
+	InInventory BFGSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", bfg7kdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory BFG11kSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", BFG11KDurability, horizontal, interpolate(8), 180, 188;}
+	InInventory RailgunSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", railgundurability, horizontal, interpolate(8), 180, 188;}
+	InInventory FlamecannonSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", napalmdurability, horizontal, interpolate(8), 180, 188;}
+	InInventory FlamethrowerSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", flamedurability, horizontal, interpolate(8), 180, 188;}
+	Isselected BrutalAxe
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", axedurability, horizontal, interpolate(8), 180, 188;}
+	isselected Knife
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", knifedurability, horizontal, interpolate(8), 180, 188;}
+	
+	InInventory SUBMACHINEGUNSelected, 1 && SMGSUPPRESSOR, 1
+	{alpha 0.30 DrawBar "SUPPA0", "SUPPB0", SUPPRESSORdurability, horizontal, interpolate(8), 205, 192;}
+	
+	InInventory SUBMACHINEGUNSelected, 1 && SUPPRESSORMOUNTED, 1
+	{alpha 1.00 DrawBar "SUPPA0", "SUPPB0", SUPPRESSORdurability, horizontal, interpolate(8), 205, 192;}
+	
+	//// END
+	
+	
+	
+		//BERSERK
+	InInventory powerstrength2, 1
+	{
+	alpha 0.20
+	drawimage "HASBERK", 16, 194;
+	alpha 0.40
+	drawimage "HASBERK", 11, 194;
+	alpha 0.95
+	drawimage "HASBERK", 6, 194;
+	}	
+	
+	//FIRING SPEED
+	drawnumber 4, SMALLFONT, darkred, PowerupTime RageSphere, whennotzero, 166, 190, 0;
+	
+	//OPSPHERE
+	drawnumber 4, SMALLFONT, orange, PowerupTime DoomSphereST, whennotzero, 166, 190, 0;
+	
+	//BERSERKRAGE
+	drawnumber 4, SMALLFONT, darkred, PowerupTime BerserkDrain, whennotzero, 166, 190, 0;
+	
+	//YELLOWDRUG
+	drawnumber 4, SMALLFONT, yellow, PowerupTime yellowdrugscreen, whennotzero, 166, 190, 0;
+	
+	//ROCKSKIN
+	drawnumber 4, SMALLFONT, BROWN, PowerupTime rockskinpower, whennotzero, 166, 190, 0;
+	
+	//RADSUIT
+	drawnumber 4, SMALLFONT, green, PowerupTime RADSUIT3, whennotzero, 166, 190, 0;
+	
+	//INVULNERABILITY
+	drawnumber 4, SMALLFONT, Black, PowerupTime InvulnerabilitySphere, whennotzero, 166, 190, 0;
+	
+	//Regen & Vampire
+	drawnumber 4, SMALLFONT, lightblue, PowerupTime RegenGiver, whennotzero, 166, 183, 0;
+	drawnumber 4, SMALLFONT, red, PowerupTime VampireSphere, whennotzero, 166, 190, 0;
+	
+	//HEALTHPACK
+	drawnumber 4, SMALLFONT, lightblue, PowerupTime Healthpackpower, whennotzero, 166, 168, 0;
+	
+	//INVISIBILITY
+	drawnumber 4, SMALLFONT, Blue, PowerupTime BlurSphere, whennotzero, 166, 190, 0;
+	
+	//INFRARED
+	drawnumber 4, SMALLFONT, Blue, PowerupTime ArtiTorch, whennotzero, 166, 168, 0;
+	
+		//CLAIRVOYANCE
+	drawnumber 4, SMALLFONT, purple, PowerupTime clairpower, whennotzero, 166, 168, 0;
+	
+	gamemode deathmatch, teamgame
+		{
+     	drawnumber 8, SMALLFONT, darkred, frags, 302, 8;
+       DrawString SMALLFONT, darkred, "Frags", 302, 0;
+   
+        }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// BRUTAL 16:9
+// 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+InInventory not sbartype2, 1
+{
+InInventory not sbartype3, 1
+{
+InInventory not sbartype4, 1
+{
+
+	// level stats
+	InInventory showkill,1
+	{
+	Alpha 0.75
+	drawimage "KILLSTAT", 163, 2;
+	drawnumber 4, AMMOFONT, DoomNukemIndexGreen, kills, drawshadow(2, 2), 342, 6;
+	Alpha 0.75
+	drawnumber 4, AMMOFONT, DoomNukemIndexGreen, monsters, Alignment(left), drawshadow(2, 2), 357, 6;
+	}
+	
+	InInventory showitems,1
+	{
+	Alpha 0.75
+	drawimage "ITEMSTAT", 163, 11;
+	drawnumber 3, AMMOFONT, DoomNukemIndexGreen, items, drawshadow(2, 2), 342, 23;
+	Alpha 0.75
+	drawnumber 3, AMMOFONT, DoomNukemIndexGreen, totalitems, Alignment(left), drawshadow(2, 2), 357, 23;
+	}	
+	
+	InInventory showsecrets,1
+	{	
+	Alpha 0.75
+	drawimage "SCRTSTAT", 163, -5;
+	drawnumber 2, AMMOFONT, DoomNukemIndexGreen, secrets, drawshadow(2, 2), 342, 15;
+	Alpha 0.75
+	drawnumber 2, AMMOFONT, DoomNukemIndexGreen, totalsecrets, Alignment(left), drawshadow(2, 2), 357, 15;
+	}	
+
+	//BANDOLIER
+	InInventory saveammo, 1
+	{
+	drawimage "SVAMA0", 206, 97;
+	drawnumber 4, indexfont, green, Ammo saveammo, 368, 184,0;
+	}
+	
+	//BACKPACK
+	InInventory saveweapon, 1
+	{
+	drawimage "SVWPA0", 208, 70;
+	drawnumber 4, indexfont, green, Ammo saveweapon, 365, 157,0;
+	}
+	
+	//FLASHLIGHT
+	InInventory flashlighton, 1 && ammocell,1
+	Ininventory not battery, 1
+	{
+	drawimage "CELLA0", 230, 200;
+	drawnumber 4, smallfont, yellow, Ammo Ammocell, 241, 185,0;
+	}
+	
+	InInventory Battery, 1 && flashlighton,1
+	{
+	DrawBar "BATFULL", "BATEMPTY", Battery, vertical, interpolate(8), 230, 170;
+	}
+
+	//FORCEFIELD
+	InInventory ammocell, 1 && forcefieldon, 1
+	{
+	drawimage "CELLA0", 230, 200;
+	drawnumber 4, smallfont, yellow, Ammo Ammocell, 241, 185,0;
+	}
+
+// Keys
+	//drawimage "KEYS", 304, 0;
+	drawswitchableimage bluecard && blueSkull, "nullimage", "STKEYS0", "STKEYS3", "STKEYS6", -54, 150;
+	drawswitchableimage yellowcard && yellowSkull, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", -54, 157;
+	drawswitchableimage redCard && redSkull, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", -54, 164;
+
+
+// Inventory Items
+	drawselectedinventory alternateonempty, SMALLFONT, 57, 162
+	{
+		drawmugshot "STF", 5, 1143, 1168;
+	}
+
+
+// Armor
+	//drawimage armoricon, 78, 200; next to the mugshot
+		drawimage armoricon, 20, 179;
+        drawnumber 6, SMALLFONT, darkgreen, armor, drawshadow | whennotzero, 30, 181, 0, yellow, 10, blue, 200;
+		
+		drawnumber 2, INDEXFONT, yellow, SavePercent, whennotzero, 30, 175, 0, white, 46, red, 65;
+
+// Health
+		
+		InInventory GenderMale, 1
+		{
+		drawmugshot "STM", 5, -50, 148;
+		}
+		
+		InInventory GenderFemale, 1
+		{
+		drawmugshot "GAL", 5, -50, 148;
+		}
+		
+        drawnumber 6, SMALLFONT, purple, health, drawshadow, -22, 181, 0, red, 40, lightblue, 71;
+				
+	//CHAOS HEALTH
+	InInventory ChaosStamina, 1 {drawimage "CHAOSHP", -20, 182;}
+	InInventory ChaosStamina, 2 {drawimage "CHAOSHP", -20, 178;}
+	InInventory ChaosStamina, 3 {drawimage "CHAOSHP", -20, 174;}
+	InInventory ChaosStamina, 4 {drawimage "CHAOSHP", -20, 170;}
+	InInventory ChaosStamina, 5 {drawimage "CHAOSHP", -20, 166;}
+	
+	//HEALING ITEMS
+	InInventory bandages, 1 || healthpack2, 1
+	{
+	drawimage "MEDITEMV", -13, 165;
+	drawnumber 4, indexfont, white, Bandages, -6, 170, 0;	
+	drawnumber 4, indexfont, cyan, Healthpack2, -6, 159, 0;	
+	}
+
+		//	AMMO
+		drawnumber 4, DIGINUMBER, white, ammo2, 280, 176, 0;
+		drawimage ammoicon1, 320, 175;
+		drawnumber 4, DIGINUMBER, white, ammo1, 330, 176, 0;
+		drawimage "ARTICAS2", 0, 119;
+		
+  ///SPECIAL AMMO
+  InInventory PistolBurstFire, 1 && Pistolselected,1 {alpha 0.5 drawimage "PISBURST", 269, 180;}
+			/// LMG
+  ININVENTORY LMGSELECTED,1 
+	{
+	alpha 0.8 drawimage "GRNDZ0", 255, 170;
+	drawnumber 4, smallfont, white, ammo LMGGRENADE, 270, 164, 0;
+	drawnumber 4, smallfont, white, ammo GRENADEAMMO, 295, 164, 0;
+	}
+	
+			/// ROCKET LAUNCHER
+isselected ROCKET_LAUNCHER
+  ININVENTORY nukeloaded,1 
+	{
+	alpha 0.8 drawimage "WRHDA0", 320, 175;
+	drawnumber 4, DIGINUMBER, white, ammo NUKE, 330, 176, 0;
+	}
+	
+	isselected ROCKET_LAUNCHER
+  ININVENTORY NOT nukeloaded,1 
+	{
+	alpha 0.8 drawimage "ROCKA0", 320, 175;
+	drawnumber 4, DIGINUMBER, white, ammo AMMOROCKET, 330, 176, 0;
+	}
+	
+	
+	//RIFLE
+	isselected LITRIFLE
+	ININVENTORY LOADED762,1
+	{drawnumber 4, DIGINUMBER, white, ammo clip2, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo rifleammo, 280, 176, 0;
+	drawimage "R762C0", 320, 174;}
+	
+	isselected LITRIFLE
+	ININVENTORY LOADED556,1
+	{drawnumber 4, DIGINUMBER, white, ammo minigunammo, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo rifleammo, 280, 176, 0;
+	drawimage "R556A0", 320, 175;}
+	
+	
+	// SHOTTIE
+	ININVENTORY SHOTGUNSELECTED,1 && slugselected,1
+	{
+	drawnumber 4, DIGINUMBER, white, ammo shotgunammo, 280, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo ammoslug, 330, 176, 0;
+	drawimage "SLUGA0", 320, 175;	
+	
+	ININVENTORY ammoshell,1
+	{
+	drawimage "BUCKI0", 278, 170;	
+	drawnumber 4, SMALLFONT, white, ammo ammoshell, 290, 160, 0;
+	}}
+	
+	ININVENTORY SHOTGUNSELECTED,1
+	ININVENTORY NOT slugselected,1
+	{
+	drawnumber 4, DIGINUMBER, white, ammo shotgunammo, 280, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo ammoshell, 330, 176, 0;
+	drawimage "BUCKA0", 320, 175;	
+	
+	ININVENTORY ammoslug,1
+	{
+	drawimage "SLUGI0", 278, 170;	
+	drawnumber 4, SMALLFONT, white, ammo ammoslug, 284, 163, 0;
+	}}	
+	
+	//GRENADE LAUNCHER
+	ININVENTORY GrenadeLauncherSelected,1 && flareloaded,1
+	{drawnumber 4, DIGINUMBER, white, ammo flare, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo glammo, 280, 176, 0;
+	drawimage "FLARE0", 320, 173;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && acidloaded,1
+	{drawnumber 4, DIGINUMBER, white, ammo acidmistammo, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo glammo, 280, 176, 0;
+	drawimage "ACID", 327, 175;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && hellfireloaded,1
+	{drawnumber 4, DIGINUMBER, white, ammo hellfireammo, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo glammo, 280, 176, 0;
+	drawimage "HELF", 327, 175;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && syringeloaded,1
+	{drawnumber 4, DIGINUMBER, white, pheromones, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo glammo, 280, 176, 0;
+	drawimage "GSYRH0", 312, 146;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && metalloaded,1
+	{drawnumber 4, DIGINUMBER, white, ammo scrapmetal, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo glammo, 280, 176, 0;
+	drawimage "SCR4P0", 307, 155;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && grenadeloaded,1
+	{drawnumber 4, DIGINUMBER, white, ammo grenadeammo, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo glammo, 280, 176, 0;
+	drawimage "GRNDBI", 322, 175;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && clusterloaded,1
+	{drawnumber 4, DIGINUMBER, white, ammo clusterammo, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo glammo, 280, 176, 0;
+	drawimage "GRNDI0", 310, 148;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && mineloaded,1
+	{drawnumber 4, DIGINUMBER, white, ammo PROXBOMBAMMO, 330, 176, 0;
+	drawnumber 4, DIGINUMBER, white, ammo glammo, 280, 176, 0;
+	drawimage "PR0XZ0", 320, 175;}	
+	
+	isselected GrenadeLauncher
+	ININVENTORY mineloaded,1 && detonationmode,1
+	{drawimage "PROXZ0", 320, 175;}
+	
+	/// MINES MODE
+	ININVENTORY proxbombselected,1 && detonationmode,1
+	{drawimage "PROXZ0", 320, 175;}
+	
+			//PISTOL FLARE
+	ININVENTORY PISTOLFLARE,1
+	{
+	drawnumber 4, DIGINUMBER, white, ammo BDPISTOLAMMO, 280, 176, 0;
+	drawimage "P9MMB0", 269, 172;	
+	}
+				///////
+		
+	//GRENADES
+	InInventory grenadeammo,1 && grenadefavorite
+	{
+	drawimage "GRNDBI", 307, 211;
+	drawnumber 4, SMALLFONT, white, Ammo GrenadeAmmo, 320, 193, 0;	
+	}
+	
+		InInventory clusterammo,1 && clusterfavorite
+	{
+	drawimage "GRNDI0", 292, 187;
+	drawnumber 4, SMALLFONT, white, Ammo ClusterAmmo, 320, 193, 0;	
+	}
+	
+	InInventory MiniHellRocketAmmo,1 && quickrevenantfavorite
+	{
+	drawimage "FATBD", 307, 204;
+	drawnumber 4, SMALLFONT, white, Ammo MiniHellRocketAmmo, 320, 193, 0;	
+	}
+	
+	InInventory hellfireammo,1 && hellfirefavorite
+	{
+	drawimage "HELF", 307, 213;
+	drawnumber 4, SMALLFONT, white, Ammo hellfireAmmo, 320, 193, 0;	
+	}
+	
+	InInventory acidmistammo,1 && acidmistfavorite
+	{
+	drawimage "ACID", 307, 213;
+	drawnumber 4, SMALLFONT, white, Ammo acidmistAmmo, 320, 193, 0;	
+	}
+	
+	InInventory PROXBOMBAMMO,1 && minesfavorite
+	{
+	drawimage "PR0XZ0", 300, 216;
+	drawnumber 4, SMALLFONT, white, Ammo PROXBOMBAMMO, 320, 193, 0;	
+	}
+	
+	//FLARES
+	//standard
+	InInventory flare,1
+	Ininventory not flarefavorite
+	{
+	drawimage "FLARE0", 255, 215;
+	drawnumber 4, SMALLFONT, white, Ammo Flare, 270, 193, 0;
+	}
+	
+	//favorite
+	InInventory flare,1 && flarefavorite,1
+	{
+	drawimage "FLARE0", 301, 215;
+	drawnumber 4, SMALLFONT, white, Ammo Flare, 320, 193, 0;
+	}
+	
+	//KNIVES
+	//standard
+	InInventory knivesammo,1
+	Ininventory not quickknifefavorite
+	{
+	drawimage "KNFAY0", 330, 212;
+	drawnumber 4, SMALLFONT, white, Ammo KnivesAmmo, 350, 193, 0;	
+	}
+	
+	//favorite
+	InInventory knivesammo,1 && quickknifefavorite,1
+	{
+	drawimage "KNFAY0", 307, 217;
+	drawnumber 4, SMALLFONT, white, Ammo KnivesAmmo, 320, 193, 0;	
+	}
+	
+
+	//STAMINA	
+	InInventory UsedStamina, 1 && powerstrength2, 1
+	{
+	alpha 0.80
+	DrawBar "StamEHOR", "BerkFHOR", UsedStamina, horizontal, reverse, interpolate(8), -54, 183;
+	}	
+	
+	InInventory UsedStamina, 1 
+	{
+	alpha 0.40
+	DrawBar "StamEHOR", "StamFHOR", UsedStamina, horizontal, reverse, interpolate(8), -54, 183;
+	}	
+	//FREEDASH
+	Ininventory not ISDOOMGUY {drawimage "DASH0", 46, 186;}
+	InInventory Freedashcharge, 1 Ininventory not ISDOOMGUY {drawimage "DASH1", 46, 186;}
+	InInventory Freedashcharge, 2 Ininventory not ISDOOMGUY {drawimage "DASH2", 46, 186;}
+	InInventory Freedashcharge, 3 Ininventory not ISDOOMGUY {drawimage "DASH3", 46, 186;}
+	InInventory Freedashcharge, 4 Ininventory not ISDOOMGUY {drawimage "DASH4", 46, 186;}
+	InInventory Freedashcharge, 5 Ininventory not ISDOOMGUY {drawimage "DASH5", 46, 186;}
+	
+	// WEAPONS durability
+	InInventory Pistolselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", pistoldurability, horizontal, interpolate(8), -54, 189;}
+	InInventory Shotgunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", shotgundurability, horizontal, interpolate(8), -54, 189;}
+	InInventory Revolverselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", revolverdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory submachinegunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", smgdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory rifleselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", rifledurability, horizontal, interpolate(8), -54, 189;}
+	InInventory ASGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", ASGdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory SSGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", SSGdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory MINIGUNselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", MINIGUNdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory LMGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", LMGdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory RocketLauncherselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", RLdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory GrenadeLauncherselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", GLdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory plasmagunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", plasmadurability, horizontal, interpolate(8), -54, 189;}
+	InInventory RevenantLauncherSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", revenantdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory RailgunSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", railgundurability, horizontal, interpolate(8), -54, 189;}
+	InInventory BFGSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", bfg7kdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory BFG11kSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", BFG11KDurability, horizontal, interpolate(8), -54, 189;}
+	InInventory RailgunSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", railgundurability, horizontal, interpolate(8), -54, 189;}
+	InInventory FlamecannonSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", napalmdurability, horizontal, interpolate(8), -54, 189;}
+	InInventory FlamethrowerSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", flamedurability, horizontal, interpolate(8), -54, 189;}
+		Isselected BrutalAxe
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", axedurability, horizontal, interpolate(8), -54, 189;}
+		isselected Knife
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", knifedurability, horizontal, interpolate(8), -54, 189;}
+	
+	InInventory SUBMACHINEGUNSelected, 1 && SMGSUPPRESSOR, 1
+	{alpha 0.30 DrawBar "SUPPA0", "SUPPB0", SUPPRESSORdurability, horizontal, interpolate(8), 73, 202;}
+	
+	InInventory SUBMACHINEGUNSelected, 1 && SUPPRESSORMOUNTED, 1
+	{alpha 1.00 DrawBar "SUPPA0", "SUPPB0", SUPPRESSORdurability, horizontal, interpolate(8), 73, 202;}
+	//// END
+	
+	//BERSERK
+	InInventory powerstrength2, 1
+	{
+	alpha 0.20
+	drawimage "HASBERK", -44, 189;
+	alpha 0.40
+	drawimage "HASBERK", -49, 189;
+	alpha 0.95
+	drawimage "HASBERK", -54, 189;
+	}	
+	
+	//FIRING SPEED
+	drawnumber 4, SMALLFONT, darkred, PowerupTime RageSphere, whennotzero, 166, 190, 0;
+	
+	//OPSPHERE
+	drawnumber 4, SMALLFONT, orange, PowerupTime DoomSphereST, whennotzero, 166, 190, 0;
+	
+	//BERSERKRAGE
+	drawnumber 4, SMALLFONT, darkred, PowerupTime BerserkDrain, whennotzero, 166, 190, 0;
+	
+	//YELLOWDRUG
+	drawnumber 4, SMALLFONT, yellow, PowerupTime yellowdrugscreen, whennotzero, 166, 190, 0;
+	
+	//ROCKSKIN
+	drawnumber 4, SMALLFONT, BROWN, PowerupTime rockskinpower, whennotzero, 166, 190, 0;
+	
+	//RADSUIT
+	drawnumber 4, SMALLFONT, green, PowerupTime RADSUIT3, whennotzero, 166, 190, 0;
+	
+	//INVULNERABILITY
+	drawnumber 4, SMALLFONT, Black, PowerupTime InvulnerabilitySphere, whennotzero, 166, 190, 0;
+	
+	//Regen & Vampire
+	drawnumber 4, SMALLFONT, lightblue, PowerupTime RegenGiver, whennotzero, 166, 183, 0;
+	drawnumber 4, SMALLFONT, red, PowerupTime VampireSphere, whennotzero, 166, 190, 0;
+	
+	//INVISIBILITY
+	drawnumber 4, SMALLFONT, Blue, PowerupTime BlurSphere, whennotzero, 166, 190, 0;
+	
+	//INFRARED
+	drawnumber 4, SMALLFONT, Blue, PowerupTime ArtiTorch, whennotzero, 166, 168, 0;
+	
+	//HEALTHPACK
+	drawnumber 4, SMALLFONT, lightblue, PowerupTime Healthpackpower, whennotzero, 166, 168, 0;
+	
+	//CLAIRVOYANCE
+	drawnumber 4, SMALLFONT, purple, PowerupTime clairpower, whennotzero, 166, 168, 0;
+	
+	
+	gamemode deathmatch, teamgame
+	{
+     	drawnumber 8, SMALLFONT, darkred, frags, 302, 8;
+       DrawString SMALLFONT, darkred, "Frags", 302, 0;
+   
+    }
+}	
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// HELMET
+// 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+InInventory sbartype4, 1
+{
+	// basic layout
+	DrawImage "PLAYSCRN", -54, 0;
+	Alpha 0.5
+	
+
+	// health and armor bars
+	Alpha 0.75
+	DrawBar "HealthFu", "HealthEm", Health, horizontal, interpolate(8), 22, 159;
+	Alpha 0.75
+	DrawNumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, Health, Alignment(right), fillzeros, 68, 168;
+	DrawBar "ArmorFul", "ArmorEmp", Armor, horizontal, interpolate(8), 21, 174;
+	Alpha 0.75
+	DrawNumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, Armor, Alignment(right), fillzeros, 71, 179;
+	drawnumber 2, indexfont, blue, SavePercent, whennotzero,10, 178, 0, green, 46, red, 65;																						
+
+//CHAOS HEALTH
+	InInventory ChaosStamina, 1 {drawimage "CHAOSHP", 22, 155;}
+	InInventory ChaosStamina, 2 {drawimage "CHAOSHP", 26, 156;}
+	InInventory ChaosStamina, 3 {drawimage "CHAOSHP", 30, 157;}
+	InInventory ChaosStamina, 4 {drawimage "CHAOSHP", 34, 158;}
+	InInventory ChaosStamina, 5 {drawimage "CHAOSHP", 38, 159;}
+
+	// ammo bar
+	Alpha 1.00
+	drawimage ammoicon1, 330, 181;		
+		
+	UsesSecondaryAmmo
+	{
+	DrawNumber 3, DIGIFONT_LARGE, DoomNukemStatusBarGreen, Ammo2, Alignment(left), fillzeros, 247, 172;
+	DrawNumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, Ammo1, Alignment(left), fillzeros, 282, 178;
+	}
+	
+	UsesSecondaryAmmo not
+	{
+	DrawNumber 3, DIGIFONT_LARGE, DoomNukemStatusBarGreen, Ammo1, Alignment(left), fillzeros, 257, 172;
+	}
+	 
+	 ///SPECIAL AMMO
+	 InInventory PistolBurstFire, 1 && Pistolselected,1 {alpha 0.5 drawimage "PIBUR0", 321, 151;}
+		
+		
+	/// ROCKET LAUNCHER
+	isselected ROCKET_LAUNCHER
+  ININVENTORY nukeloaded,1 
+	{alpha 0.8 drawimage "WRHDA0", 330, 181;
+	drawnumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, Ammo NUKE, Alignment(left), fillzeros, 282, 178;}
+	
+	isselected ROCKET_LAUNCHER
+  ININVENTORY NOT nukeloaded,1 
+	{alpha 0.8 drawimage "ROCKA0", 330, 181;
+	drawnumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, Ammo AMMOROCKET, Alignment(left), fillzeros, 282, 178;}
+	
+		
+	//RIFLE
+	isselected LITRIFLE
+	ININVENTORY LOADED762,1
+	{drawimage "R762C0", 330, 181;	
+	drawnumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, clip2, Alignment(left), fillzeros, 282, 178;
+	DrawNumber 3, DIGIFONT_LARGE, DoomNukemStatusBarGreen, Ammo rifleammo, Alignment(left), fillzeros, 247, 172;}
+	
+	isselected LITRIFLE
+	ININVENTORY LOADED556,1
+	{drawimage "R556A0", 330, 181;	
+	drawnumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, Ammo minigunammo, Alignment(left), fillzeros, 282, 178;
+	DrawNumber 3, DIGIFONT_LARGE, DoomNukemStatusBarGreen, Ammo rifleammo, Alignment(left), fillzeros, 247, 172;}
+	
+	///LMG
+	ININVENTORY LMGSELECTED,1 
+	{
+	alpha 0.8 drawimage "GRNDZ0", 300, 150;
+	drawnumber 4, smallfont, yellow, ammo LMGGRENADE, 320, 140, 0;
+	drawnumber 4, smallfont, yellow, ammo GRENADEAMMO, 347, 140, 0;
+	}
+	
+	// SHOTTIE
+	ININVENTORY SHOTGUNSELECTED,1 && slugselected,1
+	{
+	DrawNumber 3, DIGIFONT_LARGE, DoomNukemStatusBarGreen, Ammo shotgunammo, Alignment(left), fillzeros, 247, 172;
+	DrawNumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, Ammo ammoslug, Alignment(left), fillzeros, 282, 178;
+	drawimage "SLUGA0", 330, 181;	
+	}
+	
+	ININVENTORY SHOTGUNSELECTED,1
+	ININVENTORY NOT slugselected,1
+	{
+	DrawNumber 3, DIGIFONT_LARGE, DoomNukemStatusBarGreen, Ammo shotgunammo, Alignment(left), fillzeros, 247, 172;
+	DrawNumber 3, DIGIFONT_SMALL, DoomNukemStatusBarGreen, Ammo ammoshell, Alignment(left), fillzeros, 282, 178;
+	drawimage "BUCKA0", 330, 181;	
+	}	
+	
+			//PISTOL FLARE
+	ININVENTORY PISTOLFLARE,1
+	{
+	drawnumber 4, SMALLFONT, YELLOW, ammo BDPISTOLAMMO, 320, 140, 0;
+	drawimage "P9MMB0", 296, 147;	
+	}
+	
+	//GRENADE LAUNCHER
+	ININVENTORY GrenadeLauncherSelected,1 && flareloaded,1
+	{drawnumber 3, DIGIFONT_SMALL, white, ammo flare, Alignment(left), fillzeros, 282, 178, 0;
+	drawnumber 3, DIGIFONT_LARGE, white, ammo glammo, Alignment(left), fillzeros, 247, 172, 0;
+	drawimage "FLARE0", 330, 181;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && acidloaded,1
+	{drawnumber 3, DIGIFONT_SMALL, white, ammo acidmistammo, Alignment(left), fillzeros, 282, 178, 0;
+	drawnumber 3, DIGIFONT_LARGE, white, ammo glammo, Alignment(left), fillzeros, 247, 172, 0;
+	drawimage "ACID", 343, 181;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && hellfireloaded,1
+	{drawnumber 3, DIGIFONT_SMALL, white, ammo hellfireammo, Alignment(left), fillzeros, 282, 178, 0;
+	drawnumber 3, DIGIFONT_LARGE, white, ammo glammo, Alignment(left), fillzeros, 247, 172, 0;
+	drawimage "HELF", 343, 181;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && syringeloaded,1
+	{drawnumber 3, DIGIFONT_SMALL, white, pheromones, Alignment(left), fillzeros, 282, 178, 0;
+	drawnumber 3, DIGIFONT_LARGE, white, ammo glammo, Alignment(left), fillzeros, 247, 172, 0;
+	drawimage "GSYRH0", 320, 151;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && metalloaded,1
+	{drawnumber 3, DIGIFONT_SMALL, white, ammo scrapmetal, Alignment(left), fillzeros, 282, 178, 0;
+	drawnumber 3, DIGIFONT_LARGE, white, ammo glammo, Alignment(left), fillzeros, 247, 172, 0;
+	drawimage "SCR4P0", 321, 158;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && grenadeloaded,1
+	{drawnumber 3, DIGIFONT_SMALL, white, ammo grenadeammo, Alignment(left), fillzeros, 282, 178, 0;
+	drawnumber 3, DIGIFONT_LARGE, white, ammo glammo, Alignment(left), fillzeros, 247, 172, 0;
+	drawimage "GRNDBI", 337, 179; }	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && clusterloaded,1
+	{drawnumber 3, DIGIFONT_SMALL, white, ammo clusterammo, Alignment(left), fillzeros, 282, 178, 0;
+	drawnumber 3, DIGIFONT_LARGE, white, ammo glammo, Alignment(left), fillzeros, 247, 172, 0;
+	drawimage "GRNDI0", 323, 155;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && mineloaded,1
+	{drawnumber 3, DIGIFONT_SMALL, white, ammo PROXBOMBAMMO, Alignment(left), fillzeros, 282, 178, 0;
+	drawnumber 3, DIGIFONT_LARGE, white, ammo glammo,  Alignment(left), fillzeros, 247, 172, 0;
+	drawimage "PR0XZ0", 330, 181;}	
+	
+	isselected GrenadeLauncher
+	ININVENTORY mineloaded,1 && detonationmode,1
+	{drawimage "PROXZ0", 330, 181;}
+	
+	/// MINES MODE
+	ININVENTORY proxbombselected,1 && detonationmode,1
+	{drawimage "PROXZ0", 330, 181;}
+////////////////////////////////////////////////////////////////////////
+	
+	// WEAPONS durability
+	InInventory Pistolselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", pistoldurability, vertical, interpolate(8), 362, 100;}		
+	InInventory Shotgunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", shotgundurability, vertical, interpolate(8), 362, 100;}		
+	InInventory Revolverselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", revolverdurability, vertical, interpolate(8), 362, 100;}		
+	InInventory submachinegunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", smgdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory rifleselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", rifledurability, vertical, interpolate(8), 362, 100;}	
+	InInventory ASGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", ASGdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory SSGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", SSGdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory MINIGUNselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", MINIGUNdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory LMGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", LMGdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory RocketLauncherselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", RLdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory GrenadeLauncherselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", GLdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory plasmagunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", plasmadurability, vertical, interpolate(8), 362, 100;}	
+	InInventory RevenantLauncherSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", revenantdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory RailgunSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", railgundurability, vertical, interpolate(8), 362, 100;}	
+	InInventory BFGSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", bfg7kdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory BFG11kSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", BFG11KDurability, vertical, interpolate(8), 362, 100;}	
+	InInventory RailgunSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", railgundurability, vertical, interpolate(8), 362, 100;}	
+	InInventory FlamecannonSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", napalmdurability, vertical, interpolate(8), 362, 100;}	
+	InInventory FlamethrowerSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", flamedurability, vertical, interpolate(8), 362, 100;}	
+	
+	Isselected BrutalAxe
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", axedurability, vertical, interpolate(8), 362, 100;}	
+		isselected Knife
+	{alpha 0.30 DrawBar "DurabF", "StaminaE", knifedurability, vertical, interpolate(8), 362, 100;}	
+	
+	InInventory SUBMACHINEGUNSelected, 1 && SMGSUPPRESSOR, 1
+	{alpha 0.30 DrawBar "SUPPC0", "SUPPD0", SUPPRESSORdurability, vertical, interpolate(8), 360, 149;}
+	
+	InInventory SUBMACHINEGUNSelected, 1 && SUPPRESSORMOUNTED, 1
+	{alpha 1.00 DrawBar "SUPPC0", "SUPPD0", SUPPRESSORdurability, vertical, interpolate(8), 360, 149;}	
+	//// END
+	
+	
+	// level stats
+	InInventory showkill,1
+	{
+	Alpha 0.75
+	drawimage "KILLSTAT", 163, 2;
+	drawnumber 4, AMMOFONT, DoomNukemIndexGreen, kills, drawshadow(2, 2), 342, 6;
+	Alpha 0.75
+	drawnumber 4, AMMOFONT, DoomNukemIndexGreen, monsters, Alignment(left), drawshadow(2, 2), 357, 6;
+	}
+	
+	InInventory showitems,1
+	{
+	Alpha 0.75
+	drawimage "ITEMSTAT", 163, 11;
+	drawnumber 3, AMMOFONT, DoomNukemIndexGreen, items, drawshadow(2, 2), 342, 23;
+	Alpha 0.75
+	drawnumber 3, AMMOFONT, DoomNukemIndexGreen, totalitems, Alignment(left), drawshadow(2, 2), 357, 23;
+	}	
+	
+	InInventory showsecrets,1
+	{	
+	Alpha 0.75
+	drawimage "SCRTSTAT", 163, -5;
+	drawnumber 2, AMMOFONT, DoomNukemIndexGreen, secrets, drawshadow(2, 2), 342, 15;
+	Alpha 0.75
+	drawnumber 2, AMMOFONT, DoomNukemIndexGreen, totalsecrets, Alignment(left), drawshadow(2, 2), 357, 15;
+	}	
+	
+	// keys
+	DrawKeyBar 1, horizontal, 9, 222, 11, 0;
+	DrawKeyBar 1, horizontal, 9, 229, 11, 1;
+	DrawKeyBar 1, horizontal, 9, 236, 11, 2;
+	DrawKeyBar 1, horizontal, 9, 243, 11, 3;
+	DrawKeyBar 1, horizontal, 9, 250, 11, 4;
+	DrawKeyBar 1, horizontal, 9, 257, 11, 5;
+	
+	//FLASHLIGHT  
+	InInventory flashlighton, 1
+	Ininventory not Battery,1
+	{
+	drawimage "CELLA0", -37, 25;
+	drawnumber 4, smallfont, yellow, Ammo Ammocell, -28, 4,0;
+	}
+	
+	InInventory Battery, 1
+	{
+	drawimage "BATTB0", -37, 25;
+	drawnumber 4, smallfont, yellow, Ammo Battery, -28, 4,0;
+	}
+	
+		//FORCEFIELD
+	InInventory ammocell, 1 && forcefieldon, 1
+	{
+	drawimage "CELLA0", -37, 25;
+	drawnumber 4, smallfont, yellow, Ammo Ammocell, -28, 4,0;
+	}
+	
+	//////
+	//BANDOLIERS AND BACKPACKS
+	
+	//BANDOLIER
+	InInventory saveammo, 1
+	{
+	drawimage "SVAMA0", 200, 88;
+	drawnumber 4, indexfont, green, Ammo saveammo, 361, 175,0;
+	}
+	
+	//BACKPACK
+	InInventory saveweapon, 1
+	{
+	drawimage "SVWPA0", 200, 66;
+	drawnumber 4, indexfont, green, Ammo saveweapon, 358, 153,0;
+	}
+	
+	//////
+	
+
+	//STAMINA	
+	InInventory UsedStamina, 1 && powerstrength2, 1
+	{
+	alpha 1.00
+	DrawBar "StaminaE", "BerkF", UsedStamina, vertical, reverse, interpolate(8), -58, 100;
+	}	
+	
+	InInventory UsedStamina, 1 
+	{
+	alpha 0.50
+	DrawBar "StaminaE", "StaminaF", UsedStamina, vertical, reverse, interpolate(8), -58, 100;
+	}	
+	Ininventory not ISDOOMGUY {drawimage "DASH0", -53, 92;}
+	InInventory Freedashcharge, 1 Ininventory not ISDOOMGUY {drawimage "DASH1", -53, 92;}
+	InInventory Freedashcharge, 2 Ininventory not ISDOOMGUY {drawimage "DASH2", -53, 92;}
+	InInventory Freedashcharge, 3 Ininventory not ISDOOMGUY {drawimage "DASH3", -53, 92;}
+	InInventory Freedashcharge, 4 Ininventory not ISDOOMGUY {drawimage "DASH4", -53, 92;}
+	InInventory Freedashcharge, 5 Ininventory not ISDOOMGUY {drawimage "DASH5", -53, 92;}
+
+	//BERSERK
+	InInventory powerstrength2, 1
+	{
+	alpha 0.20
+	drawimage "HASBERK", -52, 185;
+	alpha 0.40
+	drawimage "HASBERK", -52, 190;
+	alpha 0.95
+	drawimage "HASBERK", -52, 195;
+	}	
+
+    alpha 1.00
+
+	//FIRING SPEED
+	drawnumber 4, SMALLFONT, darkred, PowerupTime RageSphere, whennotzero, 166, 190, 0;
+
+	//OPSPHERE
+	drawnumber 4, SMALLFONT, orange, PowerupTime DoomSphereST, whennotzero, 166, 190, 0;
+
+	//BERSERKRAGE
+	drawnumber 4, SMALLFONT, darkred, PowerupTime BerserkDrain, whennotzero, 166, 190, 0;
+	
+	//YELLOWDRUG
+	drawnumber 4, SMALLFONT, yellow, PowerupTime yellowdrugscreen, whennotzero, 166, 190, 0;
+	
+	//ROCKSKIN
+	drawnumber 4, SMALLFONT, BROWN, PowerupTime rockskinpower, whennotzero, 166, 190, 0;
+	
+	//RADSUIT
+	drawnumber 4, SMALLFONT, green, PowerupTime RADSUIT3, whennotzero, 166, 190, 0;
+	
+	//INVULNERABILITY
+	drawnumber 4, SMALLFONT, Black, PowerupTime InvulnerabilitySphere, whennotzero, 166, 190, 0;
+	
+	//Regen & Vampire
+	drawnumber 4, SMALLFONT, lightblue, PowerupTime RegenGiver, whennotzero, 166, 183, 0;
+	drawnumber 4, SMALLFONT, red, PowerupTime VampireSphere, whennotzero, 166, 190, 0;
+	
+	//HEALTHPACK
+	drawnumber 4, SMALLFONT, lightblue, PowerupTime Healthpackpower, whennotzero, 166, 168, 0;
+	
+	//INVISIBILITY
+	drawnumber 4, SMALLFONT, Blue, PowerupTime BlurSphere, whennotzero, 166, 190, 0;
+	
+	//INFRARED
+	drawnumber 4, SMALLFONT, Blue, PowerupTime ArtiTorch, whennotzero, 166, 168, 0;
+	
+	//CLAIRVOYANCE
+	drawnumber 4, SMALLFONT, purple, PowerupTime clairpower, whennotzero, 166, 168, 0;
+	
+	//HEALING ITEMS
+	InInventory bandages, 1 || healthpack2, 1
+	{
+	drawimage "MEDITEMS", -40, 190;
+	drawnumber 4, indexfont, white, Bandages, -20, 192, 0;	
+	drawnumber 4, indexfont, cyan, Healthpack2, -5, 192, 0;	
+	}
+
+	
+	//GRENADES
+	InInventory grenadeammo,1 && grenadefavorite
+	{
+	drawimage "GRNDBI", 310, 211;
+	drawnumber 4, SMALLFONT, white, Ammo GrenadeAmmo, 327, 193, 0;	
+	}
+	
+	InInventory clusterammo,1 && clusterfavorite
+	{
+	drawimage "GRNDI0", 300, 186;
+	drawnumber 4, SMALLFONT, white, Ammo ClusterAmmo, 327, 193, 0;	
+	}
+	
+	InInventory MiniHellRocketAmmo,1 && quickrevenantfavorite
+	{
+	drawimage "FATBD", 315, 204;
+	drawnumber 4, SMALLFONT, white, Ammo MiniHellRocketAmmo, 327, 193, 0;	
+	}
+	
+	InInventory hellfireammo,1 && hellfirefavorite
+	{
+	drawimage "HELF", 318, 211;
+	drawnumber 4, SMALLFONT, white, Ammo hellfireAmmo, 327, 193, 0;	
+	}
+	
+	InInventory acidmistammo,1 && acidmistfavorite
+	{
+	drawimage "ACID", 318, 211;
+	drawnumber 4, SMALLFONT, white, Ammo acidmistAmmo, 327, 193, 0;	
+	}
+	
+	InInventory PROXBOMBAMMO,1 && minesfavorite
+	{
+	drawimage "PR0XZ0", 310, 211;
+	drawnumber 4, SMALLFONT, white, Ammo PROXBOMBAMMO, 327, 193, 0;	
+	}
+	
+	//KNIVES
+	//standard
+	InInventory knivesammo,1
+	Ininventory not quickknifefavorite,1
+	{
+	drawimage "KNFAY0", 340, 212;
+	drawnumber 4, SMALLFONT, white, Ammo KnivesAmmo, 355, 193, 0;	
+	}
+	
+	//favorite
+	InInventory knivesammo,1 && quickknifefavorite,1
+	{
+	drawimage "KNFAY0", 315, 217;
+	drawnumber 4, SMALLFONT, white, Ammo KnivesAmmo, 327, 193, 0;	
+	}
+	//FLARES
+	//standard
+	Ininventory flare,1
+	Ininventory not flarefavorite,1
+	{
+	drawimage "FLARE0", 275, 215;
+	drawnumber 4, SMALLFONT, white, Ammo Flare, 289, 193, 0;
+	}
+	
+	//favorite
+		Ininventory flare,1 && flarefavorite,1
+	{
+	drawimage "FLARE0", 310, 215;
+	drawnumber 4, SMALLFONT, white, Ammo Flare, 327, 193, 0;
+	}
+	// hud face :)
+
+		InInventory GenderMale, 1
+		{
+		DrawImage "HEADSUP", -54, 0;
+		drawmugshot "STM", 5, -41, 150;
+		drawselectedinventory SMALLFONT, 75, 7;										  
+		}
+		
+		InInventory GenderFemale, 1
+		{
+		DrawImage "HEADSUP", -54, 0;
+		drawmugshot "GAL", 5, -41, 150;
+		drawselectedinventory SMALLFONT, 75, 7;										  
+		}
+		
+}}}	
+//}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// VANILLA-LIKE
+// 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+}
+
+statusbar normal // Standard Doom Status bar
+{
+	drawimage "STBARBLK", 0, 186, center;
+	drawimage "STBAR", 0, 168;
+	
+	
+	drawnumber 3, HUDFONT_DOOM, gold, health, whennotzero, 133, 171, 0, red, 40, sapphire,71;
+	drawnumber 3, HUDFONT_DOOM, green, armor, 228, 171;	
+	
+	//AMMO
+	drawnumber 3, HUDFONT_DOOM, cyan, ammo1, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo2, fillzeros, 82, 173;
+
+
+///SPECIAL AMMO
+	 InInventory PistolBurstFire, 1 && Pistolselected,1 {alpha 0.5 drawimage "PISBURST", 64, 175;}
+	
+	/// ROCKET LAUNCHER
+	isselected ROCKET_LAUNCHER
+  ININVENTORY nukeloaded,1 
+	{
+	drawnumber 3, HUDFONT_DOOM, cyan, ammo NUKE, 44, 171;
+	}
+	
+	isselected ROCKET_LAUNCHER
+  ININVENTORY NOT nukeloaded,1 
+	{
+	drawnumber 3, HUDFONT_DOOM, cyan, ammo AMMOROCKET, 44, 171;
+	}
+	
+	//RIFLE
+	isselected LITRIFLE
+	ININVENTORY LOADED762,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, ammo clip2, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo rifleammo, fillzeros, 82, 173;}
+	
+	isselected LITRIFLE
+	ININVENTORY LOADED556,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, minigunammo, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo rifleammo, fillzeros, 82, 173;}
+	
+					///LMG
+	ININVENTORY LMGSELECTED,1 
+	{
+	alpha 0.8 drawimage "GRNDZ0", 40, 163;
+	drawnumber 4, smallfont, CYAN, ammo LMGGRENADE, 46, 155, 0;
+	drawnumber 4, smallfont, CYAN, ammo GRENADEAMMO, 70, 155, 0;
+	}
+	
+					// SHOTTIE
+	ININVENTORY SHOTGUNSELECTED,1 && slugselected,1
+	{
+	DrawNumber 3, DIGINUMBER, cyan, ammo shotgunammo, fillzeros, 82, 173;
+	DrawNumber 3, HUDFONT_DOOM, cyan, Ammo ammoslug, 44, 171;
+	drawimage "SLUGI0", 8, 187;	
+	}
+	
+	ININVENTORY SHOTGUNSELECTED,1
+	ININVENTORY NOT slugselected,1
+	{
+	DrawNumber 3, DIGINUMBER, cyan, ammo shotgunammo, fillzeros, 82, 173;
+	DrawNumber 3, HUDFONT_DOOM, cyan, Ammo ammoshell, 44, 171;
+	drawimage "BUCKI0", 8, 187;	
+	}	
+	
+			//PISTOL FLARE
+	ININVENTORY PISTOLFLARE,1
+	{
+	drawnumber 4, DIGINUMBER, cyan, ammo BDPISTOLAMMO, 82, 173, 0;
+	drawimage "P9MMB0", 55, 188;	
+	}
+	
+		//GRENADE LAUNCHER
+	ININVENTORY GrenadeLauncherSelected,1 && flareloaded,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, ammo flare, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo glammo, 82, 173;
+	drawimage "FLARE0", 45, 211;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && acidloaded,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, ammo acidmistammo,  44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo glammo,  82, 173;
+	drawimage "ACID", 52, 212;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && hellfireloaded,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, ammo hellfireammo, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo glammo, 82, 173;
+	drawimage "HELF", 52, 212;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && syringeloaded,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, pheromones,  44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo glammo, 82, 173;
+	drawimage "GSYRH0", 34, 178;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && metalloaded,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, ammo scrapmetal, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo glammo, 82, 173;
+	drawimage "SCR4P0", 34, 193;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && grenadeloaded,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, ammo grenadeammo, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo glammo, 82, 173;
+	drawimage "GRNDBI", 48, 210; }	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && clusterloaded,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, ammo clusterammo, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo glammo, 82, 173;
+	drawimage "GRNDI0", 33, 186;	}	
+	
+	ININVENTORY GrenadeLauncherSelected,1 && mineloaded,1
+	{drawnumber 3, HUDFONT_DOOM, cyan, ammo PROXBOMBAMMO, 44, 171;
+	drawnumber 3, DIGINUMBER, cyan, ammo glammo, 82, 173;
+	drawimage "PR0XZ0", 42, 213;}	
+	
+	isselected GrenadeLauncher
+	ININVENTORY mineloaded,1 && detonationmode,1
+	{drawimage "PROXZ0", 42, 213;}	
+	
+	/// MINES MODE
+	isselected ProxBomb
+	{drawimage "PR0XZ0", 42, 213;}	
+	
+	ININVENTORY proxbombselected,1 && detonationmode,1
+	{drawimage "PROXZ0", 42, 213;}	
+	
+////////////////////////////////////////////////////////////////////////
+				///////
+	
+	/////////////////
+	
+	//CHAOS HEALTH
+	InInventory ChaosStamina, 1 {drawimage "CHAOSHP", 100, 186;}
+	InInventory ChaosStamina, 2 {drawimage "CHAOSHP", 105, 186;}
+	InInventory ChaosStamina, 3 {drawimage "CHAOSHP", 110, 186;}
+	InInventory ChaosStamina, 4 {drawimage "CHAOSHP", 115, 186;}
+	InInventory ChaosStamina, 5 {drawimage "CHAOSHP", 120, 186;}
+
+	//ARMOR ICONS
+		InInventory hasuniformarmor,1 {alpha 0.30 drawimage "LITARMOR", 225, 190; alpha 0.30 drawimage "LITARMOR", 178, 190;}
+		InInventory haslightarmor,1 {drawimage "LITARMOR", 225, 190; drawimage "LITARMOR", 178, 190;}
+		InInventory hasmediumarmor,1 {drawimage "MEDARMOR", 225, 190; drawimage "MEDARMOR", 178, 190;}
+		InInventory hasheavyarmor,1 {drawimage "HVYARMOR",  225, 190; drawimage "HVYARMOR",  178, 190;}
+		InInventory hasplatearmor,1 {drawimage "PLTARMOR",  225, 190; drawimage "PLTARMOR",  178, 190;}
+
+	//keys
+	drawswitchableimage keyslot 2 && 5, "nullimage", "STKEYS0", "STKEYS3", "STKEYS6", 239, 171;
+	drawswitchableimage keyslot 3 && 6, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", 239, 181;
+	drawswitchableimage keyslot 1 && 4, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", 239, 191;
+
+	gamemode deathmatch, teamgame
+	{
+	drawnumber 2, HUDFONT_DOOM, untranslated, frags, 138, 171;
+	}
+	
+	
+	InInventory UsedStamina, 1 
+	{
+	alpha 1.0
+	DrawBar "StamEHOR", "StamFHOR", UsedStamina, horizontal, reverse, interpolate(8), 235, 157;
+	}	
+	
+	
+	//STAMINA	
+	InInventory UsedStamina, 1 && powerstrength2, 1
+	{
+	alpha 1.0
+	DrawBar "StamEHOR", "BerkFHOR", UsedStamina, horizontal, reverse, interpolate(8), 235, 157;
+	}	
+	
+	// WEAPONS durability
+	InInventory Pistolselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", pistoldurability, horizontal, interpolate(8), -14, 157;}	
+	InInventory Shotgunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", shotgundurability, horizontal, interpolate(8), -14, 157;}	
+	InInventory Revolverselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", revolverdurability, horizontal, interpolate(8), -14, 157;}	
+	InInventory submachinegunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", smgdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory rifleselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", rifledurability, horizontal, interpolate(8), -14, 157;}
+	InInventory ASGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", ASGdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory SSGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", SSGdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory MINIGUNselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", MINIGUNdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory LMGselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", LMGdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory RocketLauncherselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", RLdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory GrenadeLauncherselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", GLdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory plasmagunselected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", plasmadurability, horizontal, interpolate(8), -14, 157;}
+	InInventory RevenantLauncherSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", revenantdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory RailgunSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", railgundurability, horizontal, interpolate(8), -14, 157;}
+	InInventory BFGSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", bfg7kdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory BFG11kSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", BFG11KDurability, horizontal, interpolate(8), -14, 157;}
+	InInventory RailgunSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", railgundurability, horizontal, interpolate(8), -14, 157;}
+	InInventory FlamecannonSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", napalmdurability, horizontal, interpolate(8), -14, 157;}
+	InInventory FlamethrowerSelected, 1 && FirearmsdurabilityON, 1
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", flamedurability, horizontal, interpolate(8), -14, 157;}
+	
+	isselected BrutalAxe
+	{alpha 1.0 DrawBar "DuraFHOR", "StamEHOR", axedurability, horizontal, interpolate(8), -14, 157;}
+		isselected Knife
+	{alpha 0.30 DrawBar "DuraFHOR", "StamEHOR", knifedurability, horizontal, interpolate(8), -14, 157;}
+	
+	InInventory SUBMACHINEGUNSelected, 1 && SMGSUPPRESSOR, 1
+	{alpha 0.3 DrawBar "SUPPA0", "SUPPB0", SUPPRESSORdurability, horizontal, interpolate(8), 113, 170;}
+	
+	InInventory SUBMACHINEGUNSelected, 1 && SUPPRESSORMOUNTED, 1
+	{alpha 1.0 DrawBar "SUPPA0", "SUPPB0", SUPPRESSORdurability, horizontal, interpolate(8), 113, 170;}	
+	//// END
+	
+	Ininventory not ISDOOMGUY {drawimage "DASH0", 335, 161;}
+	InInventory Freedashcharge, 1 Ininventory not ISDOOMGUY {drawimage "DASH1", 335, 161;}
+	InInventory Freedashcharge, 2 Ininventory not ISDOOMGUY {drawimage "DASH2", 335, 161;}
+	InInventory Freedashcharge, 3 Ininventory not ISDOOMGUY {drawimage "DASH3", 335, 161;}
+	InInventory Freedashcharge, 4 Ininventory not ISDOOMGUY {drawimage "DASH4", 335, 161;}
+	InInventory Freedashcharge, 5 Ininventory not ISDOOMGUY {drawimage "DASH5", 335, 161;}
+	
+	//BERSERK
+	InInventory powerstrength2, 1
+	{
+	alpha 0.20
+	drawimage "HASBERK", 245, 163;
+	alpha 0.40
+	drawimage "HASBERK", 240, 163;
+	alpha 0.95
+	drawimage "HASBERK", 235, 163;
+	}	
+	
+
+	
+	
+	//FIRING SPEED
+	drawnumber 4, SMALLFONT, darkred, PowerupTime RageSphere, whennotzero, 166, 160, 0;
+
+	//OPSPHERE
+	drawnumber 4, SMALLFONT, orange, PowerupTime DoomSphereST, whennotzero, 166, 160, 0;
+
+	//BERSERKRAGE
+	drawnumber 4, SMALLFONT, darkred, PowerupTime BerserkDrain, whennotzero, 166, 160, 0;
+	
+	//YELLOWDRUG
+	drawnumber 4, SMALLFONT, yellow, PowerupTime yellowdrugscreen, whennotzero, 166, 160, 0;
+	
+	//ROCKSKIN
+	drawnumber 4, SMALLFONT, BROWN, PowerupTime rockskinpower, whennotzero, 166, 160, 0;
+	
+	//RADSUIT
+	drawnumber 4, SMALLFONT, green, PowerupTime RADSUIT3, whennotzero, 166, 160, 0;
+	
+	//INVULNERABILITY
+	drawnumber 4, SMALLFONT, Black, PowerupTime InvulnerabilitySphere, whennotzero, 166, 155, 0;
+	
+	//Regen & Vampire
+	drawnumber 4, SMALLFONT, lightblue, PowerupTime RegenGiver, whennotzero, 166, 155, 0;
+	drawnumber 4, SMALLFONT, red, PowerupTime VampireSphere, whennotzero, 166, 160, 0;
+	
+	//HEALTHPACK
+	drawnumber 4, SMALLFONT, lightblue, PowerupTime Healthpackpower, whennotzero, 166, 168, 0;
+	
+	//INVISIBILITY
+	drawnumber 4, SMALLFONT, Blue, PowerupTime BlurSphere, whennotzero, 166, 160, 0;
+	
+	//INFRARED
+	drawnumber 4, SMALLFONT, Blue, PowerupTime ArtiTorch, whennotzero, 166, 155, 0;
+	
+	//CLAIRVOYANCE
+	drawnumber 4, SMALLFONT, purple, PowerupTime clairpower, whennotzero, 166, 155, 0;
+	
+	
+	//KNIVES
+	//standard
+	InInventory knivesammo,1
+	Ininventory not quickknifefavorite,1
+	{
+	drawimage "KNFAY0", -50, 203;
+	drawnumber 4, SMALLFONT, white, Ammo KnivesAmmo, -34, 190, 0;	
+	}
+	
+	//favorite
+	InInventory knivesammo,1 && quickknifefavorite,1
+	{
+	drawimage "KNFAY0", -25, 203;
+	drawnumber 4, SMALLFONT, white, Ammo KnivesAmmo, -8, 190, 0;	
+	}
+	
+	//GRENADES
+	InInventory grenadeammo,1 && grenadefavorite
+	{
+	drawimage "GRNDBI", -8, 193;
+	drawnumber 4, SMALLFONT, white, Ammo GrenadeAmmo, -8, 190, 0;
+	}
+	
+	InInventory clusterammo,1 && clusterfavorite
+	{
+	drawimage "GRNDI0", -25, 167;
+	drawnumber 4, SMALLFONT, white, Ammo ClusterAmmo, -8, 190, 0;	
+	}
+	
+	InInventory MiniHellRocketAmmo,1 && quickrevenantfavorite
+	{
+	drawimage "FATBD", -12, 190;
+	drawnumber 4, SMALLFONT, white, Ammo MiniHellRocketAmmo, -8, 190, 0;	
+	}
+	
+	InInventory hellfireammo,1 && hellfirefavorite
+	{
+	drawimage "HELF", -8, 197;
+	drawnumber 4, SMALLFONT, orange, Ammo hellfireAmmo, -8, 190, 0;
+	}
+	
+	InInventory acidmistammo,1 && acidmistfavorite
+	{
+	drawimage "ACID", -8, 197;
+	drawnumber 4, SMALLFONT, green, Ammo acidmistAmmo, -8, 190, 0;
+	}
+	
+	InInventory PROXBOMBAMMO,1 && minesfavorite
+	{
+	drawimage "PR0XZ0", -25, 197;
+	drawnumber 4, SMALLFONT, darkgreen, Ammo PROXBOMBAMMO, -8, 190, 0;
+	}
+	
+	
+	//MUGSHOT
+		InInventory GenderMale, 1
+		{
+		drawmugshot "STM", 5, 143, 168;
+		}
+		
+		InInventory GenderFemale, 1
+		{
+		drawmugshot "GAL", 5, 143, 168;
+		}
+	
+	//INVENTORY
+	drawselectedinventory alternateonempty, SMALLFONT, 253, 169
+		{
+		drawmugshot "STF", 5, 1143, 1168;
+		}
+		
+	//HEALING ITEMS
+	InInventory bandages, 1 || healthpack2, 1
+	{
+	drawimage "MEDITEMS", 286, 170;
+	drawnumber 4, indexfont, white, Bandages, 305, 172, 0;	
+	drawnumber 4, indexfont, cyan, Healthpack2, 319, 172, 0;	
+	}
+	
+	//BANDOLIER
+	InInventory saveammo, 1
+	{
+	drawimage "SVAMB0", 128, 89;
+	drawnumber 4, indexfont, darkgreen, Ammo saveammo, 312, 183,0;
+	}
+	
+	//BACKPACK
+	InInventory saveweapon, 1
+	{
+	drawimage "SVWPA0", 133, 99;
+	drawnumber 4, indexfont, darkgreen, Ammo saveweapon, 312, 193,0;
+	}
+	
+	//FLARES
+	drawimage "FLARE0", 354, 196;
+	drawnumber 4, SMALLFONT, yellow, Ammo Flare, 372, 188, 0;
+	
+	//favorite
+	Ininventory flare,1 && flarefavorite,1
+	{
+	drawimage "FLARE0", -25, 196;
+	drawnumber 4, SMALLFONT, yellow, Ammo Flare, -8, 190, 0;
+	}
+	
+	//FLASHLIGHT
+	InInventory Battery, 1
+	{
+	DrawBar "BATFULL", "BATEMPTY", Battery, vertical, interpolate(8), 327, 170;
+	}
+	
+	//FORCEFIELD
+	InInventory ammocell, 1 && forcefieldon, 1
+	{
+	drawimage "CELLA0", 327, 170;
+	drawnumber 4, smallfont, yellow, Ammo Ammocell, 327, 175,0;
+	}
+
+}
+
+statusbar inventory // Standard bar overlay (ZDoom Addition)
+{
+	drawinventorybar Doom, 7, INDEXFONT, 49, 140;
+}
+
+statusbar inventoryfullscreen // ZDoom HUD overlay.
+{
+	drawinventorybar Doom, translucent, 7, INDEXFONT, 50, 170;
+}
+
+
+
+
+
+

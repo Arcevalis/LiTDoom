@@ -1,0 +1,16 @@
+#library "ambience"
+#include "zcommon.acs"
+
+script "ambiencesound" ENTER
+{
+			While(true)
+			{
+			iF (GetCVar("AMBIENCECVAR")==true)
+			{
+			Delay(random(30*30,35*250));
+			LocalAmbientSound("AMBIEN", Random(80,120));
+			}
+			DELAY(1);
+			}
+			DELAY(1);
+}

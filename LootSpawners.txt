@@ -1,0 +1,1495 @@
+
+
+/////////
+//LOOTSPAWNER
+////////
+
+actor ArmorLoot : CustomInventory
+{
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_jump(255, "Spawn1", "Spawn2", "Spawn3", "Spawn4", "Spawn5", "Spawn6")
+		loop
+		
+	Vanilla:	
+	Spawn1:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("ArmorBoots",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(40, "Spawn")
+		TNT1 A 1
+		stop
+	
+	 Spawn2:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("ArmorHelmet",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(40, "Spawn")
+		TNT1 A 1
+		stop
+		
+	Spawn3:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("ArmorUniform",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(40,"Spawn")
+		TNT1 A 1
+		stop	
+		
+	Spawn4:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("MediumArmor",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(20, "Spawn")
+		TNT1 A 1
+		stop	
+	
+	Spawn5:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("HeavyArmorBelt",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(20, "Spawn")
+		TNT1 A 1
+		stop
+	
+	Spawn6:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Armorbonus",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(190, "Spawn")
+		TNT1 A 1
+		stop	
+	
+
+}}
+
+actor Healloot : CustomInventory
+{
+	+Inventory.QUIET
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_jump(255, "Spawn1", "Spawn2", "Spawn3", "Spawn4", "Spawn5", "Spawn6")
+		loop
+		
+	Vanilla:	
+	Spawn1:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("medikit2",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(40, "Spawn")
+		TNT1 A 1
+		stop
+	
+	 Spawn2:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("stimpack2",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(80, "Spawn")
+		TNT1 A 1
+		stop
+		
+	Spawn3:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Healthbackpack",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(20,"Spawn")
+		TNT1 A 1
+		stop	
+		
+	Spawn4:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("HealthPack2",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(20, "Spawn")
+		TNT1 A 1
+		stop	
+	
+	Spawn5:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("healthplus",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(190, "Spawn")
+		TNT1 A 1
+		stop
+	
+	Spawn6:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Bandages",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(190, "Spawn")
+		TNT1 A 1
+		stop		
+}}
+
+actor Ammoloot : CustomInventory
+{
+	+Inventory.QUIET
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_jump(255, "Spawn1", "Spawn2", "Spawn3", "Spawn4", "Spawn5", "Spawn6", "Bandolier")
+		loop
+		
+	Vanilla:	
+	Spawn1:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Ammoshellbox",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(50, "Spawn")
+		TNT1 A 1
+		stop
+	
+	 Spawn2:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Clip2",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("Clip2",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("Clip2",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(60, "Spawn")
+		TNT1 A 1
+		stop
+		
+	Spawn3:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Clip1",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("Clip1",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("Clip1",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(100,"Spawn")
+		TNT1 A 1
+		stop	
+		
+	Spawn4:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Slugbox",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(50, "Spawn")
+		TNT1 A 1
+		stop	
+	
+	Spawn5:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Backpacknew",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(50, "Spawn")
+		TNT1 A 1
+		stop
+	
+	Spawn6:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("explosivespawner",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx ("explosivespawner",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx ("explosivespawner",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(50, "Spawn")
+		TNT1 A 1
+		stop	
+		
+	Bandolier:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Bandolier",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(50, "Spawn")
+		TNT1 A 1
+		stop
+}}
+
+actor Weaponloot : CustomInventory
+{
+	+Inventory.QUIET
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_jump(255, "ASG", "RIFLE", "BFG", "SHOTVOLVER","MACHINEGUN", "EXPLOSIVELAUNCHER", "FLAMER", "Plasma")
+		loop
+		
+	ASG:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("ASGspawner",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("Ammoshellbox",0,0,0,3,-2,7,0)
+		TNT1 A 1
+		stop
+		
+	Rifle:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Riflespawner",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("Clip2",0,0,0,3,-2,7,0)
+		TNT1 A 1
+		stop
+	
+	BFG:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("BFGSpawner",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("ammocellpack",0,0,0,3,-2,7,0)
+		TNT1 A 1
+		stop
+		
+	SHOTVOLVER:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("ShotgunRevolver",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("Shellspawner",0,0,0,3,-1,7,0)
+		TNT1 A 1 A_SpawnItemEx("50ammo",0,0,0,3,-1,7,0)
+		TNT1 A 1 A_SpawnItemEx("Shellspawner",0,0,0,3,-2,7,0)
+		TNT1 A 1
+		stop	
+		
+	MACHINEGUN:
+		TNT1 A 0
+		TNT1 A 0 A_jump(126,"MINIGUN")
+		TNT1 A 1 A_SpawnItemEx("Machinegunspawner",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("clipbox2",0,0,0,3,-2,7,0)
+		TNT1 A 1 A_SpawnItemEx("clipbox2",0,0,0,3,-1,7,0)
+		TNT1 A 1
+		stop	
+		
+	MINIGUN:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("ChaingunSpawnerReplacer",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("minigunammo",0,0,0,3,-2,7,0)
+		TNT1 A 1 A_SpawnItemEx("minigunammo",0,0,0,3,-1,7,0)
+		TNT1 A 1
+		stop
+	
+	EXPLOSIVELAUNCHER:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("RLSpawnerReplacer",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("ammoRocketbox",0,0,0,3,-2,7,0)
+		TNT1 A 1
+		stop
+	
+	FLAMER:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Flamespawner",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("GASAMMO",0,0,0,3,-1,7,0)
+		TNT1 A 1 A_SpawnItemEx("GASAMMO",0,0,0,3,-2,7,0)
+		TNT1 A 1
+		stop	
+		
+	Plasma:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("PlasmagunReplacer",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx("ammocell",0,0,0,3,-1,7,0)
+		TNT1 A 1 A_SpawnItemEx("ammocell",0,0,0,3,-2,7,0)
+		TNT1 A 1
+		stop	
+}}
+
+actor Inventoryloot : CustomInventory
+{
+	+Inventory.QUIET
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_jump(255, "flares", "beacon", "key", "infrared", "fuel", "Recombiner", "Radar", "Lifemodule", "battery", "Backpack", "Jar")
+		loop
+		
+	Vanilla:	
+	flares:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("flarebox",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop
+	
+	Jar:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Artifact_Container",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop
+	
+	beacon:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Beacon",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop
+		
+	key:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("cratekey",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop	
+		
+	infrared:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("infrared2",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop	
+	
+	Fuel:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("GASAMMO",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(100, "Spawn")
+		TNT1 A 1
+		stop
+	
+	Recombiner:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Recombinerpickup",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop	
+		
+	Radar:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Radar",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop	
+		
+	Backpack:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("emptybackpack",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_jump(100, "Spawn")
+		TNT1 A 1
+		stop
+	
+	Lifemodule:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Lifemodule",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop	
+		
+	Battery:
+		TNT1 A 0
+		TNT1 A 2 A_SpawnItemEx ("Batterypickup",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 2 A_SpawnItemEx ("Batterypickup",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 2 A_SpawnItemEx ("Batterypickup",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop	
+		
+	repair:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("repairdevice",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx ("repairdevice",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		stop	
+	
+	
+}}
+
+actor CHEMSPAWNER : CustomInventory
+{
+	+Inventory.QUIET
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_jump(255, "ACID", "NEUTRAL", "BASIC")
+		loop
+		
+		ACID:
+		TNT1 A 1 A_SpawnItemEx ("AcidVial",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		NEUTRAL:
+		TNT1 A 1 A_SpawnItemEx ("NeutralVial",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		BASIC:
+		TNT1 A 1 A_SpawnItemEx ("BasicVial",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+}}
+
+
+actor DRUGSPAWNER : CustomInventory
+{
+	+Inventory.QUIET
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_jump(255, "healstim", "healstim2", "ironstim", "rockskin", "staminastim", "berserkstim", "rampagestim","chaosstim", "pheromones", "predatorstim", "clairvoyance", "hellfireammo")
+		loop
+		
+		healstim:
+		TNT1 A 1 A_SpawnItemEx ("healstim",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		healstim2:
+		TNT1 A 1 A_SpawnItemEx ("healstim2",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		ironstim:
+		TNT1 A 1 A_SpawnItemEx ("ironstim",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		rockstim:
+		TNT1 A 1 A_SpawnItemEx ("rockstim",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		staminastim:
+		TNT1 A 1 A_SpawnItemEx ("staminastim",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		berserkstim:
+		TNT1 A 1 A_SpawnItemEx ("berserkstim",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+
+		rampagestim:
+		TNT1 A 1 A_SpawnItemEx ("rampagestim",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		chaosstim:
+		TNT1 A 0 A_jump(80, "Spawn")
+		TNT1 A 1 A_SpawnItemEx ("chaosstim",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		pheromones:
+		TNT1 A 1 A_SpawnItemEx ("pheromones",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop	
+		
+		predatorstim:
+		TNT1 A 1 A_SpawnItemEx ("predatorstim",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		clairvoyance:
+		TNT1 A 1 A_SpawnItemEx ("clairvoyance",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop
+		
+		hellfireammo:
+		TNT1 A 1 A_SpawnItemEx ("hellfireammo",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		TNT1 A 1 A_SpawnItemEx ("hellfireammo",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop	
+		
+		acidmistammo:
+		TNT1 A 1 A_SpawnItemEx ("acidmistammo",0,0,0,(random(0,2)),(random(0,2)),2,(random(-180,180)),SXF_NOCHECKPOSITION)
+		Stop	
+}}
+
+////////
+// DAMAGED CRATE
+///////
+actor PoorAmmo : CustomInventory
+{
+	+Inventory.QUIET
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_jump(255, "Shells", "Bullets", "Explosives", "CellGas", "Bandolier")
+		loop
+		
+	Vanilla:	
+	Shells:
+		TNT1 A 0
+		TNT1 AA 1 A_SpawnItemEx("ShellSPAWNER",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,205)
+		TNT1 A 0 A_jump(30, "Spawn")
+		TNT1 A 1
+		stop
+	
+	 Bullets:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Clip2",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,210)
+		TNT1 A 1 A_SpawnItemEx("Clip1",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,210)
+		TNT1 A 1 A_SpawnItemEx("Clip1",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,210)
+		TNT1 A 0 A_jump(30, "Spawn")
+		TNT1 A 1
+		stop
+		
+	Explosives:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Ammorocket",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,185)
+		TNT1 A 1 A_SpawnItemEx("grenadeammo",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,130)
+		TNT1 A 1 A_SpawnItemEx("PROXBOMB",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,185)
+		TNT1 A 0 A_jump(30,"Spawn")
+		TNT1 A 1
+		stop	
+		
+	Cellgas:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Ammocell",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,170)
+		TNT1 A 1 A_SpawnItemEx("GASAMMO",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,190)
+		TNT1 A 1 A_SpawnItemEx("ammocell",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,170)
+		TNT1 A 0 A_jump(30, "Spawn")
+		TNT1 A 1
+		stop	
+		
+	Bandolier:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("Bandolier",0,0,0,velx,vely,velz,angle,SXF_NOCHECKPOSITION,170)
+		TNT1 A 0 A_jump(30, "Spawn")
+		TNT1 A 1
+		stop
+}}
+
+actor AmmolootSmall : randomspawner
+{
+dropitem "Clip2"
+dropitem "Clip1"
+dropitem "Clip2"
+dropitem "Clip1"
+dropitem "Minigunammodropped"
+dropitem "explosivespawner"
+dropitem "ammocell"
+dropitem "shellspawner"
+dropitem "shellspawner"
+dropitem "gasammo"
+}
+
+actor WeaponLootSmall : randomspawner
+{
+dropitem "smgspawner"
+dropitem "smsspawner"
+dropitem "PistolSpawner"
+dropitem "PistolSpawner"
+dropitem "RevolverSpawner"
+dropitem "explosivespawner"
+dropitem "knifenew"
+dropitem "knifenew"
+dropitem "hellfireammo"
+dropitem "acidmistammo"
+}
+
+actor WeaponLootMedium : randomspawner
+{
+dropitem "smgspawner"
+dropitem "smsspawner"
+dropitem "PistolSpawner"
+dropitem "RevolverSpawner"
+dropitem "RevolverSpawner"
+dropitem "explosivespawner"
+dropitem "knifenew"
+dropitem "shotgunspawner"
+dropitem "asgspawner"
+dropitem "riflespawner"
+dropitem "riflespawner"
+dropitem "plasmagunspawner"
+dropitem "grenadelauncherspawner"
+dropitem "shotgunspawner"
+dropitem "hellfireammo"
+dropitem "acidmistammo"
+}
+
+actor medlootBig : randomspawner
+{
+dropitem "healthpack2"
+dropitem "healthbackpack"
+dropitem "healstim"
+dropitem "healstim"
+dropitem "HEALSTIM"
+dropitem "healstim2"
+}
+
+actor demoningredient : randomspawner
+{
+dropitem "impspike"
+dropitem "bruiserhorn"
+dropitem "demonheart"
+dropitem "cacoeye"
+}
+
+actor rarespawner : randomspawner
+{
+dropitem "alphavial"
+dropitem "fireessence"
+dropitem "chaosessence"
+}
+
+//////////
+//DUFFLEBAGS
+/////////
+
+///SPAWNERS
+//////////////////////////////////////////////// MIL
+
+Actor SMILBAGspawner : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(5, "large")
+		TNT1 A 0 A_Jump(30, "medium")	
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+
+Actor MMILBAGspawner : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(10, "large")
+		TNT1 A 0 A_Jump(45, "small")	
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+Actor LMILBAGspawner : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(5, "small")
+		TNT1 A 0 A_Jump(30, "medium")	
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MILDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+
+//////////////////////////////////////////////// MED
+Actor SMEDBAGSPAWNER : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(5, "large")
+		TNT1 A 0 A_Jump(30, "medium")	
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+
+Actor MMEDBAGSPAWNER : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(10, "large")
+		TNT1 A 0 A_Jump(45, "small")	
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+Actor LMEDBAGSPAWNER : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(5, "small")
+		TNT1 A 0 A_Jump(30, "medium")	
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MEDDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+//////////////////////////////////////////////// MATS
+Actor SMATSBAGSPAWNER : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(5, "large")
+		TNT1 A 0 A_Jump(30, "medium")	
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+
+Actor MMATSBAGSPAWNER : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(10, "large")
+		TNT1 A 0 A_Jump(45, "small")	
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+Actor LMATSBAGSPAWNER : CustomInventory
+{
++noclip
+projectile
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(5, "small")
+		TNT1 A 0 A_Jump(30, "medium")	
+	Large:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAGBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Medium:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+	Small:
+		TNT1 A 0 A_SpawnItemEx ("MATSDUFFLEBAGSMALL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		Stop
+    }
+}
+
+/// randombig
+ACTOR RANDOMDUFFLEBAGBIG
+{
+dropitem "LMATSBAGSPAWNER" 
+dropitem "LMILBAGSPAWNER" 
+dropitem "LMEDBAGSPAWNER" 
+}
+/// randommedium
+ACTOR RANDOMDUFFLEBAGMEDIUM
+{
+dropitem "MMATSBAGSPAWNER" 
+dropitem "MMILBAGSPAWNER" 
+dropitem "MMEDBAGSPAWNER" 
+}
+/// random small
+ACTOR RANDOMDUFFLEBAGSMALL
+{
+dropitem "SMATSBAGSPAWNER" 
+dropitem "SMILBAGSPAWNER" 
+dropitem "SMEDBAGSPAWNER" 
+}
+
+///MILITARY
+actor MilitarybagOpen
+{
++FLOORCLIP
++thruactors
+  States
+  {
+
+  Spawn:
+	ABAG A 0
+	ABAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	ABAG A 0 a_stop
+	ABAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 20 a_startsound("BAGDROP", 888,0,0.7)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	ABAG A 2 A_SETSCALE(1,0.8)
+	ABAG A 2 A_SETSCALE(1,0.6)
+	ABAG A 2 A_SETSCALE(1,0.4)
+	ABAG A 2 A_SETSCALE(1,0.2)
+	TNT1 A 0 A_jump(200, "Ammo", "Ammor")
+	goto Weapon
+
+  Ammo:
+	ABAG A 1 A_SpawnItemEx("AmmolootSmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 1 A_SpawnItemEx("AmmolootSmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG AAAAA 0 A_SpawnItemEx("ARMORSHARD",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	goto rest
+  AMMOR:
+	ABAG A 1 A_SpawnItemEx("AmmolootSmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_jump(255, "BigArmor", "StandardArmor", "MehArmor")	
+BigArmor:
+	ABAG A 1 A_SpawnItemEx("rareheavyarmor",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	goto rest
+StandardArmor:
+	ABAG A 1 A_SpawnItemEx("lightarmorspawner",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	goto rest
+MehArmor:
+	ABAG A 1 A_SpawnItemEx("unfairlightarmor",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	goto rest
+	
+  WEAPON:
+	ABAG A 1 A_SpawnItemEx("WeaponlootMedium",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 1 A_SpawnItemEx("AmmolootSmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 1 A_SpawnItemEx("ArmorUniform",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	ABAG A 1 A_SpawnItemEx("ArmorHelmet",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	ABAG A 1 A_SpawnItemEx("ArmorBoots",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	goto rest
+	
+  Rest:
+  ABAG A 1
+   loop
+}}
+
+actor SMALLMilitarybagOpen
+{
+  Scale 0.75
+  
+  +FLOORCLIP
+  +thruactors
+  States
+  {
+    Spawn:
+	ABAG A 0
+	ABAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	ABAG A 0 a_stop
+	ABAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 20 a_startsound("BAGDROP", 888,0,0.4)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	ABAG A 2 A_SETSCALE(0.75,0.7)
+	ABAG A 2 A_SETSCALE(0.75,0.6)
+	ABAG A 2 A_SETSCALE(0.75,0.4)
+	ABAG A 2 A_SETSCALE(0.75,0.2)
+	TNT1 A 0 A_jump(200, "Ammo", "Ammor")
+	goto Weapon
+    Ammo:
+	ABAG AAA 1 A_SpawnItemEx("AmmolootSmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 0 A_SpawnItemEx("bfgcoreammo",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,250)
+	ABAG AAA 0 A_SpawnItemEx("ARMORSHARD",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	goto rest
+  AMMOR:
+	ABAG A 1 A_SpawnItemEx("ArmorUniform",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	ABAG A 1 A_SpawnItemEx("ArmorBOOTS",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,150)
+	ABAG AAAAA 0 A_SpawnItemEx("ARMORSHARD",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_jump(127, "ammo")	
+	goto rest	
+  WEAPON:
+	ABAG A 1 A_SpawnItemEx("Weaponlootsmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 1 A_SpawnItemEx("ArmorUniform",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	goto rest
+	
+  Rest:
+   ABAG A 1
+   loop
+}}
+
+actor BIGMilitarybagOpen
+{
+  Scale 1.5
+  +FLOORCLIP
+  +thruactors
+  States
+  {
+    Spawn:
+	ABAG A 0
+	ABAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	ABAG A 0 a_stop
+	ABAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 20 a_startsound("BAGDROP", 888,0)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	ABAG A 2 A_SETSCALE(1.5,1.0)
+	ABAG A 2 A_SETSCALE(1.5,0.8)
+	ABAG A 2 A_SETSCALE(1.5,0.6)
+	ABAG A 2 A_SETSCALE(1.5,0.3)
+	TNT1 A 0 A_jump(200, "Ammo", "Ammor")
+	goto Weapon
+ Ammo:
+	ABAG AAAAAAAA 0 A_SpawnItemEx("ARMORSHARD",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	ABAG A 0 A_SpawnItemEx("bandolier",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 0 A_SpawnItemEx("bfgcoreammo",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,240)
+	ABAG A 1 A_SpawnItemEx("POORAmmo",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG AA 1 A_SpawnItemEx("AmmolootSmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	goto rest
+ AMMOR:
+	ABAG AA 1 A_SpawnItemEx("AmmolootSmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,50)
+	ABAG A 1 A_SpawnItemEx("rareheavyarmor",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	goto rest
+
+  WEAPON:
+	ABAG A 1 A_SpawnItemEx("Weaponloot",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	ABAG A 1 A_SpawnItemEx("ArmorUniform",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	ABAG A 1 A_SpawnItemEx("ArmorHELMET",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,150)
+	ABAG A 1 A_SpawnItemEx("ArmorBOOTS",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,150)
+	ABAG A 1 A_SpawnItemEx("AmmolootSmall",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,150)
+	goto rest
+Rest:
+    ABAG A 1
+   loop
+}}
+
+///MEDICAL
+actor MEDIbagOpen
+{
++FLOORCLIP
++thruactors
+  States
+  {
+
+  Spawn:
+	MBAG A 0
+	MBAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	MBAG A 0 a_stop
+	MBAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	MBAG A 20 a_startsound("BAGDROP", 888,0,0.7)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	MBAG A 2 A_SETSCALE(1,0.8)
+	MBAG A 2 A_SETSCALE(1,0.6)
+	MBAG A 2 A_SETSCALE(1,0.4)
+	MBAG A 2 A_SETSCALE(1,0.2)
+
+	MBAG AAAAA 1 A_SpawnItemEx("HEALTHPLUS",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	MBAG AA 1 A_SpawnItemEx("BANDAGES",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	MBAG A 1 A_SpawnItemEx("healstim",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_jump(30, "STIM")
+	goto rest
+	
+  STIM:
+  MBAG A 0 A_SpawnItemEx("DRUGSPAWNER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+  goto rest
+	
+  Rest:
+  MBAG A 1
+   loop
+}}
+
+actor SMALLMEDIbagOpen :  MEDIbagOpen
+{
+  Scale 0.75
+  +FLOORCLIP
+  +thruactors
+  States
+  {
+    Spawn:
+	MBAG A 0
+	MBAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	MBAG A 0 a_stop
+	MBAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	MBAG A 20 a_startsound("BAGDROP", 888,0,0.4)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	MBAG A 2 A_SETSCALE(0.75,0.7)
+	MBAG A 2 A_SETSCALE(0.75,0.6)
+	MBAG A 2 A_SETSCALE(0.75,0.4)
+	MBAG A 2 A_SETSCALE(0.75,0.2)
+	
+	MBAG AAAAA 1 A_SpawnItemEx("HEALTHPLUS",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_jump(50, 3)
+	MBAG A 1 A_SpawnItemEx("BANDAGES",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_jump(10, "STIM")
+	goto rest
+	MBAG A 1 A_SpawnItemEx("healstim",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_jump(10, "STIM")
+	goto rest
+	
+  STIM:
+  MBAG A 0 A_SpawnItemEx("DRUGSPAWNER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+  goto rest
+	
+	
+  Rest:
+  MBAG A 1
+   loop
+}}
+
+actor BIGMEDIbagOpen
+{
+  Scale 1.5
+  +FLOORCLIP
+  +thruactors
+  States
+  {
+    Spawn:
+	MBAG A 0
+	MBAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	MBAG A 0 a_stop
+	MBAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	MBAG A 20 a_startsound("BAGDROP", 888)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	MBAG A 2 A_SETSCALE(1.5,1.0)
+	MBAG A 2 A_SETSCALE(1.5,0.8)
+	MBAG A 2 A_SETSCALE(1.5,0.6)
+	MBAG A 2 A_SETSCALE(1.5,0.3)
+
+	MBAG  AA 1 A_SpawnItemEx("stimpack3",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_jump(127, 3)
+	MBAG AA 1 A_SpawnItemEx("BANDAGES",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	MBAG A 1 A_SpawnItemEx("MEDLOOTBIG",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+  MBAG A 0 A_SpawnItemEx("DRUGSPAWNER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+  goto rest
+	
+	
+  Rest:
+ MBAG A 1
+   loop
+}}
+
+///CRAFTING MATERIALS
+actor MATSbagOpen
+{
++FLOORCLIP
++thruactors
+  States
+  {
+
+  Spawn:
+	CBAG A 0
+	CBAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	CBAG A 0 a_stop
+	CBAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 20 a_startsound("BAGDROP", 888,0,0.7)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	CBAG A 2 A_SETSCALE(1,0.8)
+	CBAG A 2 A_SETSCALE(1,0.6)
+	CBAG A 2 A_SETSCALE(1,0.4)
+	CBAG A 2 A_SETSCALE(1,0.2)
+
+	CBAG AA 0 A_SpawnItemEx("EMPTYVIAL",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG AA 0 A_SpawnItemEx("FABRIC",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 0 A_SpawnItemEx("ammocell",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,100)
+	CBAG A 0 A_SpawnItemEx("SCRAPMETAL",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 1 A_SpawnItemEx("ELECTRONICPARTS",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	CBAG AA 1 A_SpawnItemEx("GUNPOWDER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,180)
+	CBAG A 1 A_SpawnItemEx("CHEMSPAWNER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 1 A_SpawnItemEx("DEMONINGREDIENT",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,120)
+	CBAG A 1 A_SpawnItemEx("RARESPAWNER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,200)
+	goto rest
+
+  Rest:
+  CBAG A 1
+   loop
+}}
+
+actor SMALLMATSbagOpen :  MEDIbagOpen
+{
+  Scale 0.75
+  +FLOORCLIP
+  +thruactors
+  States
+  {
+    Spawn:
+	CBAG A 0
+	CBAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	CBAG A 0 a_stop
+	CBAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 20 a_startsound("BAGDROP", 888,0,0.4)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	CBAG A 2 A_SETSCALE(0.75,0.7)
+	CBAG A 2 A_SETSCALE(0.75,0.6)
+	CBAG A 2 A_SETSCALE(0.75,0.4)
+	CBAG A 2 A_SETSCALE(0.75,0.2)
+	
+	CBAG A 0 A_SpawnItemEx("EMPTYVIAL",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 0 A_SpawnItemEx("FABRIC",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 0 A_SpawnItemEx("ammocell",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,180)
+	CBAG A 0 A_SpawnItemEx("SCRAPMETAL",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION, 50)
+	CBAG A 1 A_SpawnItemEx("ELECTRONICPARTS",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,200)
+	CBAG A 1 A_SpawnItemEx("GUNPOWDER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,150)
+	CBAG A 1 A_SpawnItemEx("CHEMSPAWNER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 1 A_SpawnItemEx("DEMONINGREDIENT",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,200)
+	goto rest
+
+  Rest:
+  CBAG A 1
+   loop
+}}
+
+actor BIGMATSbagOpen
+{
+  Scale 1.5
+  +FLOORCLIP
+  +thruactors
+  States
+  {
+    Spawn:
+	CBAG A 0
+	CBAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	CBAG A 0 a_stop
+	CBAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 20 a_startsound("BAGDROP", 888)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	CBAG A 2 A_SETSCALE(1.5,1.0)
+	CBAG A 2 A_SETSCALE(1.5,0.8)
+	CBAG A 2 A_SETSCALE(1.5,0.6)
+	CBAG A 2 A_SETSCALE(1.5,0.3)
+
+	CBAG AA 0 A_SpawnItemEx("EMPTYVIAL",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG AA 0 A_SpawnItemEx("FABRIC",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 0 A_SpawnItemEx("ammocell",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG AA 0 A_SpawnItemEx("SCRAPMETAL",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 1 A_SpawnItemEx("ELECTRONICPARTS",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG AA 1 A_SpawnItemEx("GUNPOWDER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,100)
+	CBAG AA 1 A_SpawnItemEx("CHEMSPAWNER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,40)
+	CBAG A 1 A_SpawnItemEx("DEMONINGREDIENT",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION)
+	CBAG A 1 A_SpawnItemEx("RARESPAWNER",0,0,0,1,1,3,random(0,360),SXF_NOCHECKPOSITION,100)
+	goto rest
+
+  Rest:
+  CBAG A 1
+   loop
+}}
+
+
+///SURPRISE
+actor MISTERYbagOpen : Militarybagopen
+{
+  States
+  {
+Spawn:
+	Spawn:
+	SBAG A 0
+	SBAG A 1 A_CHECKFLOOR(1)
+	LOOP
+	SBAG A 0 a_stop
+	ABAG AAAAAAAA 0 A_SPAWNITEMEX("SMOKESPAWNER",0,0,0,1,1,1,RANDOM(0,360),SXF_NOCHECKPOSITION)
+	SBAG A 20 a_startsound("BAGDROP", 888)
+	
+	TNT1 A 0 a_startsound("ZIPPER2", 889)
+	SBAG A 2 A_SETSCALE(1.0,0.8)
+	SBAG A 2 A_SETSCALE(1.0,0.6)
+	SBAG A 2 A_SETSCALE(1.0,0.4)
+	SBAG A 2 A_SETSCALE(1.0,0.2)
+
+	SBAG A 1 A_SpawnItemEx("SURPRISESPAWNER",0,0,0,1,1,3,random(0,360))
+	
+Rest:
+   SBAG A 1
+   loop
+}}
+
+ACTOR SURPRISESPAWNER : RANDOMSPAWNER
+{
+DROPITEM "POORAMMO"
+DROPITEM "ammolootsmall"
+DROPITEM "UNFAIRHEAVYARMOR"
+DROPITEM "UNFAIRLIGHTARMOR"
+DROPITEM "MISERYMEDS"
+DROPITEM "RECOMBINERPICKUP"
+DROPITEM "SENTRYBOX"
+DROPITEM "RATSPAWNER"
+DROPITEM "RATSPAWNER"
+DROPITEM "VODKA"
+DROPITEM "VODKA"
+DROPITEM "DRUGSPAWNER"
+DROPITEM "DRUGSPAWNER"
+DROPITEM "INFRARED2"
+DROPITEM "SURVIVALKITPICKUP"
+DROPITEM "REPAIRDEVICE"
+DROPITEM "LIFEMODULE"
+DROPITEM "RADAR"
+DROPITEM "BATTERYPICKUP"
+DROPITEM "EMPTYBACKPACK"
+DROPITEM "AXEDROPED"
+DROPITEM "KNIFENEW"
+DROPITEM "KNIFENEW"
+DROPITEM "WEAPONLOOT"
+DROPITEM "CRATEKEY"
+DROPITEM "ALLMAP2"
+DROPITEM "BD_Mut_OverpoweredSpawner"
+DROPITEM "BD_Mut_BasicSphereSpawner"
+DROPITEM "BD_Mut_MegaSphereSpawner"
+DROPITEM "FLAREBOX"
+DROPITEM "FLESHSPAWN"
+DROPITEM "TRITESSPAWNER"
+DROPITEM "PISTOLSPAWNER"
+DROPITEM "SSGSPAWNER"
+DROPITEM "BEARTRAP"
+DROPITEM "CRATEKILL"
+DROPITEM "DAGGER"
+DROPITEM "Medlootbig"
+DROPITEM "MATSDUFFLEBAGSMALL"
+DROPITEM "electronicparts"
+DROPITEM "CHAOSESSENCE"
+DROPITEM "ALPHAVIAL"
+DROPITEM "FIREESSENCE"
+DROPITEM "demoningredient"
+DROPITEM "backpacknew"
+DROPITEM "SentryBotTeleportBeacon"
+DROPITEM "ETCRIFLEMODULE"
+DROPITEM "nuke"
+DROPITEM "Artifact_Container"
+DROPITEM "Artifact_Container_Full"
+DROPITEM "BfgCoreammo"
+
+}
+
+ACTOR ARTIFACT_CONTAINER_FULL : RANDOMSPAWNER
+{
+DROPITEM "SOULJAR"
+DROPITEM "MEGAJAR"
+DROPITEM "GODJAR"
+DROPITEM "TIMEJAR"
+DROPITEM "RUNEJAR"
+DROPITEM "REGENJAR"
+DROPITEM "DOOMJAR"
+DROPITEM "VAMPIREJAR"
+DROPITEM "BLURJAR"
+}
+
+//// dufflebags
+//military
+Actor MILDUFFLEBAG : CustomInventory
+{Inventory.PickupSound "ARMRPK"
+Inventory.PickupMessage "$GOTMILBAG"
+INVENTORY.MAXAMOUNT 1
+Inventory.Icon "ABAGC0"
+tag "military duffle bag"
++invbar
++NOCLIP
++CANNOTPUSH
++FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	ABAG A 1
+	Stay:
+	ABAG A 1 A_CHANGEFLAG("NOCLIP",0)
+	ABAG A -1
+	Stop
+  
+ Use:
+	CBPK A 0 a_spawnitemex("militarybagopen",0,0,7,5,0,5)
+	Stop
+  }}
+
+Actor MILDUFFLEBAGSMALL : mildufflebag
+{Inventory.PickupMessage "$GOTMILBAGS"
+Inventory.Icon "ABAGD0"
+scale 0.75
+tag "small military duffle bag"
+ States
+ {Use:
+	CBPK A 0 a_spawnitemex("SMALLmilitarybagopen",0,0,7,5,0,5)
+	Stop }}
+
+Actor MILDUFFLEBAGbig : mildufflebag
+{Inventory.PickupMessage "$GOTMILBAGL"
+Inventory.Icon "ABAGB0"
+scale 1.5
+tag "large duffle bag"
+ States
+ { Use:
+	CBPK A 0 a_spawnitemex("bigmilitarybagopen",0,0,7,5,0,0,5)
+	Stop}}
+
+//medical
+Actor MEDdufflebag : custominventory
+{Inventory.PickupSound "ARMRPK"
+Inventory.PickupMessage "$GOTMEDBAG"
+INVENTORY.MAXAMOUNT 1
+Inventory.Icon "MBAGC0"
+ tag "medical duffle bag"
++invbar
++NOCLIP
++CANNOTPUSH
++FORCEXYBILLBOARD
+ States
+ {
+   Spawn:
+	MBAG A 1
+   Stay:
+   MBAG A 1 A_CHANGEFLAG("NOCLIP",0)
+	MBAG A -1
+	Stop
+	
+ Use:
+	CBPK A 0 a_spawnitemex("medibagopen",0,0,7,5,0,5)
+	Stop }}
+
+Actor MEDdufflebagbig : MEDdufflebag
+{Inventory.PickupMessage "$GOTMEDBAGL"
+Inventory.Icon "MBAGB0"
+scale 1.5
+ tag "big medical duffle bag"
+ States
+ { Use:
+	CBPK A 0 a_spawnitemex("bigmedibagopen",0,0,7,5,0,0,5)
+	Stop}}
+
+Actor MEDdufflebagSMALL : MEDdufflebag
+{Inventory.PickupMessage "$GOTMEDBAGS"
+Inventory.Icon "MBAGD0"
+scale 0.75
+ tag "small medical duffle bag"
+ States
+ {
+ Use:
+	CBPK A 0 a_spawnitemex("SMALLmedibagopen",0,0,7,5,0,5)
+	Stop }}
+	
+//crafting mats
+Actor MATSdufflebag : CUSTOMINVENTORY
+{Inventory.PickupMessage "$GOTMATSBAG"
+Inventory.Icon "CBAGC0"
+INVENTORY.MAXAMOUNT 1
++NOCLIP
++INVBAR
++CANNOTPUSH
++FORCEXYBILLBOARD
+ Inventory.PickupSound "ARMRPK"
+  tag "materials duffle bag"
+ States
+ {
+    Spawn:
+	CBAG A 1
+  Stay:
+  CBAG A 1 A_CHANGEFLAG("NOCLIP",0)
+	CBAG A -1
+	Stop
+	Use:
+	CBPK A 0 a_spawnitemex("matsbagopen",0,0,7,5,0,5)
+	Stop }}
+
+Actor MATSdufflebagbig : MATSDufflebag
+{Inventory.PickupMessage "$GOTMATSBAGL"
+Inventory.Icon "CBAGB0"
+scale 1.5
+  tag "big materials duffle bag"
+ States
+ { Use:
+	CBPK A 0 a_spawnitemex("bigmatsbagopen",0,0,7,5,0,0,5)
+	Stop}}
+
+Actor MATSdufflebagSMALL : MATSdufflebag
+{Inventory.PickupMessage "$GOTMATSBAGS"
+Inventory.Icon "CBAGD0"
+scale 0.75
+  tag "small materials duffle bag"
+ States
+ {Use:
+	CBPK A 0 a_spawnitemex("SMALLMATSbagopen",0,0,7,5,0,5)
+	Stop }}
+
+//mistery
+Actor SURPRISEdufflebag : custominventory
+{Inventory.PickupMessage "$GOTmisteryBAG"
+Inventory.Icon "SBAGB0"
+INVENTORY.MAXAMOUNT 1
+ Inventory.PickupSound "ARMRPK"
+   tag "mystery duffle bag"
+ +NOCLIP
++invbar
++CANNOTPUSH
++FORCEXYBILLBOARD
+ States
+ {
+    Spawn:
+	SBAG A 1
+ Stay:
+	SBAG A 1 A_CHANGEFLAG("NOCLIP",0)
+	SBAG A -1
+	Stop
+ Use:
+	CBPK A 0 a_spawnitemex("misterybagopen",0,0,7,5,0,5)
+	Stop }}
+
+//////////
+//LOOT
+/////////
+
+Actor Template : CustomInventory
+{
+	+Inventory.QUIET
+	States
+	{
+ Spawn:
+	TNT1 A 0
+	TNT1 A 1
+	Loop
+
+	}
+}
+
+ACTOR generalzombieloot : RANDOMSPAWNER
+{
+DROPITEM "batterypickup"
+DROPITEM "batterypickup"
+DROPITEM "flare"
+DROPITEM "foodspawnerSURE"
+DROPITEM "foodspawnerSURE"
+DROPITEM "foodspawnerSURE"
+DROPITEM "foodspawnerSURE"
+DROPITEM "healthplus"
+DROPITEM "healthplus"
+DROPITEM "healthplus"
+DROPITEM "healthplus"
+DROPITEM "healthplus"
+DROPITEM "healthplus"
+DROPITEM "healthplus"
+DROPITEM "bandages"
+DROPITEM "bandages"
+DROPITEM "ArmorShardFatalityBonus"
+DROPITEM "ArmorShardFatalityBonus"
+DROPITEM "ArmorShardFatalityBonus"
+DROPITEM "ArmorShardFatalityBonus"
+DROPITEM "armorboots"
+DROPITEM "armoruniform"
+DROPITEM "knifenew"
+DROPITEM "gunpowder"
+DROPITEM "scrapmetal"
+}
+
+ACTOR elitezombieloot : RANDOMSPAWNER
+{
+DROPITEM "emptybackpack"
+DROPITEM "radar"
+DROPITEM "armoruniform"
+DROPITEM "bandolier"
+DROPITEM "beacon"
+DROPITEM "infrared2"
+DROPITEM "HealthPack2"
+DROPITEM "knifenew"
+DROPITEM "survivalkitpickup"
+DROPITEM "repairdevice"
+DROPITEM "gunpowder"
+DROPITEM "scrapmetal"
+}

@@ -1,0 +1,912 @@
+#library "DURABILITYCHECK"
+#include "zcommon.acs"
+
+////////////////////////////////////////////////////////////////////////////////  KNIFE
+Script "KNIFEDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("KNIFEdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 4)
+{HudMessage(s:"Current knife's condition:\cR almost broken" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 4 && durability < 8)
+{HudMessage(s:"Current knife's condition:\cI bent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 8 && durability < 16)
+{HudMessage(s:"Current knife's condition:\cX chipped" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 16 && durability < 25)
+{HudMessage(s:"Current knife's condition:\cK serviceable" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 25 && durability < 32)
+{HudMessage(s:"Current knife's condition:\cD sturdy" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 32 && durability < 40)
+{HudMessage(s:"Current knife's condition:\cN sharp" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 40)
+{HudMessage(s:"Current knife's condition:\cJ perfect" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+Script "KNIFEAMMOCHECK" (void)
+{
+delay(1);
+int knives = Checkinventory("KNIVESAMMO");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+HudMessage(s:"Total number of Knives: " ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0); 
+HudMessage(i:knives ; HUDMSG_plain,8887, CR_cyan, 80.1,160.1,1.0);
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  AXE
+Script "AXEDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("AXEdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 10)
+{HudMessage(s:"Weapon's condition:\cR almost broken" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 10 && durability < 30)
+{HudMessage(s:"Weapon's condition:\cI bent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 30 && durability < 45)
+{HudMessage(s:"Weapon's condition:\cX chipped" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 45 && durability < 65)
+{HudMessage(s:"Weapon's condition:\cK serviceable" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 65 && durability < 85)
+{HudMessage(s:"Weapon's condition:\cD sturdy" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 85 && durability < 100)
+{HudMessage(s:"Weapon's condition:\cN sharp" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 100)
+{HudMessage(s:"Weapon's condition:\cJ perfect" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  PISTOL
+Script "PISTOLDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("pistoldurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 20)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 20 && durability < 60)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 60 && durability < 90)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 90 && durability < 135)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 135 && durability < 170)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 170 && durability < 200)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 200)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  RIFLE
+Script "RIFLEDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("rifledurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 30)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 30 && durability < 80)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 80 && durability < 120)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 120 && durability < 165)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 165 && durability < 205)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 205 && durability < 250)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 250)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  SMG
+Script "SMGDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("SMGdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 30)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 30 && durability < 80)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 80 && durability < 120)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 120 && durability < 165)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 165 && durability < 205)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 205 && durability < 250)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 250)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  REVOLVER
+Script "REVOLVERDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("REVOLVERdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 10)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 10 && durability < 30)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 30 && durability < 45)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 45 && durability < 65)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 65 && durability < 85)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 85 && durability < 100)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 100)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  SHOTGUN
+Script "SHOTGUNDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("SHOTGUNdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 10)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 10 && durability < 30)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 30 && durability < 45)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 45 && durability < 65)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 65 && durability < 85)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 85 && durability < 100)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 100)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  SSG
+Script "SSGDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("SSGdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 30)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 30 && durability < 80)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 80 && durability < 120)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 120 && durability < 165)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 165 && durability < 205)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 205 && durability < 250)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 250)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  ASSAULT SHOTGUN
+Script "ASGDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("ASGdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 10)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 10 && durability < 30)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 30 && durability < 45)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 45 && durability < 65)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 65 && durability < 85)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 85 && durability < 100)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 100)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  MACHINE GUN
+Script "mmgDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("lmgdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 40)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 40 && durability < 90)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 90 && durability < 140)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 140 && durability < 200)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 200 && durability < 250)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 250 && durability < 300)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 300)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  MINIGUN
+Script "minigunDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("minigundurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 80)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 80 && durability < 180)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 180 && durability < 270)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 270 && durability < 380)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 380 && durability < 490)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 490 && durability < 600)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 600)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  ROCKET LAUNCHER
+Script "RLDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("RLdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 2)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 2 && durability < 5)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 5 && durability < 6)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 6 && durability < 7)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 7 && durability < 8)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 8 && durability < 10)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 10)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  GRENADE LAUNCHER
+Script "GRENADEDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("GLdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 8)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 8 && durability < 24)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 24 && durability < 40)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 40 && durability < 55)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 55 && durability < 65)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 65 && durability < 80)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 80)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  PLASMA RIFLE
+Script "PLASMADURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("PLASMAdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 20)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 20 && durability < 60)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 60 && durability < 90)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 90 && durability < 135)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 135 && durability < 170)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 170 && durability < 200)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 200)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  PLASMA LANCE
+Script "LANCEDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("RAILGUNdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 40)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 40 && durability < 90)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 90 && durability < 140)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 140 && durability < 200)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 200 && durability < 250)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 250 && durability < 300)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 300)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  BFG 11K
+Script "BFGDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("BFG11Kdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 80)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 80 && durability < 180)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 180 && durability < 270)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 270 && durability < 380)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 380 && durability < 490)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 490 && durability < 600)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 600)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  FLAMETHROWER
+Script "FLAMERDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("FLAMEdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 40)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 40 && durability < 90)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 90 && durability < 140)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 140 && durability < 200)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 200 && durability < 250)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 250 && durability < 300)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 300)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  FLAMECANNON
+Script "NAPALMDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("NAPALMdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 10)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 10 && durability < 30)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 30 && durability < 45)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 45 && durability < 65)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 65 && durability < 85)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 85 && durability < 100)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 100)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////////////////////////////////////////////////////////////////////////////////  REVENANT LAUNCHER
+Script "REVENANTDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("revenantdurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 5)
+{HudMessage(s:"Weapon's condition:\cR falling apart" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 5 && durability < 18)
+{HudMessage(s:"Weapon's condition:\cI faulty" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 18 && durability < 28)
+{HudMessage(s:"Weapon's condition:\cX mediocre" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 28 && durability < 40)
+{HudMessage(s:"Weapon's condition:\cK decent" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 40 && durability < 50)
+{HudMessage(s:"Weapon's condition:\cD good" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 50 && durability < 60)
+{HudMessage(s:"Weapon's condition:\cN optimal" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 60)
+{HudMessage(s:"Weapon's condition:\cJ pristine" ; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////// 				SPECIAL CHECKS
+//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////// 
+
+////// GRENADE LAUNCHER AMMO TYPE
+
+Script "GLAMMOTYPECHECK" (void)
+{
+delay(1);
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (Checkinventory("mineloaded"))
+{HudMessage(s:"Currently loaded:\cv proximity bombs" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else if (Checkinventory("flareloaded"))
+{HudMessage(s:"Currently loaded:\cv flares" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else if (Checkinventory("acidloaded"))
+{HudMessage(s:"Currently loaded:\cv acid mist vials" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else	if (Checkinventory("hellfireloaded"))
+{HudMessage(s:"Currently loaded:\cv hellfire vials" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else	if (Checkinventory("clusterloaded"))
+{HudMessage(s:"Currently loaded:\cv cluster grenades" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else if (Checkinventory("grenadeloaded"))
+{HudMessage(s:"Currently loaded:\cv HE grenades" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else	if (Checkinventory("syringeloaded"))
+{HudMessage(s:"Currently loaded:\cv pheromones syringes" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else	if (Checkinventory("metalloaded"))
+{HudMessage(s:"Currently loaded:\cv metal scraps" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+
+////// PISTOL'S FIRE MODE
+
+Script "PISTOLMODECHECK" (void)
+{
+delay(1);
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (Checkinventory("PistolBurstFire"))
+{HudMessage(s:"Selected Firing mode:\cv burst" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Selected Firing mode:\cv semi-auto" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////// SMG SUPPRESSOR DURABILITY
+Script "SUPPRESSORDURABILITYCHECK" (void)
+{
+delay(1);
+int durability = Checkinventory("suppressordurability");
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (durability < 10)
+{HudMessage(s:"Suppressor's condition:\cR falling apart" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 10 && durability < 35)
+{HudMessage(s:"Suppressor's condition:\cI faulty" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 35 && durability < 70)
+{HudMessage(s:"Suppressor's condition:\cX mediocre" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 70 && durability < 100)
+{HudMessage(s:"Suppressor's condition:\cK decent" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 100 && durability < 125)
+{HudMessage(s:"Suppressor's condition:\cD good" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else if (durability >= 125 && durability < 150)
+{HudMessage(s:"Suppressor's condition:\cN optimal" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+else	if (durability >= 150)
+{HudMessage(s:"Suppressor's condition:\cJ pristine" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}
+
+////// MMG UNDERBARREL LAUNCHER
+
+Script "MMGGRENADECHECK" (void)
+{
+delay(1);
+SetHudSize(320, 200,FALSE);
+setfont("smallfont");
+
+if (Checkinventory("LMGGRENADE"))
+{HudMessage(s:"Underbarrel launcher:\cv loaded" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+else
+{HudMessage(s:"Underbarrel launcher:\cv empty" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
+terminate;}
+
+delay(17);
+TERMINATE;
+}

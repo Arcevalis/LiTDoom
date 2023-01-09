@@ -1,0 +1,58 @@
+#library "CRAFTACS"
+#include "zcommon.acs"
+
+// show vial quantity
+script "VIALQUANTITY" (void)
+{	
+	SetFont("SMALLFONT");
+   HudMessage(f:CheckInventory("EmptyVial")<<16; HUDMSG_PLAIN, 800, CR_CYAN, 0.363, 0.85, 0.1);
+   HudMessage(f:CheckInventory("Basicvial")<<16; HUDMSG_PLAIN, 801, CR_CYAN, 0.467, 0.85, 0.1);
+   HudMessage(f:CheckInventory("NeutralVial")<<16; HUDMSG_PLAIN, 802, CR_CYAN, 0.575, 0.85, 0.1);
+   HudMessage(f:CheckInventory("AcidVial")<<16; HUDMSG_PLAIN, 803, CR_CYAN, 0.675, 0.85, 0.1);
+     HudMessage(f:CheckInventory("Ammocell")<<16; HUDMSG_PLAIN, 804, CR_lightblue, 0.388, 1.0, 0.1);
+   setfont("CELLA0");
+   HudMessage(s:"A"; HUDMSG_PLAIN, 805, CR_lightblue, 0.36, 1.05, 0.1);
+   Delay(1);
+		
+}
+
+script "ORGQUANTITY" (void)
+{	
+	SetFont("SMALLFONT");	
+   HudMessage(f:CheckInventory("Impspike")<<16; HUDMSG_PLAIN, 800, CR_CYAN, 0.363, 0.85, 0.1);
+   HudMessage(f:CheckInventory("Demonheart")<<16; HUDMSG_PLAIN, 801, CR_CYAN, 0.467, 0.85, 0.1);
+   HudMessage(f:CheckInventory("Bruiserhorn")<<16; HUDMSG_PLAIN, 802, CR_CYAN, 0.575, 0.85, 0.1);
+   HudMessage(f:CheckInventory("Cacoeye")<<16; HUDMSG_PLAIN, 803, CR_CYAN, 0.672, 0.85, 0.1);
+     HudMessage(f:CheckInventory("Ammocell")<<16; HUDMSG_PLAIN, 804, CR_lightblue, 0.388, 1.0, 0.1);
+   setfont("CELLA0");
+   HudMessage(s:"A"; HUDMSG_PLAIN, 805, CR_lightblue, 0.36, 1.05, 0.1);
+   Delay(1);
+		
+}
+
+script "MATQUANTITY" (void)
+{
+	SetFont("SMALLFONT");
+   HudMessage(f:CheckInventory("scrapmetal")<<16; HUDMSG_PLAIN, 800, CR_CYAN, 0.36, 0.865, 0.1);
+   HudMessage(f:CheckInventory("electronicparts")<<16; HUDMSG_PLAIN, 801, CR_CYAN, 0.465, 0.865, 0.1);
+   HudMessage(f:CheckInventory("Fabric")<<16; HUDMSG_PLAIN, 802, CR_CYAN, 0.57, 0.865, 0.1);
+   HudMessage(f:CheckInventory("gunpowder")<<16; HUDMSG_PLAIN, 803, CR_CYAN, 0.664, 0.865, 0.1);
+     HudMessage(f:CheckInventory("Ammocell")<<16; HUDMSG_PLAIN, 804, CR_lightblue, 0.388, 1.0, 0.1);
+   setfont("CELLA0");
+   HudMessage(s:"A"; HUDMSG_PLAIN, 805, CR_lightblue, 0.36, 1.05, 0.1);
+ Delay(1);
+		
+}
+
+script "RAREQUANTITY" (void)
+{
+	SetFont("SMALLFONT");	
+   HudMessage(f:CheckInventory("alphavial")<<16; HUDMSG_PLAIN, 800, CR_CYAN, 0.387, 0.865, 0.1);
+   HudMessage(f:CheckInventory("fireessence")<<16; HUDMSG_PLAIN, 801, CR_CYAN, 0.522, 0.865, 0.1);
+   HudMessage(f:CheckInventory("chaosessence")<<16; HUDMSG_PLAIN, 802, CR_CYAN, 0.655, 0.865, 0.1);
+     HudMessage(f:CheckInventory("Ammocell")<<16; HUDMSG_PLAIN, 804, CR_lightblue, 0.388, 1.0, 0.1);
+   setfont("CELLA0");
+   HudMessage(s:"A"; HUDMSG_PLAIN, 805, CR_lightblue, 0.36, 1.05, 0.1);
+  Delay(1);
+		
+}

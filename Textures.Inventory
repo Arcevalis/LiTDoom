@@ -1,0 +1,41 @@
+///// RIFLE UPGRADE
+SPRITE "RMODB0", 150,150 {XScale 5.1 YScale 5.1 OFFSET 0, -5 Patch "RMODB0", 0, 0}
+
+//// BATTERY
+SPRITE "BATTD0", 51,100 {XScale 4.7 YScale 4.7 OFFSET -36, -17 Patch "BATTA0", 0, 0}
+
+///BFG CORE
+SPRITE "BFG2H0", 55,171 {XScale 4.0 YScale 4.0 OFFSET -30, 25 Patch "BFG2H0", 0, 0}
+
+//// MEDICAL
+SPRITE "BNDGC0", 28,44 {XScale 2 YScale 2 OFFSET -15, -5 Patch "BNDGB0", 0, 0}
+SPRITE "PKMKB0", 75,56 {XScale 3 YScale 3 OFFSET -8, -13 Patch "PKMKA0", 0, 0}
+SPRITE "MBPKB0", 50,47 {XScale 2 YScale 2 OFFSET -5, -5 Patch "MBPKA0", 0, 0}
+Sprite "SMBSC0", 26, 48{XScale 2.00 YScale 2.00 Offset -16, -7 Patch "SMBSB0", 0, 0}
+
+/// RECOMBINER 
+SPRITE "RECIA0", 100,54 {XScale 3.8 YScale 3.6 OFFSET -6, -28 Patch "RECPB0", 0, 0}
+SPRITE "RECDA0", 100,54 {XScale 3.8 YScale 3.6 OFFSET -6, -28 Patch "RECDA0", 0, 0}
+
+/// ARTIFACT CONTAINER
+SPRITE "ACONK0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONA0", 0, 0}
+SPRITE "ACONL0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONB0", 0, 0}
+SPRITE "ACONM0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONC0", 0, 0}
+SPRITE "ACONN0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACOND0", 0, 0}
+SPRITE "ACONO0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONE0", 0, 0}
+SPRITE "ACONP0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONF0", 0, 0}
+SPRITE "ACONQ0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONG0", 0, 0}
+SPRITE "ACONR0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONH0", 0, 0}
+SPRITE "ACONS0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONI0", 0, 0}
+SPRITE "ACONT0", 27,37 {XScale 1.2 YScale 1.2 OFFSET -5, -1 Patch "ACONJ0", 0, 0}
+
+///ARMOR ICONS
+Sprite "ARM1B0", 54, 71{XScale 2.800 YScale 2.800 Offset 30, 70 Patch "ARM1A0", 0, 0}
+Sprite "ARM3B0", 70, 75{XScale 2.800 YScale 2.800 Offset 30, 70 Patch "ARM3A0", 0, 0}
+Sprite "ARM2B0", 101, 75{XScale 2.800 YScale 2.800 Offset 30, 70 Patch "ARM2A0", 0, 0}
+
+Sprite "BON2Z0", 36, 70{XScale 2.800 YScale 2.800 Offset 30, 70 Patch "BON2A0", 0, 0}
+Sprite "BON2Y0", 36, 70{XScale 2.800 YScale 2.800 Offset -20, -6 Patch "BON2A0", 0, 0}
+Sprite "ARGEK0", 40,50{XScale 2.00 YScale 2.00 Offset -5, 0 Patch "ARGEG0", 0, 0}
+
+Sprite "FGEND0", 50,50{XScale 2.500 YScale 2.500 Offset -15, -10 Patch "FGENA0", 0, 0}

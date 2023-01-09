@@ -1,0 +1,1048 @@
+ACTOR Rocket_Launcher : BrutalWeapon //Replaces RocketLauncher
+{
+	Game Doom
+	SpawnID 29
+	Speed 20
+	Damage 20
+	Weapon.BobSpeed 2.1
+	Weapon.SelectionOrder 2500
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive2 0
+	Weapon.AmmoGive1 0
+	Weapon.AmmoType1 "AmmoRocket"
+	Weapon.AmmoType2 "RocketRounds"
+    Inventory.PickupSound "ROCKPKUP"
+    +WEAPON.NOAUTOAIM
+	+FORCEXYBILLBOARD
+	+WEAPON.NO_AUTO_SWITCH
+	+WEAPON.EXPLOSIVE
+	+WEAPON.NOAUTOFIRE
+	+WEAPON.NOALERT
+	Inventory.PickupMessage "$GOTLAUNCHER"
+	scale 0.345
+	Tag "Valkyr AT-80"
+	States
+	{
+	
+	Inspect:
+		RLNG A 0 A_takeinventory("neverfoundRL",1)
+		TNT1 A 0 SetPlayerProperty(0,1,4)
+	     M1SR ABCDEFGHIJKLMM 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		TNT1 A 0 ACS_NAMEDEXECUTE("MINIGUNCROUCH",0)
+		RLNG A 0 A_PlaySound("RLOPEN",1)
+		M1SR NOPQRSTUVWXYZZ 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		M1SR Z 20 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		M1SR XWVUTSR 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		RLNG A 0 A_PlaySound("RLCLOSE")
+		M1SR QPONMLKJIHGFEDCBA 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		
+		TNT1 A 0 A_JumpIfInventory("choosingreward", 1, 2)
+		TNT1 A 0 SetPlayerProperty(0,0,4)
+		TNT1 A 0
+		goto Ready
+	
+	
+	Ready3:
+	Ready:
+	SelectAnimation:
+	TNT1 A 0 A_JumpIfInventory("neverfoundRL", 1, "Inspect")
+	TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+	MISS ABCDEFGH 1 A_JumpIfInventory("GoFatality", 1, "Steady")
+	goto Ready3
+	Ready3:
+		RLNF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		RLNF A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+	    RLNF A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		RLNG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "UNLOAD")
+        RLNG A 0 
+        RLNG A 0 A_JumpIfInventory("Kicking",1,"DOKICKROCKET")
+		RLNG A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		RLNG A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+        RLNG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		RLNF A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		RLNF A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		RLNF A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		RLNF A 0 A_JumpIfInventory("startdualwield",1,"changerocket")
+		RLNF A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		RLNF A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		RLNF A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		RLNF A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		RLNF A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		RLNF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		RLNG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		RLNG A 0 A_JumpIfInventory("HasUnloadedRL", 1, "ReadyNoAmmo")
+		RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		Loop
+		
+	    Ready2:
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 3)
+		PIST F 0 A_JumpIfInventory("RLDurability",5, 2)
+		PIST F 0 A_PRINT("Night Vision Scope and the Hyper-propulsor are busted!")
+		goto noaim
+		///
+		MIAI P 0 A_giveinventory("Bluesight", 1)
+		MIAI P 1 BRIGHT A_WeaponReady(WRF_ALLOWRELOAD)
+		MIAI P 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		MIAI P 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "UNLOAD")
+		MIAI P 0 A_JumpIfInventory("Kicking",1,"DOKICKROCKET")
+        MIAI P 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		MIAI P 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		MIAI P 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		MIAI P 0 
+		MIAI P 0 A_JumpIfInventory("startdualwield",1,"changerocket")
+		MIAI P 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		MIAI P 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		MIAI P 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		MIAI P 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		MIAI P 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		MIAI P 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		MIAI P 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		MIAI P 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		MIAI P 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		MIAI P 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		
+				
+		MIAI P 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
+		MIAI P 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		
+		MIAI P 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")
+		MIAI P 0
+		Loop	
+		
+	ReadyNoAmmo:
+	    RLNF A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		RLNF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "UNLOAD")
+        RLNF A 0 
+        RLNF A 0 A_JumpIfInventory("Kicking",1,"DOKICKROCKET")
+		RLNF A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		RLNF A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+        RLNF A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		RLNF A 0 A_JumpIfInventory("startdualwield",1,"changerocket")
+		RLNF A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		RLNF A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		RLNF A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		RLNF A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		RLNF A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		RLNF A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		RLNF A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		RLNF A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		RLNF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		RLNF A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		Loop	
+	
+	WeaponCheckOverlay:
+		TNT1 A 5
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		Stop
+	WeaponCheck2:
+		TNT1 A 1
+		PISA D 0 ACS_NamedExecutealways("RLdurabilitycheck", 0)
+		PISA D 0 ACS_NamedExecutealways("RLmagcheck", 0)
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
+		stop	
+	NoAmmoUnload:
+	    PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		goto Noammo
+		TNT1 A 0 A_Overlay(98,"WeaponCheckOverlay",false)
+	NoAmmo:
+		RIFG A 0
+		RLNG A 0 A_Takeinventory("PowerLightAmp", 1)
+		RIFG A 0 A_ZoomFactor(1.0)
+		RIFG A 0 A_Takeinventory("Zoomed",1)
+		RIFG A 0 A_Takeinventory("ADSmode",1)
+		RIFG A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
+		TNT1 A 0 A_PlaySound("weapons/empty", 4)
+	NoAmmo2:
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		RLNF A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		RLNF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+	    RIFG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		RIFG A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		RIFG A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		RIFG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		RIFG A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		RIFG A 0 A_JumpIfInventory("Kicking",1,"DOKICKROCKET")
+		RLNF A 5 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
+		RLNF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "NOAMMO2")
+		RIFG A 0 
+		RIFG A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo2")
+		Goto Ready3
+	
+	CheckSprint:
+		//RLNF A 1 A_WeaponReady(WRF_NOFIRE)
+		RLNG A 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		RLNG A 0 A_JumpIfInventory("IsTacticalClass", 1, "StartSprint")
+		Goto ready3
+		
+	StartSprint:
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD, 1)
+		GOTO READY3
+		MISS FDCB 1 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 1 A_WeaponReady(WRF_NOFIRE)
+		M1SR ABCD 1 A_WeaponReady(WRF_NOFIRE)
+		RLNG A 0 A_Takeinventory("Zoomed",1)
+		RLNG A 0 A_Takeinventory("ADSmode",1)
+		RLNG A 0 A_Takeinventory("PowerLightAmp", 1)
+		RLNG A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")
+		
+	Sprinting:	
+		MISP A 0 offset(-9,32) 
+		RLNG A 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD, 1)
+		GOTO StopSprint
+		PLAY A 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		RLNG A 0 offset(-9,32) A_JumpIfInventory("Powerstrength2", 1, 2)
+		RLNG A 0 offset(-9,32) A_GiveInventory("UsedStamina", 15)
+		RLNG A 0 offset(-9,32)
+		M1SR G 1 offset(-9,34) A_SetPitch(pitch -0.5)
+		M1SR G 1 offset(-6,36) A_SetPitch(pitch -0.5)
+		M1SR G 1 offset(-3,38) A_SetPitch(pitch -0.5)
+		M1SR G 1 offset(0,38) A_SetPitch(pitch -0.5)
+		M1SR G 1 offset(3,36) A_SetPitch(pitch -0.5)
+		M1SR G 1 offset(6,34) A_SetPitch(pitch -0.5)
+		M1SR G 1 offset(9,32) A_SetPitch(pitch -0.5)
+		RLNG A 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		RLNG A 0 A_JumpIfInventory("Kicking",1,"DOKICKROCKET")
+        RLNG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        RLNG A 0 
+		RLNG A 0 offset(-9,32) A_GiveInventory("UsedStamina", 8)
+		RLNG A 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		M1SR G 1 offset(9,34) A_SetPitch(pitch +0.5)
+		M1SR G 1 offset(6,36) A_SetPitch(pitch +0.5)
+		M1SR G 1 offset(3,38) A_SetPitch(pitch +0.5)
+		M1SR G 1 offset(0,38) A_SetPitch(pitch +0.5)
+		M1SR G 1 offset(-3,36) A_SetPitch(pitch +0.5)
+		M1SR G 1 offset(-6,34) A_SetPitch(pitch +0.5)
+		M1SR GF 1 offset(-9,32) A_SetPitch(pitch +0.5)
+		RLNG A 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		RLNG A 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		
+		Goto StopSprint
+	StopSprintTired:
+		M1SR DCBA 1
+		TNT1 A 1
+		MISS BCDF 1
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		RLNG A 0 A_PlaySound("Tired", 2)
+		RLNG A 0 A_TakeInventory("usedstamina", 1)
+		TNT1 A 0 A_Jumpifhealthlower(25,"rupturesprint")													 
+		RLNF A 5 A_WeaponReady
+		RLNG A 0 A_TakeInventory("usedstamina", 1)
+		RLNF A 5 A_WeaponReady
+		RLNG A 0 A_TakeInventory("usedstamina", 1)
+		RLNF A 5 A_WeaponReady
+		RLNG A 0 A_TakeInventory("usedstamina", 1)
+		RLNF A 5 A_WeaponReady
+		RLNG A 0 A_TakeInventory("usedstamina", 1)
+		RLNF A 5 A_WeaponReady
+		Goto ready3
+	StopSprint:
+		M1SR DCBA 1
+		TNT1 A 1
+		MISS BCDF 1
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		Goto ready3
+		
+	Deselect:
+        RLNG A 0
+		RLNG A 0 A_Takeinventory("RocketLauncherSelected",1)
+		RLNG A 0 A_Takeinventory("Zoomed",1)
+		RLNG A 0 A_Takeinventory("PowerLightAmp", 1)
+        RLNG A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		CHAG A 0 A_TakeInventory("Flaretoken", 1)	
+		RLNG A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_JumpIfInventory("weaponbroke", 1, "Deselectcontinue")
+		MISS HGFEDCBA 1
+	DESELECTCONTINUE:
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+		
+		goingtoaction:
+		RLNG A 0
+		RLNG A 0 A_Takeinventory("Zoomed",1)
+		RLNG A 0 A_Takeinventory("PowerLightAmp", 1)
+        RLNG A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		CHAG A 0 A_TakeInventory("Flaretoken", 1)	
+		RLNG A 0 A_TakeInventory("TossGrenade", 1)
+		MISS HGFEDCBA 1
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair
+			
+	Select: 
+		TNT1 A 0  A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)	
+		TNT1 A 0 A_SetRoll(0)
+		TNT1 A 0 SetPlayerProperty(0,0,2)
+		TNT1 A 0 ACS_NAMEDEXECUTE("WEAPONSELECT",0)
+		RLNG A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		CHAG A 0 A_TakeInventory("Flaretoken", 1)	
+		RLNG A 0 A_TakeInventory("TossGrenade", 1)
+		RLNG A 0
+        TNT1 A 0 A_PlaySound("RLANDRAW")
+	Select2:
+		TNT1 AAA 0 A_RAise
+		LOOP
+		
+	Fire:
+		RLNG A 0
+        RLNG A 0 A_JumpIfInventory("RocketRounds",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+		
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
+		PIST F 0 A_Takeinventory("RLDurability",1)
+		PIST F 0 A_JumpIfInventory("RLDurability",5, 2)
+		PIST F 0 A_Jump(80, "Misfire")
+		///
+		
+		RLNG A 0 A_ALertMonsters
+		RLNG A 0 A_JumpIfInventory("Zoomed",1,"ZoomedFire")
+		RLNF B 1
+		SHTN A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,30)
+		RLNG A 0 A_FireCustomMissile("RedFlareSpawn",-5,0,6,0)
+        RLNG A 0 A_PlaySound ("RLFIRE",7)
+		RLNG A 0 BRIGHT A_FireCustomMissile("Alerter")
+		RLNG A 0 A_ZoomFactor(0.98)
+		RLNF C 1 BRIGHT
+		RLNG A 0 A_FireCustomMissile("RocketGlassBreaker", 0, 1, 0, -6) 
+		
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded",1, 3)
+		RLNG A 0 A_FireProjectile("UberRocket1", 0, 1, 0, 0, 0, 0)	
+		TNT1 A 0 A_JUMP(256,2)
+		RLNG A 0 A_FireProjectile("NuclearRocket", 0, 1, 0, -6)	
+		Goto RecoilAnimation
+		
+		
+	RecoilAnimation:	
+		RLNG A 0 A_Takeinventory("RocketRounds",1)
+		RLNG A 0 A_Quake(20, 40, 0, 400, "")
+		RLNG A 0 A_ZoomFactor(1.0)
+		RLNG A 0 A_RECOIL(4)
+		RLNF D 1 BRIGHT A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+        RLNF E 1 A_SETPITCH(PITCH+1.5)
+        RLNF F 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+		RLNF GHIJ 1 A_SETPITCH(PITCH-0.3)
+		
+		/// DURABILITY CHECK 2
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("RLdurability", 1, 1)
+		goto weaponbreak
+		TNT1 A 0
+		///
+		
+		RLNG A 0 
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		RLNF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		RLNF AAA 1 A_WeaponReady(WRF_NOFIRE | WRF_NOBOB | WRF_ALLOWRELOAD)
+		RLNG A 0 
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		RLNG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+        Goto NOAMMO
+		
+		
+	ZoomedFire:
+        RLNG A 0 A_JumpIfInventory("RocketRounds",1,1)
+        Goto ready2	
+		
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_Takeinventory("RLDurability",1)
+		///
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		MIAI O 1
+		RLNG A 0 A_FireCustomMissile("RedFlareSpawn",-5,0,0,0)
+        RLNG A 0 A_PlaySound ("RLFIRE",7)
+		RLNG A 0 BRIGHT A_FireCustomMissile("Alerter")
+		RLNG A 0 A_ZoomFactor(2.9)
+		MIAI O 1 BRIGHT							 
+		RLNG A 0 A_FireCustomMissile("RocketGlassBreaker", 0, 1, 0, -6) 
+		
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded",1, 3)
+		RLNG A 0 A_FireProjectile("UberRocket", 0, 1, 0, 0, 0, 0)	
+		TNT1 A 0 A_JUMP(256,2)
+		RLNG A 0 A_FireProjectile("NuclearRocketfast", 0, 1, 0, -6)	
+		Goto ZoomedRecoil
+		
+	ZoomedRecoil:	
+	RLNG A 0 A_giveinventory("Bluesight", 1)
+		RLNG A 0 A_Takeinventory("RocketRounds",1)
+		RLNG A 0 A_ZoomFactor(3.0)
+		RLNG A 0 A_Quake(4, 40, 0, 400, "")
+		RLNG A 0 A_RECOIL(3)
+		MIAI N 1 BRIGHT
+        MIAI N 1 BRIGHT 
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+        MIAI M 1 BRIGHT
+		MIAI M 1 BRIGHT A_SETPITCH(PITCH+1.5)
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		MIAI NN 1 BRIGHT A_SETPITCH(PITCH-0.2)
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		MIAI OO 1 A_SETPITCH(PITCH-0.2)
+		MIAI OP 1 BRIGHT A_SETPITCH(PITCH-0.2)
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		MIAI PPP 2 A_giveinventory("Bluesight", 1)
+        MIAI P 1 BRIGHT A_giveinventory("Bluesight", 1)
+		
+		/// DURABILITY CHECK 2
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("RLdurability", 1, 1)
+		goto weaponbreak
+		TNT1 A 0
+		///
+		
+		RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
+		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		BADF A 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")
+		
+        RLNG A 0 A_Refire
+        Goto Ready2	
+	
+    Reload:
+		RLNG A 0
+		
+		RLNG A 0 A_Takeinventory("Reloading",1)
+		RLNG A 0 A_ZoomFactor(1.0)
+		RLNG A 0 A_TakeInventory("Zoomed", 1)
+		RLNG A 0 A_Takeinventory("PowerLightAmp", 1)
+		PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
+		
+		RLNF A 1 A_WeaponReady(WRF_NOFIRE)
+        RLNG A 0 A_JumpIfInventory("RocketRounds",1,"Ready3")
+		
+		RLNG A 0 A_JumpIfInventory("nukeloaded",1,3)
+		RLNG A 0 A_JumpIfInventory("AmmoRocket",1,4)
+		RLNG A 0 A_Jump(256,2)
+		RLNG A 0 A_JumpIfInventory("nuke",1,2)
+		TNT1 A 0
+        
+        Goto Ready3
+        TNT1 A 0	
+		RLNG A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
+		RLNG A 0 A_PlaySound("RLEXTRA",1)
+		MISS HGFEDCBA 1
+		TNT1 AAAAAAAAAA 1
+	
+		TNT1 A 0 SetPlayerProperty(0,1,4)
+        M1SR ABCDEFGHIJKLMM 1
+		TNT1 A 0 ACS_NAMEDEXECUTE("MINIGUNCROUCH",0)
+		RLNG A 0 A_PlaySound("RLOPEN",1)
+		M1SR NOPQRSTUVWXYZZ 1
+	StartReloading:
+		TNT1 A 0 SetPlayerProperty(0,1,4)
+		RLNG A 0 A_PlaySound("GETRKT",1)
+		M1SR Z 10
+		M2SR AB 1
+		
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded",1, 2)
+		TNT1 A 0 A_JUMP(256,2)
+		TNT1 A 0 A_overlay(3,"NukeReload")
+		
+        M2SR CDEFGHIJKLM 1
+		RLNG A 0 A_PlaySound("RKTPUSH",1)
+		M2SR NOPQRSTUV 1
+		M2SR V 10
+		M2SR WXYZ 1
+		MISR ABCDE 1
+		RLNG A 0 A_PlaySound("ROCKETIN")
+        MISR FGHIJKLMN 1
+		MISR O 10
+		M1SR XWVUTSR 1
+		RLNG A 0 A_PlaySound("RLCLOSE")
+		M1SR QPONMLKJIHGFEDCBA 1
+		
+		TNT1 A 0 A_JumpIfInventory("choosingreward", 1, 2)
+		TNT1 A 0 SetPlayerProperty(0,0,4)
+
+	FinishReload:
+		RLNG A 0 A_Takeinventory("HasUnloadedRL",1)
+		RLNG A 0 A_Giveinventory("RocketRounds",1)
+		
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded",1, 3)
+		RLNG A 0 A_TAKEinventory("AmmoRocket",1)
+		TNT1 A 0 A_JUMP(256,2)
+		RLNG A 0 A_TAKEinventory("nuke",1)
+		
+		TNT1 A 20
+		TNT1 A 0 A_PlaySound("RLANDRAW",1)
+		Goto Ready		
+		
+	NoNeedToReload:
+        RLNF A 1 A_Refire
+        Goto Ready
+			
+	TurboReload:
+		RLNG A 0 A_Takeinventory("HasUnloaded",1)
+        PISS BA 0
+        Goto FinishReload	
+
+	Nukereload:
+		M3SR ABCDEFGHIJKLMNOPQRST 1
+		M3SR T 10
+		M3SR UVWX 1
+		M35R ABCDE 1
+		STOP
+	
+	  Checktube:
+		M1SR Z 5 A_weaponready(WRF_NOFIRE | WRF_NOSWITCH)
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		TNT1 A 0 ACS_NAMEDEXECUTEalways("RLDURABILITYCHECK",0)
+		TNT1 A 0 ACS_NamedExecutealways("RLMAGCheck",0)
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Checktube")
+		
+		M1SR YXWVUTS 1
+		 BADF A 0 A_PlaySound("RLCLOSE")
+		M1SR RQPONMLKJIGFEDCBA 1
+		BADF A 0 A_PlaySound("RLEXTRA")
+		MISS ABCDEFGH 1
+		 goto Ready3
+	
+	Unload:
+		RLNG A 0
+		RLNG A 0 A_Takeinventory("Zoomed",1)
+		RLNG A 0 A_Takeinventory("PowerLightAmp", 1)
+
+		RLNF A 1 A_WeaponReady(WRF_NOFIRE)
+		RLNG A 0 A_ZoomFactor(1.0)
+		RLNG A 0 A_TakeInventory("Zoomed", 1)
+		RLNG A 0 A_JumpIfInventory("RocketRounds",1,3)
+		MISS H 1
+        Goto NoammoUnload
+        TNT1 AAAA 0
+		RLNG A 0 A_PlaySound("RLEXTRA",1)
+        MISS HGFEDCBA 1
+		TNT1 AAAAAAAAAA 1
+        M1SR ABCDEFGHIJKLMM 1
+		RLNG A 0 A_PlaySound("RLOPEN",1)
+		M1SR NOPQRSTUVWXYZZ 1
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CheckTUBE")
+		M1SR Z 10
+		MISR ONMLKJIHGGGGG 1
+		
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded", 1,2)
+		TNT1 A 0 A_JUMP(256,2)
+		TNT1 A 0 A_overlay(3,"NukeUnload")
+		
+		RLNG A 0 A_PlaySound("GETRKT",1)
+		MISR FEDBCA 1
+		M2SR ZYXWVUTSRQPONMLKJIHGFEDCBA 1
+		M2SR A 10
+		M1SR ZYXWVUTSR 1
+		RLNG A 0 A_PlaySound("RLCLOSE",1)
+		M1SR QPONMLKJIHGFEDCBA 1		
+		
+	FinishUnload:
+		RLNG A 0 A_Giveinventory("HasUnloadedRL",1)
+		RLNG A 0 A_Takeinventory("RocketRounds",1)
+		
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded",1, 3)
+		RLNG A 0 A_Giveinventory("AmmoRocket",1)
+		TNT1 A 0 A_JUMP(256,2)
+		RLNG A 0 A_Giveinventory("nuke",1)
+			
+		TNT1 A 10
+		RLNG A 0 A_PlaySound("RLANDRAW",1)
+		Goto Ready		
+
+	Nukeunload:
+		TNT1 A 0
+		M35R FEDCBA 1
+		M3SR XWVUTSRQPONMLKJIHGFEDCBA 1
+		STOP
+
+	 AltFire:
+        RLNG A 0
+		RLNG A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
+		
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 3)
+		PIST F 0 A_JumpIfInventory("RLDurability",5, 2)
+		PIST F 0 A_PRINT("The Night Vision Scope and Hyper-propulsor are busted!")
+		goto Ready3
+		///
+		
+		BADF A 0 a_startsound("ADSin",250)
+		RLNG A 0 A_Giveinventory("Zoomed",1)
+        MIAI ABCDEFGHI 1
+		RLNG A 0 A_ZoomFactor(4.0)
+		//RLNG A 0 A_giveinventory("PowerLightAmp", 1)
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		MIAI JK 1
+        RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		MIAI LM 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		MIAI NO 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		MIAI P 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+        
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, "Ready2")  ///////ADS MODE CHECK
+		
+	   HoldAim:	
+	   RLNG A 0 A_giveinventory("zoomhold", 1)
+	   RLNG A 0 A_giveinventory("Bluesight", 1)
+	    RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		MIAI P 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		MIAI P 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		RLNG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		MIAI P 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		
+	 NoAim:	
+		RLNG A 0 A_takeinventory("zoomhold", 1)
+		BADF A 0 a_startsound("ADSin",250)
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+        MIAI PON 1
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		MIAI NM 1
+		RLNG A 0 A_giveinventory("Bluesight", 1)
+		MIAI LK 1
+		RLNG A 0 A_Light0
+		RLNG A 0 A_Takeinventory("Zoomed",1)
+		RLNG A 0 A_Takeinventory("PowerLightAmp", 1)
+        RLNG A 0 A_ZoomFactor(1.0)
+		MIAI JIHGFEDCBA 1
+        Goto Ready3	
+			
+		Misfire:
+		RIFG A 0
+		RLNG A 0 A_giveinventory("RLdurability", 1)
+		RLNG A 0 A_Takeinventory("PowerLightAmp", 1)
+		RIFG A 0 A_ZoomFactor(1.0)
+		RIFG A 0 A_Takeinventory("Zoomed",1)
+		RIFG A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_PlaySound("weapons/empty", 4)
+		TNT1 A 0 A_jump(60,"FireJammed")
+		TNT1 A 0 A_playsound("DRYFIRE")
+		goto Ready3
+
+		FireJammed:
+        RLNF A 3 
+		RLNF B 3 A_playsound("DRYFIRE")
+		RLNF A 3
+		RLNF B 3 A_playsound("DRYFIRE")
+		RLNF A 5
+				
+		TNT1 A 0 A_JUMP(100,"EXPLODE")
+		RLNF A 10
+		MISS HGFEDBCA 1
+		M1SR ABCDEFGHIJKLMNOP 1
+		GLAN A 0 A_PlaySound("RLOPEN",1)
+		GLAN A 0 A_PlaySound("STEAM",6)
+		M1SR QRSTUVWX 1 A_SPAWNITEMEX ("HUDSMOKE",17,-6,33, RANDOM(0,1),RANDOM(1,1),RANDOM(1,2),0)
+		MISR ONMLKJIHGGGGG 1 A_SPAWNITEMEX ("HUDSMOKE",17,-5,30, RANDOM(0,1),RANDOM(1,1),RANDOM(1,2),0)
+		
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded", 1,2)
+		TNT1 A 0 A_JUMP(256,2)
+		TNT1 A 0 A_overlay(4,"NukeUnload")
+			
+		RLNG A 0 A_PlaySound("GETRKT",1)
+		RLNG A 0 A_Takeinventory("RocketRounds",1)
+		MISR FEDBCA 1 A_SPAWNITEMEX ("HUDSMOKE",17,5,40, RANDOM(0,1),RANDOM(1,1),RANDOM(1,2),0)
+		M2SR ZYXWVUTSRQPONMLKJI 1 A_SPAWNITEMEX ("HUDSMOKE",17,9,47, RANDOM(0,1),RANDOM(1,1),RANDOM(1,2),0)
+		M2SR HGFEDCBA 1 A_SPAWNITEMEX ("HUDSMOKE",17,15,33, RANDOM(0,1),RANDOM(1,1),RANDOM(1,2),0)
+		M2SR A 35 A_OVERLAY(3,"THROWMISSILE")
+		
+		M1SR ZYXWVUTSR 1
+		RLNG A 0 A_PlaySound("RLCLOSE",1)
+		M1SR QPONMLKJIHGFEDCBA 1
+		GOTO READY
+		
+		THROWMISSILE:
+		TNT1 A 17	
+		
+		TNT1 A 0 A_jumpifinventory("nukeloaded",1,3)
+		TNT1 A 0 A_Firecustommissile("ExplodingROCKET",0,1,0,-10)
+		TNT1 A 0 A_jump(256,2)
+		TNT1 A 0 A_Firecustommissile("ExplodingWARHEAD",0,1,0,-10)
+
+		THRO ABCDEFGHI 1 A_OVERLAYOFFSET(3,30,32, WOF_KEEPY)
+		STOP	
+		
+		/// DURABILITY CHECK 2
+		PIST F 0 A_JumpIfInventory("RLdurability", 1, 1)
+		goto weaponbreak
+		TNT1 A 0
+		///
+		RLNG BCDA 1
+		GOTO READY3
+
+	EXPLODE:
+		RLNF A 17
+		RLNF AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_SPAWNITEMEX ("HUDSMOKE",17,5,39, RANDOM(0,1),RANDOM(1,1),RANDOM(1,2),0)
+		RLNG A 0 A_Takeinventory("RocketRounds",1)
+		TNT1 A 0 a_print("your Rocket Launcher is about to explode!")
+		VTHR ABCDEF 1
+		
+		TNT1 A 0 A_jumpifinventory("nukeloaded",1,3)
+		TNT1 A 0 A_Firecustommissile("ExplodingRL",0,1,0,-5)
+		TNT1 A 0 A_jump(256,2)
+		TNT1 A 0 A_Firecustommissile("ExplodingRLwarhead",0,1,0,-5)
+		
+		TNT1 A 0 A_takeinventory("Rocket_Launcher",1)
+		WAIT
+		
+	Weaponbreak:
+		TNT1 A 0 a_print("your Rocket Launcher has broken!")
+		MISS HGFEDCBA 1
+		TNT1 A 1
+		TNT1 A 0 a_SPAWNITEM("brokenROCKET",0,0)
+		 TNT1 A 0 a_RADIUSGIVE("hasbeendropped",90, RGF_OBJECTS | RGF_NOSIGHT, 1, "brokenROCKET")
+		TNT1 A 0 ACS_namedexecute("BROKENDISARM",0)
+		TNT1 AAA 1 a_weaponready
+		Wait
+
+ChangeRocket:
+	PIST F 0 A_jumpifinventory("zoomed",1,"noaim")
+	PIST F 0 A_takeinventory("startdualwield",1)
+	PIST F 0 A_Jumpifinventory("nukeloaded",1, "loadrockets")
+LoadNukes:
+	TNT1 A 0 A_JumpIFInventory("nuke",1, 2)
+	TNT1 A 0 A_print("You don't have any thermobaric warheads.")
+	goto ready3
+	TNT1 A 0 A_giveinventory("nukeloaded",1)
+	TNT1 A 0 A_giveinventory("changingrocket",1)
+	goto SwitchUnload
+LoadRockets:	
+	TNT1 A 0 A_JumpIFInventory("ammorocket",1, 2)
+	TNT1 A 0 A_print("You don't have any Anti-Tank Rockets.")
+	goto Ready3
+	TNT1 A 0 A_takeinventory("nukeloaded",1)
+	TNT1 A 0 A_giveinventory("changingrocket",1)
+	goto SwitchUnload
+	
+
+SwitchUnload:
+		RLNF A 1 A_WeaponReady(WRF_NOFIRE)
+		RLNG A 0 A_ZoomFactor(1.0)
+		RLNG A 0 A_TakeInventory("Zoomed", 1)
+        RLNG A 0 A_JumpIfInventory("RocketRounds",1,1)
+        Goto Reload
+        TNT1 A 0
+		RLNG A 0 A_PlaySound("RLEXTRA",1)
+        MISS HGFEDCBA 1
+		TNT1 AAAAAAAAAA 1
+        M1SR ABCDEFGHIJKLMM 1
+		RLNG A 0 A_PlaySound("RLOPEN",1)
+		M1SR NOPQRSTUVWXYZZ 1
+		M1SR Z 10
+		MISR ONMLKJIHGGGGG 1
+		//
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded", 1,2)
+		TNT1 A 0 A_overlay(3,"NukeUnload")
+		//
+		RLNG A 0 A_PlaySound("GETRKT",1)
+		MISR FEDBCA 1
+		M2SR ZYXWVUTSRQPONMLKJIHGFEDCBA 1
+		M2SR A 10
+		RLNG A 0 A_Takeinventory("RocketRounds",1)
+		//
+		TNT1 A 0 A_JUMPIFinventory("nukeloaded",1, 3)
+		RLNG A 0 A_Giveinventory("nuke",1)
+		TNT1 A 0 A_JUMP(256,2)
+		RLNG A 0 A_Giveinventory("ammorocket",1)		
+		//
+		TNT1 A 0
+		goto StartReloading
+
+	
+	KITREPAIR:
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		RLNF A 5
+		
+		TNT1 A 0 A_JumpIFInventory("RLDurability",20, "NoNeedRepair")
+		PIST F 0 A_JumpIfInventory("scrapmetal",1, 2)
+		PIST F 0 A_Jump(256,"outofmetal")
+		
+	KITREPAIR2:
+		PIST F 0 A_GIVEinventory("RLDurability",4)
+		BADF A 0 A_Takeinventory("survivalkituses",1)
+		BADF A 0 A_Takeinventory("scrapmetal",1)
+		TNT1 A 0 A_playsound("WIRECUT",1)
+		MISS HGFEDCBA 1
+		TNT1 A 35
+		MISS ABCDEFGH 1
+		
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		RLNF A 2
+		goto Ready3	
+	
+	DoKICKROCKET:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,4)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,3)
+		TNT1 A 0 A_overlay(3,"KICKROCKET")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3
+		TNT1 A 0 A_overlay(3,"KICKROCKETtired")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3	
+	KICKROCKET:
+		MISS EDC 1
+		MISS BA 1
+		TNT1 A 8
+		TNT1 A 0 A_JumpIfInventory("isSliding", 1, 8)
+		MISS BC 1
+		MISS DGH 1 
+		TNT1 A 0 A_JumpIfInventory("Airkicking", 1, 1)
+		stop
+		MISS H 10
+		STOP
+		TNT1 A 10
+		STOP
+	KICKROCKETtired:
+		MISS EDC 2 
+		MISS BA 2
+		TNT1 A 30 
+		MISS AB 2
+		MISS CDE 2 
+		STOP	
+
+	Spawn:
+		RLAU A -1
+		Stop
+	}
+}
+
+Actor nukeloaded : Inventory { Inventory.MaxAmount 1 }
+Actor changingrocket : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR RocketRounds : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 1
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 1
+   Inventory.Icon "RLAUA0"
+}
+
+ACTOR ExplodingRL
+{
+	Radius 4
+	Height 4
+	Speed 7
+	Damage (random(50, 50))
+	scale 0.345
+    +BLOODSPLATTER
+    Gravity 1.0
+	+bounceonwalls
+	+BOUNCEONFLOORS
+	bouncefactor 0.5
+	+THRUSPECIES
+	Species "Marines"
+	DamageType Kick
+	SeeSound "Weapons/GrenadeBounce"
+	DeathSound "none"
+	Decal "Scorch"
+	States
+	{
+	Spawn:
+	    TNT1 A 0 
+		RLAU AAAAAAAAAAAAACCCCCCDDDDDDEEEEEEFFFFFFEEEEEEEEEEEFFFFFFFEEEEEEEEEEEEFFFFFFF 1 A_CustomMissile ("RocketSmokeTrail52", 2, 0, random (70, 110), 2, random (0, 360))
+		RLAU EEEEFFFFFFEEEEFFFFFFEEEEFFFFFFFFFFFFF 1 A_CustomMissile ("RocketSmokeTrail52", 2, 0, random (70, 110), 2, random (0, 360))
+		GOTO DEATH
+
+	Death:
+	    TNT1 A 0
+		TNT1 A 0 A_EXPLODE(2000,200,0,1,150,20,5,"HITPUFF","EXPLOSIVEIMPACT")
+		TNT1 A 0 A_SpawnItemEx ("GrenadeExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 1 A_SpawnItemEx ("Footstep91",0,0, 40,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 1
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+        EXPL A 0 Radius_Quake (3, 8, 0, 15, 0)//(intensity, duration, damrad, tremrad, tid)
+		TNT1 A 0 A_SpawnItemEx ("ExplosionSplashSpawner", 0, 0, -20)
+        TNT1 A 0 A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("UnderwaterExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+        TNT1 A 0 A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		
+        TNT1 AAAAAAAAAA 0 A_CustomMissile ("BDExplosionparticlesBig", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAA 0 A_CustomMissile ("BDExplosionparticles2", 0, 0, random (0, 360), 2, random (0, 90))
+		TNT1 AAAA 0 A_CustomMissile ("MediumExplosionFlames", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_CustomMissile ("SHRAPNEL1", 10, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_CustomMissile ("SHRAPNEL2", 10, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_CustomMissile ("SHRAPNEL3", 10, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AA 0
+        TNT1 A 0 A_PlaySound("Explosion", 1)
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("FAREXPL", 3)
+		Stop	
+	}
+}
+
+ACTOR ExplodingRLwarhead : ExplodingRL
+{
+	decal "giantscorch"
+	States
+	{
+	Spawn:
+	    TNT1 A 0 
+		RLAU AAAAAAAAAAAAACCCCCCDDDDDDEEEEEEFFFFFFEEEEEEEEEEEFFFFFFFEEEEEEEEEEEEFFFFFFF 1 A_CustomMissile ("RocketSmokeTrail52", 2, 0, random (70, 110), 2, random (0, 360))
+		RLAU EEEEFFFFFFEEEEFFFFFFEEEEFFFFFFFFFFFFF 1 A_CustomMissile ("RocketSmokeTrail52", 2, 0, random (70, 110), 2, random (0, 360))
+		GOTO DEATH
+		
+	Death:
+        TNT1 A 0
+		TNT1 A 0 A_Explode(500, 1500, 1, 1, 1400,0,0,"hitpuff","fire")
+		TNT1 A 1
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("NuclearFlamesImpact", 5, 0, random (0, 360), 2, random (0, 10))
+		TNT1 A 0 A_CustomMissile ("SpawnedExplosionNuke2", 30, 0, random (0, 360), 2, random(80, 90))
+		TNT1 AAA 0  A_SpawnItemEx("SpawnedExplosionNuke", random (-400, 400), random (-400, 400), random (0, 100))
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0  A_SpawnItemEx("SpawnedExplosionNuke", random (-600, 600), random (-600, 600), random (0, 50))
+		EXPL A 0 Radius_Quake (9, 200, 0, 300, 0)
+		TNT1 AAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("NukeFlare", random (-800, 800), random (-800, 800), random (0, 100))
+		TNT1 AAAA 2 A_SpawnItemEx("NukeFlare", random (-800, 800), random (-800, 800), random (0, 100))
+		TNT1 A 0 A_Explode(100, 5000, 1, 1, 4000)
+		TNT1 A 0 A_PlaySound("NUKEEXP", 1)
+		TNT1 A 0 A_Explode(4000,800, 1, 1, 1)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 300)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 450)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 600)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 750)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 900)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1100)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1200)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1300)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1400)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1500)
+		TNT1 AAAAA 4 A_SpawnItemEx("NukeFlare", 0, 0, 1600)
+		EXPL A 0 Radius_Quake (6, 200, 0, 300, 0)
+		TNT1 A 60
+		TNT1 AAAAAAAAAAAAA 0  A_CustomMissile ("NukeSmoke", random (50, 1200), 0, random (0, 360), 2, random(80, 90))
+		TNT1 AAA 0  A_CustomMissile ("NukeSmokeBig", 1400, 0, random (0, 360), 2, random(80, 90))
+		TNT1 A 1000
+		sTOP	
+	}
+}
+	
+
+ACTOR EXPLODINGROCKET : EXPLODINGRL
+{
+Gravity 0.7
+SCALE 0.58
+SPEED 20
+	States
+	{
+	Spawn:
+	    TNT1 A 0 
+		R0CK WWWWWWWWXXXXXWWWWWWWWXXXXXXXXXXXXYYYYYYYXXXXXXXXXXYYYYYYYYYYYYYYYYYY 1 A_CustomMissile ("RocketSmokeTrail52", 2, 0, random (70, 110), 2, random (0, 360))
+		GOTO DEATH
+
+	Death:
+	    TNT1 A 0
+		TNT1 A 0 A_EXPLODE(1200,80,0,1,80,20,5,"HITPUFF","EXPLOSIVEIMPACT")
+		TNT1 A 0 A_SpawnItemEx ("GrenadeExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 1 A_SpawnItemEx ("Footstep91",0,0, 40,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 1
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+        EXPL A 0 Radius_Quake (3, 8, 0, 15, 0)//(intensity, duration, damrad, tremrad, tid)
+		TNT1 A 0 A_SpawnItemEx ("ExplosionSplashSpawner", 0, 0, -20)
+        TNT1 A 0 A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("UnderwaterExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+        TNT1 A 0 A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		
+        TNT1 AAAAAAAAAA 0 A_CustomMissile ("BDExplosionparticlesBig", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAA 0 A_CustomMissile ("BDExplosionparticles2", 0, 0, random (0, 360), 2, random (0, 90))
+		TNT1 AAAA 0 A_CustomMissile ("MediumExplosionFlames", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AA 0
+        TNT1 A 0 A_PlaySound("Explosion", 1)
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("FAREXPL", 3)
+		Stop	
+	}
+}
+
+ACTOR EXPLODINGWARHEAD : EXPLODINGROCKET
+{
+	SCALE 0.59
+	DECAL "GIANTSCORCH"
+	STATES
+	{
+	Spawn:
+	    TNT1 A 0 
+		WRHD BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB 1 A_CustomMissile ("RocketSmokeTrail52", 2, 0, random (70, 110), 2, random (0, 360))
+		GOTO DEATH
+		
+	Death:
+        TNT1 A 0
+		TNT1 A 0 A_Explode(500, 1500, 1, 1, 1400,0,0,"hitpuff","fire")
+		TNT1 A 1
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("NuclearFlamesImpact", 5, 0, random (0, 360), 2, random (0, 10))
+		TNT1 A 0 A_CustomMissile ("SpawnedExplosionNuke2", 30, 0, random (0, 360), 2, random(80, 90))
+		TNT1 AAA 0  A_SpawnItemEx("SpawnedExplosionNuke", random (-400, 400), random (-400, 400), random (0, 100))
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0  A_SpawnItemEx("SpawnedExplosionNuke", random (-600, 600), random (-600, 600), random (0, 50))
+		EXPL A 0 Radius_Quake (9, 200, 0, 300, 0)
+		TNT1 AAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("NukeFlare", random (-800, 800), random (-800, 800), random (0, 100))
+		TNT1 AAAA 2 A_SpawnItemEx("NukeFlare", random (-800, 800), random (-800, 800), random (0, 100))
+		TNT1 A 0 A_Explode(100, 5000, 1, 1, 4000)
+		TNT1 A 0 A_PlaySound("NUKEEXP", 1)
+		TNT1 A 0 A_Explode(4000,800, 1, 1, 1)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 300)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 450)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 600)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 750)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 900)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1100)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1200)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1300)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1400)
+		TNT1 A 4 A_SpawnItemEx("NukeFlare", 0, 0, 1500)
+		TNT1 AAAAA 4 A_SpawnItemEx("NukeFlare", 0, 0, 1600)
+		EXPL A 0 Radius_Quake (6, 200, 0, 300, 0)
+		TNT1 A 60
+		TNT1 AAAAAAAAAAAAA 0  A_CustomMissile ("NukeSmoke", random (50, 1200), 0, random (0, 360), 2, random(80, 90))
+		TNT1 AAA 0  A_CustomMissile ("NukeSmokeBig", 1400, 0, random (0, 360), 2, random(80, 90))
+		TNT1 A 1000
+		sTOP	
+	}
+}

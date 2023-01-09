@@ -1,0 +1,13 @@
+//Some brightmaps can be loaded using the "AUTO" folder, so you don't need to add them here.
+
+//revenant missile launcher
+brightmap sprite RVCGB0 { map "brightmaps/LitDoom/HellishMissileLauncher/RVCGB0.png" disablefullbright }
+brightmap sprite RVCGC0 { map "brightmaps/LitDoom/HellishMissileLauncher/RVCGC0.png" disablefullbright }
+brightmap sprite RVCGF0 { map "brightmaps/LitDoom/HellishMissileLauncher/RVCGF0.png" disablefullbright }
+brightmap sprite RVCGG0 { map "brightmaps/LitDoom/HellishMissileLauncher/RVCGG0.png" disablefullbright }
+
+//NAZI GUNS
+brightmap sprite MP40B0 { map "brightmaps/doom/MP40B0.png" disablefullbright }
+
+brightmap sprite HBUSB0 { map "brightmaps/doom/HBUSB0.png" disablefullbright }
+brightmap sprite HBUSC0 { map "brightmaps/doom/HBUSC0.png" disablefullbright }

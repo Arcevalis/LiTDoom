@@ -1,0 +1,933 @@
+////////////// LIGHT  ARMORS
+Class LightArmornew : Inventory 
+{
+ Default
+    {
+    Scale 0.4;
+    Radius 20;
+    Height 16;
+	Inventory.maxamount 100;
+    Inventory.Pickupmessage "$GOTLARMOR";
+    Inventory.Icon "ARM1B0";
+    Inventory.PickupSound "ARMRPK";
+     tag"Recon Body Armor (light)";
+	 painchance "disarm", 256;
+	 +vulnerable
+     -INVENTORY.ALWAYSPICKUP;
+	 +CANPASS
+	 +SOLID
+    }
+	int armorpnts;
+
+     override bool TryPickup(in out Actor toucher)
+    {
+        
+    If (!(Toucher.findInventory("droppingarmor")))
+			{
+				if((toucher.acs_scriptcall("CheckArmorType") <=3)) 
+					{ 
+						toucher.a_print("you need to take off your current armor first",3); 
+						return false;                                                       
+					}
+			}
+         bool result = Super.TryPickup(toucher);           
+        if( result ) 
+		{
+         let barmor = toucher.FindInventory("BasicArmor",true);
+                if(barmor)
+                      {
+            armorpnts = BasicArmor(barmor).Amount; 
+            A_TakeInventory("BasicArmor");
+                      }
+		toucher.GiveInventory("lightArmorrecover",100+armorpnts);  
+		toucher.TakeInventory("lightarmornew",1);
+	    }
+         return result;        	       
+    }
+    States
+    {
+    Spawn:
+        TNT1 A 0;
+     Stay:
+        ARM1 A 10;
+        loop;
+	
+	Pain.Disarm:
+		TNT1 A 0 A_SPAWNITEMEX("ArmorShardBoxL",0,0,0);
+		TNT1 A 1;
+		stop;	
+    }
+}
+
+class LightArmorKnife : Custominventory
+{
+Default
+{
+	+COUNTITEM
+	Scale 0.4;
+	Inventory.PickupMessage "";
+    Inventory.PickupSound "ARMRPK";
+	 tag"Survivalist's Light Armor";
+}
+	states
+	{
+		Spawn:
+			TNT1 A 0;
+		
+		Stay:
+			ARM1 C -1;
+		stop;
+	
+		Pickup:
+			TNT1 A 0
+			{
+				A_Print("\cx The armor's pouches contained: \n \cq - A roll of bandages \n \cq - A combat Knife \n \cq - A couple of tools for your Survival Kit",3);
+				A_GiveInventory("SurvivalKit", 1);
+				A_GiveInventory("SurvivalKitUses", 3);
+        
+				 int checkarmor;
+				checkarmor = CountInv("basicarmor");
+				if (checkarmor >= 1)
+				{
+				A_SpawnItemEx("lightarmornew", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("lightarmornew", 1);
+				}	
+		
+				let am = FindInventory("KnivesAmmo");
+				if (am && CountInv("KnivesAmmo") >= am.maxamount)
+				{
+				A_SpawnItemEx("KnifeNew", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("Knifenew", 1);
+				}
+
+				if (CountInv("Bandages") >= 10)
+				{
+				A_SpawnItemEx("Bandages", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("Bandages", 1);
+				}
+			}
+		stop;
+	}	
+}
+
+class LightArmorBelt : Custominventory
+{
+Default
+{
+	+COUNTITEM
+	Scale 0.4;
+	Inventory.PickupMessage "";
+    Inventory.PickupSound "ARMRPK";
+	 tag"Soldier's Light Armor";
+}
+	states
+	{
+		Spawn:
+			TNT1 A 0;
+		
+		Stay:
+			ARM1 D -1;
+		stop;
+	
+		Pickup:
+			TNT1 A 0
+			{		
+				A_Print("\cx The armor's pouches contained: \n \cq - (30) 9mm bullets \n \cq - (20) 4.73mm rounds \n \cq - (10) 7.62mm rounds \n \cq - (4) Buckshot Shells",4);
+        
+				 int checkarmor;
+				checkarmor = CountInv("basicarmor");
+				if (checkarmor >= 1)
+				{
+				A_SpawnItemEx("lightarmornew", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("lightarmornew", 1);
+				}	
+		
+				let pistolammo = FindInventory("clip1");
+				if (pistolammo && CountInv("clip1") >= pistolammo.maxamount-30)
+				{
+				A_SpawnItemEx("clip1full", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				A_SpawnItemEx("clip1full", xofs: 10, yofs: 15, zofs: 10, xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("clip1", 30);
+				}
+				
+				let shells = FindInventory("ammoshell");
+				if (shells && CountInv("ammoshell") >= shells.maxamount-4)
+				{
+				A_SpawnItemEx("ammoshell", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("ammoshell", 4);
+				}
+
+				let rifleammo = FindInventory("clip2");
+				if (rifleammo && CountInv("clip2") >= rifleammo.maxamount-10)
+				{
+				A_SpawnItemEx("droppedclip2", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("clip2", 10);
+				}
+				
+				let minigunammo = FindInventory("minigunammo");
+				if (minigunammo && CountInv("minigunammo") >= minigunammo.maxamount-20)
+				{
+				A_SpawnItemEx("clip3", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("minigunammo", 20);
+				}
+			}	
+		
+		TNT1 A 0 A_JUMPIFINVENTORY("equipmentloss",1,1);
+		stop;
+		TNT1 A 0 A_GiveInventory("saveammo", 1);
+		stop;
+	}	
+}
+
+////////////// MEDIUM  ARMORS
+Class MediumArmor : Inventory
+{
+ Default
+    {
+    Scale 0.4;
+    Radius 20;
+    Height 16;
+	Inventory.maxamount 100;
+    Inventory.Pickupmessage "$GOTMARMOR";
+    Inventory.Icon "ARM3B0";
+    Inventory.PickupSound "items/yellow_armor";
+     tag"Tactical Body Armor (medium)";
+	 painchance "disarm", 256;
+	 +vulnerable
+     -INVENTORY.ALWAYSPICKUP;
+	 +CANPASS
+	 +SOLID
+    }
+	int armorpnts;
+     override bool TryPickup(in out Actor toucher)
+    {
+        
+    If (!(Toucher.findInventory("droppingarmor")))
+			{
+				if((toucher.acs_scriptcall("CheckArmorType") <=3)) 
+					{ 
+						toucher.a_print("you need to take off your current armor first",3); 
+						return false;                                                       
+					}
+			}
+         bool result = Super.TryPickup(toucher);           
+        if( result ) 
+		{
+         let barmor = toucher.FindInventory("BasicArmor",true);
+                if(barmor)
+                      {
+            armorpnts = BasicArmor(barmor).Amount; 
+            A_TakeInventory("BasicArmor");
+                      }
+		toucher.GiveInventory("mediumArmorrecover",150+armorpnts);  
+		toucher.TakeInventory("mediumarmor",1);
+	    }
+         return result;        	       
+}
+
+    States
+    {
+    Spawn:
+        TNT1 A 0;
+        Stay:
+        ARM3 A 10;
+        loop;
+		
+	Pain.Disarm:
+		TNT1 A 0 A_SPAWNITEMEX("ArmorShardBoxM",0,0,0);
+		TNT1 A 1;
+		stop;	
+    }
+}
+
+class MediumArmorKnife : Custominventory
+{
+Default
+{
+	+COUNTITEM;
+	Scale 0.4;
+	Inventory.PickupMessage "";
+    Inventory.PickupSound "items/yellow_armor";
+	 tag"Field Medic's Medium Armor";
+}
+	states
+	{
+		Spawn:
+			TNT1 A 0;
+		
+		Stay:
+			ARM3 C -1;
+		stop;
+	
+		Pickup:
+			TNT1 A 0
+			{
+				A_Print("\cx The armor's pouches contained: \n \cq - A combat Knife \n \cq - A roll of bandages \n \cq - A mild healing stimpack \n \cq - A couple of flares  ",4);
+        
+				 int checkarmor;
+				checkarmor = CountInv("basicarmor");
+				if (checkarmor >= 1)
+				{
+				A_SpawnItemEx("mediumarmor", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("mediumarmor", 1);
+				}	
+				
+				let af = FindInventory("flare");
+				if (af && CountInv("flare") >= af.maxamount-1)
+				{
+				A_SpawnItemEx("flare", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				A_SpawnItemEx("flare", xofs: 10, yofs: 15, zofs: 10, xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("flare", 2);
+				}	
+		
+				let am = FindInventory("KnivesAmmo");
+				if (am && CountInv("KnivesAmmo") >= am.maxamount)
+				{
+				A_SpawnItemEx("KnifeNew", zofs: 10, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("Knifenew", 1);
+				}
+
+				if (CountInv("healstim") >= 6)
+				{
+				A_SpawnItemEx("healstim",xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("healstim", 1);
+				}
+
+				if (CountInv("Bandages") >= 10)
+				{
+				A_SpawnItemEx("Bandages",xofs: 10, yofs: 15, zofs: 10, xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("Bandages", 1);
+				}
+			}
+		stop;
+	}	
+}
+
+class MediumArmorBelt : Custominventory
+{
+Default
+{
+	+COUNTITEM
+	Scale 0.4;
+	Inventory.PickupMessage "";
+    Inventory.PickupSound "items/yellow_armor";
+	 tag"Ranger's Medium Armor";
+}
+	states
+	{
+		Spawn:
+			TNT1 A 0;
+		
+		Stay:
+			ARM3 D -1;
+		stop;
+	
+		Pickup:
+			TNT1 A 0
+			{
+				A_Print("\cx The armor's pouches contained: \n \cq - a fully loaded Kriegerhand Revolver \n \cq - (6) .50 S&W rounds \n \cq - (2) HE grenades",3);
+				a_giveinventory("revolverspawner",1);
+        
+				 int checkarmor;
+				checkarmor = CountInv("basicarmor");
+				if (checkarmor >= 1)
+				{
+				A_SpawnItemEx("mediumarmor", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("mediumarmor", 1);
+				}	
+				
+				let revolverammo = FindInventory("50ammo");
+				if (revolverammo && CountInv("50ammo") >= revolverammo.maxamount)
+				{
+				A_SpawnItemEx("50ammo", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("50ammo", 6);
+				}	
+		
+				let HE = FindInventory("grenadeammo");
+				if (HE && CountInv("grenadeammo") >= HE.maxamount)
+				{
+				A_SpawnItemEx("grenadeAmmo",xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				A_SpawnItemEx("grenadeAmmo",xofs: 10, yofs: 15, zofs: 10, xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("grenadeAmmo", 2);
+				}
+			}
+			
+		TNT1 A 0 A_JUMPIFINVENTORY("equipmentloss",1,1);
+		stop;
+		TNT1 A 0 A_GiveInventory("saveammo", 1);
+		stop;
+	}	
+}
+
+////////////// HEAVY ARMORS
+Class HeavyArmorNew : Inventory
+{
+ Default
+    {
+    Scale 0.4;
+    Radius 20;
+    Height 16;
+	Inventory.maxamount 100;
+    Inventory.Pickupmessage "$GOTHARMOR";
+    Inventory.Icon "ARM2B0";
+    Inventory.PickupSound "items/elite_armor";
+     tag"Assault Body Armor (heavy)";
+	 painchance "disarm", 256;
+	 +vulnerable
+     -INVENTORY.ALWAYSPICKUP;
+    }
+	int armorpnts;
+	
+     override bool TryPickup(in out Actor toucher)
+    {
+    If (!(Toucher.findInventory("droppingarmor")))
+			{
+				if((toucher.acs_scriptcall("CheckArmorType") <=3)) 
+					{ 
+						toucher.a_print("you need to take off your current armor first",3); 
+						return false;                                                       
+					}
+			}
+         bool result = Super.TryPickup(toucher);           
+        if( result ) 
+		{
+         let barmor = toucher.FindInventory("BasicArmor",true);
+                if(barmor)
+                      {
+            armorpnts = BasicArmor(barmor).Amount; 
+            A_TakeInventory("BasicArmor");
+                      }
+		toucher.GiveInventory("heavyArmorrecover",200+armorpnts);  
+		toucher.TakeInventory("heavyarmornew",1);
+	    }
+         return result;        	       
+}
+
+    States
+    {
+    Spawn:
+        TNT1 A 0;
+        Stay:
+        ARM2 A 10;
+        loop;
+		
+	Pain.Disarm:
+		TNT1 A 0 A_SPAWNITEMEX("ArmorShardBoxH",0,0,0);
+		TNT1 A 1;
+		stop;	
+    }
+}
+
+class HeavyArmorKnife : Custominventory
+{
+Default
+{
+	+COUNTITEM
+	Scale 0.4;
+	Inventory.PickupMessage "";
+    Inventory.PickupSound "items/elite_armor";
+	 tag"Berserker's Heavy Armor";
+}
+	states
+	{
+		Spawn:
+			TNT1 A 0;
+		
+		Stay:
+			ARM2 C -1;
+		stop;
+	
+		Pickup:
+			TNT1 A 0
+			{
+				A_Print("\cx The armor's harness was holding: \n \cq - A fireaxe \n \cq - A Berserker's Stimpack",2);
+        
+				 int checkarmor;
+				checkarmor = CountInv("basicarmor");
+				if (checkarmor >= 1)
+				{
+				A_SpawnItemEx("heavyarmornew", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("heavyarmornew", 1);
+				}	
+				
+				let axe = FindInventory("brutalaxe");
+				if (axe && CountInv("brutalaxe") >= 1)
+				{
+				A_SpawnItemEx("axespawner2", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("axespawner2", 2);
+				}	
+		
+				let stim = FindInventory("berserkstim");
+				if (stim && CountInv("berserkstim") >= stim.maxamount)
+				{
+				A_SpawnItemEx("berserkstim", zofs: 10, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("berserkstim", 1);
+				}
+			}
+		stop;
+	}	
+}
+
+
+class HeavyArmorBelt : Custominventory
+{
+Default
+{
+	+COUNTITEM
+	Scale 0.4;
+	Inventory.PickupMessage "";
+    Inventory.PickupSound "";
+	 tag"Demoman's Heavy Armor";
+	  Inventory.PickupSound "items/ELITE_armor";
+}
+	states
+	{
+		Spawn:
+			TNT1 A 0;
+		
+		Stay:
+			ARM2 D -1;
+		stop;
+	
+		Pickup:
+			TNT1 A 0
+			{
+				A_Print("\cx The armor's harness was holding: \n \cq - (8) 12ga Magnum Slugs \n \cq - (2) Cluster Grenades \n \cq - (1) Proximity Bomb \n \cq - (30) Energy Cells",4);
+				a_giveinventory("revolverspawner",1);
+        
+				 int checkarmor;
+				checkarmor = CountInv("basicarmor");
+				if (checkarmor >= 1)
+				{
+				A_SpawnItemEx("heavyarmornew", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("heavyarmornew", 1);
+				}	
+				
+				let slugs = FindInventory("ammoslug");
+				if (slugs && CountInv("ammoslug") >= slugs.maxamount-8)
+				{
+				A_SpawnItemEx("slugbox8", xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("ammoslug", 8);
+				}	
+		
+				let clust = FindInventory("clusterammo");
+				if (clust && CountInv("clusterammo") >= clust.maxamount-2)
+				{
+				A_SpawnItemEx("clusterAmmo",xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				A_SpawnItemEx("clusterAmmo",xofs: 10, yofs: 15, zofs: 10, xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("clusterAmmo", 2);
+				}
+				
+				let prox = FindInventory("proxbombammo");
+				if (prox && CountInv("proxbombammo") >= prox.maxamount-1)
+				{
+				A_SpawnItemEx("proxbomb",xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("proxbombammo", 1);
+				}
+
+				let cell = FindInventory("ammocell");
+				if (cell && CountInv("ammocell") >= cell.maxamount-30)
+				{
+				A_SpawnItemEx("ammocell",xofs: 10, zofs: 10,  xvel:2, zvel: 5);
+				A_SpawnItemEx("ammocell",xofs: 10, yofs: 15, zofs: 10, xvel:2, zvel: 5);
+				}
+				else
+				{
+				A_GiveInventory("ammocell", 30);
+				}
+				
+			}
+			
+		TNT1 A 0 A_JUMPIFINVENTORY("equipmentloss",1,1);
+		stop;
+		TNT1 A 0 A_GiveInventory("saveammo", 1);
+		stop;
+	}	
+}
+//  -------------------------------------------------------------- USED ARMOR 
+
+class DroppedArmorHandler : EventHandler
+{
+    override void NetworkProcess (ConsoleEvent e)
+
+    {
+        if (e.Name ~== "Drop_Armor")
+        {
+
+
+        if (players[e.player].mo)
+            {
+            players[e.player].mo.ACS_NamedExecuteAlways("DropArmor",0);
+            }
+        }
+    }
+}
+
+Class DROPPEDheavyarmor : Inventory
+{
+    Default
+        {
+	Scale 0.4;
+	Radius 20;
+	Height 16;
+	Inventory.Pickupmessage "$GOTHARMOR";
+	Inventory.Icon "ARM2B0";
+	inventory.amount 1;
+    Inventory.PickupSound "items/elite_armor";
+	 tag"unequipped Assault Armor";
+	 painchance "disarm", 256;
+	 +vulnerable
+	 +cannotpush
+        }
+    int armorpnts;
+    int store;
+       
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+            let barmor = owner.FindInventory("BasicArmor",true);
+            armorpnts = BasicArmor(barmor).Amount; 
+            
+            }
+            store = armorpnts; 
+			A_TakeInventory("heavyarmornew");
+            A_TakeInventory("BasicArmor");
+				
+            Super.DetachFromOwner();
+			}
+
+  Override bool TryPickup(in out Actor toucher)
+			{
+        
+			If (!(Toucher.findInventory("droppingarmor")))
+					{
+						if((toucher.acs_scriptcall("CheckArmorType") <=3)) 
+							{
+								toucher.a_print("you need to take off your current armor first",3); 
+								return false;    
+							}																	
+					}
+			bool result = Super.TryPickup(toucher);                             		 	
+			if( result ) 
+			{
+			let barmor = toucher.FindInventory("BasicArmor",true);
+			armorpnts = BasicArmor(barmor).Amount; 		
+			A_TakeInventory("BasicArmor");
+			toucher.GiveInventory("heavyArmorrecover",store+armorpnts);  
+			}
+			return result;      
+		}     
+
+override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
+    {
+    if (mod == "Disarm")
+      {
+     a_dropitem("armorshardinventory",store * 0.75);
+    }
+        return Super.DamageMobj(inflictor, source, damage, mod, flags, angle);
+    }
+	  
+    States
+    {
+    Spawn:
+        ARM2 A -1; 
+        stop;
+	
+	Pain.Disarm:
+		TNT1 A 0;
+		stop;
+    }
+}
+
+
+Class DROPPEDmediumarmor : Inventory
+{
+    Default
+        {
+	Scale 0.4;
+	Radius 20;
+	Height 16;
+	Inventory.Pickupmessage "$GOTMARMOR";
+	inventory.maxamount 1;
+	Inventory.Icon "ARM3B0";
+    Inventory.PickupSound "items/yellow_armor";
+	 tag"unequipped Tactical Armor";
+	 painchance "disarm", 256;
+	 +vulnerable
+	 +cannotpush
+        }
+    int armorpnts;
+    int store;
+       
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+            let barmor = owner.FindInventory("BasicArmor",true);
+            armorpnts = BasicArmor(barmor).Amount; 
+            
+            }
+            store = armorpnts; 
+            A_TakeInventory("BasicArmor");
+			A_TakeInventory("mediumArmor");	
+				
+            Super.DetachFromOwner();
+			}
+
+   
+           override bool TryPickup(in out Actor toucher)
+    {
+        
+       If (!(Toucher.findInventory("droppingarmor")))
+			{
+				if((toucher.acs_scriptcall("CheckArmorType") <=3)) 
+					{ 
+						toucher.a_print("you need to take off your current armor first",3); 
+						return false;                                                       
+					}
+			}
+         bool result = Super.TryPickup(toucher);                             
+        if( result )     
+		{
+	     let barmor = toucher.FindInventory("BasicArmor",true);
+         armorpnts = BasicArmor(barmor).Amount; 		
+		A_TakeInventory("BasicArmor");
+		toucher.GiveInventory("mediumArmorrecover",store+armorpnts);  
+	    }
+         return result;                                                      
+    }
+  
+  override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
+    {
+    if (mod == "Disarm")
+      {
+     a_dropitem("armorshardinventory",store * 0.70);
+    }
+        return Super.DamageMobj(inflictor, source, damage, mod, flags, angle);
+    }
+      
+    States
+    {
+    Spawn:
+        ARM3 A -1; 
+        stop;
+		
+	Pain.Disarm:
+		TNT1 A 0;
+		stop;
+    }
+}
+
+Class DROPPEDlightarmor : Inventory
+{
+    Default
+        {
+	Scale 0.4;
+	Radius 20;
+	Height 16;
+	Inventory.Pickupmessage "$GOTLARMOR";
+	inventory.maxamount 1;
+	Inventory.Icon "ARM1B0";
+    Inventory.PickupSound "ARMRPK";
+	 tag"unequipped Recon Armor";
+	 painchance "disarm", 256;
+	 +vulnerable
+	 +cannotpush
+        }
+    int armorpnts;
+    int store;
+       
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+            let barmor = owner.FindInventory("BasicArmor",true);
+            armorpnts = BasicArmor(barmor).Amount; 
+            
+            }
+            store = armorpnts; 
+			A_TakeInventory("lightarmornew");
+            A_TakeInventory("BasicArmor");	
+				
+            Super.DetachFromOwner();
+			}
+
+   
+           override bool TryPickup(in out Actor toucher)
+    {
+        
+    If (!(Toucher.findInventory("droppingarmor")))
+			{
+				if((toucher.acs_scriptcall("CheckArmorType") <=3)) 
+					{ 
+						toucher.a_print("you need to take off your current armor first",3); 
+						return false;                                                       
+					}
+			}
+         bool result = Super.TryPickup(toucher);           
+        if( result ) 
+		{
+	     let barmor = toucher.FindInventory("BasicArmor",true);
+         armorpnts = BasicArmor(barmor).Amount; 		
+		A_TakeInventory("BasicArmor");
+		toucher.GiveInventory("lightArmorrecover",store+armorpnts);  
+	    }
+         return result;         
+    }
+      
+    override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
+    {
+    if (mod == "Disarm")
+      {
+     a_dropitem("armorshardinventory",store * 0.75);
+    }
+        return Super.DamageMobj(inflictor, source, damage, mod, flags, angle);
+    }
+	
+    States
+    {
+    Spawn:
+        ARM1 A -1; 
+        stop;
+	 
+	Pain.Disarm:
+		TNT1 A 0;
+		stop;	    
+    }
+}
+
+Class DROPPEDUniform : Inventory
+{
+    Default
+        {
+	Scale 0.4;
+	Radius 20;
+	Height 16;
+	Inventory.Pickupmessage "$GOTUNIFORM";
+	Inventory.Icon "ARM3B0";
+    Inventory.PickupSound "ARMRPK";
+	 tag"unequipped basic armor";
+	 +cannotpush
+        }
+    int armorpnts;
+    int store;
+       
+  Override void DetachFromOwner()
+        {
+            if (owner)
+            {
+            let barmor = owner.FindInventory("BasicArmor",true);
+            armorpnts = BasicArmor(barmor).Amount; 
+            
+            }
+            store = armorpnts; 
+            A_TakeInventory("BasicArmor");
+            Super.DetachFromOwner();
+        }
+
+   
+    override bool TryPickup(in out Actor toucher)
+    {
+         bool result = Super.TryPickup(toucher);
+      if( result ) toucher.GiveInventory("UniformRecover",store);
+      return result;
+        
+    }
+      
+    States
+    {
+    Spawn:
+        UNIF A 1  -1; 
+        stop;
+    }
+}
+
+
+///////////////////////////////////////// ENEMY ARMOR
+class EnemyArmorHandler : EventHandler 
+{
+  override void WorldLoaded(WorldEvent e)
+  {
+    let toughEnemies = CVar.FindCVar("EnemyArmorValue");
+		if (skill == 5 || skill == 3)
+		{
+		ToughEnemies.SetBool(true);
+		//console.printf("variable on");
+		}
+		else
+		{
+		ToughEnemies.SetBool(false);
+		//console.printf("variable off");
+		}
+	}
+}

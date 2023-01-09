@@ -1,0 +1,90 @@
+#library "DATALOGS"
+#include "zcommon.acs"
+
+#define MAX_PAGES 2
+
+script "STOPREAD" (void)
+{
+	HudMessage(s:""; 0, 100, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 800, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 801, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 802, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 803, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 804, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 805, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 806, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 807, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 808, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 809, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 810, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 811, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 812, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 813, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 814, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 815, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 816, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 817, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 818, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 819, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 820, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 821, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 822, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 823, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 824, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 825, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 826, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 827, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 828, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 829, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 830, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 831, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 832, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 833, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 834, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 835, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 836, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 837, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 838, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 839, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 840, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 841, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 842, 0, 0, 0, 0);
+	HudMessage(s:""; 0, 843, 0, 0, 0, 0);
+	HudMessage(s:""; HUDMSG_plain,8887, CR_DARKGREY, -50.1,150.1,0.6);
+	HudMessage(s:""; HUDMSG_plain,8888, CR_DARKGREY, -50.1,150.1,0.6);
+	HudMessage(s:""; HUDMSG_plain,8889, CR_DARKGREY, -50.1,150.1,0.6);
+}
+
+script "IMPLOG" (void)
+{
+    str log_pages[MAX_PAGES] = { "pdaimp1", "pdaimp2" };
+    int i = GetUserVariable(0, "user_page_index");
+    
+    // Flipping pages
+    if(0 <= i && i < MAX_PAGES)
+    {
+		Setweapon("BlankWeapon");
+		playsound(0,"GOTKEY",0,1.0);
+        SetFont(log_pages[i]);
+        SetHudSize(640, 480, true);
+        HudMessage(s:"a"; HUDMSG_PLAIN|HUDMSG_LAYER_UNDERHUD, 100, CR_UNTRANSLATED, 320.0, 240.0, 0);
+        i++;
+    }
+    
+    // Done reading
+    else
+    {
+		playsound(0,"GOTKEY",0,1.0);
+        HudMessage(s:""; 0, 100, 0, 0, 0, 0);
+        i = 0;
+    }
+    
+    SetUserVariable(0, "user_page_index", i);
+}
+
+// When somebody exits while you're reading, the message gets cleared, so
+// the page count should be reset, too.
+script "Reset Page" enter
+{
+    SetUserVariable(0, "user_page_index", 0);
+}

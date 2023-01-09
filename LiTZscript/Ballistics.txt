@@ -1,0 +1,800 @@
+//// TRACERS
+class Zbullet : Fastprojectile
+{
+Default
+{
+	+FORCEXYBILLBOARD
+	+DONTSPLASH
+	+NOEXTREMEDEATH
+	+HITTRACER
+	+GETOWNER
+	+bloodsplatter
+	Projectile;
+	radius 1;
+	height 1;
+	alpha 0.99;
+	scale .15;
+	}
+		states
+			{
+		Spawn:
+			TRAC A 1 BRIGHT;
+			Loop;
+		Death:
+			TNT1 A 0;
+			TNT1 A 2;
+			Stop;
+			}
+}
+
+/////////////////////////////////////////////////////////////////////////////////	PISTOL
+class PistolTracer : zbullet
+{
+  int baseDamage;
+  Default
+  {
+    Decal "BulletDecalNew1";
+	DamageType "minor";
+	Speed 200;
+    DamageFunction CalculateDamage();
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 17;
+  }
+
+  int CalculateDamage()
+  {
+    int finaldamage = baseDamage - GetAge()+1; //deduct from baseDamage how many tics the projectile has existed in the level
+    finaldamage = Clamp(finaldamage,5,baseDamage); //clamps the value between 5 and baseDamage
+    return finaldamage;
+  }
+
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+Falloff:
+	TNT1 A 0 A_ScaleVelocity(0.8);
+	TRAC A 2 BRIGHT ThrustThingZ(0,9,1,1);
+	TNT1 A 0 A_ScaleVelocity(0.5);
+Drift:
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+		Loop;			
+Death:
+    TNT1 A 1 A_SpawnItem("HitPuffTracer");
+	Stop;	
+XDeath:
+    TNT1 A 0;
+	Stop;	
+}
+}
+
+class pistoltracershield : pistoltracer
+{
+  Default
+  {
++THRUSPECIES
+-DONTSPLASH
+Species "Marines";
+DamageType "FriendBullet";
+}}
+
+/////////////////////////////////////////////////////////////////////////////////	SHOTGUN
+//// BUCKSHOT
+class BuckshotTracer : zbullet
+{
+  int baseDamage;
+  Default
+  {
+    Decal "BulletDecalNew1";
+	DamageType "shotgun";
+	Speed 200;
+    DamageFunction CalculateDamage();
+	ProjectileKickBack 40;
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 24;
+  }
+
+  int CalculateDamage()
+  {
+    int finaldamage = baseDamage - GetAge()+2; 
+    finaldamage = Clamp(finaldamage,18,baseDamage); 
+    return finaldamage;
+  }
+
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TRAC A 2 BRIGHT ThrustThingZ(0,1,1,1);
+Falloff:
+	TRAC A 1 BRIGHT ThrustThingZ(0,5,1,1);	
+Drift:
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+		Loop;	
+		
+Death:
+    TNT1 A 1 A_SpawnItem("HitPuffTracer");
+	Stop;	
+XDeath:
+    TNT1 A 0;
+	Stop;
+}
+}
+
+class asgGASattack : zbullet
+{
+  int baseDamage;
+  Default
+  {
+    Decal "GASdecal";
+	DamageType "shotgun";
+	Speed 140;
+    DamageFunction CalculateDamage();
+	ProjectileKickBack 300;
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 90;
+  }
+
+  int CalculateDamage()
+  {
+    int finaldamage = baseDamage - (GetAge()-1)*20; 
+    finaldamage = Clamp(finaldamage,40,baseDamage); 
+    return finaldamage;
+  }
+
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TNT1 A 0 A_SpawnItemex("OldschoolRocketSmokeTrail2Bigger",0,0,0,10);
+	TNT1 A 0 A_spawnprojectile ("OldschoolRocketSmokeTrail2Bigger", 0, 0, random (160, 210), 0, 0);
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+	TNT1 A 0 A_SpawnItemex("OldschoolRocketSmokeTrail2Bigger",0,0,0,10);
+	TNT1 A 0 A_spawnprojectile ("OldschoolRocketSmokeTrail2Bigger", 0, 0, random (160, 210), 0, 0);
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+	TNT1 A 0 A_SpawnItemex("OldschoolRocketSmokeTrail2Bigger",0,0,0,10);
+	TNT1 A 0 A_spawnprojectile ("OldschoolRocketSmokeTrail2Bigger", 0, 0, random (160, 210), 0, 0);
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+	TNT1 A 0 A_SpawnItemex("OldschoolRocketSmokeTrail2Bigger",0,0,0,10);
+	TNT1 A 0 A_spawnprojectile ("OldschoolRocketSmokeTrail2Bigger", 0, 0, random (160, 210), 0, 0);
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+	EXPL AAAAAAAAAAAAAAAAA 0 A_spawnprojectile ("SMALLSMOKESLOW", 0, 0, random (0, 360), CMF_AIMDIRECTION, random(-360, 360));
+	stop;
+		
+Crash:
+Death:
+    TNT1 A 0 A_SpawnItemEx ("floorbonk",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+	TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+    TNT1 AAA 0 A_spawnprojectile ("BDExplosionparticles", 0, 0, random (0, 360), 0, random (0, 360));
+	TNT1 AA 0 A_spawnprojectile ("BDExplosionparticles2", 0, 0, random (0, 360), 0, random (0, 90));
+	EXPL AAAAAAAAAAAAAAAAA 0 A_spawnprojectile ("SMALLSMOKESLOW", 0, 0, random (0, 360), CMF_AIMDIRECTION, random(-360, 360));
+	Stop;	
+XDeath:
+	TNT1 AAA 0 A_spawnprojectile ("BDExplosionparticles", 0, 0, random (0, 360), 0, random (0, 360));
+	TNT1 AA 0 A_spawnprojectile ("BDExplosionparticles2", 0, 0, random (0, 360), 0, random (0, 90));
+	EXPL AAAAAAAAAAAAAAAAA 0 A_spawnprojectile ("SMALLSMOKESLOW", 0, 0, random (0, 360), CMF_AIMDIRECTION, random(-360, 360));
+    TNT1 A 0;
+	Stop;
+}
+}
+
+///// ASG
+class ASGTracer : BuckshotTracer
+{
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 26;
+  }
+}
+
+//// SLUG
+class SlugTracer : zbullet
+{
+    int fullDamageTics;
+    int baseDamage;
+    int minDamage;
+    int falloffStrength;
+	double finaldamage;
+	private int penetration; 
+    private actor hitvictim;
+	
+	 property penetration : penetration;
+	property fullDamageTics : fullDamageTics;
+    property baseDamage : baseDamage;
+    property falloffStrength : falloffStrength;
+	property mindamage : mindamage;
+	
+  Default
+  {
+    Decal "slugdecal";
+	DamageType "slug";
+	radius 3;
+	height 2;
+	Speed 250;
+     DamageFunction BulletDamage();  
+	 ProjectileKickBack 300;
+        SlugTracer.fullDamageTics 10;
+        SlugTracer.basedamage 255;
+        SlugTracer.minDamage 110;
+        SlugTracer.falloffStrength 7;
+		slugTracer.penetration 300;
+    }
+ 
+    int BulletDamage()
+    {
+	int falloffsteps = GetAge() - fullDamageTics;
+        if (falloffsteps <= 0)
+        {
+            return basedamage;
+        }        
+        return Clamp (basedamage - (falloffsteps * falloffStrength), minDamage, basedamage);
+    }
+
+	 override int SpecialMissileHit(actor victim) {
+
+        if (victim && target && (victim != target) && victim.bSHOOTABLE && (victim != hitvictim)) { 
+                penetration -= victim.health; 
+                hitvictim = victim;
+                finaldamage = BulletDamage();
+				basedamage -=25;
+                victim.DamageMobj(self,target,finaldamage,"slug");
+                if (!victim.bNOBLOOD && victim.bSHOOTABLE) {
+
+                    victim.TraceBleed(finaldamage,self);
+                    victim.SpawnBlood(pos,AngleTo(victim),finaldamage);
+                }
+            }
+        if (penetration <= 0)
+            return 0;
+        return 1;
+    }
+	
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TRAC A 2 BRIGHT ThrustThingZ(0,1,1,1);
+Falloff:
+	TNT1 A 0 A_ScaleVelocity(0.9);
+	TRAC A 2 BRIGHT ThrustThingZ(0,7,1,1);
+	TNT1 A 0 A_ScaleVelocity(0.7);
+Drift:
+	TRAC A 1 BRIGHT ThrustThingZ(0,2,1,1);
+		Loop;			
+Death:
+    TNT1 A 1 A_SpawnItem("slugpuff");
+	Stop;	
+XDeath:
+    TNT1 A 0;
+	Stop;	
+}
+}
+
+/////////////////////////////////////////////////////////////////////////////////	REVOLVER
+class RevolverTracer : zbullet
+{
+    int fullDamageTics;
+    int baseDamage;
+    int minDamage;
+    int falloffStrength;
+	double finaldamage;
+	private int penetration; 
+    private actor hitvictim;
+	
+	 property penetration : penetration;
+	property fullDamageTics : fullDamageTics;
+    property baseDamage : baseDamage;
+    property falloffStrength : falloffStrength;
+	property mindamage : mindamage;
+	property finaldamage : finaldamage;
+	
+  Default
+  {
+    Decal "bulletdecalnew1";
+	DamageType "revolver";
+	Speed 600;
+     DamageFunction BulletDamage();  
+	 ProjectileKickBack 200;
+        revolverTracer.fullDamageTics 1;
+         revolverTracer.basedamage 105;
+         revolverTracer.minDamage 50;
+         revolverTracer.falloffStrength 3;
+		 RevolverTracer.penetration 100;
+    }
+	
+
+    int BulletDamage()
+    {
+	int falloffsteps = GetAge() - fullDamageTics;
+        if (falloffsteps <= 0)
+        {
+            return basedamage;
+        }        
+        return Clamp (basedamage - (falloffsteps * falloffStrength), minDamage, basedamage);
+    }
+	
+	 override int SpecialMissileHit(actor victim) {
+
+        if (victim && target && (victim != target) && victim.bSHOOTABLE && (victim != hitvictim)) { 
+                penetration -= victim.health; 
+                hitvictim = victim;
+                finaldamage = BulletDamage();
+                victim.DamageMobj(self,target,finaldamage,"bullet");
+				basedamage -=15;
+                if (!victim.bNOBLOOD && victim.bSHOOTABLE) {
+
+                    victim.TraceBleed(finaldamage,self);
+                    victim.SpawnBlood(pos,AngleTo(victim),finaldamage);
+                }
+            }
+        if (penetration <= 0)
+            return 0;
+        return 1;
+    }
+	
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TRAC A 1 BRIGHT thrustThingZ(0,8,1,1);
+Falloff:
+	TNT1 A 0 A_ScaleVelocity(0.5);
+	TRAC A 1 BRIGHT ThrustThingZ(0,35,1,1);
+Drift:
+	TRAC A 1 BRIGHT thrustThingZ(0,2,1,1);
+		Loop;			
+Death:
+    TNT1 A 1 A_SpawnItem("HitPuffTracer");
+	Stop;	
+XDeath:
+    TNT1 A 0; 
+	Stop;	
+}
+}
+
+/////////////////////////////////////////////////////////////////////////////////	SMG
+///	Normal
+class SmgTracer : zbullet
+{
+  int baseDamage;
+  Default
+  {
+    Decal "bulletdecalnew1";
+	DamageType "minor";
+	Speed 250;
+    DamageFunction CalculateDamage();
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 18;
+  }
+
+  int CalculateDamage()
+  {
+    int finaldamage = baseDamage - GetAge()+1; 
+    finaldamage = Clamp(finaldamage,8,baseDamage); 
+    return finaldamage;
+  }
+
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TRAC A 2 BRIGHT ThrustThingZ(0,1,1,1);
+Falloff:
+	TNT1 A 0 A_ScaleVelocity(0.8);
+	TRAC A 1 BRIGHT ThrustThingZ(0,9,1,1)	;
+	TRAC A 1 BRIGHT ;
+	TRAC A 1 BRIGHT A_ScaleVelocity(0.6);
+Drift:
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+		Loop;			
+Death:
+    TNT1 A 1 A_SpawnItem("HitPuffTracer");
+	Stop;	
+XDeath:
+    TNT1 A 0;
+	Stop;	
+}
+}
+
+/// Suppressed
+class SmSTracer : zbullet
+{
+  int baseDamage;
+  Default
+  {
+    Decal "bulletdecalnew1";
+	DamageType "minor";
+	Speed 250;
+    DamageFunction CalculateDamage();
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 20;
+  }
+
+  int CalculateDamage()
+  {
+    int finaldamage = baseDamage - GetAge()+1; 
+    finaldamage = Clamp(finaldamage,8,baseDamage); 
+    return finaldamage;
+  }
+
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TRAC A 2 BRIGHT ThrustThingZ(0,2,1,1);
+Falloff:
+	TNT1 A 0 A_ScaleVelocity(0.9);
+	TRAC A 1 BRIGHT ThrustThingZ(0,9,1,1)	;
+	TRAC A 1 BRIGHT ;
+	TRAC A 1 BRIGHT A_ScaleVelocity(0.85);
+Drift:
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1);
+		Loop;			
+Death:
+    TNT1 A 1 A_SpawnItem("HitPuffTracer");
+	Stop;	
+XDeath:
+    TNT1 A 0;
+	Stop;	
+}
+}
+
+/////////////////////////////////////////////////////////////////////////////////	RIFOL
+///	4.73
+class Rifle556Tracer : zbullet
+{
+  int baseDamage;
+  Default
+  {
+  +PIERCEARMOR
+    Decal "bulletdecalnew1";
+	DamageType "bullet";
+	Speed 500;
+    DamageFunction CalculateDamage();
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 30;
+  }
+
+override void Tick() 
+{
+  super.Tick();
+  if (GetAge() > 1) 
+  {
+   bPIERCEARMOR = false;
+  }
+}
+
+  int CalculateDamage()
+  {
+    int finaldamage = baseDamage - GetAge()+1; 
+    finaldamage = Clamp(finaldamage,23,baseDamage); 
+    return finaldamage;
+  }
+
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TRAC A 1 BRIGHT ;
+Falloff:
+	TRAC A 0; 
+	TRAC A 1 BRIGHT ThrustThingZ(0,13,1,1)	;
+	TRAC A 1 BRIGHT ;
+	TRAC A 1 BRIGHT A_ScaleVelocity(0.99);
+	TRAC A 1 BRIGHT A_ScaleVelocity(0.97);
+Drift:
+	TRAC A 1 BRIGHT;
+		Loop;			
+Death:
+    TNT1 A 1 A_SpawnItem("HitPuffTracer");
+	Stop;	
+XDeath:
+    TNT1 A 0;
+	Stop;	
+}
+}
+
+/// 7.62
+class Rifle762Tracer : zbullet
+{
+  int baseDamage;
+  private int penetration; 
+   private actor hitvictim;
+    double bulletdamage;
+	
+	property bulletdamage : bulletdamage;
+	property penetration : penetration;
+  Default
+  {
+	+piercearmor
+    Decal "bulletdecalnew1";
+	DamageType "bullet";
+	Speed 450;
+    DamageFunction CalculateDamage();
+	ProjectileKickBack 150;
+	 Rifle762Tracer.penetration 55;
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 55;
+  }
+
+  int CalculateDamage()
+  {
+    int finaldamage = baseDamage - GetAge()+3; 
+    finaldamage = Clamp(finaldamage,45,baseDamage); 
+    return finaldamage;
+  }
+
+	 override int SpecialMissileHit(actor victim) {
+
+        if (victim && target && (victim != target) && victim.bSHOOTABLE && (victim != hitvictim)) { 
+                penetration -= victim.health; 
+                hitvictim = victim;
+                BULLETdamage = CalculateDamage();
+                victim.DamageMobj(self,target,BULLETdamage,"bullet");
+                if (!victim.bNOBLOOD && victim.bSHOOTABLE) {
+
+                    victim.TraceBleed(BULLETdamage,self);
+                    victim.SpawnBlood(pos,AngleTo(victim),BULLETdamage);
+                }
+            }
+        if (penetration <= 0)
+            return 0;
+        return 1;
+    }
+
+ States
+{
+Spawn:
+	TNT1 A 0 nodelay A_SetRenderStyle(0.9,STYLE_Add);
+	TRAC A 1 BRIGHT ThrustThingZ(0,1,1,1)	;
+Falloff:
+	TRAC A 1 BRIGHT ThrustThingZ(0,25,1,1)	;
+	TRAC A 1 BRIGHT A_ScaleVelocity(0.9);
+	TRAC A 1 BRIGHT A_ScaleVelocity(0.85);
+	TRAC A 1 BRIGHT A_ScaleVelocity(0.8);
+Drift:
+	TRAC A 1 BRIGHT;
+		Loop;			
+Death:
+    TNT1 A 1 A_SpawnItem("HitPuffTracer");
+	Stop;	
+XDeath:
+    TNT1 A 0;
+	Stop;	
+}
+}
+
+
+//// MMG
+class MMGTracer : zbullet
+{
+  int baseDamage;
+  private int penetration; 
+   private actor hitvictim;
+    double bulletdamage;
+	
+	property bulletdamage : bulletdamage;
+	property penetration : penetration;
+  Default
+  {
+	+piercearmor
+	speed 450;
+	radius 2;
+	height 2;
+	DamageType "bullet";
+	decal "BulletDecalNew1";
+    DamageFunction basedamage;
+	ProjectileKickBack 100;
+	 MMGTracer.penetration 60;
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 55;
+  }
+
+	 override int SpecialMissileHit(actor victim) {
+
+        if (victim && target && (victim != target) && victim.bSHOOTABLE && (victim != hitvictim)) { 
+                penetration -= victim.health; 
+                hitvictim = victim;
+                BULLETdamage = basedamage;
+                victim.DamageMobj(self,target,BULLETdamage,"bullet");
+                if (!victim.bNOBLOOD && victim.bSHOOTABLE) {
+
+                    victim.TraceBleed(BULLETdamage,self);
+                    victim.SpawnBlood(pos,AngleTo(victim),BULLETdamage);
+                }
+            }
+        if (penetration <= 0)
+            return 0;
+        return 1;
+    }
+ States
+{
+Spawn:
+	TRAC A 1 BRIGHT	ThrustThingZ(0,1,1,1);
+	TRAC A 1 BRIGHT  ThrustThingZ(0,15,1,1);
+Falloff:
+	TRAC A 1 BRIGHT;
+		Loop;			
+Death:
+    TNT1 A 1 A_SpawnItem("HitPuffTracer");
+    TNT1 A 0;
+	Stop;
+XDeath:
+    TNT1 A 0;
+	TNT1 A 0;
+	Stop;
+}}
+
+
+
+////////////////////////////////// PLASMA ENHANCED
+/// 473 ETC
+class plasma473Tracer : zbullet
+{
+  int baseDamage;
+  private int penetration; 
+   private actor hitvictim;
+    double bulletdamage;
+	
+	property bulletdamage : bulletdamage;
+	property penetration : penetration;
+  Default
+  {
+	+piercearmor
+	speed 1000;
+	radius 2;
+	height 2;
+	Translation "0:255 = 192:204" ;
+	decal "etcbullet";
+    DamageFunction basedamage;
+	 plasma473Tracer.penetration 100;
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 50;
+  }
+
+	 override int SpecialMissileHit(actor victim) {
+
+        if (victim && target && (victim != target) && victim.bSHOOTABLE && (victim != hitvictim)) { 
+                penetration -= victim.health; 
+                hitvictim = victim;
+                BULLETdamage = basedamage;
+                victim.DamageMobj(self,target,BULLETdamage,"bullet");
+                if (!victim.bNOBLOOD && victim.bSHOOTABLE) {
+
+                    victim.TraceBleed(BULLETdamage,self);
+                    victim.SpawnBlood(pos,AngleTo(victim),BULLETdamage);
+                }
+            }
+        if (penetration <= 0)
+            return 0;
+        return 1;
+    }
+ States
+{
+Spawn:
+	TNT1 A 0 ;
+	TRAC A 1 BRIGHT;
+	TRAC A 11 BRIGHT ;
+	TRAC A 1 BRIGHT  ThrustThingZ(0,1,1,1)		;							
+										
+Falloff:
+	TRAC A 1 BRIGHT;
+		Loop;
+Death:
+	TNT1 A 1 A_explode(10,30,0,0,30,0,0,"hitpuff","plasma");
+    TNT1 A 1 A_spawnprojectile ("PlasmaEXPLOSION", 0, 0, random (0, 360), 2, random (0, 360));
+    TNT1 A 0;
+	Stop;
+XDeath:
+    TNT1 A 0;
+	TNT1 A 0;
+	Stop;	
+}}
+
+/// 762 ETC
+class plasma762Tracer : zbullet
+{
+  int baseDamage;
+  private int penetration; 
+   private actor hitvictim;
+    double bulletdamage;
+	
+	property bulletdamage : bulletdamage;
+	property penetration : penetration;
+  Default
+  {
+	+piercearmor
+	speed 1000;
+	radius 2;
+	height 2;
+	Translation "0:255 = 192:204" ;
+	decal "etcbullet";
+	DamageType "bullet";
+    DamageFunction basedamage;
+	ProjectileKickBack 300;
+	 plasma762Tracer.penetration 210;
+  }
+
+  override void BeginPlay()
+  {
+    super.BeginPlay();
+    baseDamage = 70;
+  }
+
+	 override int SpecialMissileHit(actor victim) {
+
+        if (victim && target && (victim != target) && victim.bSHOOTABLE && (victim != hitvictim)) { 
+                penetration -= victim.health; 
+                hitvictim = victim;
+                BULLETdamage = basedamage;
+                victim.DamageMobj(self,target,BULLETdamage,"bullet");
+                if (!victim.bNOBLOOD && victim.bSHOOTABLE) {
+
+                    victim.TraceBleed(BULLETdamage,self);
+                    victim.SpawnBlood(pos,AngleTo(victim),BULLETdamage);
+                }
+            }
+        if (penetration <= 0)
+            return 0;
+        return 1;
+    }
+ States
+{
+Spawn:
+	TNT1 A 0 ;
+	TRAC A 1 BRIGHT;
+	TRAC A 11 BRIGHT ;
+	TRAC A 1 BRIGHT  ThrustThingZ(0,1,1,1)		;							
+										
+Falloff:
+	TRAC A 1 BRIGHT;
+		Loop;
+Death:
+	TNT1 A 1 A_explode(10,30,0,0,30,0,0,"hitpuff","plasma");
+    TNT1 A 1 A_spawnprojectile ("PlasmaEXPLOSION", 0, 0, random (0, 360), 2, random (0, 360));
+    TNT1 A 0;
+	Stop;
+XDeath:
+    TNT1 A 0;
+	TNT1 A 0;
+	Stop;	
+}}
+

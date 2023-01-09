@@ -1,0 +1,548 @@
+#library "dialog"
+#include "zcommon.acs"
+
+
+/*************************************GLOBAL SCRIPTS************************************/
+// The following defined values can be changed if you want, unless I specify you shouldn't. :P
+
+// Don't change these.
+#libdefine INT_MAX   0x7FFFFFFF
+#libdefine INT_MIN   0x80000000
+#libdefine FIXED_MAX INT_MAX
+#libdefine FIXED_MIN INT_MIN
+
+// Script numbers.
+#libdefine S_CURSOR_DISPLAY        200
+#libdefine S_CURSOR_UP             201
+#libdefine S_CURSOR_DOWN           202
+#libdefine S_CURSOR_SELECT         203
+#libdefine S_CREDITS_DISPLAY       204
+#libdefine S_RESETCHOICES          205
+#libdefine S_PLAYERINPUT           206
+#libdefine S_ANIMATEDSCROLL        207
+
+// Message ids.
+#libdefine id_credits              9800
+#libdefine id_cursor               9801
+#libdefine id_cursorup             9802
+#libdefine id_cursordn             9803
+
+#libdefine id_choices              9900
+#libdefine id_talkname             9996
+#libdefine id_talkdialogue         9997
+#libdefine id_mugshot              9998
+#libdefine id_talkbox              9999
+
+// Generic option menu x and y co-ords.
+#libdefine MENU_GENERIC_X           48.1
+#libdefine MENU_GENERIC_Y           48.1
+// Generic menu cursor x and y co-ords. (Y should be the same, ideally.)
+#libdefine MENU_GENERIC_CX          MENU_GENERIC_X-16.0
+#libdefine MENU_GENERIC_CY          MENU_GENERIC_Y
+// Generic menu hud sizes.
+#libdefine MENU_GENERIC_HUDX        384
+#libdefine MENU_GENERIC_HUDY        256
+// Space between options.
+#libdefine MENU_GENERIC_ITEMSPACE   10.0
+// Generic menu option "cap". Number of options that can be displayed at once.
+#libdefine MENU_GENERIC_CAP         10
+#libdefine MENU_GENERIC_CAPSCROLL   1 //MENU_GENERIC_CAP
+#libdefine MENU_GENERIC_ARROWX      336.1
+
+// Talk choice menu x and y co-ords.
+#libdefine MENU_TALKING_X           68.1
+#libdefine MENU_TALKING_Y           170.1
+// Talk menu cursor x and y co-ords.
+#libdefine MENU_TALKING_CX          MENU_TALKING_X-18.0
+#libdefine MENU_TALKING_CY          MENU_TALKING_Y
+// Talk menu NPC name x and y co-ords.
+#libdefine MENU_TALKING_NX          192.0
+#libdefine MENU_TALKING_NY          52.0
+// Talk menu dialogue x and y co-ords.
+#libdefine MENU_TALKING_DX          68.1
+#libdefine MENU_TALKING_DY          76.1
+// Talk menu hud sizes.
+#libdefine MENU_TALKING_HUDX        384
+#libdefine MENU_TALKING_HUDY        256
+// Space between options.
+#libdefine MENU_TALKING_ITEMSPACE   8.0
+// Talk menu choice "cap". Number of options that can be displayed at once.
+#libdefine MENU_TALKING_CAP         6
+#libdefine MENU_TALKING_CAPSCROLL   1 //MENU_TALKING_CAP
+#libdefine MENU_TALKING_ARROWX      310.1
+
+// Animated scrolling values.
+// Number of pixels scrolled per delay.
+#libdefine MENU_GENERIC_SCROLLAMOUNT        1.0 
+// Delay in tics every time options are scrolled. (Set this to 0 for instant scrolling.)
+#libdefine MENU_GENERIC_SCROLLDELAY         0
+// Number of pixels scrolled per delay.
+#libdefine MENU_TALKING_SCROLLAMOUNT        2.0
+// Delay in tics every time options are scrolled.
+#libdefine MENU_TALKING_SCROLLDELAY         1 
+
+// Credits display information. Change if yu want.
+#libdefine MENU_CREDITS_X           304.2
+#libdefine MENU_CREDITS_Y           12.1
+#libdefine MENU_CREDITS_HUDX        320
+#libdefine MENU_CREDITS_HUDY        200
+
+// Sound indexes. No need to change.
+#libdefine MENUSND_NEWMENU          0
+#libdefine MENUSND_SCROLL           1
+#libdefine MENUSND_CHOOSE           2
+#libdefine MENUSND_EXIT             3
+#libdefine MENUSND_BUY              4
+#libdefine MENUSND_CANTBUY          5
+#libdefine MENUSND_DIALOGUE         6
+
+// Message colors. Change if you want.
+#libdefine COLOR_GENERIC_MENUNAME 	CR_RED
+#libdefine COLOR_GENERIC_CHOICES     CR_YELLOW
+#libdefine COLOR_TALKING_NAME        	CR_RED
+#libdefine COLOR_TALKING_CHOICES     CR_WHITE
+#libdefine COLOR_TALKING_DIALOGUE    CR_WHITE
+
+// Don't change these. :|
+#libdefine MAX_PLAYERS              32
+#libdefine MAX_CHOICES              96
+
+// The number of "byes" and sounds available to the modder.
+// I encourage you to change these. :P
+#libdefine MAX_BYES                 5
+#libdefine MAX_SOUNDS               7
+
+// Boolean value for whether a menu is active or not. Off by default.
+bool menu = OFF;
+
+// Boolean values (on/off switches) for what "choice mode" is active.
+// Only one of these should be ON at a time. All are off by default.
+bool talking = OFF;
+
+// Important variables/arrays.
+int ThisScript = 0;
+int animatedscrolly = 0.0;
+int currentchoice[MAX_PLAYERS];
+int choiceoffset[MAX_PLAYERS];
+int maxchoices[MAX_PLAYERS];
+bool updatemax = ON;
+
+// Stores the current choices on a per-player basis.
+str choices[MAX_PLAYERS][MAX_CHOICES];
+
+// Some random text arrays. Configure these to your liking.
+str randombye[MAX_BYES] = {"\cqBye!","\cqGotta go!","\cqSee ya.","\cqWhatever.","\cqYeah, thanks."};
+str menusounds[MAX_SOUNDS] = {
+                "menu/activate", // New menu
+				"menu/cursor",   // Cursor scroll
+				"menu/choose",   // Select choice
+				"menu/clear",    // Exit menu
+				"misc/w_pkup",   // Buy item
+				"menu/invalid",  // Can't buy item
+				"misc/chat",     // Chat to NPC
+};
+
+// Gets rid of the hudmessage with the given id.
+function void ClearMsg ( int id )
+{
+  HudMessage(s:""; 0,id,0,0,0,0);
+}
+
+// Use this function to get which option is currently selected.
+function int ChoiceSelected ( void )
+{
+  return currentchoice[PlayerNumber()]+choiceoffset[PlayerNumber()];
+}
+
+// This function simply displays all the choices again without modifying
+// the number of choices available, and the current position of the cursor.
+function void RefreshChoices ( void )
+{
+  updatemax--;
+  
+  for(int i=0; i<=maxchoices[PlayerNumber()]; i++)
+	Choice(i,choices[PlayerNumber()][i]);
+  
+  updatemax++;
+}
+
+// Use this to print a "title" for the menu to the screen.
+function void GenericMenu ( int name )
+{
+  SetHudSize(MENU_TALKING_HUDX,MENU_TALKING_HUDY,0);
+  SetFont("SmallFont");
+  HudMessage(s:name;
+  HUDMSG_PLAIN,id_talkname,COLOR_GENERIC_MENUNAME,MENU_GENERIC_X,MENU_GENERIC_Y-16.0,FIXED_MAX);
+}
+
+// This function displays the options themselves.
+function void Choice ( int number, int name )
+{
+  int x;
+  
+  choices[PlayerNumber()][number] = name;
+  
+  // Add more here if you want more choice modes.
+  if(talking) // Talking menu.
+  {
+	SetHudSize(MENU_TALKING_HUDX,MENU_TALKING_HUDY,0);
+    SetFont("SmallFont");
+	HudMessage(d:number+1+choiceoffset[PlayerNumber()],s:". \cd",s:choices[PlayerNumber()][number+choiceoffset[PlayerNumber()]];
+    HUDMSG_PLAIN,id_choices+number,COLOR_TALKING_CHOICES,MENU_TALKING_X,MENU_TALKING_Y+animatedscrolly+(number*MENU_TALKING_ITEMSPACE),FIXED_MAX);
+	x = number+choiceoffset[PlayerNumber()];
+	
+	if(number>=MENU_TALKING_CAP)
+	  ClearMsg(id_choices+number);
+  }
+  else // Generic menu.
+  {
+	SetHudSize(MENU_GENERIC_HUDX,MENU_GENERIC_HUDY,0);
+    SetFont("SmallFont");
+    HudMessage(d:number+1+choiceoffset[PlayerNumber()],s:". ",s:choices[PlayerNumber()][number+choiceoffset[PlayerNumber()]];
+    HUDMSG_PLAIN,id_choices+number,COLOR_GENERIC_CHOICES,MENU_GENERIC_X,MENU_GENERIC_Y+animatedscrolly+(number*MENU_GENERIC_ITEMSPACE),FIXED_MAX);
+	x = number+choiceoffset[PlayerNumber()];
+	
+	if(number>=MENU_GENERIC_CAP)
+	  ClearMsg(id_choices+number);
+  }
+  
+  if(choices[PlayerNumber()][number+choiceoffset[PlayerNumber()]]=="!CHOICE DOES NOT EXIST!")
+    ClearMsg(id_choices+number);
+  
+  ACS_Execute(S_CURSOR_DISPLAY,0); // Show the cursor.
+  
+  menu = ON; // Tell the game that a menu is active.
+  
+  if(updatemax)
+  {
+    maxchoices[PlayerNumber()] = x;
+    currentchoice[PlayerNumber()] = 0;
+  }
+  
+  for(int i=1; i<MAX_CHOICES-1-x; i++)
+  ClearMsg(id_choices+i+x);
+}
+
+// Used with Choice() to make a randomized "Goodbye" choice.
+function int GoodBye ( void )
+{
+  return randombye[random(0,MAX_BYES-1)];
+}
+
+// Print a dialogue box with the NPC's name and mugshot/avatar to the screen.
+function void TalkBox ( int name, int mugshot )
+{
+  ClearMenu();
+  
+  SetHudSize(MENU_TALKING_HUDX,MENU_TALKING_HUDY,0);
+  
+  SetFont("TALKBOX"); 
+  HudMessage(s:"A";
+  HUDMSG_PLAIN,id_talkbox,-1,0.1,0.1,FIXED_MAX);
+  
+  SetFont(mugshot);
+  HudMessage(s:"A";
+  HUDMSG_PLAIN,id_mugshot,-1,232.1,72.1,FIXED_MAX);
+  
+  SetFont("BigFont");
+  HudMessage(s:name;
+  HUDMSG_PLAIN,id_talkname,COLOR_TALKING_NAME,MENU_TALKING_NX,MENU_TALKING_NY,FIXED_MAX);
+  
+  SetPlayerProperty(0,ON,Prop_TotallyFrozen);
+  Thing_Stop(0);
+  
+  talking = TRUE;
+  menu = TRUE;
+  
+  currentchoice[PlayerNumber()] = 0;
+}
+
+// Change the NPC's mugshot on the fly if wanted.
+function void ChangeMugShot ( int mugshot )
+{
+  if(talking)
+  {
+    SetFont(mugshot);
+    HudMessage(s:"A";
+    HUDMSG_PLAIN,id_mugshot,-1,232.1,72.1,FIXED_MAX);
+  }
+}
+
+// Print some dialogue to the dialogue box!
+// Alter the maximum number of lines you want if you wish.
+function void TalkDialogue ( int line1, int line2, int line3, int line4, int line5,
+                             int line6, int line7, int line8, int line9, int line10 )
+{
+  if(talking)
+  {
+    SetHudSize(MENU_TALKING_HUDX,MENU_TALKING_HUDY,0);
+    SetFont("SmallFont");
+    HudMessage(s:line1,s:"\n",
+               s:line2,s:"\n",
+               s:line3,s:"\n",
+               s:line4,s:"\n",
+               s:line5,s:"\n",
+               s:line6,s:"\n",
+               s:line7,s:"\n",
+               s:line8,s:"\n",
+               s:line9,s:"\n",
+               s:line10,s:"\n";
+    HUDMSG_TYPEON,id_talkdialogue,COLOR_TALKING_DIALOGUE,MENU_TALKING_DX,MENU_TALKING_DY,FIXED_MAX,0.025,0.0);
+    currentchoice[PlayerNumber()] = 0;
+    MenuSound(MENUSND_DIALOGUE);
+  }
+}
+
+// Clears a generic menu.
+function void ClearMenu ( void )
+{
+  for(int x=0; x<95; x++)
+  ClearMsg(id_choices+x); //Clear all the choices currently on-screen.
+  
+  ACS_Terminate(S_CURSOR_DISPLAY,0);
+  ClearMsg(id_cursor); //Get rid of the cursor.
+  ClearMsg(id_cursorup);
+  ClearMsg(id_cursordn);
+  
+  menu = OFF; //Tell ACS that the menu is off.
+  currentchoice[PlayerNumber()] = 0;
+  choiceoffset[PlayerNumber()] = 0;
+  maxchoices[PlayerNumber()] = 0;
+  
+  if(!talking)
+    ClearMsg(id_talkname);
+}
+
+// Clears a dialogue menu.
+function void ClearTalkBox ( void )
+{
+  ClearMenu();
+  ClearMsg(id_talkname);
+  ClearMsg(id_talkdialogue);
+  ClearMsg(id_mugshot);
+  ClearMsg(id_talkbox);
+  
+  SetPlayerProperty(0,OFF,Prop_TotallyFrozen);
+  MenuSound(MENUSND_EXIT);
+  
+  talking = OFF;
+}
+
+function void MenuSound ( int soundno )
+{  LocalAmbientSound(menusounds[soundno],127); }
+
+// 
+function void TradeItems ( int newitem, int newquantity, int olditem, int oldquantity )
+{
+  str s = "";
+  if(CheckInventory(olditem)>=oldquantity)
+  {
+    GiveInventory(newitem,newquantity);
+	TakeInventory(olditem,oldquantity);
+	if(newquantity>1) s = "s";
+	Log(s:"Got ",d:newquantity,s:" ",s:newitem,s:s,s:".");
+	MenuSound(MENUSND_BUY);
+  }
+  else
+  {
+    if(oldquantity>1) s = "s";
+	Log(s:"Sorry, you need ",d:oldquantity,s:" ",s:olditem,s:s,s:" for that!");
+	MenuSound(MENUSND_CANTBUY);
+  }
+}
+
+// Don't change this please. :|
+script S_RESETCHOICES OPEN
+  for(int i=0; i<MAX_CHOICES; i++)
+    for(int j=0; j<MAX_PLAYERS; j++)
+	  choices[j][i] = "!CHOICE DOES NOT EXIST!";
+
+script S_CURSOR_DISPLAY ( void )
+{
+  int x, y, cx, cy, hx, hy, z, cap, cpx;
+  
+  // Determine what choice mode is active.
+  if(talking)
+  {
+    x=MENU_TALKING_X;
+    y=MENU_TALKING_Y;
+	cx=MENU_TALKING_CX;
+    cy=MENU_TALKING_CY;
+	hx=MENU_TALKING_HUDX;
+    hy=MENU_TALKING_HUDY;
+    z=MENU_TALKING_ITEMSPACE;
+	cap=MENU_TALKING_CAP;
+	cpx=MENU_TALKING_ARROWX;
+  }
+  else
+  {
+    x=MENU_GENERIC_X;
+    y=MENU_GENERIC_Y;
+	cx=MENU_GENERIC_CX;
+    cy=MENU_GENERIC_CY;
+	hx=MENU_GENERIC_HUDX;
+    hy=MENU_GENERIC_HUDY;
+    z=MENU_GENERIC_ITEMSPACE;
+	cap=MENU_GENERIC_CAP;
+	cpx=MENU_GENERIC_ARROWX;
+  }
+  
+  // Print the "cursor".
+  
+  SetHudSize(hx,hy,0);
+  
+  SetFont("CURSOR");
+  HudMessage(s:"A";
+  HUDMSG_PLAIN,id_cursor,CR_UNTRANSLATED,cx,cy+(currentchoice[PlayerNumber()]*z),1.0);
+  
+  if(choiceoffset[PlayerNumber()]>0)
+  {
+    // Print the up arrow if there are choices above.
+	SetFont("ARROWUP");
+    HudMessage(s:"A";
+    HUDMSG_PLAIN,id_cursorup,CR_UNTRANSLATED,cpx,cy+z-8.0,1.0);
+  }
+  else ClearMsg(id_cursorup);
+  
+  if(maxchoices[PlayerNumber()]>cap && choiceoffset[PlayerNumber()]<maxchoices[PlayerNumber()]+1-cap)
+  {
+    // Print the down arrow if there are choices below.
+	SetFont("ARROWDN");
+    HudMessage(s:"A";
+    HUDMSG_PLAIN,id_cursordn,CR_UNTRANSLATED,cpx,cy+(cap*z)-8.0,1.0);
+  }
+  else ClearMsg(id_cursordn);
+  delay(1); restart;
+}
+ 
+script S_CURSOR_UP ( void ) NET
+  if(menu)
+  {
+    if(talking)
+	  if(currentchoice[PlayerNumber()]==0 && choiceoffset[PlayerNumber()]!=0)
+	  {
+		ACS_ExecuteWait(S_ANIMATEDSCROLL,0,0);
+		currentchoice[PlayerNumber()]+=MENU_TALKING_CAPSCROLL;
+		choiceoffset[PlayerNumber()]-=MENU_TALKING_CAPSCROLL;
+		RefreshChoices();
+	  }
+	else
+	  if(currentchoice[PlayerNumber()]==0 && choiceoffset[PlayerNumber()]!=0)
+	  {
+		ACS_ExecuteWait(S_ANIMATEDSCROLL,0,0);
+		currentchoice[PlayerNumber()]+=MENU_GENERIC_CAPSCROLL;
+		choiceoffset[PlayerNumber()]-=MENU_GENERIC_CAPSCROLL;
+		RefreshChoices();
+	  }
+	
+	if(currentchoice[PlayerNumber()]+choiceoffset[PlayerNumber()]>0)
+	  currentchoice[PlayerNumber()]--;
+	
+	MenuSound(MENUSND_SCROLL);
+  }
+ 
+script S_CURSOR_DOWN ( void ) NET
+  if(menu)
+  {
+    if(currentchoice[PlayerNumber()]+choiceoffset[PlayerNumber()]<=maxchoices[PlayerNumber()]-1)
+	  currentchoice[PlayerNumber()]++;
+	  
+	if(talking)
+	  if(currentchoice[PlayerNumber()]==MENU_TALKING_CAP)
+	  {
+		currentchoice[PlayerNumber()]-=MENU_TALKING_CAPSCROLL;
+		ACS_ExecuteWait(S_ANIMATEDSCROLL,0,1);
+		choiceoffset[PlayerNumber()]+=MENU_TALKING_CAPSCROLL;
+		RefreshChoices();
+	  }
+	else
+	  if(currentchoice[PlayerNumber()]==MENU_GENERIC_CAP)
+	  {
+		currentchoice[PlayerNumber()]-=MENU_GENERIC_CAPSCROLL;
+		ACS_ExecuteWait(S_ANIMATEDSCROLL,0,1);
+		choiceoffset[PlayerNumber()]+=MENU_GENERIC_CAPSCROLL;
+		RefreshChoices();
+	  }
+	
+	MenuSound(MENUSND_SCROLL);
+  }
+ 
+script S_CURSOR_SELECT ( void ) NET
+  if(menu)
+    ACS_Execute(ThisScript,0);
+
+// Show how much money the current player has!
+// Alter to your liking.
+script S_CREDITS_DISPLAY ( void )
+{
+  SetHudSize(MENU_CREDITS_HUDX,MENU_CREDITS_HUDY,0);
+  SetFont("SmallFont");
+  HudMessage(s:"Credits: ",d:CheckInventory("Credit");
+  HUDMSG_PLAIN,id_credits,CR_GOLD,MENU_CREDITS_X,MENU_CREDITS_Y,0.05);
+  delay(1);
+  restart;
+}
+
+// Not the best input detection script but it works. XD
+script S_PLAYERINPUT ENTER
+{
+  int buttons, oldbuttons;
+  
+  while(1)
+  {
+    buttons = GetPlayerInput(-1,INPUT_BUTTONS);
+    oldbuttons = GetPlayerInput(-1,INPUT_OLDBUTTONS);
+
+    if(!(buttons & BT_FORWARD) && oldbuttons & BT_FORWARD)
+    ACS_Execute(S_CURSOR_UP,0);
+  
+    if(!(buttons & BT_BACK) && oldbuttons & BT_BACK)
+    ACS_Execute(S_CURSOR_DOWN,0);
+  
+    delay(1);
+  }
+}
+
+// Animate the options as they're being scrolled.
+script S_ANIMATEDSCROLL ( int dir )
+{
+  int space, cap, amount, del;
+  
+  // Determine what choice mode is active.
+  if(talking)
+  {
+    space = MENU_TALKING_ITEMSPACE;
+	cap = MENU_TALKING_CAP;
+	amount = MENU_TALKING_SCROLLAMOUNT;
+	del = MENU_TALKING_SCROLLDELAY;
+  }
+  else
+  {
+    space = MENU_GENERIC_ITEMSPACE;
+	cap = MENU_GENERIC_CAP;
+	amount = MENU_GENERIC_SCROLLAMOUNT;
+	del = MENU_GENERIC_SCROLLDELAY;
+  }
+  
+  // Start the scrolling!
+  for(int i=0.0; i<space; i+=amount)
+  {
+    if(dir)
+	{
+	  animatedscrolly-=amount;
+	  RefreshChoices();
+	  ClearMsg(id_choices);
+	}
+	else
+	{
+	  animatedscrolly+=amount;
+	  RefreshChoices();
+	  ClearMsg(id_choices+cap-1);
+	}
+	
+    delay(del);
+  }
+  
+  // Reset the scroll.
+  animatedscrolly = 0.0;
+}

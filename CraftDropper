@@ -1,0 +1,568 @@
+ACTOR CraftDropper : BrutalWeapon
+{
+	+WEAPON.NOAUTOFIRE
+	+WEAPON.DONTBOB
+	+WEAPON.NOALERT
+	+WEAPON.WIMPY_WEAPON
+	+WEAPON.NO_AUTO_SWITCH
+	+WEAPON.AMMO_OPTIONAL
+	Weapon.SelectionOrder 9999
+	Weapon.SlotNumber 0
+	
+    States
+	{
+	
+	Select:
+		TNT1 A 0
+		PDAO A 1 A_Raise
+		loop
+
+	Deselect:
+		PDAO I 0 A_JumpifInventory("ReadingAmmo", 1, "Fastdeselect")
+		PDAO I 2  A_playsound("BEP",1,2)
+		PDAO I 0  
+		PDAO A 0 A_playsound("pdaop",1,2)
+		PDAO IHGFEDCBA 2 
+		TNT1 A 0 A_lower
+		WAIT
+	
+	FastDeselect:
+		PDAO I 1  A_playsound("BEP",1,2)
+		PDAO IHG 1
+		TNT1 A 0 A_lower
+		WAIT
+	
+	goingtoaction:
+		PDAO I 1  A_playsound("BEP",1,2)
+		PDAO IHG 1
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		TNT1 A 0 A_TakeInventory("flaretoken", 1)
+		AXEG A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair
+	
+	Ready3:
+	SelectAnimation:
+	Ready:
+		PDAO A 0
+		PDAO A 0 A_playsound("pdaop",1,2)
+		PDAO ABCDEFGHI 2
+		PDAO  I 1 BRIGHT  A_playsound("BEP",1,2)
+		PDAO  I 2
+		PDAO  I 1 BRIGHT
+		TNT1 A 0 A_JumpIfInventory("neverusedcrafting",1,"Tutorial")
+
+	Vialready:
+		TNT1 A 0
+		TNT1 A 0 A_GiveInventory("vialdropselected",1)
+		TNT1 A 0 A_TakeInventory("orgdropselected",1)
+		TNT1 A 0 A_TakeInventory("matdropselected",1)
+		TNT1 A 0 A_TakeInventory("raredropselected",1)
+		TNT1 A 0 A_JumpIfInventory("StartDualWield",1,"Dropenergy")
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+        TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		TNT1 A 0 A_JumpIfInventory("TossGrenade",1,"TossGrenade")
+		TNT1 A 0 ACS_NamedExecuteAlways("VIALQUANTITY")
+		
+		TNT1 A 0 A_JumpIfInventory("vialdropslot", 3, "ReadyAcid")
+		TNT1 A 0 A_JumpIfInventory("vialdropslot", 2, "ReadyNeutral")
+		TNT1 A 0 A_JumpIfInventory("vialdropslot", 1, "ReadyBasic")
+	ReadyEmpty:
+		CHEM A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		goto vialready
+	ReadyBasic:
+		CHEM B 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto vialready
+	ReadyNeutral:
+		CHEM C 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto vialready
+	ReadyAcid:
+		CHEM D 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto vialready
+
+		
+	AltFire:
+	TNT1 A 0
+	TNT1 A 0 A_JumpIfInventory("vialdropselected", 1, "Vialaltfire")
+	TNT1 A 0 A_JumpIfInventory("orgdropselected", 1, "orgaltfire")
+	TNT1 A 0 A_JumpIfInventory("matdropselected", 1, "mataltfire")
+	TNT1 A 0 A_JumpIfInventory("raredropselected", 1, "rarealtfire")
+	goto vialready
+	
+	VialaltFire:
+		TNT1 A 0
+		TNT1 A 0 A_playsound("BEP",1,2)
+		TNT1 A 0 A_JumpIfInventory("vialdropslot", 4, 4)
+		TNT1 A 0 A_GiveInventory("vialdropslot", 1)
+		goto vialready
+		TNT1 AAA 0
+		TNT1 A 0 A_TakeInventory("vialdropslot", 4)
+		goto vialready
+		
+	Fire:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("vialdropselected", 1, "Vialfire")
+		TNT1 A 0 A_JumpIfInventory("orgdropselected", 1, "orgfire")
+		TNT1 A 0 A_JumpIfInventory("matdropselected", 1, "matfire")
+		TNT1 A 0 A_JumpIfInventory("raredropselected", 1, "rarefire")
+		goto vialready
+		
+	Vialfire:
+		TNT1 A 0 ACS_NamedExecuteAlways("VIALQUANTITY")
+		TNT1 A 0 A_JumpIfInventory("vialdropslot", 3, "DropAcid")
+		TNT1 A 0 A_JumpIfInventory("vialdropslot", 2, "DropNeutral")
+		TNT1 A 0 A_JumpIfInventory("vialdropslot", 1, "DropBasic")
+	DropEmpty:
+		CHEM A 1  A_playsound("BEP",1,2)
+		CHEM A 1  A_JumpIFInventory("EmptyVial", 1, 4)
+		TNT1 A 0  A_Print("You don't have empty  vials", 1)
+		goto vialready
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("Emptyvial", 1)
+		CHEM A 10  A_SpawnItemEx("EmptyVial", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto vialready
+		
+	DropBasic:
+		CHEM B 1  A_playsound("BEP",1,2)
+		CHEM B 1  A_JumpIFInventory("BasicVial", 1, 4)
+		TNT1 A 0  A_Print("You don't have basic solutions", 1)
+		goto vialready
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("Basicvial", 1)
+		CHEM B 10  A_SpawnItemEx("BasicVial", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto vialready	
+		
+	DropNeutral:
+		CHEM C 1  A_playsound("BEP",1,2)
+		CHEM C 1  A_JumpIFInventory("Neutralvial", 1, 4)
+		TNT1 A 0  A_Print("You don't have neutral solutions", 1)
+		goto vialready
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("Neutralvial", 1)
+		CHEM C 10  A_SpawnItemEx("Neutralvial", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto vialready	
+		
+	DropAcid:
+		CHEM D 1  A_playsound("BEP",1,2)
+		CHEM D 1  A_JumpIFInventory("Acidvial", 1, 4)
+		TNT1 A 0  A_Print("You don't have acid solutions", 1)
+		goto vialready
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("Acidvial", 1)
+		CHEM D 10  A_SpawnItemEx("Acidvial", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto vialready	
+		
+	Tutorial:
+		TNT1 A 0 A_TakeInventory("Neverusedcrafting", 1)
+		PDAT U 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		PDAT U 1 A_WEAPONREADY(WRF_ALLOWRELOAD)
+		LOOP
+		
+	Reload:
+		PDAO I 0 A_takeinventory("reloading")
+		PDAO I 2   A_playsound("BEPBEP",1,2)
+		PDAO I 1 
+		
+	Changepage:
+		PDAO I 0 A_Jumpifinventory("vialdropselected", 1, "orgready")
+		PDAO I 0 A_Jumpifinventory("orgdropselected", 1, "matready")
+		PDAO I 0 A_Jumpifinventory("matdropselected", 1, "rareready")
+		PDAO I 0 A_Jumpifinventory("raredropselected", 1, "vialready")
+		goto vialready
+		
+	Keeppage:
+		PDAO I 0 A_Jumpifinventory("vialdropselected", 1, "vialready")
+		PDAO I 0 A_Jumpifinventory("orgdropselected", 1, "orgready")
+		PDAO I 0 A_Jumpifinventory("matdropselected", 1, "matready")
+		PDAO I 0 A_Jumpifinventory("raredropselected", 1, "rareready")
+		wait
+	
+	
+	
+	/// 
+	// ORGANIC DROPPER
+	///
+	
+	Orgready:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("StartDualWield",1,"Dropenergy")
+		TNT1 A 0 A_TakeInventory("vialdropselected",1)
+		TNT1 A 0 A_GiveInventory("orgdropselected",1)
+		TNT1 A 0 A_TakeInventory("matdropselected",1)
+		TNT1 A 0 A_TakeInventory("raredropselected",1)
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+        TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		TNT1 A 0 A_JumpIfInventory("TossGrenade",1,"TossGrenade")
+		TNT1 A 0 ACS_NamedExecuteAlways("ORGQUANTITY")
+		
+		TNT1 A 0 A_JumpIfInventory("orgdropslot", 3, "Readyeye")
+		TNT1 A 0 A_JumpIfInventory("orgdropslot", 2, "Readyhorn")
+		TNT1 A 0 A_JumpIfInventory("orgdropslot", 1, "Readyheart")
+	Readyspike:
+		ORGN A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		goto Orgready
+	Readyheart:
+		ORGN B 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto Orgready
+	Readyhorn:
+		ORGN C 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto Orgready
+	Readyeye:
+		ORGN D 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto Orgready
+
+		
+	OrgAltFire:
+		TNT1 A 0
+		TNT1 A 0 A_playsound("BEP",1,2)
+		TNT1 A 0 A_JumpIfInventory("orgdropslot", 4, 4)
+		TNT1 A 0 A_GiveInventory("orgdropslot", 1)
+		goto Orgready
+		TNT1 AAA 0
+		TNT1 A 0 A_TakeInventory("orgdropslot", 4)
+		goto Orgready
+		
+	OrgFire:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteAlways("ORGQUANTITY")
+		TNT1 A 0 A_JumpIfInventory("orgdropslot", 3, "Dropeye")
+		TNT1 A 0 A_JumpIfInventory("orgdropslot", 2, "Drophorn")
+		TNT1 A 0 A_JumpIfInventory("orgdropslot", 1, "Dropheart")
+	Dropspike:
+		ORGN A 1  A_playsound("BEP",1,2)
+		ORGN A 1  A_JumpIFInventory("impspike", 1, 4)
+		TNT1 A 0  A_Print("You don't have imp spikes", 1)
+		goto Orgready
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("impspike", 1)
+		ORGN A 10  A_SpawnItemEx("impspike", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto Orgready
+		
+	Dropheart:
+		ORGN B 1  A_playsound("BEP",1,2)
+		ORGN B 1  A_JumpIFInventory("demonheart", 1, 4)
+		TNT1 A 0  A_Print("You don't have demon hearts", 1)
+		goto Orgready
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("demonheart", 1)
+		ORGN B 10  A_SpawnItemEx("demonheart", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto Orgready	
+		
+	Drophorn:
+		ORGN C 1  A_playsound("BEP",1,2)
+		ORGN C 1  A_JumpIFInventory("bruiserhorn", 1, 4)
+		TNT1 A 0  A_Print("You don't have bruiser horns", 1)
+		goto Orgready
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("bruiserhorn", 1)
+		ORGN C 10  A_SpawnItemEx("bruiserhorn", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto Orgready	
+		
+	Dropeye:
+		ORGN D 1  A_playsound("BEP",1,2)
+		ORGN D 1  A_JumpIFInventory("cacoeye", 1, 4)
+		TNT1 A 0  A_Print("You don't have cacodemon's eyes", 1)
+		goto Orgready
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("cacoeye", 1)
+		ORGN D 10  A_SpawnItemEx("cacoeye", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto Orgready	
+	
+	
+	
+	/// 
+	// MATERIAL DROPPER
+	///
+	
+		MatReady:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("StartDualWield",1,"Dropenergy")
+		TNT1 A 0 A_TakeInventory("vialdropselected",1)
+		TNT1 A 0 A_TakeInventory("orgdropselected",1)
+		TNT1 A 0 A_GiveInventory("matdropselected",1)
+		TNT1 A 0 A_TakeInventory("raredropselected",1)
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+        TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		TNT1 A 0 A_JumpIfInventory("TossGrenade",1,"TossGrenade")
+		TNT1 A 0 ACS_NamedExecuteAlways("MATQUANTITY")
+		
+		TNT1 A 0 A_JumpIfInventory("matdropslot", 3, "ReadyPOWDER")
+		TNT1 A 0 A_JumpIfInventory("matdropslot", 2, "ReadyFabric")
+		TNT1 A 0 A_JumpIfInventory("matdropslot", 1, "ReadyElectronic")
+	Readymetal:
+		MATR A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		goto MatReady
+	ReadyElectronic:
+		MATR B 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto MatReady
+	ReadyFabric:
+		MATR C 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto MatReady
+	ReadyPowder:
+		MATR D 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto MatReady
+
+		
+	MatAltFire:
+		TNT1 A 0
+		TNT1 A 0 A_playsound("BEP",1,2)
+		TNT1 A 0 A_JumpIfInventory("matdropslot", 4, 4)
+		TNT1 A 0 A_GiveInventory("matdropslot", 1)
+		goto MatReady
+		TNT1 AAA 0
+		TNT1 A 0 A_TakeInventory("matdropslot", 4)
+		goto MatReady
+		
+	MatFire:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteAlways("MATQUANTITY")
+		TNT1 A 0 A_JumpIfInventory("matdropslot", 3, "DropPowder")
+		TNT1 A 0 A_JumpIfInventory("matdropslot", 2, "DropFabric")
+		TNT1 A 0 A_JumpIfInventory("matdropslot", 1, "DropElectronic")
+	Dropmetal:
+		MATR A 1  A_playsound("BEP",1,2)
+		MATR A 1  A_JumpIFInventory("scrapmetal", 1, 4)
+		TNT1 A 0  A_Print("You don't have metal scraps", 1)
+		goto MatReady
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("scrapmetal", 1)
+		MATR A 10  A_SpawnItemEx("scrapmetal", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto MatReady
+		
+	DropElectronic:
+		MATR B 1  A_playsound("BEP",1,2)
+		MATR B 1  A_JumpIFInventory("electronicparts", 1, 4)
+		TNT1 A 0  A_Print("You don't have electronic parts", 1)
+		goto MatReady
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("electronicparts", 1)
+		MATR B 10  A_SpawnItemEx("electronicparts", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto MatReady	
+		
+	DropFabric:
+		MATR C 1  A_playsound("BEP",1,2)
+		MATR C 1  A_JumpIFInventory("fabric", 1, 4)
+		TNT1 A 0  A_Print("You don't have scrap cloth", 1)
+		goto MatReady
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("fabric", 1)
+		MATR C 10  A_SpawnItemEx("fabric", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto MatReady	
+		
+	DropPowder:
+		MATR D 1  A_playsound("BEP",1,2)
+		MATR D 1  A_JumpIFInventory("gunpowder", 1, 4)
+		TNT1 A 0  A_Print("You don't have any smokeless powder", 1)
+		goto MatReady
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("gunpowder", 1)
+		MATR D 10  A_SpawnItemEx("gunpowder", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto MatReady	
+	
+	
+	
+					
+	/// 
+	// UNKNOWN RARE SUBSTANCES DROPPER
+	///
+		
+	RareReady:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("StartDualWield",1,"Dropenergy")
+		TNT1 A 0 A_TakeInventory("vialdropselected",1)
+		TNT1 A 0 A_TakeInventory("orgdropselected",1)
+		TNT1 A 0 A_TakeInventory("matdropselected",1)
+		TNT1 A 0 A_GiveInventory("raredropselected",1)
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+        TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("repairtoken", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		TNT1 A 0 A_JumpIfInventory("TossGrenade",1,"TossGrenade")
+		TNT1 A 0 ACS_NamedExecuteAlways("RAREQUANTITY")
+		
+		TNT1 A 0 A_JumpIfInventory("raredropslot", 2, "Readychaosessence")
+		TNT1 A 0 A_JumpIfInventory("raredropslot", 1, "Readyfiressence")
+	Readyalphablood:
+		RARE A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		goto RareReady
+	Readyfiressence:
+		RARE B 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto RareReady
+	Readychaosessence:
+		RARE C 1  A_WeaponReady(WRF_ALLOWRELOAD)
+		goto RareReady
+
+		
+	RareAltFire:
+		TNT1 A 0
+		TNT1 A 0 A_playsound("BEP",1,2)
+		TNT1 A 0 A_JumpIfInventory("raredropslot", 3, 4)
+		TNT1 A 0 A_GiveInventory("raredropslot", 1)
+		goto RareReady
+		TNT1 AAA 0
+		TNT1 A 0 A_TakeInventory("raredropslot", 3)
+		goto RareReady
+		
+	RareFire:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteAlways("RAREQUANTITY")
+		TNT1 A 0 A_JumpIfInventory("raredropslot", 2, "Dropchaosessence")
+		TNT1 A 0 A_JumpIfInventory("raredropslot", 1, "DropFire")
+	Dropalphablood:
+		RARE A 1  A_playsound("BEP",1,2)
+		RARE A 1  A_JumpIFInventory("alphavial", 1, 4)
+		TNT1 A 0  A_Print("You don't have this reagent", 1)
+		goto RareReady
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("alphavial", 1)
+		RARE A 10  A_SpawnItemEx("alphavial", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto RareReady
+		
+	Dropfire:
+		RARE B 1  A_playsound("BEP",1,2)
+		RARE B 1  A_JumpIFInventory("fireessence", 1, 4)
+		TNT1 A 0  A_Print("You don't have this reagent", 1)
+		goto RareReady
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("fireessence", 1)
+		RARE B 10  A_SpawnItemEx("fireessence", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto RareReady	
+		
+	Dropchaosessence:
+		RARE C 1  A_playsound("BEP",1,2)
+		RARE C 1  A_JumpIFInventory("chaosessence", 1, 4)
+		TNT1 A 0  A_Print("You don't have this reagent", 1)
+		goto RareReady
+		TNT1 AAAA 0
+		TNT1 A 0 A_TakeInventory("chaosessence", 1)
+		RARE C 10  A_SpawnItemEx("chaosessence", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_Refire
+		goto RareReady	
+		
+		
+	Dropenergy:
+		PDAO I 1  A_playsound("BEP",1,2)
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		PDAO I 0  A_JumpIFInventory("isScientist", 1, 2)
+		PDAO I 0  A_JumpIFInventory("AmmoCell", 10, 3)
+		PDAO I 0  A_JumpIFInventory("AmmoCell", 5, 2)
+		TNT1 A 0  A_Print("Not enough energy cells", 1)
+		Goto Keeppage
+		TNT1 AAAA 0
+		PDAO I 0  A_JumpIFInventory("isScientist", 1, 2)
+		TNT1 A 0 A_TakeInventory("AmmoCell", 5)
+		TNT1 A 0 A_TakeInventory("AmmoCell", 5)
+		PDAO I 0  A_JumpIFInventory("isScientist", 1, 2)
+		PDAO I 1  A_SpawnItemEx("DroppedCell", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		PDAO I 1  A_SpawnItemEx("DroppedCell", 60, random(-4, 4), 40, 0, 0, 2, angle, SXF_ABSOLUTEANGLE)
+		PDAO I 10
+		TNT1 A 0
+		Goto Keeppage
+		
+	
+	}
+}
+
+///SLOT TOKENS
+
+ACTOR Vialdropslot : Inventory
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 5
+}
+
+ACTOR orgdropslot : Inventory
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 5
+}
+
+ACTOR matdropslot : Inventory
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 5
+}
+
+ACTOR RAREdropslot : Inventory
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 4
+}
+
+/// PAGE TOKENS
+
+ACTOR Vialdropselected : Inventory
+{ Inventory.MaxAmount 1}
+
+ACTOR Orgdropselected : Inventory
+{ Inventory.MaxAmount 1}
+
+ACTOR Matdropselected : Inventory
+{Inventory.MaxAmount 1}
+
+ACTOR Raredropselected : Inventory
+{Inventory.MaxAmount 1}

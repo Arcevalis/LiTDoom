@@ -1,0 +1,50 @@
+#library "HEALTH"
+#include "zcommon.acs"
+
+
+Script "Check max health" (void)
+{
+  // [Blue Shadow] Checking on the player's max health returns zero (this's only
+  // the case if the modder hasn't defined a max health for the player) instead of
+  // hundred, which what the default max health is. This line makes sure it's a
+  // hundred to get the right values for the comparison below.
+  If(GetActorProperty(0, APROP_SpawnHealth) == 0)
+    SetActorProperty(0, APROP_SpawnHealth, 100);
+
+  // [Blue Shadow] Health comparison; if the player needs healing, return 'true',
+  // otherwise return 'false'.
+int starthealth = GetActorProperty(0, APROP_SpawnHealth);
+int stamina = GetActorProperty(0, APROP_Stamina);
+int maxhealth = (starthealth + stamina);
+  If(GetActorProperty(0, APROP_Health) < MAXHEALTH)
+  {    
+    giveinventory("BANDAGETOKEN",1);
+	giveinventory("BANDAGEdrugTOKEN",1);
+    SetResultValue(TRUE);
+	}
+
+
+ Else 
+   {
+  SetResultValue(FALSE);
+  	}
+}
+
+Script "Check max health2" (void)
+{
+  If(GetActorProperty(0, APROP_SpawnHealth) == 0)
+    SetActorProperty(0, APROP_SpawnHealth, 100);
+
+int starthealth = GetActorProperty(0, APROP_SpawnHealth);
+int stamina = GetActorProperty(0, APROP_Stamina);
+int maxhealth = (starthealth + stamina);
+  If(GetActorProperty(0, APROP_Health) < MAXHEALTH)
+  {    
+    SetResultValue(TRUE);
+	}
+
+  Else 
+   {
+  SetResultValue(FALSE);
+  	}
+}

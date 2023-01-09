@@ -1,0 +1,1065 @@
+/// HUD TOKENS
+ACTOR showkill : Inventory { Inventory.MaxAmount 1 }
+ACTOR showitems : Inventory { Inventory.MaxAmount 1 }
+ACTOR showsecrets : Inventory { Inventory.MaxAmount 1 }
+ACTOR flashlighton : Inventory { Inventory.MaxAmount 1 }
+actor CMShot : Inventory{Inventory.Amount 1 Inventory.MaxAmount 6}
+
+ACTOR weargasmask : Inventory { Inventory.MaxAmount 1 }
+ACTOR gasmaskon : Inventory { Inventory.MaxAmount 1 }
+ACTOR gasmaskoff : Inventory { Inventory.MaxAmount 1 }
+ACTOR removegasmask : Inventory { Inventory.MaxAmount 1 }
+
+
+ACTOR clairvoyancetoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR radartoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR lifemoduleON : Inventory { Inventory.MaxAmount 1 }
+ACTOR predatormode : Inventory { Inventory.MaxAmount 1 }
+
+/// WEAPON FOUND ANIMATIONS
+ACTOR neverusedcrafting : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundshotgun : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundrifle : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundpistol : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundrevolver : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundASG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundSSG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundGL : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundLMG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundSMG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundBFG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundminigun : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundplasmagun : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundRL : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundplasmalance : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundaxe : Inventory { Inventory.MaxAmount 1 }
+
+
+/// OTHER TOKENS
+ACTOR beheadingtoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR ELECTROCUTED : Inventory { Inventory.MaxAmount 1 }
+ACTOR ShockCharge : Inventory { Inventory.MaxAmount 1000 }
+ACTOR syringedonce : Inventory { Inventory.MaxAmount 1 }
+ACTOR frenzied : Inventory { Inventory.MaxAmount 10 }
+ACTOR STAMINAFRENZY : Inventory { Inventory.MaxAmount 1 }
+ACTOR PermanentBerserk : Inventory {Inventory.MaxAmount 1}
+ACTOR BerserkTimer : Inventory {Inventory.MaxAmount 300}
+ACTOR hasbackpack : Inventory {Inventory.MaxAmount 1}
+ACTOR isSliding : Inventory {Inventory.MaxAmount 1}
+ACTOR AirKicking : Inventory {Inventory.MaxAmount 1}
+ACTOR weaponbroke : Inventory {Inventory.MaxAmount 1}
+ACTOR ArtifactRemover : Inventory {Inventory.MaxAmount 1}
+ACTOR droppingarmor : Inventory {Inventory.MaxAmount 1}
+ACTOR droppingmag : Inventory {Inventory.MaxAmount 1}
+ACTOR painkillerstoken : Inventory {Inventory.MaxAmount 1}
+ACTOR armorshardtoken : Inventory {Inventory.MaxAmount 1}
+ACTOR foodtoken : Inventory {Inventory.MaxAmount 1}
+ACTOR triptoken : Inventory {Inventory.MaxAmount 1}
+ACTOR wallexecutiontoken : Inventory {Inventory.MaxAmount 1}
+ACTOR stopgravity : Inventory {Inventory.MaxAmount 1}
+ACTOR demonshardactive : Inventory {Inventory.MaxAmount 1}
+
+
+ACTOR switchfromblank : Inventory { Inventory.MaxAmount 1 }
+ACTOR grabbedacaco : Inventory { Inventory.MaxAmount 5 }
+ACTOR istinctactive : Inventory { Inventory.MaxAmount 1 }
+ACTOR isminigunguy : Inventory { Inventory.MaxAmount 1 }
+ACTOR numberofsentrybots : Inventory { Inventory.MaxAmount 4 }
+ACTOR NOTinvehicle : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR freedashcharge : Inventory { Inventory.MaxAmount 5 }
+ACTOR isleaningright : Inventory { Inventory.MaxAmount 1 }
+ACTOR isleaningleft : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR MonsterHaveSeenPlayer : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR norecoil : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR REPAIRTOKEN : Inventory { Inventory.MaxAmount 1 }
+ACTOR Flaretoken : Inventory {Inventory.MaxAmount 1}
+ACTOR bandagetoken : Inventory {Inventory.MaxAmount 1}
+ACTOR battledrugtoken : Inventory {Inventory.Maxamount 1 }
+
+ACTOR yellowdrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR reddrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR bluedrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR greendrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR greendrug2 : Inventory { Inventory.MaxAmount 1 }
+ACTOR purpledrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR cyandrug : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR bandagedrugtoken : Inventory {Inventory.MaxAmount 1}
+ACTOR tossedflare : Inventory {Inventory.MaxAmount 1}
+
+ACTOR ReadingAmmo : Inventory {Inventory.MaxAmount 1}
+ACTOR RealreloadOFF : Inventory {Inventory.MaxAmount 1}
+
+// CLASSES & STUFF
+ACTOR LargeStamina : Inventory { Inventory.MaxAmount 1 }
+Actor IsSurvivalistClass : Inventory {inventory.maxamount 2}
+Actor IsSCIENTIST : Inventory{inventory.maxamount 1}
+Actor IsDOOMGUY : Inventory{inventory.maxamount 1}
+ACTOR equipmentloss : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR justfoundSSG : Inventory {Inventory.MaxAmount 1}
+
+
+/// FAVORITEWEAPON
+ACTOR litriflefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR pistolfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR smgfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR revolverfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR shotgunfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR ssgfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR ashotgunfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR riflefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR m60favorite : Inventory {Inventory.MaxAmount 1}
+ACTOR minigunfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR rocketfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR glfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR plasmafavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR railgunfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR bfg11kfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR unmakerfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR flamefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR flame2favorite : Inventory {Inventory.MaxAmount 1}
+ACTOR revenantfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR sawfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR axefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR knifefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR DSfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR 2pistolsfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR 2smgsfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR 2riflesfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR 2plasmafavorite : Inventory {Inventory.MaxAmount 1}
+
+ACTOR grenadefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR clusterfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR quickrevenantfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR minesfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR hellfirefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR acidmistfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR flarefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR quickknifefavorite : Inventory {Inventory.MaxAmount 1}
+
+ACTOR quickrevenantfiring : Inventory {Inventory.MaxAmount 1}
+/// WEAPON DURABILITY
+ACTOR FirearmsDurabilityON : Inventory {Inventory.MaxAmount 1}
+ACTOR FirearmsDurabilityOFF : Inventory {Inventory.MaxAmount 1}
+
+ACTOR RIFLEdurability : AMMO {Inventory.MaxAmount 250}
+ACTOR PISTOLdurability : AMMO {Inventory.MaxAmount 200}
+ACTOR SMGdurability : AMMO {Inventory.MaxAmount 250}
+ACTOR REVOLVERdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR SHOTGUNdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR SSGdurability : AMMO {Inventory.MaxAmount 250}
+ACTOR ASGdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR LMGdurability : AMMO {Inventory.MaxAmount 300}
+ACTOR MINIGUNdurability : AMMO {Inventory.MaxAmount 600}
+ACTOR RLdurability : AMMO {Inventory.MaxAmount 20}
+ACTOR GLdurability : AMMO {Inventory.MaxAmount 80}
+ACTOR revenantdurability : AMMO {Inventory.MaxAmount 60}
+ACTOR PLASMAdurability : AMMO {Inventory.MaxAmount 200}
+ACTOR RAILGUNdurability : AMMO {Inventory.MaxAmount 300}
+ACTOR BFG7Kdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR BFG11Kdurability : AMMO {Inventory.MaxAmount 600}
+ACTOR NAPALMdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR FLAMEdurability : AMMO {Inventory.MaxAmount 300}
+
+ACTOR SUPPRESSORDURABILITY : AMMO {Inventory.MaxAmount 150}
+ACTOR SurvivalKitUses : AMMO {Inventory.MaxAmount 100}
+
+ACTOR jammedpistol : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedrifle : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedshotgun : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedasg : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedLMG : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedSMG : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedplasma : Inventory {Inventory.MaxAmount 1}
+
+
+// BLEEDING & POISON
+
+ACTOR usedhealthpack : Inventory
+{
+  Inventory.MaxAmount 1
+  +INVENTORY.UNDROPPABLE
+}
+
+ACTOR usedbandages : Inventory
+{
+  Inventory.MaxAmount 1
+  +INVENTORY.UNDROPPABLE
+}
+
+ACTOR CanBleed : Inventory
+{
+  Inventory.MaxAmount 1
+  +INVENTORY.UNDROPPABLE
+}
+
+ACTOR STILLBLEEDING : Inventory
+{Inventory.MaxAmount 1}
+
+ACTOR Rupture : CustomInventory
+{
+  Inventory.PickupMessage "rupture"
+  iNVENTORY.AMOUNT 1
+  +AUTOACTIVATE
+  States
+  {
+  Spawn:
+    DMHE A 1
+    Loop
+  PICKUP:
+    TNT1 A 0 ACS_NamedExecute("RUPTURE")
+    Stop
+  }
+}
+
+ACTOR ironfeettoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR poisoned : Inventory { Inventory.MaxAmount 1 }
+
+
+
+
+//////FUEL STUFF
+
+actor FuelPool
+{
+	var int user_bloodpoolsize;
+	translation "16:47=48:73", "169:179=215:223", "180:191=232:235"
+	radius 20
+	height 1
+	mass 1
+	Health 1000
+	RenderStyle Normal
+	Alpha 0.99
+	Painchance "fire", 256
+	Painchance "EXPLOSIVES", 180
+	Painchance "PLASMA", 256
+	DAMAGEFACTOR "FIRE", 0.1
+	+shootable
+	+NOTELEPORT
+	+FORCEXYBILLBOARD
+	+MOVEWITHSECTOR
+	+FLOORCLIP
+	+DONTSPLASH
+	+solid
+	+dontthrust
+	bloodtype "fuelblood"
+	bloodcolor "FF8000"
+	-CLIENTSIDEONLY
+	Scale 1.0
+	Decal BrutalBloodSplat
+		states
+		 {
+		 Spawn:
+		 TNT1 A 0
+		  TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		  TNT5 A 1
+		  TNT5 A 1 A_SetScale(0.33, 0.33)
+		  TNT5 A 1 A_SetScale(0.39, 0.39)
+		  TNT5 A 1 A_SetScale(0.45, 0.45)
+		  TNT5 A 1 A_SetScale(0.50, 0.50)		  
+		  TNT5 A 2 A_SetScale(0.56, 0.56)
+		  TNT5 A 2 A_SetScale(0.62, 0.62)
+		  TNT5 A 2 A_SetScale(0.68, 0.68)		  
+		  TNT5 A 3 A_SetScale(0.73, 0.73)
+		  TNT5 A 3 A_SetScale(0.79, 0.79)
+		  TNT5 A 3 A_SetScale(0.85, 0.85)
+		  TNT5 A 3 A_SetScale(0.90, 0.90)
+		  TNT5 A 3 A_SetScale(0.96, 0.96)
+		  TNT5 A 3 A_SetScale(1.02, 1.02)
+		  TNT5 A 3 A_SetScale(1.08, 1.08)
+		  
+		  TNT5 A 3 A_SetScale(1.15, 1.15)
+		  TNT5 A 3 A_SetScale(1.21, 1.21)
+		  TNT5 A 3 A_SetScale(1.27, 1.27)
+		  TNT5 A 3 A_SetScale(1.35, 1.35)
+		  TNT5 A 3 A_SetScale(1.42, 1.42)
+		  TNT5 A 3 A_SetScale(1.50, 1.50)
+		  TNT5 A 3 A_SetScale(1.56, 1.56)
+		  
+		 Live:
+		  TNT5 A 1 a_checkproximity("pain.fire", "ActiveFlarewaiting", 15,1)
+		  TNT5 A 1
+		  TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		  loop
+		  
+		 Pain.Fire:
+		 TNT5 A 1
+		 goto Death.Fire
+		
+		Death.Fire:
+		TNT1 A 0 A_changeflag("NOPAIN",1)
+		TNT1 A 0 A_CustomMissile("5secondsflame", random (-5, 0), random (-3, 3), random (-32, 32), 2, random (-32, 32))
+		TNT5 A 165
+		TNT5 A 0 A_setscale(1.2, 1.2)
+		TNT5 A 0 A_CustomMissile("5secondsflame", random (-5, 0), random (-3, 3), random (-32, 32), 2, random (-32, 32))
+		TNT5 A 165
+		TNT5 A 0 A_setscale(0.9, 0.9)
+		TNT5 A 0 A_CustomMissile("5secondsflame", random (-5, 0), random (-3, 3), random (-32, 32), 2, random (-32, 32))
+		TNT5 A 160
+		TNT5 A 2 A_setscale(0.8, 0.8)
+		TNT5 A 2 A_setscale(0.6, 0.6)
+		TNT5 A 2 A_setscale(0.4, 0.4)
+		TNT5 A 2 A_setscale(0.2, 0.2)
+		Stop
+		  
+		Splash:
+		  BLOD A 0
+		  stop
+	 }
+}
+
+
+///////// KNIFESTUFF
+ACTOR KnifeDurability : Ammo
+{
+	Game Doom
+	Inventory.PickupMessage "You found some parts to repair your knife!"
+	Inventory.Amount 40
+	Inventory.MaxAmount 40
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 40
+	Scale 0.7
+	Inventory.Icon "AXEDB0"
+	States
+	{
+	Spawn:
+		TNT1 A -1
+		Stop
+	}
+}
+
+
+ACTOR Knivesammo : Ammo
+{
+	Game Doom
+	Inventory.PickupMessage "$GOTKNIFE"
+	Inventory.Amount 1
+	Inventory.MaxAmount 5
+	Ammo.BackpackAmount 1
+	Ammo.BackpackMaxAmount 10
+	Scale 0.7
+	Inventory.Icon "KNFAY0"
+	tag"Combat Knife"
+	States
+	{
+	Spawn:
+		TNT1 A -1
+		Stop
+	}
+}
+
+///////// AXESTUFF
+
+
+ACTOR AxeDurability : Ammo
+{
+	Game Doom
+	Inventory.PickupMessage "You found some parts to repair your axe!"
+	Inventory.Amount 100
+	Inventory.MaxAmount 100
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 100
+	Scale 0.7
+	Inventory.Icon "AXEDB0"
+	//Inventory.AltHUDIcon "GASOA0"
+	States
+	{
+	Spawn:
+		AXE1 A -1
+		Stop
+	}
+}
+
+
+
+ACTOR BerserkAxe  : CustomInventory  30008
+{
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 
+		TNT1 A 0 A_Jump(100, "Spawn2")
+		TNT1 A 0 A_Jump(255, "syringe","spawn1")
+		
+	Vanilla:	
+	Spawn1:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("Berserkpack",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
+		TNT1 A 1
+		Stop
+	
+	 Spawn2:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("AxeSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
+		TNT1 A 0 A_SpawnItemEx ("DemonStrengthRune",1)
+		TNT1 A 1
+		Stop
+		
+	Syringe:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("berserkstim",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
+		TNT1 A 1
+		Stop
+	}
+}
+
+
+ACTOR Unfairberserkpack  : CustomInventory
+{
+    States
+    {
+
+	 Spawn:
+		TNT1 A 0
+		TNT1 A 0 
+		TNT1 A 0 A_Jump(100, "Spawn2","randomstim")
+		TNT1 A 0 A_Jump(255, "syringe","spawn1","randomstim","randomstim")
+		
+	Vanilla:	
+	Spawn1:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("Berserkpack",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
+		TNT1 A 1
+		Stop
+	
+	 Spawn2:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("AxeSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
+		TNT1 A 0 A_SpawnItemEx ("DemonStrengthRune",1)
+		TNT1 A 1
+		Stop
+		
+	Syringe:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("berserkstim",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
+		TNT1 A 1
+		Stop
+		
+	RandomStim:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("drugspawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
+		TNT1 A 1
+		Stop
+		
+	}
+}
+
+/// MONSTERSPAWNERS
+
+actor SacrificeSpawn
+{
+    States
+    {
+
+	 Spawn:
+		TNT1 A 1
+		TNT1 A 1 A_jump(255, "Arch", "Cacos", "Baron", "Spider", "Mancubus", "Belphegor")
+		TNT1 A 1
+		Stop
+		
+	Arch:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("TehArchvile",-50,30,0,0,0,0,180,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		Wait
+		
+	Cacos:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Cacodemon_",-50,30,0,0,0,0,180,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		Wait
+		
+	Baron:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Baronofhell2",-50,30,0,0,0,0,180,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		Wait
+
+	Spider:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Cacodemon_",-50,30,0,0,0,0,180,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		Wait
+
+	Mancubus:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Mancubus",-50,30,0,0,0,0,180,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		Wait
+		
+	Belphegor:
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx("Belphegor2",-50,30,0,0,0,0,180,SXF_NOCHECKPOSITION)
+		TNT1 A 1
+		Wait
+	}
+}
+
+////// ITEMS
+
+ACTOR PortableHMG : CustomInventory 30009
+{
+  +COUNTITEM
+  +INVENTORY.INVBAR
+  +CANNOTPUSH
+  Inventory.InterHubAmount 1
+  Inventory.MaxAmount 1
+  Inventory.Icon "PHMGA0"
+  Inventory.PickupMessage "$GOTHMG"
+  tag"Portable HMG"
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 
+	
+	Stay:
+    HVMG P -1
+    Stop
+	
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("Heavymachinegun", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+ACTOR Bandolier : CustomInventory 30010
+{
+  +COUNTITEM
+  +nogravity
+  scale 0.4
+  Inventory.Icon "BELTA0"
+  Inventory.PickupMessage "$GOTBANDOLIER"
+  Inventory.PickupSOUND "BELT2"
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+	
+		CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+		CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+		 BELT A -1 A_changeflag("NOGRAVITY", 0)
+		
+		Stay:
+		 BELT A -1
+		Stop
+  
+  Bench:
+	BELT A 1
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+	
+  Pickup:
+	TNT1 A 1 A_Giveinventory ("Clip1", 36)
+	TNT1 A 1 A_Jumpifinventory("equipmentloss", 1, "survivalpickup")
+	TNT1 A 1 A_Jump(255, "shells", "7.62")
+    Stop
+	
+	Survivalpickup:
+	TNT1 A 1 A_Giveinventory("saveammo", 1)
+	TNT1 A 1 A_Jump(255, "shells", "7.62", "4.73")
+    Stop
+	
+	4.73:
+	  TNT1 A 0 A_print("\cx The Bandolier contained: \n \cq - (36) 9mm bullets \n \cq - (25) 4.73mm rounds",2)
+	  TNT1 A 1 A_Giveinventory ("minigunammo", 25)
+	  Stop
+	
+	  7.62:
+	  TNT1 A 0 A_print("\cx The Bandolier contained: \n \cq - (36) 9mm bullets \n \cq - (15) 7.62mm rounds",2)
+	  TNT1 A 1 A_Giveinventory ("Clip2", 15)
+	  Stop
+	  
+	 shells:
+	  TNT1 A 0 A_print("\cx The Bandoliers contained: \n \cq - (36) 9mm bullets \n \cq - (8) Buckshot Shells",2)
+      TNT1 A 1 A_Giveinventory ("Ammoshell", 8)
+	  Stop
+  }
+}
+
+Actor BackPackNew : CustomInventory 30011
+{
+SpawnID 144
+Height 26
+tag"Military backpack"
+ Inventory.PickupSound "EMPTYPAK"
+ Inventory.PickupMessage "$GOTBACKPACK"
++INVENTORY.ALWAYSPICKUP
++FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+		TNT1 A 0
+		TNT1 A 0 
+		
+		Stay:
+		BPAK A -1
+		Stop
+  
+  Pickup:
+   TNT1 A 0 A_GiveInventory("hasbackpack", 1)
+  TNT1 A 0 A_GiveInventory("AmmoSuply")
+  TNT1 A 0 A_Jumpifinventory("equipmentloss",1, "Survivalbelt")
+  Stop
+  
+     Survivalbelt:
+	  TNT1 A 1
+      TNT1 A 0 A_GiveInventory("saveweapon", 1)
+	  Stop
+  }
+}
+
+
+Actor EmptyBackpack : CustomInventory 30012
+{
+Height 26
+tag"Empty Backpack"
+ Inventory.PickupSound "BACKPACK"
+ Inventory.PickupMessage "$GOTBACKPACK2"
++INVENTORY.ALWAYSPICKUP
++nogravity
++FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+		TNT1 A 0
+		CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+		CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+		CBPK A 1 A_changeflag("NOGRAVITY", 0)
+		
+		Stay:
+		CBPK A -1
+		Stop
+  
+  Bench:
+  CBPK A 1
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+  
+  Pickup:
+   TNT1 A 0 A_GiveInventory("hasbackpack", 1)
+  TNT1 A 0 ACS_NamedExecute("EmptyBackpack",0)
+  TNT1 A 0 A_Jumpifinventory("equipmentloss",1, "Survivalbelt")
+  Stop
+  
+     Survivalbelt:
+	  TNT1 A 1
+	  TNT1 A 0 A_GiveInventory("saveammo", 1)
+      TNT1 A 0 A_GiveInventory("saveweapon", 1)
+	  Stop
+  }
+}
+
+ACTOR saveammo : ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 4
+    Inventory.Icon "SVAMA0"
+}
+
+ACTOR saveweapon : ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 2
+    Inventory.Icon "SVWPA0"
+}	
+
+
+ACTOR Battery : Ammo 
+{
+	Game Doom
+	Inventory.Amount 50
+	Inventory.MaxAmount 200
+	Inventory.Icon "BATTB0"
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		Stop
+	}
+}
+
+ACTOR Batterypickup : custominventory 30013
+{
+	Game Doom
+	+NOGRAVITY
+	+INVBAR
+	+vulnerable
+	+CANNOTPUSH
+	health 2
+	Inventory.PickupMessage "$GOTBATTERY"
+	Inventory.Amount 1
+	Inventory.MaxAmount 6
+	Inventory.interhubAmount 6
+	Scale 0.1
+	Inventory.Icon "BATTD0"
+	Inventory.pickupsound "ELECTRPK"
+	tag"Lithium Battery"
+	States
+	{
+	Spawn:
+		BATT A 1
+		"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+		BATT A 0 A_checkproximity("bench","recombinerstatic",50)
+		BATT A 0 A_checkproximity("bench","recombinerstart",50)
+		BATT A 1
+		BATT A 1 A_changeflag("NOGRAVITY", 0)
+		
+		Stay:
+		BATT A 20
+		BATT A 1 A_changeflag("THRUACTORS", 0)
+		BATT A -1
+		Stop
+	
+	BENCH:
+		BATT A 1
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+		
+	USE:
+	TNT1 A 0
+	
+	CheckCharge:
+	TNT1 A 0 A_jumpifinventory("battery", 200, "Alreadyfull")
+	
+	Recharge:
+	TNT1 A 0 A_giveinventory("battery", 50)
+	TNT1 A 0 A_PLAYSOUND("ELECTRPK")
+	TNT1 A 0 A_print("Flashlight battery recharged")
+	Stop
+	
+	Alreadyfull:
+	TNT1 A 0 A_print("Your Flashlight battery is already fully charged")
+	fail
+	
+	pain.removebattery:
+	death.removebattery:
+	TNT1 A 1
+	Stop
+	}
+}
+
+Actor BatteryCrafted : Batterypickup
+{
+-INVBAR
+States
+{
+Pickup:
+TNT1 A 1 A_giveinventory("batterypickup", 1)
+Stop
+}}
+
+
+ACTOR Radar : custominventory
+{
+	scale 0.2
+  +nogravity
+  +INVENTORY.INVBAR
+  +CANNOTPUSH
+  +FORCEXYBILLBOARD
+  Inventory.InterHubAmount 1
+  Inventory.MaxAmount 1
+  Inventory.Icon "RADRI0"
+  Inventory.PickupMessage "$GOTRADAR"
+  Inventory.pickupsound "LIFEMODU"
+  tag"Movement Sensor"
+  States
+  {
+  Spawn:
+	ARST A 0
+	"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+	
+	Stay:
+  	ARST A 0 A_checkproximity("bench","recombinerstatic",50)
+	ARST A 0 A_checkproximity("bench","recombinerstart",50)
+	ARST A 0 A_changeflag("NOGRAVITY", 0)
+    RADR PQRS 2 BRIGHT A_SpawnItem("GreenFlareSmall2",0,7)
+	RADR P 15 BRIGHT
+
+	loop
+	
+	BENCH:
+    RADR PQRS 2 BRIGHT A_SpawnItem("GreenFlareSmall2",0,7)
+	RADR P 15 BRIGHT
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+	
+  Use:
+	TNT1 A 1 ACS_NamedExecute("radarMOUNT",0)
+    Stop
+  }
+}
+
+ACTOR LifeModule : custominventory 30014
+{
+  +nogravity
+  +INVENTORY.INVBAR
+  +CANNOTPUSH
+  +FORCEXYBILLBOARD
+  scale 0.5
+  Inventory.InterHubAmount 1
+  Inventory.MaxAmount 1
+  Inventory.Icon "MEDMB0"
+  Inventory.PickupMessage "$GOTLIFEMOD"
+  Inventory.pickupsound "LIFEMODU"
+  tag"Life Support Module"
+  States
+  {
+  Spawn:
+	MEDM A 0
+	TNT1 A 0 
+	
+Stay:
+  	MEDM A 0 A_checkproximity("bench","recombinerstatic",50)
+	MEDM A 0 A_checkproximity("bench","recombinerstart",50)
+	MEDM A 1 A_changeflag("NOGRAVITY", 0)
+	MEDM A -1
+	stop
+	
+BENCH:
+	MEDM A 1
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+	
+  Use:
+	TNT1 A 1 ACS_NamedExecute("LifeModuleMOUNT",0)
+    Stop
+  }
+}
+
+Actor RepairDevice : custominventory 30015
+{
+  +nogravity
+  +INVENTORY.INVBAR
+  +CANNOTPUSH
+  painchance "disarm", 256
+  health 1
+  +nodamage
+  +SHOOTABLE
+  +NOBLOOD
+  +FRIENDLY
+  SCALE 0.6
+  Inventory.InterHubAmount 5
+  Inventory.MaxAmount 5
+  Inventory.Icon "WLDRE0"
+  Inventory.PickupMessage "$GOTREPAIRER"
+  Inventory.pickupsound "CELLBOX"
+  tag"Appliance Nano-reconstructor"
+  States
+  {
+  Spawn:
+	WLDR A 0
+	"####" "#" 0  A_ChangeFlag("XFLIP",random(0,1))
+	
+	Stay:
+  	MEDM A 0 A_checkproximity("bench","recombinerstatic",50)
+	MEDM A 0 A_checkproximity("bench","recombinerstart",50)
+	WLDR A 1 A_changeflag("NOGRAVITY", 0)
+	MEDM A 0 
+	WLDR AAAAAAAAAA 1 A_checkproximity("pain.disarm","disarm",80)
+	WLDR B 2
+	WLDR C 2
+	WLDR D 2
+	loop
+	
+	BENCH:
+	WLDR AAAAAAAAAA 1 A_checkproximity("pain.disarm","disarm",80)
+	WLDR B 2
+	WLDR C 2
+	WLDR D 2
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+	
+	Use:
+	TNT1 A 1 ACS_NamedExecute("REPAIRWEAPONFULL",0)
+	TNT1 A 0 a_PLAYSOUND("PLSDRAW",1)
+    Stop
+	
+	Pain.disarm:
+	TNT1 A 0 a_SPAWNITEM("SCRAPMETAL",0,0)
+	TNT1 A 0 a_SPAWNITEM("ELECTRONICPARTS",0,0)
+	TNT1 A 1
+	STOP
+  }
+}
+
+ACTOR SURVIVALKITPICKUP : custominventory 
+{
+	Game Doom
+	Inventory.PickupMessage "$GOTKIT"
+	Inventory.Amount 1
+	Scale 0.15
+	Inventory.pickupsound "WIRECUT"
+	tag"Survival Kit"
+	+nogravity
+	States
+	{
+	Spawn:
+		CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+		CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+		 KITP K 1 A_changeflag("NOGRAVITY", 0)
+		 KITP K 1
+		LOOP
+  
+  Bench:
+   KITP K 1
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+		
+		PICKUP:
+		TNT1 A 0 A_JUMPIFINVENTORY("SURVIVALKITUSES",100,"NOPICKUP")
+		TNT1 A 0 A_GIVEINVENTORY("SURVIVALKIT",1)
+		TNT1 A 0 A_GIVEINVENTORY("SURVIVALKITUSES", RANDOM(5,10))
+		STOP
+		
+		NOPICKUP:
+		TNT1 A 0
+		FAIL
+	}
+}
+
+
+
+ACTOR ETCRifleModule : custominventory
+{
+	scale 0.2
+  +nogravity
+  +INVENTORY.INVBAR
+  +CANNOTPUSH
+  +FORCEXYBILLBOARD
+  	+SHOOTABLE
+    painchance "disarm", 256
+	DAMAGEFACTOR "DISARM", 1000.0
+	health 500		
+  Inventory.InterHubAmount 1
+  Inventory.MaxAmount 1
+  Inventory.Icon "RMODB0"
+  Inventory.PickupMessage "$GOTRIFLEUPGRADE"
+  Inventory.pickupsound "ETCPKUP"
+tag"Electro-Thermo Chemical Upgrade Kit"
+  States
+  {
+  Spawn:
+	RMOD A 1
+
+	Stay:
+  	ARST A 0 A_checkproximity("bench","recombinerstatic",50)
+	ARST A 0 A_checkproximity("bench","recombinerstart",50)
+	ARST A 0 A_changeflag("NOGRAVITY", 0)
+    RMOD A 2 BRIGHT A_SpawnItem("BlueFlareSmallItem",0,7)
+	loop
+	
+	BENCH:
+    RMOD A 2 BRIGHT A_SpawnItem("BlueFlareSmallItem",0,7)
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+	
+  Pain.Disarm:
+  Death.Disarm:
+	TNT1 A 0
+	TNT1 A 0 A_Spawnitemex("scrapmetal",0,10, 15,0,1,3,random(1,5))
+	TNT1 A 0 A_Spawnitemex("droppedcell",0,-10, 15,0,-1,3,random(1,5))
+	TNT1 A 0 A_SpawnitEM("ELECTRONICPARTS")
+    stop	
+	
+  Use:
+	TNT1 A 0 a_jumpifinventory("plasmaenhancermounted",1,3)
+	TNT1 A 0 a_jumpifinventory("RifleSelected",1,"Assemble")
+	TNT1 A 0 a_print("This upgrade module is designed for a Battle Rifle. You need to equip one, before you try assembling it.")
+    Fail
+Assemble:
+	TNT1 A 0 A_GIVEINVENTORY("ETCRIFLETOKEN",1)
+	STOP
+
+  }
+}
+
+ACTOR ForceFieldcooldown : inventory {Inventory.MaxAmount 1}
+ACTOR ForceFieldON : inventory {Inventory.MaxAmount 1}
+ACTOR ForceFieldG : custominventory
+{
+	scale 0.2
+  +nogravity
+  +FORCEXYBILLBOARD
+  +INVENTORY.INVBAR
+  +CANNOTPUSH
+  	+SHOOTABLE
+    painchance "disarm", 256
+	DAMAGEFACTOR "DISARM", 1000.0
+	health 500		
+  Inventory.MaxAmount 1
+  Inventory.Icon "FGEND0"
+  Inventory.PickupMessage "$GOTFORCEFIELD"
+  Inventory.pickupsound "ETCPKUP"
+tag"Personal Barrier Generator"
+States
+	{
+	Spawn:
+	TNT1 A 0
+	
+	Stay:
+  	ARST A 0 A_checkproximity("bench","recombinerstatic",50)
+	ARST A 0 A_checkproximity("bench","recombinerstart",50)
+	ARST A 0 A_changeflag("NOGRAVITY", 0)
+    FGEN AAABBBCCCCCCCCCCCC 1 A_SpawnItem("BlueFlareSmallest",0,3)
+	loop
+	
+	BENCH:
+    FGEN AAABBBCCCCCCCCCCCC 1 A_SpawnItem("BlueFlareSmallest",0,3)
+   	CBPK A 0 A_checkproximity("bench","recombinerstatic",50)
+	CBPK A 0 A_checkproximity("bench","recombinerstart",50)
+	GOTO SPAWN
+	
+	Use:
+		TNT1 A 0 A_jumpifinventory("ammocell",10,1)
+		goto noenergy
+		TNT1 A 0 A_jumpifinventory("forcefieldcooldown",1,"Cooldown")
+		TNT1 A 0 A_jumpifinventory("forcefieldON",1,"OFF")
+	ON:
+		TNT1 A 0 a_takeinventory("ammocell",10)
+		TNT1 A 0 a_giveinventory("forcefieldON",1)
+		TNT1 A 0 a_log("\cv force field generator: \cd activated")
+		TNT1 A 0 ACS_NamedExecute("ForceFieldSwitch",0)
+		Fail
+	OFF:
+		TNT1 A 0 a_takeinventory("forcefieldON",1)
+		TNT1 A 0 a_log("\cv force field generator: \ca deactivated")
+		TNT1 A 0 ACS_NamedExecute("ForceFieldSwitch",0)
+		Fail
+		
+	Cooldown:
+		TNT1 A 0
+		Fail
+		
+	NoEnergy:
+		TNT1 A 0 a_log("\ca you need at least 10 energy cells to activate it")
+		Fail
+	
+ Pain.Disarm:
+  Death.Disarm:
+	TNT1 A 0
+	TNT1 A 0 A_Spawnitemex("scrapmetal",0,10, 15,0,1,3,random(1,5))
+	TNT1 A 0 A_Spawnitemex("droppedcell",0,-10, 15,0,-1,3,random(1,5))
+	TNT1 A 0 A_SpawnitEM("ELECTRONICPARTS")
+    stop	
+	}
+}
+	
+	
+	

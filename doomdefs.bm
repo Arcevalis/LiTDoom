@@ -1,0 +1,110 @@
+#include doomwalls.bm
+#include doommonsters.bm
+#include doomweapons.bm
+
+brightmap sprite CBRAB0{map "brightmaps/doom/LABRABR1.png"}
+brightmap sprite CBRAC0{map "brightmaps/doom/LABRABR3.png"}
+brightmap sprite CBRAD0{map "brightmaps/doom/LABRABR4.png"}
+brightmap sprite CBRAE0{map "brightmaps/doom/LABRABR2.png"}
+
+brightmap sprite BURBA0{map "brightmaps/doom/BURBAB1.png"}
+brightmap sprite BURBB0{map "brightmaps/doom/BURBAB2.png"}
+brightmap sprite BURBC0{map "brightmaps/doom/BURBAB3.png"}
+
+brightmap sprite FLMTA0 {	map "brightmaps/doom/FLMBA0.png" }
+brightmap sprite FLMTB0 {	map "brightmaps/doom/FLMBB0.png" }
+brightmap sprite FLMTC0 {	map "brightmaps/doom/FLMBC0.png" }
+
+brightmap texture LITEBLU3{map "brightmaps/LITB3.PNG"}
+
+brightmap Texture SPACM1{ map "brightmaps/SPACOM1B.png"}
+brightmap Texture SPACM2{map "brightmaps/SPACOM1B.png"}
+brightmap Texture SPACM3{map "brightmaps/SPACOM1B.png"}
+brightmap Texture SPACM4{map "brightmaps/SPACOM1B.png"}
+
+//ARMOR SHARD
+brightmap sprite BON2A0{map "brightmaps/LiTDoom/ITEMS/BON2A0.png"}
+brightmap sprite BON3A0{map "brightmaps/LiTDoom/ITEMS/BON3A0.png"}
+brightmap sprite BON3B0{map "brightmaps/LiTDoom/ITEMS/BON3A0.png"}
+brightmap sprite BON3C0{map "brightmaps/LiTDoom/ITEMS/BON3C0.png"}
+
+//HELMET
+brightmap sprite HELMB0{map "brightmaps/doom/HELMBR.png"}
+brightmap sprite HELMC0{map "brightmaps/doom/HELMCR.png"}
+brightmap sprite HELMD0{map "brightmaps/doom/HELMDR.png"}
+
+///ARMOR VESTS
+
+
+//REPAIR TOOL
+brightmap sprite WLDRA0{map "brightmaps/doom/WLDRA0"}
+brightmap sprite WLDRB0{map "brightmaps/doom/WLDRB0"}
+brightmap sprite WLDRC0{map "brightmaps/doom/WLDRC0"}
+brightmap sprite WLDRD0{map "brightmaps/doom/WLDRD0"}
+
+//ARTIFACT CONTAINER
+brightmap sprite ACONA0 { map "brightmaps/Doom/ACONA0.png" }
+brightmap sprite ACONB0 { map "brightmaps/Doom/ACONB0.png" }
+brightmap sprite ACONC0 { map "brightmaps/Doom/ACONB0.png" }
+brightmap sprite ACOND0 { map "brightmaps/Doom/ACONB0.png" }
+brightmap sprite ACONE0 { map "brightmaps/Doom/ACONB0.png" }
+brightmap sprite ACONF0 { map "brightmaps/Doom/ACONB0.png" }
+brightmap sprite ACONG0 { map "brightmaps/Doom/ACONB0.png" }
+brightmap sprite ACONH0 { map "brightmaps/Doom/ACONB0.png" }
+brightmap sprite ACONI0 { map "brightmaps/Doom/ACONB0.png" }
+brightmap sprite ACONJ0 { map "brightmaps/Doom/ACONB0.png" }
+
+//cluster pellets
+BrightMap Sprite CLUSW0 { Map "Brightmaps/AUTO/CLUSW0.png" DisableFullBright }
+BrightMap Sprite CLUSX0 { Map "Brightmaps/AUTO/CLUSX0.png" DisableFullBright }
+BrightMap Sprite CLUSY0 { Map "Brightmaps/AUTO/CLUSY0.png" DisableFullBright }
+BrightMap Sprite CLUSZ0 { Map "Brightmaps/AUTO/CLUSZ0.png" DisableFullBright }
+
+//proximity bomb
+BrightMap Sprite PR0XZ0 { Map "Brightmaps/AUTO/PR0XZ0.png" DisableFullBright }
+BrightMap Sprite PROXR0 { Map "Brightmaps/AUTO/PROXR0.png" DisableFullBright }
+BrightMap Sprite PROXT0 { Map "Brightmaps/AUTO/PROXT0.png" DisableFullBright }
+BrightMap Sprite PROXZ0 { Map "Brightmaps/AUTO/PROXZ0.png" DisableFullBright }
+
+//Gas mask
+BrightMap Sprite G4SMA0 { Map "Brightmaps/LitDoom/GasMask/G4SMA0.png" DisableFullBright }
+BrightMap Sprite G4SMB0 { Map "Brightmaps/LitDoom/GasMask/G4SMB0.png" DisableFullBright }
+BrightMap Sprite G4SMC0 { Map "Brightmaps/LitDoom/GasMask/G4SMC0.png" DisableFullBright }
+BrightMap Sprite G4SMD0 { Map "Brightmaps/LitDoom/GasMask/G4SMD0.png" DisableFullBright }
+BrightMap Sprite G4SME0 { Map "Brightmaps/LitDoom/GasMask/G4SME0.png" DisableFullBright }
+BrightMap Sprite G4SMF0 { Map "Brightmaps/LitDoom/GasMask/G4SMF0.png" DisableFullBright }
+BrightMap Sprite G4SMG0 { Map "Brightmaps/LitDoom/GasMask/G4SMG0.png" DisableFullBright }
+BrightMap Sprite G4SMH0 { Map "Brightmaps/LitDoom/GasMask/G4SMH0.png" DisableFullBright }
+BrightMap Sprite G4SMI0 { Map "Brightmaps/LitDoom/GasMask/G4SMI0.png" DisableFullBright }
+BrightMap Sprite G4SMJ0 { Map "Brightmaps/LitDoom/GasMask/G4SMJ0.png" DisableFullBright }
+BrightMap Sprite G4SMK0 { Map "Brightmaps/LitDoom/GasMask/G4SMK0.png" DisableFullBright }
+BrightMap Sprite G4SML0 { Map "Brightmaps/LitDoom/GasMask/G4SML0.png" DisableFullBright }
+BrightMap Sprite G4SMM0 { Map "Brightmaps/LitDoom/GasMask/G4SMM0.png" DisableFullBright }
+BrightMap Sprite G4SMN0 { Map "Brightmaps/LitDoom/GasMask/G4SMN0.png" DisableFullBright }
+BrightMap Sprite G4SMO0 { Map "Brightmaps/LitDoom/GasMask/G4SMO0.png" DisableFullBright }
+BrightMap Sprite GASMA0 { Map "Brightmaps/LitDoom/GasMask/GASMA0.png" DisableFullBright }
+BrightMap Sprite GASMB0 { Map "Brightmaps/LitDoom/GasMask/GASMB0.png" DisableFullBright }
+BrightMap Sprite GASMC0 { Map "Brightmaps/LitDoom/GasMask/GASMC0.png" DisableFullBright }
+BrightMap Sprite GASMD0 { Map "Brightmaps/LitDoom/GasMask/GASMD0.png" DisableFullBright }
+BrightMap Sprite GASME0 { Map "Brightmaps/LitDoom/GasMask/GASME0.png" DisableFullBright }
+BrightMap Sprite GASMF0 { Map "Brightmaps/LitDoom/GasMask/GASMF0.png" DisableFullBright }
+BrightMap Sprite GASMG0 { Map "Brightmaps/LitDoom/GasMask/GASMG0.png" DisableFullBright }
+BrightMap Sprite GASMH0 { Map "Brightmaps/LitDoom/GasMask/GASMH0.png" DisableFullBright }
+BrightMap Sprite GASMI0 { Map "Brightmaps/LitDoom/GasMask/GASMI0.png" DisableFullBright }
+BrightMap Sprite GASMJ0 { Map "Brightmaps/LitDoom/GasMask/GASMJ0.png" DisableFullBright }
+BrightMap Sprite GASMK0 { Map "Brightmaps/LitDoom/GasMask/GASMK0.png" DisableFullBright }
+BrightMap Sprite GASML0 { Map "Brightmaps/LitDoom/GasMask/GASML0.png" DisableFullBright }
+BrightMap Sprite GASMM0 { Map "Brightmaps/LitDoom/GasMask/GASMM0.png" DisableFullBright }
+BrightMap Sprite GASMN0 { Map "Brightmaps/LitDoom/GasMask/GASMN0.png" DisableFullBright }
+BrightMap Sprite GASMO0 { Map "Brightmaps/LitDoom/GasMask/GASMO0.png" DisableFullBright }
+BrightMap Sprite GASMP0 { Map "Brightmaps/LitDoom/GasMask/GASMP0.png" DisableFullBright }
+BrightMap Sprite GASMQ0 { Map "Brightmaps/LitDoom/GasMask/GASMQ0.png" DisableFullBright }
+BrightMap Sprite GASMR0 { Map "Brightmaps/LitDoom/GasMask/GASMR0.png" DisableFullBright }
+BrightMap Sprite GASMS0 { Map "Brightmaps/LitDoom/GasMask/GASMS0.png" DisableFullBright }
+BrightMap Sprite GASMT0 { Map "Brightmaps/LitDoom/GasMask/GASMT0.png" DisableFullBright }
+BrightMap Sprite GASMU0 { Map "Brightmaps/LitDoom/GasMask/GASMU0.png" DisableFullBright }
+BrightMap Sprite GASMV0 { Map "Brightmaps/LitDoom/GasMask/GASMV0.png" DisableFullBright }
+BrightMap Sprite GASMW0 { Map "Brightmaps/LitDoom/GasMask/GASMW0.png" DisableFullBright }
+BrightMap Sprite GASMX0 { Map "Brightmaps/LitDoom/GasMask/GASMX0.png" DisableFullBright }
+BrightMap Sprite GASMY0 { Map "Brightmaps/LitDoom/GasMask/GASMY0.png" DisableFullBright }
+BrightMap Sprite GASMZ0 { Map "Brightmaps/LitDoom/GasMask/GASMZ0.png" DisableFullBright }

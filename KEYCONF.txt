@@ -1,0 +1,142 @@
+clearplayerclasses
+addplayerclass Doomer2 nomenu
+addplayerclass TacticalDoomer 
+addplayerclass MiseryDoomer 
+addplayerclass ScienceDoomer 
+
+weaponsection "Brutal_Doom"
+
+setslot 1 DSweap Knife Chain_Saw BrutalAxe Melee_Attacks 
+setslot 2 BrutalPistol BrutalSMG Revolver 
+setslot 3 Shot_Gun SSG AssaultShotgun
+setslot 4 MiniGun Machinegun LiTRifle 
+setslot 5 HellishMissileLauncher GrenadeLauncher Rocket_Launcher 
+setslot 6 Plasmalance Plasma_Gun 
+setslot 7 BFG11k Unmaker
+setslot 8 FlameCannon Flamethrower2 
+setslot 9 HandGrenades ClusterGrenades AcidMistVial HellfireVial ProxBomb
+setslot 0 NewFlare SurvivalKit
+
+   addkeysection "LiTDoom - Weapon Handling" BrutalDoomActions    
+   
+   addmenukey "Quick Pistol Draw" quickpistol
+   alias quickpistol "pukename quickpistolnew"
+   
+   addmenukey "Unload/Check Weapon" +unreloader
+   alias +unreloader "+user4"
+   alias -unreloader "-user4"
+   defaultbind V +unreloader
+
+   addmenukey "Weapon's Special Action" dual
+   alias dual "puke 308"
+   defaultbind X dual
+
+     ///////////////// 
+ ////////////////// 	LiTDOOM
+ /////////////////
+   
+   addkeysection "LiTDOOM - Special Actions" LiTDactions
+   
+    addmenukey "Kick/Cancel action" kickem
+   alias kickem "puke 301"
+   defaultbind Q kickem
+   
+   addmenukey "Equipment Inventory" selectammodrop
+   alias selectammodrop "puke 309"
+   defaultbind O selectammodrop
+   
+addmenukey "Unequip Armor" DA
+defaultbind "DA" N
+alias DA "netevent \"Drop_Armor\""
+   
+    addmenukey "Crafting Materials" craftmenu
+   alias craftmenu "pukename SELECTCRAFT"
+   defaultbind L craftmenu
+   
+   addmenukey "Dodge" +dodge
+   alias +dodge "+user2"
+   alias -dodge "-user2"
+   defaultbind U +user2
+   
+   addmenukey "Favorite weapon" +favorite
+   alias +favorite "+user1;pukename FAVORITEWEAPON"
+   alias -favorite "-user1"
+   defaultbind U +user1
+   
+	addmenukey "Survival Instinct" Istinct
+   alias Istinct "pukename ISTINCTKEY"
+   defaultbind F1 Istinct
+   
+  ///////////////// 
+ ////////////////// MUTATORS
+ /////////////////
+ 
+ //FOG
+
+Alias "SaveFog" "Pukename SaveFog"//"puke 1139"
+Alias "LoadFog" "pukename LoadFog"//"puke 1141"
+Alias "RunFog" "pukename RunFog"
+Alias "fog_default" "bdmut_fogcolor 0; bdmut_getred 25; bdmut_getgreen 25; bdmut_getblue 25"
+Alias "fog_red" "bdmut_fogcolor 0; bdmut_getred 25; bdmut_getgreen 0; bdmut_getblue 0"
+Alias "fog_green" "bdmut_fogcolor 0; bdmut_getred 0; bdmut_getgreen 25; bdmut_getblue 0"
+Alias "fog_blue" "bdmut_fogcolor 0; bdmut_getred 0; bdmut_getgreen 0; bdmut_getblue 25"
+Alias "fog_dark" "bdmut_fogcolor 0; bdmut_getred 8; bdmut_getgreen 8; bdmut_getblue 8"
+
+//Color Light
+Alias "SaveColorLight" "pukename SaveColorLight"
+Alias "LoadColorLight" "pukename LoadColorLight"
+Alias "ColorLight" "pukename ColorLight"
+
+// Key Configs
+
+// Aliases
+Alias "ToggleGoggles" "PukeName GoggleSwitch"
+Alias "ToggleRadsuit" "PukeName RadsuitSwitch"
+
+// Key Sections
+AddKeySection "LiTDOOM - Special Equipment" BDMutators
+
+// Menu Keys
+
+   addmenukey "Toggle Flashlight" toggleflashlight_bind   
+   alias toggleflashlight_bind "pukename flashlightkey"
+   defaultbind F toggleflashlight_bind
+
+AddMenuKey "Goggles" "ToggleGoggles"
+AddMenuKey "Radiation Suit" "ToggleRadsuit"
+
+    addmenukey "Quick Bandage" quickbandage
+   alias quickbandage "pukename QUICKBANDAGE"
+   defaultbind B quickbandage
+   
+    addmenukey "Quick Throw" +grenadetoss
+   alias +grenadetoss "+user3"
+   alias -grenadetoss "-user3"
+   defaultbind G +grenadetoss
+   
+    addmenukey "Cycle Throwables" cyclegrenade
+   alias cyclegrenade "pukename CYCLEEXPLOSIVES"
+   defaultbind T cyclegrenade
+   
+   addmenukey "Quick Knife Slash" quickknife
+   alias quickknife "pukename quickknife"
+   defaultbind J quickknife
+   
+AddKeySection "LiTDOOM - Optional Extras" LiTExtra
+
+   addmenukey "Whistle" whistle
+   alias whistle "puke 302"
+   defaultbind H whistle
+   
+   addmenukey "Throw Knife" knifethrow
+   alias knifethrow "pukename QUICKTHROW"
+   defaultbind H knifethrow
+   
+   addmenukey "Throw Flare" quickflare
+   alias quickflare "pukename QUICKFLARE"
+   defaultbind N quickflare
+   
+   alias "usetopickup_push" "netevent UseToPickup_Push"
+addkeysection "$U2P_KeyBindMenu_Heading" "UseToPickup"
+addmenukey "$U2P_KeyBindMenu_EnableToggle" "toggle usetopickup_enabled"
+addmenukey "$U2P_KeyBindMenu_Push" "usetopickup_push"

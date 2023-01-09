@@ -1,0 +1,1736 @@
+[enu eng en default]
+
+
+LOADNET = "you can't do load while in a net game!\n\npress a key.";
+QLOADNET = "you can't quickload during a netgame!\n\npress a key.";
+QSAVESPOT = "you haven't picked a quicksave slot yet!\n\npress a key.";
+SAVEDEAD = "you can't save if you aren't playing!\n\npress a key.";
+QSPROMPT = "quicksave over your game named\n\n'%s'?\n\npress y or n.";
+QLPROMPT = "do you want to quickload the game named\n\n'%s'?\n\npress y or n.";
+NEWGAME = "you can't start a new game\nwhile in a network game.\n\npress a key.";
+NIGHTMARE = "are you sure? this skill level\nisn't even remotely fair.\n\npress y or n.";
+SWSTRING = "this is the shareware version of doom.\n\nyou need to order the entire trilogy.\n\npress a key.";
+MSGOFF = "Messages OFF";
+MSGON = "Messages ON";
+NETEND = "you can't end a netgame!\n\npress a key.";
+ENDGAME = "are you sure you want to end the game?\n\npress y or n.";
+DOSY = "(press y to quit)";
+EMPTYSTRING = "empty slot";
+GOTARMOR = "Picked up the armor.";
+GOTMEGA = "Picked up the MegaArmor!";
+
+GOTSUPER = "Supercharge!";
+GOTBLUECARD = "\cnPicked up a blue keycard.";
+GOTYELWCARD = "\cnPicked up a yellow keycard.";
+GOTREDCARD = "\cnPicked up a red keycard.";
+GOTBLUESKUL = "\cnPicked up a blue skull key.";
+GOTYELWSKUL = "\cnPicked up a yellow skull key.";
+GOTREDSKUL = "\cnPicked up a red skull key.";
+GOTBERSERK = "\cnYou got a \cT Berserk Pack \! \cw(Overcharged Berserker state)";
+GOTSUIT = "\cnRadiation Shielding Suit";
+GOTMAP = "\cnComputer Area Map";
+GOTVISOR = "\cnLight Amplification Visor";
+GOTMSPHERE = "\cnMegaSphere!";
+GOTHTHBONUS = "\cnPicked up a health bonus.";
+GOTARMBONUS = "\cnPicked up an armor bonus.";
+
+//////// USE TO PICKUP
+U2P_PickUpText = "Pick up";
+U2P_OptionsMenu_Title = "Use To Pickup Options";
+U2P_OptionsMenu_Enable = "Enable Mod";
+U2P_OptionsMenu_FullUseRange = "Allow full Use range";
+U2P_OptionsMenu_ScanFreq = "Item scan frequency";
+U2P_OptionsMenu_HighlightColor = "Item bracket color";
+U2P_OptionsMenu_HighlightOpacity = "Item bracket opacity (0 to 1)";
+U2P_OptionsMenu_HighlightOpacityUnfocused = "...when not looking straight at it";
+U2P_OptionsMenu_FadeInTime = "Fade-in time (seconds)";
+U2P_OptionsMenu_FadeOutTime = "Fade-out time (seconds)";
+U2P_OptionsMenu_PickupDelay = "Delay before allowing pickup (seconds)";
+U2P_OptionsMenu_ResetDefaultConfirm = "This will reset all Use To Pickup settings (except key bindings) to their defaults. Are you sure?";
+U2P_OptionsMenu_HighlightRange = "Highlight all items range";
+U2P_OptionsMenu_FocusedOnly = "Disabled";
+U2P_KeyBindMenu_Heading = "Use To Pickup";
+U2P_KeyBindMenu_EnableToggle = "Toggle Enabled";
+U2P_KeyBindMenu_Push = "Push Item Away";
+HTHBONUS = "health bonus";
+ARMBONUS = "armor bonus";
+MEDIKIT = "medikit";
+STIMPACK = "stimpack";
+GREENARMOR = "security armor";
+BLUEARMOR = "combat armor";
+CHEXARMOR = "Chex(R) Armor";
+SUPERCHEXARMOR = "Super Chex(R) Armor";
+WATER = "glass of water";
+REPELLENT = "slime repellent";
+FRUIT = "bowl of fruit";
+VEGETABLES = "bowl of vegetables";
+SLIMESUIT = "Slime-Proof Suit";
+
+///////////
+//////    LITDOOM - START
+///////////
+
+// WEAPONS
+GOTCHAINGUN = "\cnYou got the \cqXM214 Microgun\cn! \cU(slot 4)";
+GOTPISTOL = "\cnYou got the \cq 'Mediator' M99 pistol\cn! \cU(slot 2)";
+GOTRIFLE = "\cnYou got the \cq M360 'Orthros' Binary Combat Rifle\cn! \cU(slot 4)";
+GOTRIFLE762 = "\cnYou got a damaged \cq M360 'Orthros' Binary Combat Rifle\cn loaded with \cP 7.62mm \cn rounds! \cU(slot 4)";
+GOTRIFLE473 = "\cnYou got a damaged \cq M360 'Orthros' Binary Combat Rifle\cn loaded with \cP 4.73mm \cn rounds! \cU(slot 4)";
+GOTCHAINSAW = "\cnA \cq chainsaw\cn!  Find some meat! \cU(slot 1)";
+GOTLAUNCHER = "\cnYou got the \cq VALKYR AT Rocket Launcher\cn! \cU(slot 5)";
+GOTGLAUNCHER = "\cnYou got the \cqCHIMERA Multi-purpose launcher\cn! \cU(slot 5)";
+GOTPLASMA = "\cnYou got the \cqM890 'Teratorn' Plasma Projection Weapon\cn! \cU(slot 6)";
+GOTSHOTGUN = "\cnYou got the \cqKampfmann M650 'Broom' pump shotgun\cn! \cU(slot 3)";
+GOTSHOTGUN2 = "\cnYou got the \cqAkrafena Demonic Shotgun\cn! \cU(slot 3)";
+GOTSMG = "\cnYou got the \cq'Stiletto' VCR-9 SMG\cn! \cU(slot 2)";
+GOTSMG2 = "\cnYou got the \cqsuppressed 'Stiletto' VCR-9 SMG\cn! \cU(slot 2)";
+GOTREVOLVER ="\cnYou got the \cq.50 Kriegerhand Revolver\cn! \cU(slot 2)";
+GOTLMG = "\cnYou got the \cq'Vuurkrag' SW-24 MachineGun\cn! \cU(slot 4)";
+GOTKNIFE = "\cnYou got the \cqCombat Knife\cn! \cU(slot 1)";
+GOTAXE = "\cnYou got a \cq Steel Fire Axe\cn in perfect conditions! \cU(slot 1)";
+GOTAXE2 = "\cnYou got a \cqworn used Fire Axe\cn. \cU(slot 1)";
+GOTAXE3 = "\cnYou retrieved your \cq Axe\cn.";
+GOTRAILGUN = "\cnYou got the \cqXM920 'Galitsadi' Plasma Lance\cn! \cU(slot 6)";
+GOTMANCUBUSARM = "\cnYou got the \cqMancubus Flame Cannon\cn! \cU(slot 8)";
+GOTFLAME = "\cnYou got a \cqFlamethrower\cn ! \cU(slot 8)";
+GOTFLAME2 = "\cnYou got a \cqdamaged Flamethrower\cn! \cU(slot 8)";
+GOTASG = "\cnYou got the \cqSkallkvern-12 Auto-Shotgun\cn! \cU(slot 3)";
+GOTBFG11K = "\cnYou got the \cq'GEHENNA' Blast Flux Generator 11000\cn!  \cU(slot 7)";
+GOTREVENANT = "\cnYou got the \cqRevenant Missile Launcher\cn \cU(slot 5).";
+GOTUNMAKER = "\cnYou got the sinister \cqUNMAKER\cn! Raze Hell. \cU(slot 8)";
+GOTHMG = "\cnYou picked up a \cQdeployable heavy machine gun\cn!";
+GOTNUKE = "\cnYou picked up a \cQ Micro-Tactical Nuke Launcher \cn! \cU(slot 5)";
+GOTKIT = "\cnYou picked up a \cQPolyvalent Survival Kit \cn! \cU(slot 0)";
+
+GOTMP40 = "\cnYou got the \cqMP 40\cn! \cU(slot 2)";
+
+/// AMMO
+NOGLAMMO = "\cj No available rounds of that type.";
+
+GOTMINES = "\cnYou got \cP a Proximity Bomb\cn \cU(slot 9).";
+GOTMINE = "\cnYou got a \cP Proximity Bomb\cn \cU(slot 9).";
+GOTHELLFIRE = "\cnYou got an \cP Hellfire Vial\cn \cU(slot 9).";
+GOTACIDMIST = "\cnYou got an \cP AcidMist Vial\cn \cU(slot 9).";
+GOTGRENADE = "\cnYou got a \cP High explosive grenade \cn \cU(slot 9).";
+GOTCLUSTER = "\cnYou got a \cP Cluster Grenade \cn \cU(slot 9).";
+
+GOTCLIP =  "\cnPicked up a \cP 7.62mm Rifle Magazine.";
+GOTCLIP2 = "\cnPicked up an \cP almost empty 7.62mm Rifle Magazine.";
+
+GOTCLIP3E = "\cnPicked up an \cP almost empty 4.73mm Rifle Magazine.";
+GOTCLIP3 = "\cnPicked up a \cP 4.73mm Rifle Magazine.";
+
+GOTCLIPBOX = "\cnPicked up an \cP half-full box of 7.62mm rifle rounds";
+GOT9MM = "\cnPicked up a \cP9mm Pistol Magazine.";
+GOT9MMBOX = "\cnPicked up a \cP box of 9mm ammunition.";
+GOT556 = "\cnPicked up an \cPhalf-full box of 4.73mm bullets";
+GOT556E = "\cnPicked up an \cPalmost empty box of 4.73mm rounds";
+GOTROCKET = "\cnPicked up an \cPAT-84mm rocket.";
+GOTROCKBOX = "\cnPicked up a \cPbox of AT-84mm rockets.";
+GOTWARHEAD = "\cnPicked up a \cPlandjager Thermobaric warhead.";
+GOTGRENBOX = "\cnPicked up a \cPbox of HE grenades.";
+GOTCELL = "\cnPicked up an \cPenergy cell.";
+GOTCELLBOX = "\cnPicked up an \cPenergy cell pack.";
+GOTBFGCORE = "\cnPicked up a \cPFusion core.";
+GOTSHELLS3 = "\cnPicked up an Assault shotgun's drum magazine, holding \cP  some buckshot shells.";
+GOTSHELLS2 = "\cnPicked up a \cP couple of buckshot shells.";
+GOTSHELLS = "\cnPicked up \cP4 buckshot shells.";
+GOTSHELLBOX = "\cnPicked up a \cPbox of buckshot shells.";
+GOTSLUGS = "\cnPicked up \cP3 12 gauge magnum slugs.";
+GOTSLUGBOX = "\cnPicked up \cPa box of 12 gauge magnum slugs";
+GOTEXPBOX = "\cnyou found a crate with \cP2 grenades\cn and \cP1 rocket";
+GOT50AMMO = "\cnPicked up \cPsome .50 bullets";
+
+GOTGAS = "\cnYou found a \cPfuel jerry can!";
+
+GOTBANDOLIER = "\cnYou picked up a \cPmilitary bandolier \cn with some standard ordinance ammunitions!";
+GOTBACKPACK = "\cnPicked up a \cPbackpack full of ammo!";
+
+/// UTILITY
+GOTBACKPACK2 = "\cnYou are now wearing a military-grade \cKreinforced Backpack \cn to carry your Equipment!";
+GOTBATTERY = "\cnYou found a common \cKlithium battery.";
+GOTRADAR = "\cnYou picked up a \cKportable movement tracker.";
+GOTLIFEMOD = "\cnYou picked up a \cKlife support armor module.";
+GOTRECOMBINER = "\cnYou picked up a \cKportable recombiner!";
+GOTFLARE = "\cnYou picked up a \cKflare.";
+GOTFLARE2 = "\cnYou picked up a \cK box of flares.";
+GOTBEACON = "\cnThis \cKDistress Beacon \cn allows you to call in allies to help you in combat!";
+GOTGOGGLES = "\cnYou got the \cKNight Vision Goggles!";
+GOTHEVSUIT = "\cnYou got the \cK UAC Hazardous Enviroment Suit!";
+GOTSENTRY = "\cnYou picked up a portable self-assembling \cKsentry gun!";
+GOTSUPPLYKIT = "\cnYou found an \cKEmergency Supply Kit. \cP Includes an ammo backpack\cn, a \cYportable medikit \cn and \cDlight armor.";
+GOTREPAIRER = "\cnYou got an \cKAppliance Nano-reconstructor!";
+GOTTRAP = "\cnYou picked up a \cKBear Trap!";
+GOTSENTRYBOT = "\cnYou found a \cKSentry-Bot deployment device!";
+GOTFORCEFIELD = "\cnYou found a \cKPersonal Barrier Generator";
+
+GOTCONTAINEREMPTY = "\cnYou picked up an \cKEmpty Artifact Container!";
+GOTCONTAINERFULL = "\cnYou picked up a \cKFilled Artifact Container!";
+
+GOTCRATEKEY = "\cnYou found a small metal \cKkey!";
+GOTSUPPRESSOR = "\cnYou picked up an \cKSMG SUPPRESSOR!";
+GOTRIFLEUPGRADE = "\cnYou found an \cKElectro-Thermo Chemical Upgrade Kit!";
+
+/// STIMULANTS
+GOTMILDSTIM = "\cnYou got a \cTMILD Health Stim \cninjector! \cw(+25health) " ;
+GOTPOTENTSTIM = "\cnYou got a \cTPOTENT Health Stim \cninjector! \cw(+50health)" ;
+GOTCHAOSSTIM = "\cnYou got a \cTChaos Stimulant \cninjector! \cw(+300health ; +20 max health)";
+GOTSTAMINASTIM = "\cnYou got an \cTErythropoietin Stim \cninjector! \cw(Stamina regeneration)";
+GOTBERSERKSTIM = "\cnYou got a \cT Berserker Stimulant \cninjector! \cw(light Berserker state)";
+GOTRAMPAGESTIM = "\cnYou got a \cT Rampage Stimulant \cninjector! \cw(slow time and no recoil)";
+GOTROCKSTIM = "\cnYou got an \cT ROCK SKIN Stim \cninjector! \cw(40% damage resist)";
+GOTADAMANTINESTIM = "\cnYou got an \cT ADAMANTINE SKIN Stim \cninjector! \cw(brief invulnerability)" ;
+GOTHAZARDSTIM = "\cnYou got an \cT Anti-Hazard Stimulant \cninjector! \cw(poison & surface immunity)" ;
+GOTPREDATORSTIM = "\cnYou got a \cT Predator Stimulant \cninjector! \cw(invisibility & nightvision)" ;
+GOTCLAIRVOYANCE = "\cnYou got a  \cTClairvoyance Stimulant \cninjector! \cw(Radar ; Complete automap)" ;
+GOTPHEROMONES = "\cnYou got an \cTAlpha Demon Pheromones \cninjector! \cw(Enemies flee from you)";
+
+/// CRAFTING
+GOTVIAL = "\cnYou picked up an \cJempty vial \cnmade of reinforced glass.";
+GOTACID = "\cnYou picked up an \cJ acid solution.";
+GOTBASE = "\cnYou picked up a \cJ basic solution";
+GOTNEUTRAL = "\cnYou picked up a \cJ neutral solution.";
+
+GOTSPIKE = "\cnYou picked up an intact \cJimp spike \cn in perfect conditions.";
+GOTHEART = "\cnYou picked up a \cJ demon's heart \cn that apparently won't stop beating no matter what...";
+GOTHORN = "\cnYou found the \cJ horn of a demon \cn. Still untainted.";
+GOTEYE = "\cnLooks like this \cJcacodemon eye \cn has not been squished into pudding yet. You could use it.";
+
+GOTMETAL = "\cnYou found some \cJ metal scraps.";
+GOTELECTRONIC = "\cnYou found some \cJelectronic parts.";
+GOTFABRIC = "\cnYou found some \cJ scrap cloth.";
+
+GOTALPHA = "\cnYou collected the \cM blood of an Alpha Demon \cn in a reinforced glass vial.";
+GOTCHAOS = "\cnYou somehow managed to store an amassment of \cTchaotic energy.";
+GOTFIRE = "\cnYou found some sort of \cX fire essence.";
+
+GOTPOWDER = "\cnYou found a fistful of \cJ smokeless powder.";
+DISMANTLE = "\cJ Successfully dismantled.";
+AMMOCRAFT = "\cJ Ammunitions crafted successfully.";
+CRAFTED = "\cJ Item crafted successfully.";
+NOMATS = "\cJ not enough materials.";
+SURVIVALISTONLY = "\cR Only the Survivalist class is capable of doing that.";
+
+/// HEALTH
+GOTADRENALINE = "\cnYou absorbed a small orb of \chDemon Adrenaline.";
+GOTCRYSTAL = "\cnYou shattered a \chSoul Crystal.";
+GOTCRYSTAL2 = "\cnYou shattered a \cHweak Soul Crystal.";
+GOTCRYSTAL3 = "\cnYou shattered a dim, \cHSoul-less Crystal.";
+GOTPAINKILLER = "\cnYou picked up some pills of a bland \cHpainkiller.";
+
+GOTSTIM = "\cnPicked up a \chpainkiller stimpack.";
+GOTMEDINEED = "\cnPicked up a \chbox of stimpacks \cn that you REALLY needed!";
+GOTMEDIKIT = "\cnPicked up a \chbox of stimpacks";
+
+GOTBANDAGES = "\cnYou got some \cYbandages.";
+GOTHEALTHPACK = "\cnYou got a \cyMedical Backpack.";
+GOTHEALTHBACKPACK = "\cnYou got a \cYportable medical kit.";
+GOTSOULSPHERE =  "\cnYou found a \cHSOULSPHERE!";
+
+GOTFOOD =  "\cnYou found  \cosomething to eat.";
+GOTDRINK =  "\cnYou found  \cosomething to drink.";
+
+///  ARMOR 
+GOTSHARD = "\cnYou picked up a \cD modular Armor Shard.";
+GOTSHARDS = "\cnYou picked up a box of \cD modular Armor Shards.";
+SHARD1 = "\cnYou picked up a damaged Armor Shard. \cD (1/3)";
+SHARD2 = "\cnYou picked up a damaged Armor Shard. \cD (2/3)";
+SHARD3 = "\cnYou combined 3 damaged pieces into a serviceable \cDModular Armor Shard.";
+GOTTERMINATORHELM = "\cn You used the \cDdemon's helmet \cnas an improvised one for yourself! \cu (+20 armor points).";
+
+GOTBOOTS = "\cnYou got a pair of \cDmilitary boots.";
+GOTHELMET = "\cnYou got a spare \cDHelmet!";
+GOTUNIFORM = "\cnYou got a \cDSpace Marine light uniform.";
+GOTLARMOR = "\cnPicked up the \cD10 mm Tier 2 Recon Body Armor \cu(40% Absorption).";
+GOTMARMOR =  "\cnPicked up the \cD16 mm Tier 3 Tactical Body Armor \cu(60% Absorption).";
+GOTHARMOR = "\cnPicked up the UAC \cD24 mm Tier 4 Assault Body Armor \cu(80% Absorption).";
+GOTTARMOR = "\cnPicked up the \cDUAC Level-IV Energy Tech Armor \cu(100% Absorption).";
+
+/// ARTIFACTS
+GOTGEM = "\ccYou picked up a \cRDaemonic Shard of Rage.";
+GOTRUNE = "\ccYou absorbed a \cR CARNAGE RUNE\cc! RIP AND TEAR!";
+GOTMEGASPHERE = "\ccYou absorbed the power of a \chMEGA\cDSPHERE\cc!";
+GOTREGENSPHERE = "\ccYou absorbed an \cR INFERNAL HEART\cc! Heals wounds and poison over time.";
+GOTINVUL = "\ccYou absorbed the power of an \cD INVULNERABILITY SPHERE\cc! ";
+GOTVAMPIRE = "\ccYou wore the \cA Vampire's Mask\cc! Inflict damage to heal yourself!";
+GOTMORPH = "\ccThe \cEShapeshifter Skull\cc transformed you!";
+GOTINVIS = "\ccYou absorbed the power of the \cUBlursphere\cc! ";
+GOTDOOMRELIC = "\ccYou absorbed the power of the \cXDOOM RELIC\cc! KILL, KILL, KILL!";
+GOTHOURGLASS = "\ccYou got the \cVHourglass of the Chronos Walkers\cc!";
+
+/// 
+
+PERFCONDITION = "\cuThis weapon is already in perfect conditions.";
+REPAIRED = "\cuYour weapon has been repaired.";
+REPAIRMODE = "\cv 																																REPAIR MODE: \n  <Reload> \cj the weapon you want to repair. \n \cjWhen you're finished, select the survival kit again.";
+CANTREPAIR = "\cuNothing you can repair is currently selected.";
+
+//dufflebags
+GOTMILBAG =  "\cnYou found a \cqMilitary Dufflebag\cn! ";
+GOTMILBAGS =  "\cnYou found a \cqSMALL Military Dufflebag\cn! ";
+GOTMILBAGL =  "\cnYou found a \cqLARGE Military Dufflebag\cn! ";
+
+GOTMEDBAG =  "\cnYou found a \chMedical Dufflebag\cn! ";
+GOTMEDBAGS =  "\cnYou found a \chSMALL Medical Dufflebag\cn! ";
+GOTMEDBAGL =  "\cnYou found a \chLARGE Medical Dufflebag\cn! ";
+
+GOTMATSBAG =  "\cnYou found a \cJMaterials Dufflebag\cn! ";
+GOTMATSBAGS =  "\cnYou found a \cJSMALL Materials Dufflebag\cn! ";
+GOTMATSBAGL =  "\cnYou found a \cJLARGE Materials Dufflebag\cn! ";
+
+GOTMISTERYBAG =  "\cnYou found a \cUan unopened Dufflebag\cn! What could be in it?";
+
+//// WEAPON PARTS
+PISTOLPART1 = "\cnYou got some \cqpistol parts\cn. (1/2)";
+PISTOLPART2 =  "\cnYou assembled enough spare parts into a barely functional \cq pistol\cn!";
+PISTOLPARTREPAIR = "\cnYou used some spare parts to repair your \cq pistol\cn.";
+
+REVOLVERPART1 = "\cnYou got some \cqREVOLVER parts\cn. (1/2)";
+REVOLVERPART2 = "\cnYou assembled enough spare parts into a barely functional \cq REVOLVER\cn!";
+REVOLVERPARTREPAIR = "\cnYou used some spare parts to repair your \cq REVOLVER\cn.";
+
+SMGPART1 = "\cnYou got some \cqSMG parts\cn. (1/2)";
+SMGPART2 = "\cnYou assembled enough spare parts into a barely functional \cqSMG\cn!";
+SMGPARTREPAIR = "\cnYou used some spare parts to repair your \cq SMG\cn.";
+
+SHOTGUNPART1 = "\cnYou got some \cqPUMP SHOTGUN parts\cn. (1/3)";
+SHOTGUNPART2 = "\cnYou got some \cqPUMP SHOTGUN parts\cn. (2/3)";
+SHOTGUNPART3 = "\cnYou assembled enough spare parts into a barely functional \cqPUMP SHOTGUN\cn!";
+SHOTGUNPARTREPAIR = "\cnYou used some spare parts to repair your \cq PUMP SHOTGUN\cn.";
+
+ASGPART1 = "\cnYou got some \cqASSAULT SHOTGUN parts\cn. (1/2)";
+ASGPART2 = "\cnYou assembled enough spare parts into a barely functional \cqASSAULT SHOTGUN\cn!";
+ASGPARTREPAIR = "\cnYou used some spare parts to repair your \cq ASSAULT SHOTGUN\cn.";
+
+RIFLEPART1 = "\cnYou got some \cqRIFLE parts\cn. (1/3)";
+RIFLEPART2 = "\cnYou got some \cqRIFLE parts\cn. (2/3)";
+RIFLEPART3 = "\cnYou assembled enough spare parts into a barely functional \cq RIFLE\cn!";
+RIFLEPARTREPAIR = "\cnYou used some spare parts to repair your \cq  RIFLE\cn.";
+
+MMGPART1 = "\cnYou got some \cqMACHINEGUN parts\cn. (1/2)";
+MMGPART2 = "\cnYou assembled enough spare parts into a barely functional \cq MACHINEGUN\cn!";
+MMGPARTREPAIR = "\cnYou used some spare parts to repair your \cqMACHINEGUN\cn.";
+
+MINIGUNPART1 = "\cnYou got some \cqMICROGUN parts\cn. (1/3)";
+MINIGUNPART2 = "\cnYou got some \cqMICROGUN parts\cn. (2/3)";
+MINIGUNPART3 = "\cnYou assembled enough spare parts into a barely functional \cq MICROGUN\cn!";
+MINIGUNPARTREPAIR = "\cnYou used some spare parts to repair your \cqMICROGUN\cn.";
+
+RLPART1 = "\cnYou got some \cqAT ROCKET LAUNCHER parts\cn. (1/2)";
+RLPART2 = "\cnYou assembled enough spare parts into a barely functional \cq AT ROCKET LAUNCHER\cn!";
+RLPARTREPAIR = "\cnYou used some spare parts to repair your \cqAT ROCKET LAUNCHER\cn.";
+
+GLPART1 = "\cnYou got some \cqGRENADE LAUNCHER parts\cn. (1/2)";
+GLPART2 = "\cnYou assembled enough spare parts into a barely functional \cq GRENADE LAUNCHER\cn!";
+GLPARTREPAIR = "\cnYou used some spare parts to repair your \cqGRENADE LAUNCHER\cn.";
+
+// Quit MESSAGES
+LITQUITMSG1 = "If you select  your partially depleted Night Vision Goggles from your inventory and use them, they'll be fully recharged if you have 2 batteries to spare.";
+LITQUITMSG2 = "REMEMBER:\n you can completely customize your difficulty settings, realism options, and much more from the MOD OPTIONS";
+LITQUITMSG3 = "The new dodge system makes so you're just grazed even by attacks that actually hit you. During a dodge, you absorb 85% of incoming damage. Keep an eye on your stamina bar, though!";
+LITQUITMSG4 = "You can interrupt most 'first time inspection' animations on weapons by holding down the 'kick' key. This way though, you won't get the bonus ammunitions gifted by the animation itself.";
+LITQUITMSG5 = "Every weapon and enemy has both strong points and weak points: experiment with them to always know what's the right tool for the situation!";
+LITQUITMSG6 = "Watch out for your weapon's condition: a damaged weapon could jam, misfire, or even explode in your hands or many other nasty effects depending on what you're holding. Keep them repaired!";
+LITQUITMSG7 = "When you have rockets or jerry cans but no weapon to use them with, drop them on the ground then shoot them to make them explode at the right moment. You can also put them on top of a bear trap to turn them into improvised mines.";
+LITQUITMSG8 = "An Acid Mist Vial thrown at the right moment, combined with an HEV Suit to protect you from its effects, can change the sorts of a battle: just sit there in the mist while you watch them melt!";
+
+LITQUITMSG9 = "PROTIP: \n If you find a portable nuke-launcher, craft an adamantine skin stimulant, then inject it before firing the nuke at your feet in a room full of high-tier enemies!";
+LITQUITMSG10 = "If you inject yourself with the Clairvoyance drug, not only you'll be able to see your enemies and items' positions (still buggy at times), but you'll also get access to the full revealed map, as if you 'feel' where all the secret areas are.";
+LITQUITMSG11 = "Selecting your Flares from slot 0, you'll hold them in your hands: \n from there, use the primary fire to throw them, and the secondary fire to light it up and keep in your hand, to use them as a torch. \n Pressing 'use', you can even pickup already burning flares from the ground!";
+LITQUITMSG12 = "Buckshot's pellets do very poorly against armor. \n Slugs and Revolver bullets on the other hand, even though they DON'T pierce armor, have a much better proficiency at crushing it, if you're short of armor piercing ammunitions like the 4.73 or the 7.62 calibers.";
+LITQUITMSG13 = "If you really want to force a supply crate open without wasting ammunitions, an axe or a chainsaw is usually the best way to do it quickly. \n Unless you have berserker strength: in that case, you bare hands  will do!";
+LITQUITMSG14 = "When in need of some health but there are no medikits in sight, \n use the chainsaw, ground  executions, fatalities or perform brutalities on dying and mortally wounded monsters to gain some health from the adrenaline.";
+LITQUITMSG15 = "Though not the most damaging weapons in the game, the mounted HMG and the plasma Rifle have the highest chance to stunlock enemies. \n As long as you can keep shooting everyone in your line of sight, no one will be able to fight back!";
+LITQUITMSG16 = "If you have a Ritual Dagger and a Demon Heart, but cannot find a sacrificial altar with an offering already prepared, you can make one by placing a Demon Heart on an empty demonic plinth. This way, you may conduct a sacrifice ritual all the same.";
+
+LITQUITMSG17 = "Watch out for any Proximity Mines you may find: it is not guaranteed that they will be inert... \n Remember that a live Proximity Mine emits a red light. If a Mine poses too much risk to be approached, force its detonation from a safe distance with another explosive weapon.";
+LITQUITMSG18 = "The deployed Recombiners you find lingering around might already be damaged, meaning  they can blow up randomly when used or stressed. In the worst case scenario, you can still get some Scrap Metal by breaking down a wrecked Recombiner.";
+LITQUITMSG19 = "The Erythropoietin shot (Stamina Stim), can be used in combination with the Survival Instinct ability to greatly extend the duration of the slowed down time effect of the latter. Additionally, using this syringe shot as a Scientist will temporarily give you access to said ability, usually locked to other classes.";
+LITQUITMSG20 = "The '100% Kills Reward' Option makes so you can choose between scavenging for various kind of supplies upon clearing a level of all monsters. The more crowded the level, the higher chances for better supplies. \n You can also choose to rest or look for a 'surprise item', which will always have the same chances of succeeding no matter your bodycount";
+LITQUITMSG21 = "Pressing the 'Weapon Special Action' button while holding a Survival kit will give you access to a number of unique abilities, such as: Manual weapon repair; Improvised Crafting; Ammo Crafting and Ammo Dismantling.";
+LITQUITMSG22 = "The Binary Combat Rifle can accept both 7.62 mm and 4.73 mm ammo types, the former being more powerful and accurate and the former providing a faster firerate. To change the ammo type, use the toggle that is accessed through the Weapon Special key.";
+LITQUITMSG23 = "You can retrieve zombie weapons by using Survival Kit on them. With enough of those weapons dismantled, you will gain a working (but only barely) weapon of your own. Then, you can either keep collecting parts to repair it or use another method to fix it up.";
+LITQUITMSG24 = "You can use the new whistle command to lure enemies to your position. ";
+
+LITQUITMSG25 = "The Fragmentation and Cluster Grenades can be „cooked” by holding the primary attack button or the quick throwable hotkey. This technique will delay the throw as desired. However, be warned that the throw will not happen until you release the button, so it is possible to blow yourself up if you never do it! (Both grenade types have a 3-seconds-long detonation delay).";
+//LITQUITMSG27 = "The new Plasmagun features a dynamic firemode mechanic, dependant on the heat level of the gun. At low heat levels, the Plasmagun will fire plasma bolts automatically. At higher heat levels, the fire function of the weapon will be changed into a plasma burst attack. Finally, if the weapon is overheated, it will discharge a plasma burst forcibly, lightly injuring the wielder. The Weapon Special button will either heat up or cool down the gun, accordingly with the heat level.";
+
+///////////
+//////    LITDOOM - END
+///////////
+
+//// UNIVERSAL SWAY
+MENU_TITLE = "Weapon Sway Options";
+
+HEADER_GEN = "General";
+HEADER_VERT = "Vertical Offset";
+HEADER_HSWAY = "Horizontal Sway";
+HEADER_VSWAY = "Vertical Sway";
+HEADER_MSWAY = "Movement Sway";
+
+OPTION_FIRE = "No Sway When Firing";
+OPTION_BOB = "Bob Sway";
+OPTION_NOBOB = "No Sway When Bobbing";
+
+OPTION_EXTEND = "Extend Sprite";
+OPTION_READYEXT = "Only Extend When Idle";
+OPTION_INVVERT = "Invert Offset";
+OPTION_CROUCHINVVERT = "Invert Crouch Offset";
+OPTION_VERTSCALE = "Offset Scale";
+OPTION_CROUCHVERTSCALE = "Crouch Offset Scale";
+
+OPTION_INVERT = "Invert Sway";
+OPTION_CUMUL = "Cumulative Sway";
+OPTION_SCALE = "Sway Scale";
+OPTION_CROUCHSCALE = "Crouch Sway Scale";
+OPTION_SPEED = "Sway Speed";
+OPTION_ACCURACY = "Sway Accuracy";
+
+OPTION_HSWAY = "No Horizontal Sway";
+OPTION_VSWAY = "No Vertical Sway";
+OPTION_FSWAY = "No Falling Sway";
+
+VALUE_ENABLED = "on";
+VALUE_DISABLED = "off";
+
+HELP_FIRE = "Sway is disabled while firing";
+HELP_BOB = "Sway is only enabled if the current weapon can bob";
+HELP_NOBOB = "If the weapon is bobbing sway is disabled";
+
+HELP_EXTEND = "Allows sprites to extend beyond their usual top (note: requires taller sprites to avoid cutoff)";
+HELP_READYEXT = "Only extend sprites when the weapon isn't doing anything";
+HELP_INVVERT = "Inverts the offset of the weapon";
+HELP_CROUCHINVVERT = "Inverts the direction of the offset when crouching";
+HELP_VERTSCALE = "Scales the offset of the weapon";
+HELP_CROUCHVERTSCALE = "Scales the offset from crouching";
+
+HELP_INVERT = "Inverts the direction of the sway";
+HELP_CUMUL = "Makes sway cumulative instead of inertia based";
+HELP_SCALE = "Scales the range of the sway";
+HELP_CROUCHSCALE = "Scales the range of the sway when crouching";
+HELP_SPEED = "How quickly the sway moves";
+HELP_ACCURACY = "Defines a deadzone in degrees for the sway where angle changes below that value are ignored";
+
+HELP_HSWAY = "Disables horizontal swaying from movement";
+HELP_VSWAY = "Disables vertical swaying from movement";
+HELP_FSWAY = "Disables vertical swaying from falling";
+
+/// UNIVERSAL SWAY - end
+
+PD_BLUEO = "You need a blue key to activate this object";
+PD_REDO = "You need a red key to activate this object";
+PD_YELLOWO = "You need a yellow key to activate this object";
+PD_BLUEK = "You need a blue key to open this door";
+PD_REDK = "You need a red key to open this door";
+PD_YELLOWK = "You need a yellow key to open this door";
+PD_BLUECO = "You need a blue card to activate this object";
+PD_REDCO = "You need a red card to activate this object";
+PD_YELLOWCO = "You need a yellow card to activate this object";
+PD_BLUESO = "You need a blue skull to activate this object";
+PD_REDSO = "You need a red skull to activate this object";
+PD_YELLOWSO = "You need a yellow skull to activate this object";
+NEWSAVE = "<New Save Game>";
+GGSAVED = "game saved.";
+HUSTR_MSGU = "[Message unsent]";
+PICKUP_PISTOL_DROPPED = "Picked up a pistol.";
+BETA_BONUS1 = "You pick up a demonic dagger.";
+BETA_BONUS2 = "You pick up a skullchest.";
+BETA_BONUS3 = "You pick up an evil sceptre.";
+BETA_BONUS4 = "You pick up an unholy bible.";
+
+AMSTR_FOLLOWON = "Follow Mode ON";
+AMSTR_FOLLOWOFF = "Follow Mode OFF";
+AMSTR_GRIDON = "Grid ON";
+AMSTR_GRIDOFF = "Grid OFF";
+AMSTR_TEXON = "Texture Mode ON";
+AMSTR_TEXOFF = "Texture Mode OFF";
+AMSTR_MARKEDSPOT = "Marked Spot";
+AMSTR_MARKSCLEARED = "All Marks Cleared";
+STSTR_MUS = "Music Change";
+STSTR_NOMUS = "IMPOSSIBLE SELECTION";
+STSTR_DQDON = "Degreelessness Mode ON";
+STSTR_DQDOFF = "Degreelessness Mode OFF";
+STSTR_DQD2ON = "Ultimate Degreelessness Mode ON";
+STSTR_DQD2OFF = "Ultimate Degreelessness Mode OFF";
+STSTR_KFAADDED = "Very Happy Ammo Added";
+STSTR_FAADDED = "Ammo (no keys) Added";
+STSTR_NCON = "No Clipping Mode ON";
+STSTR_NCOFF = "No Clipping Mode OFF";
+STSTR_NC2ON = "No Clipping Mode 2 ON";
+STSTR_BEHOLD = "inVuln, Str, Inviso, Rad, Allmap, or Lite-amp";
+STSTR_BEHOLDX = "Power-up Toggled";
+STSTR_CHOPPERS = "... doesn't suck - GM";
+STSTR_CLEV = "Changing Level...\n";
+TXT_BUDDHAON = "Buddha mode ON";
+TXT_BUDDHAOFF = "Buddha mode OFF";
+TXT_BUDDHA2ON = "Ultimate Buddha Mode ON";
+TXT_BUDDHA2OFF = "Ultimate Buddha Mode OFF";
+TXT_DEFAULTPICKUPMSG = "\ccYou picked up something";
+
+// New strings from BOOM
+PD_BLUEC = "You need a blue card to open this door";
+PD_REDC = "You need a red card to open this door";
+PD_YELLOWC = "You need a yellow card to open this door";
+PD_BLUES = "You need a blue skull to open this door";
+PD_REDS = "You need a red skull to open this door";
+PD_YELLOWS = "You need a yellow skull to open this door";
+PD_ANY = "Any key will open this door";
+PD_ANYOBJ = "Any key will activate this object";
+PD_ALL3 = "You need all three keys to open this door";
+PD_ALL3O = "You need all three keys to activate this object";
+PD_ALL6 = "You need all six keys to open this door";
+PD_ALL6O = "You need all six keys to activate this object";
+PD_ALLKEYS = "You need all the keys";
+
+// MBF (BOOM?) narration backgrounds
+bgflatE1 = "FLOOR4_8";
+bgflatE2 = "SFLR6_1";
+bgflatE3 = "MFLR8_4";
+bgflatE4 = "MFLR8_3";
+bgflat06 = "SLIME16";
+bgflat11 = "RROCK14";
+bgflat20 = "RROCK07";
+bgflat30 = "RROCK17";
+bgflat15 = "RROCK13";
+bgflat31 = "RROCK19";
+bgcastcall = "BOSSBACK";
+
+// Gameflow messages
+TXT_FRAGLIMIT = "Fraglimit hit.";
+TXT_TIMELIMIT = "Timelimit hit.";
+
+// Spree messages
+SPREEKILLSELF = "%o was looking good until %g killed %hself!";
+SPREEOVER = "%o's killing spree was ended by %k";
+SPREE5 = "%k is on a killing spree!";
+SPREE10 = "%k is on a rampage!";
+SPREE15 = "%k is dominating!";
+SPREE20 = "%k is unstoppable!";
+SPREE25 = "%k is Godlike!";
+
+// Mulitkill messages
+MULTI2 = "Double kill!";
+MULTI3 = "Multi kill!";
+MULTI4 = "Ultra kill!";
+MULTI5 = "Monster kill!";
+
+// Obituary strings
+// First the self-kills, then the other-kills
+OB_SUICIDE = "%o suicides.";
+OB_FALLING = "%o fell too far.";
+OB_CRUSH = "%o was squished.";
+OB_EXIT = "%o tried to leave.";
+OB_WATER = "%o can't swim.";
+OB_SLIME = "%o mutated.";
+OB_LAVA = "%o melted.";
+OB_BARREL = "%o went boom.";
+OB_SPLASH = "%o stood in the wrong spot.";
+OB_R_SPLASH = "%o should have stood back.";
+OB_ROCKET = "%o should have stood back.";
+OB_KILLEDSELF = "%o killed %hself.";
+
+// Same as OB_MPTELEFRAG, but shown when a monster telefrags you
+OB_MONTELEFRAG = "%o was telefragged.";
+
+OB_DEFAULT = "%o died.";
+OB_MPDEFAULT = "%o was killed by %k.";
+OB_FRIENDLY1 = "%k mows down a teammate.";
+OB_FRIENDLY2 = "%k checks %p glasses.";
+OB_FRIENDLY3 = "%k gets a frag for the other team.";
+OB_FRIENDLY4 = "%k loses another friend.";
+
+SAVEGAMENAME = "zdoomsv";
+STARTUP1 = "";
+STARTUP2 = "";
+STARTUP3 = "";
+STARTUP4 = "";
+STARTUP5 = "";
+
+// Scoreboard text
+SCORE_ITEMS = "ITEMS";
+SCORE_BONUS = "BONUS";
+SCORE_COLOR = "COLOR";
+SCORE_SECRET = "SECRET";
+SCORE_NAME = "NAME";
+SCORE_DELAY = "DELAY(ms)";
+SCORE_KILLS = "KILLS";
+SCORE_FRAGS = "FRAGS";
+SCORE_DEATHS = "DEATHS";
+SCORE_MISSED = "MISSED";
+SCORE_TOTAL = "TOTAL";
+SCORE_LVLTIME = "LEVEL TIME";
+
+// Item tags: Doom weapons
+TAG_FIST = "Brass Knuckles";
+TAG_CHAINSAW = "Chainsaw";
+TAG_PISTOL = "Pistol";
+TAG_SHOTGUN = "Shotgun";
+TAG_SUPERSHOTGUN = "Super Shotgun";
+TAG_CHAINGUN = "Chaingun";
+TAG_ROCKETLAUNCHER = "Rocket Launcher";
+TAG_PLASMARIFLE = "Plasma Rifle";
+TAG_BFG9000 = "BFG 9000";
+
+// Main Menu
+MNU_NEWGAME			= "NEW GAME";
+MNU_OPTIONS			= "OPTIONS";
+MNU_GAMEFILES		= "GAME FILES";
+MNU_INFO			= "INFO";
+MNU_QUITGAME		= "QUIT GAME";
+
+// Skills
+MNU_CHOOSESKILL		= "CHOOSE SKILL LEVEL:";
+
+SKILL_BABY			= "I'm too young to die";
+SKILL_EASY			= "Hey, not too rough";
+SKILL_NORMAL		= "Hurt me plenty";
+SKILL_HARD			= "Ultra-Violence";
+SKILL_NIGHTMARE		= "NIGHTMARE!";
+
+CSKILL_BABY			= "Easy does it";
+CSKILL_EASY			= "Not so sticky";
+CSKILL_NORMAL		= "Gobs of goo";
+CSKILL_HARD			= "Extreme Ooze";
+CSKILL_NIGHTMARE	= "Super Slimey!";
+
+SSKILL_BABY			= "Training";
+SSKILL_EASY			= "Rookie";
+SSKILL_NORMAL		= "Veteran";
+SSKILL_HARD			= "Elite";
+SSKILL_NIGHTMARE	= "Bloodbath";
+
+MNU_WETNURSE		= "THOU NEEDETH A WET-NURSE";
+MNU_YELLOWBELLIES	= "YELLOWBELLIES-R-US";
+MNU_BRINGEST		= "BRINGEST THEM ONETH";
+MNU_SMITE			= "THOU ART A SMITE-MEISTER";
+MNU_BLACKPLAGUE		= "BLACK PLAGUE POSSESSES THEE";
+
+MNU_SQUIRE			= "SQUIRE";
+MNU_KNIGHT			= "KNIGHT";
+MNU_WARRIOR			= "WARRIOR";
+MNU_BERSERKER		= "BERSERKER";
+MNU_TITAN			= "TITAN";
+                                    
+MNU_ALTARBOY		= "ALTAR BOY";
+MNU_ACOLYTE			= "ACOLYTE";
+MNU_PRIEST			= "PRIEST";
+MNU_CARDINAL		= "CARDINAL";
+MNU_POPE			= "POPE";
+                                    
+MNU_APPRENTICE		= "APPRENTICE";
+MNU_ENCHANTER		= "ENCHANTER";
+MNU_SORCERER        = "SORCERER";
+MNU_WARLOCK			= "WARLOCK";
+MNU_ARCHMAGE		= "ARCHMAGE";
+
+// Classes
+MNU_CHOOSECLASS		= "CHOOSE CLASS:";
+MNU_FIGHTER			= "FIGHTER";
+MNU_CLERIC			= "CLERIC";
+MNU_MAGE			= "MAGE";
+MNU_RANDOM			= "RANDOM";
+
+// Game Files
+MNU_LOADGAME		= "LOAD GAME";
+MNU_SAVEGAME		= "SAVE GAME";
+MNU_NOPICTURE		= "No Picture";
+MNU_DIFFVERSION		= "Different\nVersion";
+MNU_NOFILES			= "No files";
+MNU_DELETESG		= "Do you really want to delete the savegame\n";
+
+// Episodes
+MNU_EPISODE			= "Select Episode:";
+MNU_COTD			= "CITY OF THE DAMNED";
+MNU_HELLSMAW		= "HELL'S MAW";
+MNU_DOME			= "THE DOME OF D'SPARIL";
+MNU_OSSUARY			= "THE OSSUARY";
+MNU_DEMESNE			= "THE STAGNANT DEMESNE";
+$ifgame(heretic) SWSTRING = "ONLY AVAILABLE IN THE REGISTERED VERSION";
+
+// Options Menu
+OPTMNU_TITLE				= "OPTIONS";
+OPTMNU_CONTROLS				= "Customize Controls";
+OPTMNU_MOUSE				= "Mouse options";
+OPTMNU_JOYSTICK				= "Joystick options";
+OPTMNU_PLAYER				= "Player Setup";
+OPTMNU_GAMEPLAY				= "Gameplay Options";
+OPTMNU_COMPATIBILITY		= "Compatibility Options";
+OPTMNU_AUTOMAP				= "Automap Options";
+OPTMNU_HUD					= "HUD Options";
+OPTMNU_MISCELLANEOUS		= "Miscellaneous Options";
+OPTMNU_NETWORK				= "Network Options";
+OPTMNU_SOUND				= "Sound Options";
+OPTMNU_DISPLAY				= "Display Options";
+OPTMNU_VIDEO				= "Set video mode";
+OPTMNU_DEFAULTS				= "Reset to defaults";
+OPTMNU_RESETTOSAVED			= "Reset to last saved";
+OPTMNU_CONSOLE				= "Go to console";
+
+// Controls Menu
+
+CNTRLMNU_TITLE					= "CUSTOMIZE CONTROLS";
+CNTRLMNU_SWITCHTEXT1			= "ENTER to change, BACKSPACE to clear";
+CNTRLMNU_SWITCHTEXT2			= "Press new key for control, ESC to cancel";
+CNTRLMNU_CONTROLS				= "Controls";
+CNTRLMNU_ATTACK					= "Fire";
+CNTRLMNU_ALTATTACK				= "Secondary Fire";
+CNTRLMNU_RELOAD					= "Weapon Reload";
+CNTRLMNU_ZOOM					= "Weapon Zoom";
+CNTRLMNU_USER1					= "Weapon State 1";
+CNTRLMNU_USER2					= "Weapon State 2";
+CNTRLMNU_USER3					= "Weapon State 3";
+CNTRLMNU_USER4					= "Weapon State 4";
+CNTRLMNU_USE					= "Use / Open";
+CNTRLMNU_FORWARD				= "Move forward";
+CNTRLMNU_BACK					= "Move backward";
+CNTRLMNU_MOVELEFT				= "Strafe left";
+CNTRLMNU_MOVERIGHT				= "Strafe right";
+CNTRLMNU_TURNLEFT				= "Turn left";
+CNTRLMNU_TURNRIGHT				= "Turn right";
+CNTRLMNU_TURN180				= "Quick Turn";
+CNTRLMNU_JUMP					= "Jump";
+CNTRLMNU_CROUCH					= "Crouch";
+CNTRLMNU_TOGGLECROUCH			= "Crouch Toggle";
+CNTRLMNU_MOVEUP					= "Fly / Swim up";
+CNTRLMNU_MOVEDOWN				= "Fly / Swim down";
+CNTRLMNU_LAND					= "Stop flying";
+CNTRLMNU_MOUSELOOK				= "Mouse look";
+CNTRLMNU_KEYBOARDLOOK			= "Keyboard look";
+CNTRLMNU_LOOKUP					= "Look up";
+CNTRLMNU_LOOKDOWN				= "Look down";
+CNTRLMNU_CENTERVIEW				= "Center view";
+CNTRLMNU_RUN					= "Run";
+CNTRLMNU_TOGGLERUN				= "Toggle Run";
+CNTRLMNU_STRAFE					= "Strafe";
+CNTRLMNU_SCOREBOARD				= "Show Scoreboard";
+CNTRLMNU_TOGGLESCOREBOARD		= "Toggle Scoreboard";
+CNTRLMNU_CHAT					= "Chat";
+CNTRLMNU_SAY					= "Say";
+CNTRLMNU_TEAMSAY				= "Team say";
+CNTRLMNU_WEAPONS				= "Weapons";
+CNTRLMNU_NEXTWEAPON				= "Next weapon";
+CNTRLMNU_PREVIOUSWEAPON			= "Previous weapon";
+CNTRLMNU_SLOT1					= "Weapon Slot 1";
+CNTRLMNU_SLOT2					= "Weapon Slot 2";
+CNTRLMNU_SLOT3					= "Weapon Slot 3";
+CNTRLMNU_SLOT4					= "Weapon Slot 4";
+CNTRLMNU_SLOT5					= "Weapon Slot 5";
+CNTRLMNU_SLOT6					= "Weapon Slot 6";
+CNTRLMNU_SLOT7					= "Weapon Slot 7";
+CNTRLMNU_SLOT8					= "Weapon Slot 8";
+CNTRLMNU_SLOT9					= "Weapon Slot 9";
+CNTRLMNU_SLOT0					= "Weapon Slot 0";
+CNTRLMNU_INVENTORY				= "Inventory";
+CNTRLMNU_USEITEM				= "Activate item";
+CNTRLMNU_USEALLITEMS			= "Activate all items";
+CNTRLMNU_NEXTITEM				= "Next item";
+CNTRLMNU_PREVIOUSITEM			= "Previous item";
+CNTRLMNU_DROPITEM				= "Drop item";
+CNTRLMNU_QUERYITEM				= "Query item";
+CNTRLMNU_DROPWEAPON				= "Drop weapon";
+CNTRLMNU_OTHER					= "Other";
+CNTRLMNU_AUTOMAP				= "Toggle automap";
+CNTRLMNU_CHASECAM				= "Chasecam";
+CNTRLMNU_COOPSPY				= "Coop spy";
+CNTRLMNU_SCREENSHOT				= "Screenshot";
+CNTRLMNU_CONSOLE				= "Open console";
+CNTRLMNU_POPUPS					= "Strife Popup Screens";
+CNTRLMNU_MISSION				= "Mission objectives";
+CNTRLMNU_KEYS					= "Keys list";
+CNTRLMNU_STATS					= "Weapons/ammo/stats";
+
+// Mouse Menu
+
+MOUSEMNU_TITLE				= "MOUSE OPTIONS";
+MOUSEMNU_ENABLEMOUSE		= "Enable mouse";
+MOUSEMNU_MOUSEINMENU		= "Enable mouse in menus";
+MOUSEMNU_SHOWBACKBUTTON		= "Show back button";
+MOUSEMNU_CURSOR				= "Cursor";
+MOUSEMNU_SENSITIVITY		= "Overall sensitivity";
+MOUSEMNU_NOPRESCALE			= "Prescale mouse movement";
+MOUSEMNU_SMOOTHMOUSE		= "Smooth mouse movement";
+MOUSEMNU_TURNSPEED			= "Turning speed";
+MOUSEMNU_MOUSELOOKSPEED		= "Mouselook speed";
+MOUSEMNU_FORWBACKSPEED		= "Forward/Backward speed";
+MOUSEMNU_STRAFESPEED		= "Strafing speed";
+MOUSEMNU_ALWAYSMOUSELOOK	= "Always Mouselook";
+MOUSEMNU_INVERTMOUSE		= "Invert Mouse";
+MOUSEMNU_LOOKSPRING			= "Lookspring";
+MOUSEMNU_LOOKSTRAFE			= "Lookstrafe";
+
+// Joystick Menu
+
+JOYMNU_CONFIG				= "CONFIGURE CONTROLLER";
+JOYMNU_OPTIONS				= "CONTROLLER OPTIONS";
+
+// Player Setup Menu
+MNU_PLAYERSETUP		= "PLAYER SETUP";
+PLYRMNU_NAME			= "Name";
+PLYRMNU_TEAM			= "Team";
+PLYRMNU_PLAYERCOLOR		= "Color";
+PLYRMNU_RED				= "Red";
+PLYRMNU_GREEN			= "Green";
+PLYRMNU_BLUE			= "Blue";
+PLYRMNU_PLAYERCLASS		= "Class";
+PLYRMNU_PLAYERSKIN		= "Skin";
+PLYRMNU_PLAYERGENDER	= "Gender";
+PLYRMNU_AUTOAIM			= "Autoaim";
+PLYRMNU_SWITCHONPICKUP	= "Switch on pickup";
+PLYRMNU_ALWAYSRUN		= "Always Run";
+
+// Display Options
+DSPLYMNU_TITLE					= "DISPLAY OPTIONS";
+DSPLYMNU_SCOREBOARD				= "Scoreboard Options";
+DSPLYMNU_SCREENSIZE				= "Screen size";
+DSPLYMNU_BRIGHTNESS				= "Brightness";
+DSPLYMNU_VSYNC					= "Vertical Sync";
+DSPLYMNU_CAPFPS					= "Rendering Interpolation";
+DSPLYMNU_WIPETYPE				= "Screen wipe style";
+DSPLYMNU_SHOWENDOOM				= "Show ENDOOM screen";
+DSPLYMNU_BLOODFADE				= "Blood Flash Intensity";
+DSPLYMNU_PICKUPFADE				= "Pickup Flash Intensity";
+DSPLYMNU_WATERFADE				= "Underwater Blend Intensity";
+DSPLYMNU_PALLETEHACK			= "DirectDraw palette hack"; // Not used
+DSPLYMNU_ATTACHEDSURFACES		= "Use attached surfaces"; // Not used
+DSPLYMNU_SKYMODE				= "Sky render mode";
+DSPLYMNU_GZDFULLBRIGHT			= "Fullbright overrides sector color";
+DSPLYMNU_DRAWFUZZ				= "Use fuzz effect";
+DSPLYMNU_TRANSSOUL				= "Lost Soul translucency";
+DSPLYMNU_FAKECONTRAST			= "Use fake contrast";
+DSPLYMNU_ROCKETTRAILS			= "Rocket Trails";
+DSPLYMNU_BLOODTYPE				= "Blood Type";
+DSPLYMNU_PUFFTYPE				= "Bullet Puff Type";
+DSPLYMNU_MAXPARTICLES			= "Number of particles";
+DSPLYMNU_MAXDECALS				= "Number of decals";
+DSPLYMNU_PLAYERSPRITES			= "Show player sprites";
+DSPLYMNU_DEATHCAM				= "Death camera";
+DSPLYMNU_TELEZOOM				= "Teleporter zoom";
+DSPLYMNU_QUAKEINTENSITY			= "Earthquake shake intensity";
+DSPLYMNU_NOMONSTERINTERPOLATION	= "Interpolate monster movement";
+DSPLYMNU_MENUDIM				= "Menu dim";
+DSPLYMNU_DIMCOLOR				= "Dim color";
+DSPLYMNU_MOVEBOB 				= "View bob amount while moving";
+DSPLYMNU_STILLBOB 				= "View bob amount while not moving";
+DSPLYMNU_BOBSPEED				= "Weapon bob speed";
+
+// HUD Options
+HUDMNU_TITLE					= "HUD Options";
+HUDMNU_ALTHUD					= "Alternative HUD";
+HUDMNU_MESSAGE					= "Message Options";
+HUDMNU_UISCALE					= "User interface scale";
+HUDMNU_CROSSHAIR				= "Default Crosshair";
+HUDMNU_FORCECROSSHAIR			= "Force default crosshair";
+HUDMNU_GROWCROSSHAIR			= "Grow crosshair when picking up items";
+HUDMNU_CROSSHAIRCOLOR			= "Crosshair color";
+HUDMNU_CROSSHAIRHEALTH			= "Crosshair shows health";
+HUDMNU_CROSSHAIRSCALE			= "Scale crosshair";
+HUDMNU_NAMETAGS					= "Display nametags";
+HUDMNU_NAMETAGCOLOR				= "Nametag color";
+HUDMNU_SCALESTATBAR				= "Stretch status bar";
+HUDMNU_SCALEFULLSCREENHUD		= "Stretch Fullscreen HUD";
+HUDMNU_OLDOUCH					= "Use old ouch mug shot formula";
+HUDMNU_HEXENFLASHES				= "Hexen weapon flashes";
+HUDMNU_POISONFLASHES			= "Poison damage flashes";
+HUDMNU_ICEFLASHES				= "Ice death flashes";
+HUDMNU_HAZARDFLASHES			= "Poison Buildup flashes";
+
+// AltHUD Options
+ALTHUDMNU_TITLE					= "Alternative HUD";
+ALTHUDMNU_ENABLE				= "Enable alternative HUD";
+ALTHUDMNU_SCALEHUD				= "Stretch alternative HUD";
+ALTHUDMNU_SHOWSECRETS			= "Show secret count";
+ALTHUDMNU_SHOWMONSTERS			= "Show monster count";
+ALTHUDMNU_SHOWITEMS				= "Show item count";
+ALTHUDMNU_SHOWSTATS				= "Show stamina and accuracy";
+ALTHUDMNU_SHOWBERSERK			= "Show berserk";
+ALTHUDMNU_SHOWWEAPONS			= "Show weapons";
+ALTHUDMNU_SHOWAMMO				= "Show ammo for";
+ALTHUDMNU_SHOWTIME				= "Show time";
+ALTHUDMNU_TIMECOLOR				= "Time color";
+ALTHUDMNU_SHOWLAG				= "Show network latency";
+ALTHUDMNU_AMMOORDER				= "Ammo display order";
+ALTHUDMNU_AMMORED				= "Red ammo display below %";
+ALTHUDMNU_AMMOYELLOW			= "Yellow ammo display below %";
+ALTHUDMNU_HEALTHRED				= "Red health display below";
+ALTHUDMNU_HEALTHYELLOW			= "Yellow health display below";
+ALTHUDMNU_HEALTHGREEN			= "Green health display below";
+ALTHUDMNU_ARMORRED				= "Red armor display below";
+ALTHUDMNU_ARMORYELLOW			= "Yellow armor display below";
+ALTHUDMNU_ARMORGREEN			= "Green armor display below";
+ALTHUDMNU_AUTOMAPHUD			= "Alternative Automap HUD";
+ALTHUDMNU_TITLECOLOR			= "Map title color";
+ALTHUDMNU_MAPTIMECOLOR			= "Map time color";
+ALTHUDMNU_HUBTIMECOLOR			= "Hub time color";
+ALTHUDMNU_TOTALTIMECOLOR		= "Total time color";
+ALTHUDMNU_COORDINATECOLOR		= "Coordinate color";
+ALTHUDMNU_COORDINATEMODE		= "Coordinate mode";
+ALTHUDMNU_STATSNAMECOLOR		= "Statistics name color";
+ALTHUDMNU_STATSCOLOR			= "Statistics color";
+
+// Misc. Options
+MISCMNU_TITLE					= "Miscellaneous Options";
+MISCMNU_MERGEKEYS				= "Merge left+right Alt/Ctrl/Shift";
+MISCMNU_WINFULLSCREENTOGGLE		= "Alt-Enter toggles fullscreen";
+MISCMNU_MACFULLSCREENTOGGLE		= "Command-F toggles fullscreen";
+MISCMNU_QUERYIWAD				= "Show IWAD selection dialog";
+MISCMNU_ALLCHEATS				= "Enable cheats from all games";
+MISCMNU_ENABLEAUTOSAVES			= "Enable autosaves";
+MISCMNU_AUTOSAVECOUNT			= "Number of autosaves";
+MISCMNU_SAVELOADCONFIRMATION  = "Save/Load confirmation";
+MISCMNU_DEHLOAD					= "Load *.deh/*.bex lumps";
+MISCMNU_CACHENODES				= "Cache nodes";
+MISCMNU_CACHETIME				= "Time threshold for node caching";
+MISCMNU_CLEARNODECACHE			= "Clear node cache";
+
+// Automap Options
+AUTOMAPMNU_TITLE				= "AUTOMAP OPTIONS";
+AUTOMAPMNU_COLORSET				= "Map color set";
+AUTOMAPMNU_CUSTOMCOLORS			= "Allow map defined colors";
+AUTOMAPMNU_SETCUSTOMCOLORS		= "Set custom colors";
+AUTOMAPMNU_CONTROLS				= "Customize map controls";
+AUTOMAPMNU_ROTATE				= "Rotate automap";
+AUTOMAPMNU_OVERLAY				= "Overlay automap";
+AUTOMAPMNU_TEXTURED				= "Enable textured display";
+AUTOMAPMNU_FOLLOW				= "Follow player";
+AUTOMAPMNU_SHOWITEMS			= "Show item counts";
+AUTOMAPMNU_SHOWMONSTERS			= "Show monster counts";
+AUTOMAPMNU_SHOWSECRETS			= "Show secret counts";
+AUTOMAPMNU_SHOWTIME				= "Show time elapsed";
+AUTOMAPMNU_SHOWTOTALTIME		= "Show total time elapsed";
+AUTOMAPMNU_MAPSECRETS			= "Show secrets on map";
+AUTOMAPMNU_SHOWMAPLABEL			= "Show map label";
+AUTOMAPMNU_DRAWMAPBACK			= "Draw map background";
+AUTOMAPMNU_SHOWKEYS				= "Show keys (cheat)";
+AUTOMAPMNU_SHOWTRIGGERLINES		= "Show trigger lines";
+AUTOMAPMNU_SHOWTHINGSPRITES		= "Show things as sprites";
+AUTOMAPMNU_PTOVERLAY			= "Overlay portals";
+
+// Automap Controls
+MAPCNTRLMNU_TITLE 			= "CUSTOMIZE MAP CONTROLS";
+MAPCNTRLMNU_CONTROLS		= "Map Controls";
+MAPCNTRLMNU_PANLEFT			= "Pan left";
+MAPCNTRLMNU_PANRIGHT		= "Pan right";
+MAPCNTRLMNU_PANUP			= "Pan up";
+MAPCNTRLMNU_PANDOWN			= "Pan down";
+MAPCNTRLMNU_ZOOMIN			= "Zoom in";
+MAPCNTRLMNU_ZOOMOUT			= "Zoom out";
+MAPCNTRLMNU_TOGGLEZOOM		= "Toggle zoom";
+MAPCNTRLMNU_TOGGLEFOLLOW	= "Toggle follow";
+MAPCNTRLMNU_TOGGLEGRID		= "Toggle grid";
+MAPCNTRLMNU_TOGGLETEXTURE	= "Toggle texture";
+MAPCNTRLMNU_SETMARK			= "Set mark";
+MAPCNTRLMNU_CLEARMARK		= "Clear mark";
+
+// Automap Colors
+MAPCOLORMNU_TITLE 						= "CUSTOMIZE MAP COLORS";
+MAPCOLORMNU_DEFAULTMAPCOLORS			= "Restore default custom colors";
+MAPCOLORMNU_BACKCOLOR 					= "Background";
+MAPCOLORMNU_YOURCOLOR 					= "You";
+MAPCOLORMNU_WALLCOLOR 					= "1-sided walls";	
+MAPCOLORMNU_FDWALLCOLOR 				= "2-sided walls with different floors";		
+MAPCOLORMNU_CDWALLCOLOR 				= "2-sided walls with different ceilings";
+MAPCOLORMNU_EFWALLCOLOR 				= "2-sided walls with 3D floors";	
+MAPCOLORMNU_GRIDCOLOR 					= "Map grid";
+MAPCOLORMNU_XHAIRCOLOR 					= "Center point";
+MAPCOLORMNU_NOTSEENCOLOR 				= "Not-yet-seen walls";		
+MAPCOLORMNU_LOCKEDCOLOR 				= "Locked doors";
+MAPCOLORMNU_INTRALEVELCOLOR				= "Teleporter to the same map";
+MAPCOLORMNU_INTERLEVELCOLOR 			= "Teleporter to a different map";
+MAPCOLORMNU_SECRETSECTORCOLOR 			= "Secret sector";
+MAPCOLORMNU_SPECIALWALLCOLOR			= "Special trigger lines";
+MAPCOLORMNU_CHEATMODE					= "Cheat Mode";
+MAPCOLORMNU_TSWALLCOLOR					= "Invisible 2-sided walls";	
+MAPCOLORMNU_SECRETWALLCOLOR				= "Secret walls";
+MAPCOLORMNU_THINGCOLOR					= "Actors";
+MAPCOLORMNU_MONSTERCOLOR				= "Monsters";
+MAPCOLORMNU_NONCOUNTINGMONSTERCOLOR 	= "non-counting Monsters";
+MAPCOLORMNU_FRIENDCOLOR 				= "Friends";
+MAPCOLORMNU_ITEMCOLOR 					= "Items";
+MAPCOLORMNU_COUNTITEMCOLOR 				= "Count Items";
+MAPCOLORMNU_OVERLAY 					= "Overlay Mode";
+MAPCOLORMNU_OVCHEATMODE 				= "Overlay Cheat Mode";
+MAPCOLORMNU_PORTAL						= "Portal Overlays";
+
+// Message Options
+MSGMNU_TITLE				= "MESSAGES";
+MSGMNU_SHOWMESSAGES			= "Show messages";
+MSGMNU_SHOWOBITUARIES		= "Show obituaries";
+MSGMNU_SHOWSECRETS			= "Show secret notifications";
+MSGMNU_SCALETEXT			= "Scale text in high res";
+MSGMNU_SCALECONSOLE			= "Scale console";
+MSGMNU_MESSAGELEVEL			= "Minimum message level";
+MSGMNU_CENTERMESSAGES		= "Center messages";
+MSGMNU_MESSAGECOLORS		= "Message Colors";
+MSGMNU_ITEMPICKUP			= "Item Pickup";
+MSGMNU_OBITUARIES			= "Obituaries";
+MSGMNU_CRITICALMESSAGES		= "Critical Messages";
+MSGMNU_CHATMESSAGES			= "Chat Messages";
+MSGMNU_TEAMMESSAGES			= "Team Messages";
+MSGMNU_CENTEREDMESSAGES		= "Centered Messages";
+MSGMNU_SCREENSHOTMESSAGES	= "Screenshot messages";
+MSGMNU_LONGSAVEMESSAGES		= "Detailed save messages";
+MSGMNU_DEVELOPER			= "Developer message mode";
+
+// Scoreboard Options
+SCRBRDMNU_TITLE				= "SCOREBOARD OPTIONS";
+SCRBRDMNU_COOPERATIVE		= "Cooperative Options";
+SCRBRDMNU_ENABLE			= "Enable Scoreboard";
+SCRBRDMNU_HEADERCOLOR		= "Header Color";
+SCRBRDMNU_YOURCOLOR			= "Your Player Color";
+SCRBRDMNU_OTHERPLAYERCOLOR	= "Other Players' Color";
+SCRBRDMNU_DEATHMATCH		= "Deathmatch Options";
+SCRBRDMNU_TEAMDEATHMATCH	= "Team Deathmatch Options";
+
+// Gameplay Menu
+GMPLYMNU_TITLE				= "GAMEPLAY OPTIONS";
+GMPLYMNU_TEAMPLAY			= "Teamplay";		
+GMPLYMNU_TEAMDAMAGE			= "Team damage scalar";
+GMPLYMNU_SMARTAUTOAIM		= "Smart Autoaim";
+GMPLYMNU_FALLINGDAMAGE		= "Falling damage";
+GMPLYMNU_DROPWEAPON			= "Drop weapon";
+GMPLYMNU_DOUBLEAMMO			= "Double ammo";
+GMPLYMNU_INFINITEAMMO		= "Infinite ammo";
+GMPLYMNU_INFINITEINVENTORY	= "Infinite inventory";
+GMPLYMNU_NOMONSTERS			= "No monsters";
+GMPLYMNU_NOMONSTERSTOEXIT	= "No monsters to exit";
+GMPLYMNU_MONSTERSRESPAWN	= "Monsters respawn";
+GMPLYMNU_NORESPAWN			= "No respawn";
+GMPLYMNU_ITEMSRESPAWN		= "Items respawn";
+GMPLYMNU_SUPERRESPAWN		= "Big powerups respawn";
+GMPLYMNU_FASTMONSTERS		= "Fast monsters";
+GMPLYMNU_DEGENERATION		= "Degeneration";
+GMPLYMNU_NOAUTOAIM			= "Allow Autoaim";
+GMPLYMNU_ALLOWSUICIDE		= "Allow Suicide";
+GMPLYMNU_ALLOWJUMP			= "Allow jump";
+GMPLYMNU_ALLOWCROUCH		= "Allow crouch";
+GMPLYMNU_ALLOWFREELOOK		= "Allow freelook";
+GMPLYMNU_ALLOWFOV			= "Allow FOV";
+GMPLYMNU_BFGFREEAIM			= "Allow BFG aiming";
+GMPLYMNU_ALLOWAUTOMAP		= "Allow automap";
+GMPLYMNU_AUTOMAPALLIES		= "Automap allies";
+GMPLYMNU_ALLOWSPYING		= "Allow spying";
+GMPLYMNU_CHASECAM			= "Chasecam cheat";
+GMPLYMNU_DONTCHECKAMMO		= "Check ammo for weapon switch";
+GMPLYMNU_KILLBOSSSPAWNS		= "Icon's death kills its spawns";
+GMPLYMNU_NOCOUNTENDMONSTER	= "End sector counts for kill %";
+GMPLYMNU_DEATHMATCH			= "Deathmatch Settings";
+GMPLYMNU_WEAPONSSTAY		= "Weapons stay";
+GMPLYMNU_ALLOWPOWERUPS		= "Allow powerups";
+GMPLYMNU_ALLOWHEALTH		= "Allow health";
+GMPLYMNU_ALLOWARMOR			= "Allow armor";
+GMPLYMNU_SPAWNFARTHEST		= "Spawn farthest";
+GMPLYMNU_SAMEMAP			= "Same map";
+GMPLYMNU_FORCERESPAWN		= "Force respawn";
+GMPLYMNU_ALLOWEXIT			= "Allow exit";
+GMPLYMNU_BARRELSRESPAWN		= "Barrels respawn";
+GMPLYMNU_RESPAWNPROTECTION	= "Respawn protection";
+GMPLYMNU_LOSEFRAG			= "Lose frag if fragged";
+GMPLYMNU_KEEPFRAGS			= "Keep frags gained";
+GMPLYMNU_NOTEAMSWITCH		= "No team switching";
+GMPLYMNU_COOPERATIVE		= "Cooperative Settings";
+GMPLYMNU_MULTIPLAYERWEAPONS	= "Spawn multi. weapons";
+GMPLYMNU_LOSEINVENTORY		= "Lose entire inventory";
+GMPLYMNU_KEEPKEYS			= "Keep keys";
+GMPLYMNU_KEEPWEAPONS		= "Keep weapons";
+GMPLYMNU_KEEPARMOR			= "Keep armor";
+GMPLYMNU_KEEPPOWERUPS		= "Keep powerups";
+GMPLYMNU_KEEPAMMO			= "Keep ammo";
+GMPLYMNU_LOSEHALFAMMO		= "Lose half ammo";
+GMPLYMNU_SPAWNWHEREDIED		= "Spawn where died";
+
+// Compatibility Options
+CMPTMNU_TITLE				= "COMPATIBILITY OPTIONS";
+CMPTMNU_MODE				= "Compatibility mode";
+CMPTMNU_ACTORBEHAVIOR		= "Actor Behavior";
+CMPTMNU_CORPSEGIBS			= "Crushed monsters can be resurrected";
+CMPTMNU_NOBLOCKFRIENDS		= "Friendly monsters aren't blocked";
+CMPTMNU_LIMITPAIN			= "Limit Pain Elementals' Lost Souls";
+CMPTMNU_MBFMONSTERMOVE		= "Monster movement is affected by effects";
+CMPTMNU_CROSSDROPOFF		= "Monsters cannot cross dropoffs";
+CMPTMNU_DROPOFF				= "Monsters get stuck over dropoffs";
+CMPTMNU_INVISIBILITY		= "Monsters see invisible players";
+CMPTMNU_MINOTAUR			= "No Minotaur floor flames in water";
+CMPTMNU_NOTOSSDROPS			= "Spawn item drops on the floor";
+CMPTMNU_DEHACKEDBEHAVIOR	= "DehackEd Behavior";
+CMPTMNU_DEHHEALTH			= "DEH health settings like Doom2.exe";
+CMPTMNU_MUSHROOM			= "Original A_Mushroom speed in DEH mods";
+CMPTMNU_MAPACTIONBEHAVIOR	= "Map/Action Behavior";
+CMPTMNU_USEBLOCKING			= "All special lines can block <use>";
+CMPTMNU_ANYBOSSDEATH		= "Allow any bossdeath for level special";
+CMPTMNU_NODOORLIGHT			= "Disable BOOM door light effect";
+CMPTMNU_LIGHT				= "Find neighboring light like Doom";
+CMPTMNU_SHORTTEX			= "Find shortest textures like Doom";
+CMPTMNU_STAIRS				= "Use buggier stair building";
+CMPTMNU_FLOORMOVE			= "Use Doom's floor motion behavior";
+CMPTMNU_POINTONLINE			= "Use Doom's point-on-line algorithm";
+CMPTMNU_MULTIEXIT			= "Level exit can be triggered more than once.";
+CMPTMNU_PHYSICSBEHAVIOR		= "Physics Behavior";
+CMPTMNU_NOPASSOVER			= "Actors are infinitely tall";
+CMPTMNU_BOOMSCROLL			= "Boom scrollers are additive";
+CMPTMNU_BADANGLES			= "Cannot travel straight NSEW";
+CMPTMNU_WALLRUN				= "Enable wall running";
+CMPTMNU_RAVENSCROLL			= "Raven scrollers use original speed";
+CMPTMNU_TRACE				= "Self ref. sectors don't block shots";
+CMPTMNU_HITSCAN				= "Use Doom code for hitscan checks";
+CMPTMNU_MISSILECLIP			= "Use Doom heights for missile clipping";
+CMPTMNU_RENDERINGBEHAVIOR	= "Rendering Behavior";
+CMPTMNU_POLYOBJ				= "Draw polyobjects like Hexen";
+CMPTMNU_MASKEDMIDTEX		= "Ignore Y offsets on masked midtextures";
+CMPTMNU_SPRITESORT			= "Invert sprite sorting";
+CMPTMNU_SOUNDBEHAVIOR		= "Sound Behavior";
+CMPTMNU_SOUNDSLOTS			= "Cripple sound for silent BFG trick";
+CMPTMNU_SILENTPICKUP		= "Don't let others hear your pickups";
+CMPTMNU_SILENTINSTANTFLOORS	= "Inst. moving floors are not silent";
+CMPTMNU_SECTORSOUNDS		= "Sector sounds use center as source";
+CMPTMNU_SOUNDCUTOFF			= "Sounds stop when actor vanishes";
+CMPTMNU_SOUNDTARGET			= "Use original sound target handling";
+CMPTMNU_TELEPORT			= "Scripted teleports don't trigger sector actions";
+CMPTMNU_PUSHWINDOW			= "Non-blocking lines can be pushed";
+
+// Sound Options
+SNDMNU_TITLE			= "SOUND OPTIONS";
+SNDMNU_SFXVOLUME		= "Sounds volume";
+SNDMNU_MENUVOLUME		= "Menu volume";
+SNDMNU_MUSICVOLUME		= "Music volume";
+SNDMNU_MIDIDEVICE		= "MIDI device";
+SNDMNU_UNDERWATERREVERB	= "Underwater reverb";
+SNDMNU_RANDOMIZEPITCHES	= "Randomize pitches";
+SNDMNU_CHANNELS			= "Sound channels";
+SNDMNU_BACKEND			= "Sound backend";
+SNDMNU_FMOD				= "FMOD options";
+SNDMNU_OPENAL			= "OpenAL options";
+SNDMNU_RESTART			= "Restart sound";
+SNDMNU_ADVANCED			= "Advanced options";
+SNDMNU_MODREPLAYER		= "Module replayer options";
+
+// Fmod Options
+FMODMNU_TITLE			= "FMOD OPTIONS";
+FMODMNU_WATERCUTOFF		= "Underwater cutoff";
+FMODMNU_OUTPUTSYSTEM	= "Output system";
+FMODMNU_OUTPUTFORMAT	= "Output format";
+FMODMNU_SPEAKERMODE		= "Speaker mode";
+FMODMNU_RESAMPLER		= "Resampler";
+FMODMNU_HRTFFILTER		= "HRTF filter";
+FMODMNU_BUFFERSIZE		= "Buffer size";
+FMODMNU_BUFFERCOUNT		= "Buffer count";
+
+// OpenAL Options
+OPENALMNU_TITLE				= "OPENAL OPTIONS";
+OPENALMNU_PLAYBACKDEVICE	= "Playback device";
+OPENALMNU_ENABLEEFX			= "Enable EFX";
+
+// Advanced Sound Options
+ADVSNDMNU_TITLE				= "ADVANCED SOUND OPTIONS";
+ADVSNDMNU_SAMPLERATE		= "Sample rate";
+ADVSNDMNU_OPLSYNTHESIS		= "OPL Synthesis";
+ADVSNDMNU_OPLNUMCHIPS		= "Number of emulated OPL chips";
+ADVSNDMNU_OPLFULLPAN		= "Full MIDI stereo panning";
+ADVSNDMNU_OPLCORES			= "OPL Emulator Core";
+ADVSNDMNU_GUSEMULATION		= "GUS Emulation";
+ADVSNDMNU_GUSCONFIG			= "GUS config file";
+ADVSNDMNU_MIDIVOICES		= "MIDI voices";
+ADVSNDMNU_DMXGUS			= "Read DMXGUS lumps";
+ADVSNDMNU_GUSMEMSIZE		= "GUS memory size";
+ADVSNDMNU_FLUIDSYNTH		= "FluidSynth";
+ADVSNDMNU_FLUIDPATCHSET		= "Patch set";
+ADVSNDMNU_FLUIDGAIN			= "Gain";
+ADVSNDMNU_REVERB			= "Reverb";
+ADVSNDMNU_FLUIDVOICES		= "MIDI voices";
+ADVSNDMNU_TIMIDITY			= "Timidity++";
+ADVSNDMNU_TIMIDITYEXE		= "Path for executable";
+ADVSNDMNU_TIMIDITYCHORUS	= "Chorus";
+ADVSNDMNU_TIMIDITYVOLUME	= "Relative volume";
+ADVSNDMNU_WILDMIDI			= "WildMidi";
+ADVSNDMNU_WILDMIDICONFIG	= "WildMidi config file";
+
+// Module Replayer Options
+MODMNU_TITLE			= "MODULE REPLAYER OPTIONS";
+MODMNU_REPLAYERENGINE	= "Replayer engine";
+MODMNU_MASTERVOLUME		= "Master Volume";
+MODMNU_QUALITY			= "Quality";
+MODMNU_VOLUMERAMPING	= "Volume ramping";
+MODMNU_CHIPOMATIC		= "Chip-o-matic";
+
+// Video Options
+VIDMNU_TITLE			= "VIDEO MODE";
+VIDMNU_FULLSCREEN		= "Fullscreen";
+VIDMNU_HIDPI			= "Retina/HiDPI support";
+VIDMNU_ASPECTRATIO		= "Aspect ratio";
+VIDMNU_FORCEASPECT		= "Force aspect ratio";
+VIDMNU_5X4ASPECTRATIO	= "Enable 5:4 aspect ratio";
+VIDMNU_ENTERTEXT		= "Press ENTER to set mode";
+VIDMNU_TESTTEXT1		= "T to test mode for 5 seconds";
+VIDMNU_TESTTEXT2		= "Please wait 5 seconds...";
+
+// Network Options
+NETMNU_TITLE					= "NETWORK OPTIONS";
+NETMNU_LOCALOPTIONS				= "Local options";
+NETMNU_MOVEPREDICTION			= "Movement prediction";
+NETMNU_LINESPECIALPREDICTION	= "Predict line actions";
+NETMNU_PREDICTIONLERPSCALE		= "Prediction Lerp Scale";
+NETMNU_LERPTHRESHOLD			= "Lerp Threshold";
+NETMNU_HOSTOPTIONS				= "Host options";
+NETMNU_EXTRATICS				= "Extra Tics";
+NETMNU_TICBALANCE				= "Latency balancing";
+
+// Option Values
+OPTVAL_OFF					= "Off";
+OPTVAL_ON					= "On";
+OPTVAL_LOW					= "Low";
+OPTVAL_MEDIUM				= "Medium";
+OPTVAL_HIGH					= "High";
+OPTVAL_MALE					= "Male";
+OPTVAL_FEMALE				= "Female";
+OPTVAL_OTHER				= "Other";
+OPTVAL_UPPERLEFT			= "Upper left";
+OPTVAL_UPPERRIGHT			= "Upper right";
+OPTVAL_LOWERLEFT			= "Lower left";
+OPTVAL_LOWERRIGHT			= "Lower right";
+OPTVAL_TOUCHSCREENLIKE		= "Touchscreen-like";
+OPTVAL_NONE					= "None";
+OPTVAL_TURNING				= "Turning";
+OPTVAL_LOOKINGUPDOWN		= "Looking Up/Down";
+OPTVAL_MOVINGFORWARD		= "Moving Forward";
+OPTVAL_STRAFING				= "Strafing";
+OPTVAL_MOVINGUPDOWN			= "Moving Up/Down";
+OPTVAL_INVERTED				= "Inverted";
+OPTVAL_NOTINVERTED			= "Not Inverted";
+OPTVAL_ORIGINAL				= "Original";
+OPTVAL_OPTIMIZED			= "Optimized";
+OPTVAL_NORMAL				= "Normal";
+OPTVAL_STRETCH				= "Stretch";
+OPTVAL_CAPPED				= "Capped";
+OPTVAL_PARTICLES 			= "Particles";
+OPTVAL_SPRITES				= "Sprites";
+OPTVAL_SPRITESPARTICLES		= "Sprites & Particles";
+OPTVAL_MELT					= "Melt";
+OPTVAL_BURN					= "Burn";
+OPTVAL_CROSSFADE			= "Crossfade";
+OPTVAL_ONLYMODIFIED			= "Only modified";
+OPTVAL_SMOOTH				= "Smooth";
+OPTVAL_TRANSLUCENT			= "Translucent";
+OPTVAL_FUZZ					= "Fuzz";
+OPTVAL_SHADOW				= "Shadow";
+OPTVAL_ITEMS				= "Items";
+OPTVAL_WEAPONS				= "Weapons";
+OPTVAL_BOTH					= "Both";
+OPTVAL_ZDOOM				= "ZDoom";
+OPTVAL_STRIFE				= "Strife";
+OPTVAL_PLAYER				= "Player";
+OPTVAL_MAP					= "Map";
+OPTVAL_SCALETO640X400		= "Scale to 640x400";
+OPTVAL_PIXELDOUBLE			= "Pixel double";
+OPTVAL_PIXELQUADRUPLE		= "Pixel quadruple";
+OPTVAL_CURRENTWEAPON		= "Current weapon";
+OPTVAL_AVAILABLEWEAPONS		= "Available weapons";
+OPTVAL_ALLWEAPONS			= "All weapons";
+OPTVAL_LEVELMILLISECONDS	= "Level, milliseconds";
+OPTVAL_LEVELSECONDS			= "Level, seconds";
+OPTVAL_LEVEL				= "Level";
+OPTVAL_HUBSECONDS			= "Hub, seconds";
+OPTVAL_HUB					= "Hub";
+OPTVAL_TOTALSECONDS			= "Total, seconds";
+OPTVAL_TOTAL				= "Total";
+OPTVAL_SYSTEMSECONDS		= "System, seconds";
+OPTVAL_SYSTEM				= "System";
+OPTVAL_NETGAMESONLY			= "Netgames only";
+OPTVAL_ALWAYS				= "Always";
+OPTVAL_AMMOIMAGETEXT		= "Image and Text";
+OPTVAL_AMMOTEXTIMAGE		= "Text and Image";
+OPTVAL_SCRIPTSONLY			= "Scripts Only";
+OPTVAL_NEVER				= "Never";
+OPTVAL_ALL					= "All";
+OPTVAL_ONLYLASTONE			= "Only last one";
+OPTVAL_CUSTOM				= "Custom";
+OPTVAL_TRADITIONALDOOM		= "Traditional Doom";
+OPTVAL_TRADITIONALSTRIFE	= "Traditional Strife";
+OPTVAL_TRADITIONALRAVEN		= "Traditional Raven";
+OPTVAL_ONLYWHENFOUND		= "Only when found";
+OPTVAL_ONFOROVERLAYONLY		= "On for overlay only";
+OPTVAL_OVERLAYNORMAL		= "Overlay+Normal";
+OPTVAL_OVERLAYONLY			= "Overlay Only";
+OPTVAL_NOTFORHUBS			= "Not for hubs";
+OPTVAL_FRONT				= "Front";
+OPTVAL_ANIMATED				= "Animated";
+OPTVAL_ROTATED				= "Rotated";
+OPTVAL_MAPDEFINEDCOLORSONLY = "Map defined colors only";
+OPTVAL_DOUBLE				= "Double";
+OPTVAL_TRIPLE				= "Triple";
+OPTVAL_QUADRUPLE			= "Quadruple";
+OPTVAL_ITEMPICKUP			= "Item Pickup";
+OPTVAL_OBITUARIES			= "Obituaries";
+OPTVAL_CRITICALMESSAGES		= "Critical Messages";
+OPTVAL_NEVERFRIENDS			= "Never friends";
+OPTVAL_ONLYMONSTERS			= "Only monsters";
+OPTVAL_HEXEN				= "Hexen";
+OPTVAL_OLD					= "Old";
+OPTVAL_DEFAULT				= "Default";
+OPTVAL_DOOM					= "Doom";
+OPTVAL_DOOMSTRICT			= "Doom (strict)";
+OPTVAL_BOOM					= "Boom";
+OPTVAL_BOOMSTRICT			= "Boom (strict)";
+OPTVAL_MBF					= "MBF";
+OPTVAL_ZDOOM2063			= "ZDoom 2.0.63";
+OPTVAL_4000HZ				= "4000 Hz";
+OPTVAL_8000HZ				= "8000 Hz";
+OPTVAL_11025HZ				= "11025 Hz";
+OPTVAL_22050HZ				= "22050 Hz";
+OPTVAL_32000HZ				= "32000 Hz";
+OPTVAL_44100HZ				= "44100 Hz";
+OPTVAL_48000HZ				= "48000 Hz";
+OPTVAL_64SAMPLES			= "64 samples";
+OPTVAL_128SAMPLES			= "128 samples";
+OPTVAL_256SAMPLES			= "256 samples";
+OPTVAL_512SAMPLES			= "512 samples";
+OPTVAL_1024SAMPLES			= "1024 samples";
+OPTVAL_2048SAMPLES			= "2048 samples";
+OPTVAL_4096SAMPLES			= "4096 samples";
+OPTVAL_UNLIMITED			= "Unlimited";
+OPTVAL_256K					= "256K";
+OPTVAL_512K					= "512K";
+OPTVAL_768K					= "768K";
+OPTVAL_1024K				= "1024K";
+OPTVAL_MAMEOPL2				= "MAME OPL2";
+OPTVAL_DOSBOXOPL3			= "DOSBox OPL3";
+OPTVAL_JAVAOPL3				= "Java OPL3";
+OPTVAL_NUKEDOPL3			= "Nuked OPL3";
+OPTVAL_SOUNDSYSTEM			= "Sound System";
+OPTVAL_FOO_DUMB				= "foo_dumb";
+OPTVAL_ALIASING				= "Aliasing";
+OPTVAL_LINEAR				= "Linear";
+OPTVAL_CUBIC				= "Cubic";
+OPTVAL_BLEP					= "Band-limited step";
+OPTVAL_LINEARSLOW			= "Linear (Slower)";
+OPTVAL_BLAM					= "Band-limited linear";
+OPTVAL_CUBICSLOW			= "Cubic (Slower)";
+OPTVAL_SINC					= "Sinc";
+OPTVAL_NOTEONOFFONLY		= "Note on/off only";
+OPTVAL_FULLRAMPING			= "Full ramping";
+OPTVAL_ALLUNACKNOWLEDGED	= "All unacknowledged";
+OPTVAL_ERRORS				= "Errors";
+OPTVAL_WARNINGS				= "Warnings";
+OPTVAL_NOTIFICATIONS		= "Notifications";
+OPTVAL_EVERYTHING			= "Everything";
+OPTVAL_FULLSCREENONLY		= "Fullscreen only";
+// Colors
+C_BRICK					= "\cabrick";
+C_TAN					= "\cbtan";
+C_GRAY					= "\ccgray";
+C_GREEN					= "\cdgreen";
+C_BROWN					= "\cebrown";
+C_GOLD					= "\cfgold";
+C_RED					= "\cgred";
+C_BLUE					= "\chblue";
+C_ORANGE				= "\ciorange";
+C_WHITE					= "\cjwhite";
+C_YELLOW				= "\ckyellow";
+C_DEFAULT				= "\cldefault";
+C_BLACK					= "\cmblack";
+C_LIGHTBLUE				= "\cnlight blue";
+C_CREAM					= "\cocream";
+C_OLIVE					= "\cpolive";
+C_DARKGREEN				= "\cqdark green";
+C_DARKRED				= "\crdark red";
+C_DARKBROWN				= "\csdark brown";
+C_PURPLE				= "\ctpurple";
+C_DARKGRAY				= "\cudark gray";
+C_CYAN					= "\cvcyan";
+// Option Strings
+OPTSTR_SIMPLEARROW			= "Simple arrow";
+OPTSTR_HERETIC				= "Heretic";
+OPTSTR_CHEX					= "Chex";
+OPTSTR_SYSTEMCURSOR			= "System cursor";
+OPTSTR_DIRECTSOUND			= "DirectSound";
+OPTSTR_WASAPI				= "Vista WASAPI";
+OPTSTR_ASIO					= "ASIO";
+OPTSTR_WAVEOUT				= "WaveOut";
+OPTSTR_NOSOUND				= "No Sound";
+OPTSTR_OSS					= "OSS";
+OPTSTR_ALSA					= "ALSA";
+OPTSTR_SDL					= "SDL";
+OPTSTR_ESD					= "ESD";
+OPTSTR_PULSEAUDIO			= "PulseAudio";
+OPTSTR_COREAUDIO			= "Core Audio";
+OPTSTR_PCM8BIT				= "8-bit";
+OPTSTR_PCM16BIT				= "16-bit";
+OPTSTR_PCM24BIT				= "24-bit";
+OPTSTR_PCM32BIT				= "32-bit";
+OPTSTR_PCMFLOAT				= "32-bit float";
+OPTSTR_AUTO					= "Auto";
+OPTSTR_MONO					= "Mono";
+OPTSTR_STEREO				= "Stereo";
+OPTSTR_PROLOGIC				= "Dolby Prologic Decoder";
+OPTSTR_QUAD					= "Quad";
+OPTSTR_SURROUND				= "5 speakers";
+OPTSTR_5POINT1				= "5.1 speakers";
+OPTSTR_7POINT1				= "7.1 speakers";
+OPTSTR_NOINTERPOLATION		= "No interpolation";
+OPTSTR_SPLINE				= "Spline";
+OPTSTR_FMOD					= "FMOD Ex";
+OPTSTR_OPENAL				= "OpenAL";
+
+
+
+SAFEMESSAGE			= "Do you really want to do this?";
+MNU_COLORPICKER		= "SELECT COLOR";
+
+
+WI_FINISHED			= "finished";
+WI_ENTERING			= "Now entering:";
+
+AM_MONSTERS			= "Monsters:";
+AM_SECRETS			= "Secrets:";
+AM_ITEMS			= "Items:";
+
+// Bloodbath announcer
+
+BBA_BONED = "%k boned %o like a fish";
+BBA_CASTRA = "%k castrated %o";
+BBA_CREAMED = "%k creamed %o";
+BBA_DECIMAT = "%k decimated %o";
+BBA_DESTRO = "%k destroyed %o";
+BBA_DICED = "%k diced %o";
+BBA_DISEMBO = "%k disembowled %o";
+BBA_FLATTE = "%k flattened %o";
+BBA_JUSTICE = "%k gave %o Anal Justice";
+BBA_MADNESS = "%k gave AnAl MaDnEsS to %o";
+BBA_KILLED = "%k killed %o";
+BBA_MINCMEAT = "%k made mincemeat out of %o";
+BBA_MASSACR = "%k massacred %o";
+BBA_MUTILA = "%k mutilated %o";
+BBA_REAMED = "%k reamed %o";
+BBA_RIPPED = "%k ripped %o a new orifice";
+BBA_SLAUGHT = "%k slaughtered %o";
+BBA_SMASHED = "%k smashed %o";
+BBA_SODOMIZ = "%k sodomized %o";
+BBA_SPLATT = "%k splattered %o";
+BBA_SQUASH = "%k squashed %o";
+BBA_THROTTL = "%k throttled %o";
+BBA_WASTED = "%k wasted %o";
+BBA_BODYBAG = "%k body bagged %o";
+BBA_HELL = "%k sent %o to Hell";
+BBA_TOAST = "%k toasted %o";
+BBA_SNUFF = "%k snuffed %o";
+BBA_HOSED = "%k hosed %o";
+BBA_SPRAYED = "%k sprayed %o";
+BBA_DOGMEAT = "%k made dog meat out of %o";
+BBA_BEATEN = "%k beat %o like a cur";
+
+BBA_EXCREMENT = "%o is excrement";
+BBA_HAMBURGER = "%o is hamburger";
+BBA_SCROTUM = "%o suffered scrotum separation";
+BBA_POPULATION = "%o volunteered for population control";
+BBA_SUICIDE = "%o has suicided";
+BBA_DARWIN = "%o received the Darwin Award";
+
+// Chex Quest Strings
+CHUSTR_E1M1 = "E1M1: Landing Zone";
+CHUSTR_E1M2 = "E1M2: Storage Facility";
+CHUSTR_E1M3 = "E1M3: Experimental Lab";
+CHUSTR_E1M4 = "E1M4: Arboretum";
+CHUSTR_E1M5 = "E1M5: Caverns of Bazoik";
+
+CE1TEXT =
+		"Mission accomplished.\n"
+		"\n"
+		"Are you prepared for the next mission?\n"
+		"\n"
+		"\n"
+		"\n"
+		"\n"
+		"\n"
+		"\n"
+		"Press the escape key to continue...";
+
+CE2TEXT = "You've done it!";
+CE3TEXT = "Wonderful Job!";
+CE4TEXT = "Fantastic";
+
+CLOADNET = "you can't do load while in a net quest!\n\npress a key.";
+$ifgame(chex) QSPROMPT = "quicksave over your quest named\n\n'%s'?\n\npress y or n.";
+$ifgame(chex) QLOADNET = "you can't quickload during a netquest!\n\npress a key.";
+$ifgame(chex) QLPROMPT = "do you want to quickload the quest named\n\n'%s'?\n\npress y or n.";
+CNEWGAME = "you can't start a new quest\nwhile in a network quest.\n\npress a key.";
+
+CNIGHTMARE = "Careful, this will be tough.\nDo you wish to continue?\n\npress y or n.";
+
+CSWSTRING = "this is Chex(R) Quest. look for\n\nfuture levels at www.chexquest.com.\n\npress a key.";
+
+$ifgame(chex) NETEND = "you can't end a netquest!\n\npress a key.";
+$ifgame(chex) ENDGAME = "are you sure you want to end the quest?\n\npress y or n.";
+
+GOTCHEXARMOR = "Picked up the Chex(R) Armor.";
+GOTSUPERCHEXARMOR = "Picked up the Super Chex(R) Armor!";
+GOTWATER = "Picked up a glass of water.";
+GOTREPELLENT = "Picked up slime repellent.";
+GOTBREAKFAST = "Supercharge Breakfast!";
+GOTCBLUEKEY = "Picked up a blue key.";
+GOTCYELLOWKEY = "Picked up a yellow key.";
+GOTCREDKEY = "Picked up a red key.";
+GOTFRUIT = "Picked up a bowl of fruit.";
+GOTVEGETABLESNEED = "Vegetables are REALLY good for you!";
+GOTVEGETABLES = "Picked up a bowl of vegetables.";
+GOTSLIMESUIT = "Found a Slime-Proof Suit";
+GOTCHEXMAP = "Found a Computer Area Map";
+
+GOTZORCHRECHARGE = "Picked up a mini zorch recharge.";
+GOTMINIZORCHPACK = "Picked up a mini zorch pack.";
+GOTPROPULSORRECHARGE = "Picked up a zorch propulsor recharge.";
+GOTPROPULSORPACK = "Picked up a zorch propulsor pack.";
+GOTPHASINGZORCHERRECHARGE = "Picked up a phasing zorcher recharge";
+GOTPHASINGZORCHERPACK = "Picked up a phasing zorcher pack.";
+GOTLARGEZORCHERRECHARGE = "Picked up a large zorcher recharge.";
+GOTLARGEZORCHERPACK = "Picked up a large zorcher pack.";
+GOTZORCHPACK = "Picked up a Zorchpak!";
+
+GOTLAZDEVICE = "You got the LAZ Device! Woot!";
+GOTRAPIDZORCHER = "You got the Rapid Zorcher!";
+GOTSUPERBOOTSPORK = "You got the Super Bootspork!";
+GOTZORCHPROPULSOR = "You got the Zorch Propulsor!";
+GOTPHASINGZORCHER = "You got the Phasing Zorcher!";
+GOTLARGEZORCHER = "You got the Large Zorcher!";
+GOTSUPERLARGEZORCHER = "You got the Mega Zorcher!";
+GOTMINIZORCHER = "Picked up a Mini Zorcher.";
+
+$ifgame(chex) STSTR_DQDON = "Invincible Mode ON";
+$ifgame(chex) STSTR_DQDOFF = "Invincible Mode OFF";
+$ifgame(chex) STSTR_FAADDED = "Zorch Added";
+$ifgame(chex) STSTR_KFAADDED = "Super Zorch Added";
+$ifgame(chex) STSTR_CHOPPERS = "... Eat Chex(R)!";
+
+OB_COMMONUS = "%o was slimed by a flemoid.";
+OB_BIPEDICUS = "%o was slimed by a bipedicus.";
+OB_BIPEDICUS2 = "%o was slimed by an armored bipedicus.";
+OB_CYCLOPTIS = "%o was slimed by a cycloptis.";
+OB_FLEMBRANE = "%o was defeated by the Flembrane.";
+
+OB_MPSPOON = "%o was spoon fed by %k.";
+OB_MPBOOTSPORK = "%o was thouroughly mixed with %k's bootspork.";
+OB_MPZORCH = "%o was zorched by %k.";
+OB_MPMEGAZORCH = "%o was hit by %k's mega-zorcher.";
+OB_MPRAPIDZORCH = "%o was rapid zorched by %k.";
+OB_MPPROPULSOR = "%o was zorched by %k's propulsor.";
+OB_MPP_SPLASH = "%o was hit by %k's propulsor.";
+OB_MPPHASEZORCH = "%o was phase zorched by %k.";
+OB_MPLAZ_BOOM = "%o fell prey to %k's LAZ device.";
+OB_MPLAZ_SPLASH = "%o was lazzed by %k.";
+
+// Music names for Doom. These are needed in the string table only so that they can
+// be replaced by Dehacked. 
+// Note that these names are not prefixed with 'd_' because that's how Dehacked patches 
+// expect them.
+
+MUSIC_E1M1 = "e1m1";
+MUSIC_E1M2 = "e1m2";
+MUSIC_E1M3 = "e1m3";
+MUSIC_E1M4 = "e1m4";
+MUSIC_E1M5 = "e1m5";
+MUSIC_E1M6 = "e1m6";
+MUSIC_E1M7 = "e1m7";
+MUSIC_E1M8 = "e1m8";
+MUSIC_E1M9 = "e1m9";
+MUSIC_E2M1 = "e2m1";
+MUSIC_E2M2 = "e2m2";
+MUSIC_E2M3 = "e2m3";
+MUSIC_E2M4 = "e2m4";
+MUSIC_E2M5 = "e2m5";
+MUSIC_E2M6 = "e2m6";
+MUSIC_E2M7 = "e2m7";
+MUSIC_E2M8 = "e2m8";
+MUSIC_E2M9 = "e2m9";
+MUSIC_E3M1 = "e3m1";
+MUSIC_E3M2 = "e3m2";
+MUSIC_E3M3 = "e3m3";
+MUSIC_E3M4 = "e3m4";
+MUSIC_E3M5 = "e3m5";
+MUSIC_E3M6 = "e3m6";
+MUSIC_E3M7 = "e3m7";
+MUSIC_E3M8 = "e3m8";
+MUSIC_E3M9 = "e3m9";
+MUSIC_INTER = "inter";
+MUSIC_INTRO = "intro";
+MUSIC_BUNNY = "bunny";
+MUSIC_VICTOR = "victor";
+MUSIC_INTROA = "introa";
+MUSIC_RUNNIN = "runnin";
+MUSIC_STALKS = "stalks";
+MUSIC_COUNTD = "countd";
+MUSIC_BETWEE = "betwee";
+MUSIC_DOOM = "doom";
+MUSIC_THE_DA = "the_da";
+MUSIC_SHAWN = "shawn";
+MUSIC_DDTBLU = "ddtblu";
+MUSIC_IN_CIT = "in_cit";
+MUSIC_DEAD = "dead";
+MUSIC_STLKS2 = "stlks2";
+MUSIC_THEDA2 = "theda2";
+MUSIC_DOOM2 = "doom2";
+MUSIC_DDTBL2 = "ddtbl2";
+MUSIC_RUNNI2 = "runni2";
+MUSIC_DEAD2 = "dead2";
+MUSIC_STLKS3 = "stlks3";
+MUSIC_ROMERO = "romero";
+MUSIC_SHAWN2 = "shawn2";
+MUSIC_MESSAG = "messag";
+MUSIC_COUNT2 = "count2";
+MUSIC_DDTBL3 = "ddtbl3";
+MUSIC_AMPIE = "ampie";
+MUSIC_THEDA3 = "theda3";
+MUSIC_ADRIAN = "adrian";
+MUSIC_MESSG2 = "messg2";
+MUSIC_ROMER2 = "romer2";
+MUSIC_TENSE = "tense";
+MUSIC_SHAWN3 = "shawn3";
+MUSIC_OPENIN = "openin";
+MUSIC_EVIL = "evil";
+MUSIC_ULTIMA = "ultima";
+MUSIC_READ_M = "read_m";
+MUSIC_DM2TTL = "dm2ttl";
+MUSIC_DM2INT = "dm2int";
+
+// GZDoom exclusive:
+
+DSPLYMNU_GLOPT		= "OpenGL Options";
+DSPLYMNU_GAMMA		= "Gamma correction";
+DSPLYMNU_CONTRAST 	="Contrast";
+DSPLYMNU_HWGAMMA	= "Hardware Gamma";
+
+// OpenGL Options
+GLMNU_TITLE		= "OPENGL OPTIONS";
+GLMNU_DYNLIGHT	= "Dynamic Light Options";
+GLMNU_TEXOPT	= "Texture Options";
+GLMNU_PREFS		= "Preferences";
+
+// Texture Options
+GLTEXMNU_TITLE			= "TEXTURE OPTIONS";
+GLTEXMNU_TEXENABLED 	= "Textures enabled";
+GLTEXMNU_TEXFILTER 		= "Texture Filter mode";
+GLTEXMNU_ANISOTROPIC	= "Anisotropic filter";
+GLTEXMNU_TEXFORMAT 		= "Texture Format";
+GLTEXMNU_ENABLEHIRES 	= "Enable hires textures";
+GLTEXMNU_HQRESIZE 		= "High Quality Resize mode";
+GLTEXMNU_RESIZETEX 		= "Resize textures";
+GLTEXMNU_RESIZESPR 		= "Resize sprites";
+GLTEXMNU_RESIZEFNT 		= "Resize fonts";
+GLTEXMNU_PRECACHETEX 	= "Precache GL textures";
+GLTEXMNU_TRIMSPREDGE	= "Trim sprite edges";
+GLTEXMNU_SORTDRAWLIST 	= "Sort draw lists by texture";
+
+// Dynamic Light Options
+GLLIGHTMNU_TITLE 			= "DYNAMIC LIGHTS";
+GLLIGHTMNU_LIGHTSENABLED 	= "Dynamic Lights enabled";
+GLLIGHTMNU_LIGHTDEFS		= "Enable light definitions";
+GLLIGHTMNU_CLIPLIGHTS 		= "Clip lights";
+GLLIGHTMNU_LIGHTSPRITES 	= "Lights affect sprites";
+GLLIGHTMNU_LIGHTPARTICLES 	= "Lights affect particles";
+
+// OpenGL Preferences
+GLPREFMNU_TITLE 				= "OPENGL PREFERENCES";
+GLPREFMNU_SECLIGHTMODE 			= "Sector light mode";
+GLPREFMNU_FOGMODE 				= "Fog mode";
+GLPREFMNU_FOGFORCEFULLBRIGHT 	= "Fog forces fullbright";
+GLPREFMNU_WPNLIGHTSTR 			= "Weapon light strength";
+GLPREFMNU_ENVIRONMENTMAPMIRROR 	= "Environment map on mirrors";
+GLPREFMNU_ENV 					= "Enhanced night vision mode";
+GLPREFMNU_ENVSTEALTH 			= "ENV shows stealth monsters";
+GLPREFMNU_SPRBRIGHTFOG 			= "Force brightness in fog";
+GLPREFMNU_SPRCLIP 				= "Adjust sprite clipping";
+GLPREFMNU_SPRBLEND 				= "Smooth sprite edges";
+GLPREFMNU_FUZZSTYLE 			= "Fuzz Style";
+GLPREFMNU_SPRBILLBOARD 			= "Sprite billboard";
+GLPREFMNU_SPRBILLFACECAMERA 	= "Sprites face camera";
+GLPREFMNU_PARTICLESTYLE 		= "Particle style";
+GLPREFMNU_AMBLIGHT 				= "Ambient light level";
+GLPREFMNU_RENDERQUALITY 		= "Rendering quality";
+GLPREFMNU_VRMODE 				= "Stereo 3D VR";
+GLPREFMNU_VRQUADSTEREO 			= "Enable Quad Stereo";
+GLPREFMNU_MULTISAMPLE			= "Multisample";
+GLPREFMNU_TONEMAP				= "Tonemap Mode";
+GLPREFMNU_BLOOM					= "Bloom effect";
+GLPREFMNU_LENS					= "Lens distortion effect";
+GLPREFMNU_SSAO					= "Ambient occlusion quality";
+GLPREFMNU_SSAO_PORTALS			= "Portals with AO";
+GLPREFMNU_FXAA					= "FXAA Quality";
+
+// Option Values
+OPTVAL_SMART 				= "Smart";
+OPTVAL_SMARTER 				= "Smarter";
+OPTVAL_INFRAREDONLY 		= "Infrared only";
+OPTVAL_INFRAREDANDTORCH 	= "Infrared and torch";
+OPTVAL_ANYFIXEDCOLORMAP 	= "Any fixed colormap";
+OPTVAL_NONENEARESTMIPMAP 	= "None (nearest mipmap)";
+OPTVAL_NONELINEARMIPMAP 	= "None (linear mipmap)";
+OPTVAL_NONETRILINEAR		= "None (trilinear)";
+OPTVAL_BILINEAR 			= "Bilinear";
+OPTVAL_TRILINEAR 			= "Trilinear";
+OPTVAL_RGBA8 				= "RGBA8";
+OPTVAL_RGB5A1 				= "RGB5_A1";
+OPTVAL_RGBA4 				= "RGBA4";
+OPTVAL_RGBA2 				= "RGBA2";
+OPTVAL_COMPRRGBA 			= "COMPR_RGBA";
+OPTVAL_S3TCDXT1 			= "S3TC_DXT1";
+OPTVAL_S3TCDXT3 			= "S3TC_DXT3";
+OPTVAL_S3TCDXT5 			= "S3TC_DXT5";
+OPTVAL_2X 					= "2x";
+OPTVAL_4X 					= "4x";
+OPTVAL_8X 					= "8x";
+OPTVAL_16X 					= "16x";
+OPTVAL_32X 					= "32x";
+OPTVAL_USEASPALETTE 		= "Use as palette";
+OPTVAL_BLEND 				= "Blend";
+OPTVAL_STANDARD 			= "Standard";
+OPTVAL_BRIGHT 				= "Bright";
+OPTVAL_DARK 				= "Dark";
+OPTVAL_LEGACY 				= "Legacy";
+OPTVAL_SOFTWARE 			= "Software";
+OPTVAL_SPEED 				= "Speed";
+OPTVAL_QUALITY 				= "Quality";
+OPTVAL_OPTIMAL 				= "Optimal";
+OPTVAL_60 					= "60";
+OPTVAL_70 					= "70";
+OPTVAL_72 					= "72";
+OPTVAL_75 					= "75";
+OPTVAL_85 					= "85";
+OPTVAL_100 					= "100";
+OPTVAL_YAXIS 				= "Y Axis";
+OPTVAL_XYAXIS 				= "X/Y Axis";
+OPTVAL_SQUARE 				= "Square";
+OPTVAL_ROUND 				= "Round";
+OPTVAL_SCALE2X 				= "Scale2x";
+OPTVAL_SCALE3X 				= "Scale3x";
+OPTVAL_SCALE4X 				= "Scale4x";
+OPTVAL_HQ2X 				= "hq2x";
+OPTVAL_HQ3X 				= "hq3x";
+OPTVAL_HQ4X 				= "hq4x";
+OPTVAL_HQ2XMMX 				= "hq2x MMX";
+OPTVAL_HQ3XMMX 				= "hq3x MMX";
+OPTVAL_HQ4XMMX 				= "hq4x MMX";
+OPTVAL_RADIAL 				= "Radial";
+OPTVAL_PIXELFUZZ 			= "Pixel fuzz";
+OPTVAL_SMOOTHFUZZ 			= "Smooth fuzz";
+OPTVAL_SWIRLYFUZZ 			= "Swirly fuzz";
+OPTVAL_TRANSLUCENTFUZZ 		= "Translucent fuzz";
+OPTVAL_NOISE 				= "Noise";
+OPTVAL_SMOOTHNOISE 			= "Smooth Noise";
+OPTVAL_JAGGEDFUZZ 			= "Jagged fuzz";
+OPTVAL_NORMAL 				= "Normal";
+OPTVAL_GREENMAGENTA 		= "Green/Magenta";
+OPTVAL_REDCYAN 				= "Red/Cyan";
+OPTVAL_AMBERBLUE 			= "Amber/Blue";
+OPTVAL_LEFTEYE 				= "Left Eye";
+OPTVAL_RIGHTEYE 			= "Right Eye";
+OPTVAL_SBSFULL		    	= "Side-by-side Full";
+OPTVAL_SBSNARROW			= "Side-by-side Narrow";
+OPTVAL_TOPBOTTOM			= "Top/Bottom";
+OPTVAL_ROWINTERLEAVED		= "Row Interleaved";
+OPTVAL_COLUMNINTERLEAVED	= "Column Interleaved";
+OPTVAL_CHECKERBOARD			= "Checkerboard";
+OPTVAL_QUADBUFFERED 		= "Quad-buffered";
+OPTVAL_UNCHARTED2			= "Uncharted 2";
+OPTVAL_HEJLDAWSON			= "Hejl Dawson";
+OPTVAL_REINHARD				= "Reinhard";
+OPTVAL_PALETTE				= "Palette";
+OPTVAL_LOW					= "Low";
+OPTVAL_MEDIUM				= "Medium";
+OPTVAL_HIGH					= "High";
+OPTVAL_EXTREME				= "Extreme";

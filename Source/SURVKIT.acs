@@ -1,0 +1,166 @@
+#library "SURVKIT"
+#include "zcommon.acs"
+
+///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////		REPAIR 		///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////				
+
+Script "REPAIRMODE" (void)
+{	
+	IF (CHECKINVENTORY("REPAIRMODE"))
+		{
+		Setfont("bigfont");
+		SetHudSize(620, 360, false);
+		hudmessage(l:"REPAIRMODE"; HUDMSG_PLAIN, 5000, CR_CYAN,50.1,30.1,0.5,1.0);
+		
+		SetFont("SCRAP0");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING,  5001, CR_CYAN,  150.1, 200.1, 0.1);
+		SetFont("bigfont");
+		HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, CR_cyan, 150.1, 220.1, 0.1);
+		
+		SetFont("ELECT0");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING,  5003, CR_CYAN, 310.1, 205.1, 0.1);
+		SetFont("bigfont");
+		HudMessage(f:CheckInventory("ELECTRONICPARTS")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5004, CR_cyan, 310.1, 220.1, 0.1);
+		
+		SetFont("SK1TZ0");
+		HudMessage(s:("A"); HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING,  5005, CR_CYAN, 460.1, 200.1, 0.1);
+		SetFont("bigfont");
+		HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5006, CR_cyan, 460.1, 220.1, 0.1);
+		
+		thing_stop(0);
+		setactorproperty(0,APROP_Speed,0.0);
+		delay(1);
+		restart;
+		}
+/////	
+	Else
+		{
+		setactorproperty(0,APROP_Speed,1.0);
+		delay(1);
+		Terminate;
+		}
+}
+
+
+///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////		DISMANTLE / AMMO CRAFT 		///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////			
+Script "Dismantle9mm" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("CLIP1")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+Script "Dismantlebuck" (void)
+{	SetFont("digifont_small");
+	SetHudSize(620, 360, false);	
+	HudMessage(f:CheckInventory("ammoshell")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+Script "Dismantleslug" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("ammoslug")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+Script "Dismantle50" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("50ammo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+Script "Dismantle556" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("minigunammo")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+Script "Dismantle762" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("CLIP2")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+Script "DismantleRocket" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("ammorocket")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+Script "DismantleSpike" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("impspike")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+Script "DismantleHorn" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("bruiserhorn")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 487.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("GUNPOWDER")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 523.1, 105.1, 0.1);
+	HudMessage(f:CheckInventory("SCRAPMETAL")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 559.1, 105.1, 0.1);
+	SetFont("SURFONT");
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 510.1, 128.1, 0.1);		
+	delay(1);
+	terminate;  }	
+	
+///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////		IMPROVISED CRAFTING 		///////////////////////////////////////		///////////////////////////////////////		///////////////////////////////////////			
+
+Script "SURVKITMATS" (void)
+{	SetHudSize(620, 360, false);	
+	SetFont("digifont_small");
+	HudMessage(f:CheckInventory("scrapmetal")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5000, "PITCHBLACK", 490.1, 89.1, 0.1);
+	HudMessage(f:CheckInventory("electronicparts")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5001, "PITCHBLACK", 526.1, 89.1, 0.1);
+	HudMessage(f:CheckInventory("fabric")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5002, "PITCHBLACK", 562.1, 89.1, 0.1);
+	
+	HudMessage(f:CheckInventory("impspike")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5003, "PITCHBLACK", 487.1, 120.1, 0.1);
+	HudMessage(f:CheckInventory("demonheart")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5004, "PITCHBLACK", 514.1, 120.1, 0.1);
+	HudMessage(f:CheckInventory("bruiserhorn")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5005, "PITCHBLACK", 540.1, 120.1, 0.1);
+	HudMessage(f:CheckInventory("cacoeye")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5006, "PITCHBLACK", 569.1, 120.1, 0.1);
+	
+	HudMessage(f:CheckInventory("acidvial")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5007, "PITCHBLACK", 486.1, 156.1, 0.1);
+	HudMessage(f:CheckInventory("neutralvial")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5008, "PITCHBLACK", 526.1, 156.1, 0.1);
+	HudMessage(f:CheckInventory("basicvial")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5009, "PITCHBLACK", 564.1, 156.1, 0.1);
+	
+	HudMessage(f:CheckInventory("SURVIVALKITUSES")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5010, "PITCHBLACK", 490.1, 204.1, 0.1);	
+	HudMessage(f:CheckInventory("gunpowder")<<16; HUDMSG_PLAIN|HUDMSG_LAYER_OVERHUD|HUDMSG_COLORSTRING, 5011, "PITCHBLACK", 548.1, 204.1, 0.1);
+	delay(1);
+	terminate;  }	
+	

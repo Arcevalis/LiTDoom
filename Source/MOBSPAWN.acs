@@ -1,0 +1,215 @@
+#library "MOBSPAWN"
+#include "zcommon.acs"
+
+script "IMPSHADOW" (void)
+ {
+	 if (GetActorLightLevel(0) < 113)
+		 {
+		 SetActorstate(0, "SpookyImp");
+		 delay(1);
+		 Terminate;
+		 }
+}
+
+script "DEMONWRAITH" (void)
+ {
+	 if (GetActorLightLevel(0) < 113)
+		 {
+		 SetActorstate(0, "Wraith");
+		 delay(1);
+		 Terminate;
+		 }
+}
+		 
+script "BruiserOFC" (void)
+ {
+ //DOOM 2
+	 if (CheckActorFloorTexture(0, "LAVA1") || CheckActorFloorTexture(0, "LAVA2") || CheckActorFloorTexture(0, "LAVA3") || CheckActorFloorTexture(0, "LAVA4") ||  
+		CheckActorFloorTexture(0, "RROCK01") || CheckActorFloorTexture(0, "RROCK02"))
+//DOOM 1				
+		 {
+		 SetActorstate(0, "HellSpawnOFC");
+		 delay(5);
+		 Terminate;
+		 }
+}		
+
+script "BruiserMaybe" (void)
+ {
+ //DOOM 2
+	  if (CheckActorFloorTexture(0, "RROCK05") || CheckActorFloorTexture(0, "RROCK06") || CheckActorFloorTexture(0, "RROCK08") ||  CheckActorFloorTexture(0, "RROCK07") ||
+		CheckActorFloorTexture(0, "SLIME09") || CheckActorFloorTexture(0, "SLIME10") || CheckActorFloorTexture(0, "SLIME11") || CheckActorFloorTexture(0, "SLIME12") || 
+		CheckActorFloorTexture(0, "BLOOD1") || CheckActorFloorTexture(0, "BLOOD2") || CheckActorFloorTexture(0, "BLOOD3") || CheckActorFloorTexture(0, "FLOOR6_1"))
+//DOOM 1		
+		{
+		 SetActorstate(0, "HellSpawnMaybe");
+		 delay(5);
+		 Terminate;
+		 }
+}	
+
+
+script "SENTRYBOTS" ENTER
+ {
+   str class = "Sentrybot";
+	
+   if(Checkinventory("numberofsentrybots") >= 1)
+   {
+			delay(1);	
+			int x = GetActorX(0);
+			int y = GetActorY(0);
+			int z = GetActorZ(0);
+			spawnforced(class,x,y,z,0,0);
+			delay(1);
+			
+			if(Checkinventory("numberofsentrybots") == 2)
+			{
+			delay(1);	
+			spawnforced(class,x,y,z,0,0);
+			delay(1);
+			}
+			
+			if(Checkinventory("numberofsentrybots") == 3)
+			{
+			delay(1);	
+			spawnforced(class,x,y,z,0,0);
+			delay(1);
+			}
+			
+			if(Checkinventory("numberofsentrybots") == 4)
+			{
+			delay(1);	
+			spawnforced(class,x,y,z,0,0);
+			delay(1);
+			}	
+   } 
+ }
+ 
+ 
+ 
+ Script "DAMAGECONFIG" ENTER
+ {
+	IF(GetCvar("Damagetaken") == 0)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 0.5);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 1)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 0.7);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 2)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 1.0);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 3)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 1.5);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 4)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 2.0);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 5)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 3.0);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 6)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 3.5);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 7)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 4.0);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 8)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 5.5);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 9)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 7.0);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagetaken") == 10)
+	{
+	Setactorproperty(0,Aprop_damagefactor, 10.0);
+	terminate;
+	}
+}
+
+
+Script "DAMAGEDEALTCONFIG" ENTER
+ {
+	IF(GetCvar("Damagedealt") == 0)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 1.0);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagedealt") == 1)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 1.10);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagedealt") == 2)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 1.2);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagedealt") == 3)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 1.3);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagedealt") == 4)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 1.5);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagedealt") == 5)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 1.7);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagedealt") == 6)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 2.0);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagedealt") == 7)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 2.5);
+	terminate;
+	}
+	
+	else IF(GetCvar("Damagedealt") == 8)
+	{
+	Setactorproperty(0,Aprop_damagemultiplier, 4.0);
+	terminate;
+	}
+}

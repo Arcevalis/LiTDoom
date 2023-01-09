@@ -1,0 +1,32 @@
+//version "4.3.0"
+
+class GameplayTweaksHandler : EventHandler 
+{	
+	override void WorldThingSpawned (Worldevent e) 
+	{
+		if (!e.thing)
+			return;
+		let act = e.thing;
+		
+		if (act.bISMONSTER) 
+				{
+				let a = act;
+			//health
+				a.A_SetHealth(a.health * Clamp(ugt_monsterhealthmul,0,10));
+			//speed
+				a.speed *= Clamp(ugt_monsterspeedmul,0,10);
+			//fast monsters
+				if (ugt_fastmonsters == 1)
+				a.bALWAYSFAST = true;
+				else if (ugt_fastmonsters > 1)
+				a.bNEVERFAST = true;
+			//monster respawn
+				if (ugt_monstersrespawn == 1)
+				a.bALWAYSRESPAWN = true;
+				else if (ugt_monstersrespawn > 1)
+				a.bNEVERRESPAWN = true;			
+				}
+		if (act.bMISSILE && act.target && act.target.bISMONSTER)
+			act.A_ScaleVelocity(ugt_monstersprojvel);
+	 }
+}

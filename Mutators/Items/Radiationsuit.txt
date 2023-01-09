@@ -1,0 +1,84 @@
+ACTOR HevSuit : Inventory replaces Radsuit
+{
+  Game Doom
+  SpawnID 136
+  Height 46
+  +UNDROPPABLE
+  +INVENTORY.HUBPOWER
+  +INVENTORY.INVBAR
+  Inventory.Icon "MASKA0"
+  Inventory.MaxAmount 1
+  Inventory.PickupSound "RSUP2"
+  Inventory.PickupMessage "$GOTHEVSUIT"
+   tag"HEV Suit"
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0
+	TNT1 A 0 
+	Stay:
+	TNT1 A 1 A_spawnitemex("radpickup",0,0,0,0,0,0,0,0,0)
+	
+	Stay:
+	HEVS A 20 Bright
+	HEVS B 20 Bright
+    LOOP
+  }
+}
+
+ACTOR HEVSuitUsed : Inventory
+{
++INVENTORY.INVBAR
++THRUACTORS
+INVENTORY.ICON "MASKB0"
+INVENTORY.MAXAMOUNT 1
+Inventory.InterHubAmount 0
+STATES
+{
+SPAWN:
+HEVU A 10
+HEVU A 1 a_spawnitem("Hevsuitdepleted",0,0)
+STOP
+
+DROP:
+STOP
+}
+}
+
+ACTOR HEVSuitdepleted
+{
++THRUACTORS
+States
+{
+SPAWN:
+HEVU A -1
+stop
+}}
+
+Actor HEVFeet : PowerIronFeet
+{
+  Powerup.Duration -65
+  Powerup.Color 0, 0, 0, 0
+}
+
+
+
+ACTOR HEVProtect : PowerMask
+{
+  DamageFactor "Desintegrate", 0.0
+  DamageFactor "Slime", 0.0
+  DamageFactor "Poison", 0.0
+  DamageFactor "PoisonCloud", 0.0
+  DamageFactor "SuperPlasma", 0.50
+  DamageFactor "GreenFire", 0.25
+  DamageFactor "Plasma", 0.25
+  DamageFactor "Burn", 0.25
+  DamageFactor "Fire", 0.25
+  DamageFactor "Flames", 0.25
+  DamageFactor "Freeze", 0.25
+  DamageFactor "Ice", 0.25
+  DamageFactor "Electric", 0.25
+  Powerup.Duration -65
+  Powerup.Color 0, 0, 255, 0.05
+}
