@@ -1,0 +1,19 @@
+//CUSTOM CROSSHAIRS
+user int bd_SmartCrosshairs = 0;
+
+user int PistolCrosshair = 15;
+user int SMGCrosshair = 22;
+user int RevolverCrosshair = 25;
+user int ASGCrosshair = 46;
+user int ShotgunCrosshair = 40;
+user int SSGCrosshair = 9;
+user int LMGCrosshair = 34;
+user int RifleCrosshair = 24;
+user int MinigunCrosshair = 79;
+user int GLCrosshair = 33;
+user int RLCrosshair = 43;
+user int PlasmaCrosshair = 39;
+user int RailgunCrosshair = 50;
+user int BFG11kCrosshair = 78;
+user int UnmakerCrosshair = 53;
+user int FlamecannonCrosshair = 28;

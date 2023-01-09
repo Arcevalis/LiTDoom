@@ -64,6 +64,7 @@ ACTOR Shot_Gun : BrutalWeapon
 		TNT1 A 0 a_removelight(1)
 		TNT1 A 0 A_removelight(2)	
 		TNT1 A 0 A_SetRoll(0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
 		TNT1 A 0 SetPlayerProperty(0,0,2)													  											  
 		SHTN A 0 A_Giveinventory("GoSpecial",1)
 		TNT1 A 0 ACS_NAMEDEXECUTE("WEAPONSELECT",0)
@@ -92,30 +93,10 @@ ACTOR Shot_Gun : BrutalWeapon
 		SHTN A 0 
 	Ready3:	
 		SHTN A 0 a_clearoverlays(17,17)
-		SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
-		SHTN A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
         SHTN A 0 A_JumpIfInventory("Kicking",1,"DOKICKSHOTGUN")
-        SHTN A 0 A_JumpIfInventory("Taunting",1,"Taunt")
-        SHTN A 0 
-		SHTN A 0 A_JumpIfInventory("Salute1", 1, "Salute")
-		SHTN A 0 A_JumpIfInventory("Salute2", 1, "Salute")
-		SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "UNLOAD")
-		SHTN A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
-	OkToFire:
 		SHTN A 0 A_JumpIfInventory("Zoomed",1,"REady2")
-		SHTN A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
-		SHTN A 1 A_WeaponReady(WRF_ALLOWRELOAD)
-		SHTN A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
-		SHTN A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
-		SHTN A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
-		SHTN A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
-		SHTN A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
-		SHTN A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
-		SHTN A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
-		SHTN A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
-		SHTN A 0 A_JumpIfInventory("startdualwield",1,"AmmoSwitch")
-		SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
-		SHTN A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")												
+		SHTN A 1 A_WeaponReadyLit
+		SHTN A 0 A_JumpIfInventory("startdualwield",1,"AmmoSwitch")										
         Goto Ready3
 	
 	AltFire:
@@ -144,7 +125,7 @@ ACTOR Shot_Gun : BrutalWeapon
         SHTN A 0 A_ZoomFactor(1.0)
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_Giveinventory("GoSpecial",1)
-		TNT1 A 0 A_SetCrosshair(0)	
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
 		SHT8 H 1
 		BADF A 0 A_takeInventory("ZoomHold",1)
 		SHT8 GFEDCBA 1
@@ -189,7 +170,7 @@ ACTOR Shot_Gun : BrutalWeapon
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_Takeinventory("UseShotgunStrap",1)
         SHTN A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 A_SetCrosshair(0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
 		TNT1 A 0 A_JumpIfInventory("weaponbroke", 1, "Deselectcontinue")
 		SHSS CBA 1
 	DESELECTCONTINUE:
@@ -207,7 +188,7 @@ ACTOR Shot_Gun : BrutalWeapon
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_Takeinventory("UseShotgunStrap",1)
         SHTN A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 A_SetCrosshair(0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
 		SHSS CBA 1
 		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
 		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
@@ -589,7 +570,7 @@ AimFireVariant2:
 		//SHTN A 1 A_WeaponReady(WRF_NOFIRE)
 		SHTN A 0 A_Takeinventory("Zoomed",1)
         SHTN A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 A_SetCrosshair(0)							
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}							
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_Giveinventory("GoSpecial",1)
 		SHTN A 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
@@ -603,7 +584,7 @@ AimFireVariant2:
 		SHTN A 0 A_Takeinventory("Zoomed",1)
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 A_SetCrosshair(0)	
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
 		SHTN A 1 offset(-5,32)
 		SHTN A 1 offset(-10,30)
 		SHTN A 1 offset(-20,40)
@@ -686,7 +667,7 @@ AimFireVariant2:
         SHTN A 0 A_ZoomFactor(1.0)
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_Giveinventory("GoSpecial",1)
-		TNT1 A 0 A_SetCrosshair(0)	
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
 		SHT8 H 1
 		BADF A 0 A_takeInventory("ZoomHold",1)
 		SHT8 GFEDCBA 1
@@ -696,7 +677,7 @@ AimFireVariant2:
 		PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
 		TNT1 A 0 A_JUMPIFINVENTORY("JAMMEDSHOTGUN",1,"UNSTUCK")
 					
-		SHTN A 0 A_JumpIfInventory("ShotgunAmmo",9,"OkToFire")
+		SHTN A 0 A_JumpIfInventory("ShotgunAmmo",9,"ready3")
 		SHTN A 0 A_JumpIfInventory("ShotgunAmmo", 1, 2)//Check if there is a shell in the chamber
 		SHTN A 0 A_GiveInventory("ShotgunWasEmpty", 1)//This means there is no shell in the chamber
 		
@@ -714,7 +695,7 @@ AimFireVariant2:
 		SHTN A 0 A_Takeinventory("Zoomed",1)
 		SHTN A 0 A_Takeinventory("adsmode",1)
         SHTN A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 A_SetCrosshair(0)	
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
 		TNT1 A 0 A_startsound("SGSEL",40,0,0.5)
 		SHNR FGHIJKLMNOPQ 1	
 	 InsertingShells:
@@ -823,7 +804,7 @@ AimFireVariant2:
         SHTN A 0 A_ZoomFactor(1.0)
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_Giveinventory("GoSpecial",1)
-		TNT1 A 0 A_SetCrosshair(0)	
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
 		SHT8 H 1
 		BADF A 0 A_takeInventory("ZoomHold",1)
 		SHT8 GFEDCBA 1
@@ -934,7 +915,7 @@ AimFireVariant2:
 		SHN1 A 1 offset(50,40)
 		SHNI Z 1 offset(50,35)
 		SHTN A 0 offset(1,32)
-		Goto OkToFire	
+		Goto ready3	
 		
 	SlugCheck:
 		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,1)
@@ -953,11 +934,11 @@ AimFireVariant2:
         SHTN A 0 A_ZoomFactor(1.0)
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_Giveinventory("GoSpecial",1)
-		TNT1 A 0 A_SetCrosshair(0)	
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
 		SHT8 H 1
 		BADF A 0 A_takeInventory("ZoomHold",1)
 		SHT8 GFEDCBA 1
-	Unload:
+	user4:
 		PIST F 0 A_JumpIfInventory("zoomed",1,"AimUnload")
 		TNT1 A 0 A_JUMPIFINVENTORY("JAMMEDSHOTGUN",1,"UNSTUCK")
 		PIST F 0 A_JumpIfInventory("realreloadoff",1,2)
@@ -967,7 +948,7 @@ AimFireVariant2:
 		SHTN A 0 A_ZoomFactor(1.0)
 		SHTN A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_Takeinventory("Zoomed",1)
-		TNT1 A 0 A_SetCrosshair(0)			
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}		
         SHTN A 0 A_JumpIfInventory("ShotgunAmmo",1,4)
 		goto noammoUnload
         TNT1 AAA 0
@@ -1050,7 +1031,7 @@ FInishUnload:
 		SHNI Z 1 offset(50,35)
 		SHTN A 0 offset(1,32) 
 		SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "finishreloadhold")
-		Goto OkToFire		
+		Goto ready3		
 		
 	Steady:
 		TNT1 A 1
@@ -1086,7 +1067,7 @@ FInishUnload:
 		RIFG A 0 A_ZoomFactor(1.0)
 		RIFG A 0 A_Takeinventory("Zoomed",1)
 		RIFG A 0 A_Takeinventory("ADSmode",1)
-		TNT1 A 0 A_SetCrosshair(0)		
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
 	NoAmmoHold:
 		SHTN A 5 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE)
 		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Noammohold")
@@ -1261,7 +1242,7 @@ IdleSlug:
 		BADF A 0 A_Takeinventory("Zoomed",1)
 		BADF A 0 A_Takeinventory("ZoomHold",1)
         BADF A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 A_SetCrosshair(0)							
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}							
 		BADF A 0 A_Takeinventory("ADSmode",1)
 		SHTN A 0 A_OVERLAY(2,"PUMPCAMERA")
 	   SHNP ABCDEFGHIIII 1

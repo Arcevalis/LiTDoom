@@ -1,0 +1,11 @@
+CHANGELOG STUFF
+
+- fixed the flare weapon having fuckd up kicks
+- fixed partially spent mags dissapearing on liquids
+- started doing some optimizations regarding weapons' code (NEEDS EXCESSIVE TESTING)
+
+
+
+7.01.2023
+- fixed a bunch of weapons crashing when attempting to sprint while idle, also not working unload/weapon special binds
+- more changes to the peestol's code to hopefully be cleaner AND smoother to use

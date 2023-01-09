@@ -95,6 +95,7 @@ OptionMenu "BrutalMenu"
 	Submenu "Mod Interface Options",			"BrutalDoomOptionsPlayer"
 	Submenu "$U2P_OptionsMenu_Title", "UseToPickupOptions"
    Submenu "Lighting, Fog and autosaves",		"BDMUTATORS"
+   Submenu "Smart crosshair",			"SmartCrosshairsMenu"
 	StaticText " "
 	StaticText " "	
   Statictext "GAMEPLAY Options", "orange"
@@ -108,6 +109,65 @@ OptionMenu "BrutalMenu"
   Submenu "Post-apocalypse bonuses",	"PostapocalypseMode"
   StaticText " "
 }
+
+
+
+OptionMenu "SmartCrosshairsMenu"
+{
+Title "Smart Crosshair Options"
+
+	Option "$HUDMNU_CROSSHAIRON",			"crosshairon", "OnOff"
+	Option "$HUDMNU_CROSSHAIR",				"crosshair", "Crosshairs"
+	StaticText " "
+	StaticText " "
+
+	Option "Enable Smart Crosshairs", "bd_SmartCrosshairs", "YesOrNo"
+	StaticText "Each weapon has a different crosshair.", "red"//comment for mass deleting
+	StaticText "Make sure you have 'Force Default Crosshair' disabled!", "red"//comment for mass deleting
+	Option "$HUDMNU_FORCECROSSHAIR",		"crosshairforce", "OnOff"
+	StaticText " "
+	StaticText "Crosshair 0 is the default player's crosshair.", "red"//comment for mass deleting
+	StaticText "Crosshair 41 is nothing at all.", "red"//comment for mass deleting
+	StaticText " "
+	StaticText "Customizable Crosshairs"
+	Command "Restore to default values",	"pukename SmartCrosshairsDefault"
+	StaticText "You must go back to the game for it to take effect.", "red"
+	StaticText "Slot 2:"
+	Slider "Pistol", "PistolCrosshair", 0, 99, 1
+	Slider "Sub-machinegun", "SMGCrosshair", 0, 99, 1
+	Slider "Revolver", "RevolverCrosshair", 0, 99, 1
+	StaticText "Slot 3:"
+	Slider "Assault Shotgun", "ASGCrosshair", 0, 99, 1
+	Slider "Shotgun", "ShotgunCrosshair", 0, 99, 1
+	Slider "SSG", "SSGCrosshair", 0, 99, 1
+	StaticText "Slot 4:"
+	Slider "Machinegun", "LMGCrosshair", 0, 99, 1
+	Slider "Rifle", "RifleCrosshair", 0, 99, 1
+	Slider "Minigun", "MinigunCrosshair", 0, 99, 1
+	StaticText "Slot 5:"
+	Slider "Grenade Launcher", "GLCrosshair", 0, 99, 1
+	Slider "Rocket Launcher", "RLCrosshair", 0, 99, 1
+	StaticText "Slot 6:"
+	Slider "Plasmagun", "PlasmaCrosshair", 0, 99, 1
+	Slider "Plasma lance", "RailgunCrosshair", 0, 99, 1
+	StaticText "Slot 7:"
+	Slider "BFG11K", "BFG11kCrosshair", 0, 99, 1
+	Slider "Unmaker", "UnmakerCrosshair", 0, 99, 1
+	StaticText "Slot 8:"
+	Slider "Flamecannon", "FlamecannonCrosshair", 0, 99, 1
+	StaticText "=====================================", "black"
+	StaticText "Default crosshairs provided by Xeno1979."
+	
+}
+
+
+
+
+
+
+
+
+
 
 OptionValue "AdsModeName"
 {

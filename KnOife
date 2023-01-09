@@ -89,25 +89,10 @@ ACTOR Knife : BrutalWeapon
 		goto broken
 		TNT1 A 0
 		KNFE F 0 A_JumpIfInventory("readythrow", 1, "Throwready")
-		KNFE F 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
-		KNFE F 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
-		KNFE F 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
-		KNFE F 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
-		KNFE F 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
-		KNFE F 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
-		KNFE F 0 A_JumpIfInventory("Taunting",1,"Taunt")
-		KNFE F 0 A_JumpIfInventory("Salute1",1,"Salute")
-		KNFE F 0 A_JumpIfInventory("Salute2",1,"Salute")
 		KNFE F 0 A_JumpIfInventory("Kicking",1,"dokickknife")
-		KNFE F 0 A_JumpIfInventory("Flaretoken",1,"Tossflare")
-		KNFE F 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
 		KNFE F 0 A_JumpIfInventory("throwtoken",1,"DUALWIELD")
 		KNFE F 0 A_JumpIfInventory("STARTDUALWIELD",1,"DUALWIELD")
-		KNFE F 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
-		KNFE F 1 A_WeaponReady(wrf_ALLOWRELOAD)
-		KNFE F 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WEAPONCHECK")
-		KNFE F 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
-		KNFE F 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		KNFE F 1 A_WeaponReadyLit
 		Loop
 
 //DUAL COMBO
@@ -789,7 +774,7 @@ ACTOR Knife : BrutalWeapon
 //
 // --------------------------------------------------------------------------
 
-WeaponCheck:
+user4:
 		TNT1 A 0 a_STARTSOUND("MAGGRAB2", 120,0,0.6)
 		KNFE FEDCBA 1
 WeaponCheck2:
@@ -927,12 +912,22 @@ WeaponCheck2:
 		TNT1 A 0 A_Giveinventory("Knifeselected",1)
 		TNT1 A 0 A_Stopsound(5)
 		TNT1 A 0 A_TakeInventory("JustStartedGame",1)
-		TNT1 A 10 A_WeaponReady
-		PUNS ABCD 1 A_WeaponReady
+		TNT1 A 12 A_WeaponReady
+		PUNS ABCDEF 1 A_WeaponReady
 		TNT1 A 0 A_PlaySound("Knuckled")
-		PUNS E 7 A_WeaponReady
-		PUNS FGFE 3 A_WeaponReady
-		PUNS DCB 1 A_WeaponReady
+		PUNS G 1 offset(0,32)
+		PUNS G 1 offset(0,33)
+		PUNS G 1 offset(0,32)
+		PUNS G 1 offset(0,33)
+		PUNS G 1 offset(0,32)
+		PUNS G 1 offset(0,33)
+		PUNS F 12 offset(0,32)
+		PUNS F 1 offset(0,34)
+		PUNS F 1 offset(0,40)
+		PUNS E 1 offset(0,52)
+		PUNS E 1 offset(0,66)
+		PUNS E 1 offset(0,80)
+
 		TNT1 A 10 A_WeaponReady
 		KNFI ABC 1 A_WeaponReady
 		TNT1 A 0 A_PlaySound("KNIFETH1",1)

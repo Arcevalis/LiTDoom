@@ -860,31 +860,31 @@ SetHudSize(320, 200,FALSE);
 setfont("smallfont");
 
 if (durability < 10)
-{HudMessage(s:"Suppressor's condition:\cR falling apart" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+{HudMessage(s:"Suppressor's condition:\cR falling apart" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
 terminate;}
 
 else if (durability >= 10 && durability < 35)
-{HudMessage(s:"Suppressor's condition:\cI faulty" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+{HudMessage(s:"Suppressor's condition:\cI faulty" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
 terminate;}
 
 else if (durability >= 35 && durability < 70)
-{HudMessage(s:"Suppressor's condition:\cX mediocre" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+{HudMessage(s:"Suppressor's condition:\cX mediocre" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
 terminate;}
 
 else	if (durability >= 70 && durability < 100)
-{HudMessage(s:"Suppressor's condition:\cK decent" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+{HudMessage(s:"Suppressor's condition:\cK decent" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
 terminate;}
 
 else	if (durability >= 100 && durability < 125)
-{HudMessage(s:"Suppressor's condition:\cD good" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+{HudMessage(s:"Suppressor's condition:\cD good" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
 terminate;}
 
 else if (durability >= 125 && durability < 150)
-{HudMessage(s:"Suppressor's condition:\cN optimal" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+{HudMessage(s:"Suppressor's condition:\cN optimal" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
 terminate;}
 
 else	if (durability >= 150)
-{HudMessage(s:"Suppressor's condition:\cJ pristine" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,150.1,1.0);
+{HudMessage(s:"Suppressor's condition:\cJ pristine" ; HUDMSG_plain,8882, CR_DARKGREY, -50.1,140.1,1.0);
 terminate;}
 
 delay(17);

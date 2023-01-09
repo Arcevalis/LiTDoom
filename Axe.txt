@@ -82,23 +82,10 @@ ACTOR BrutalAxe : BrutalWeapon
 		TNT1 A 1 A_TakeInventory("BrutalAxe",1)
 		AXEG A 0 A_Takeinventory("HasCutingWeapon",1)
 		///
-		 AXEG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
         AXEG A 0 A_JumpIfInventory("Kicking",1,"DOKICKAXE")
 		AXEG A 0 A_Giveinventory("HasCutingWeapon",1)
-		AXEG A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
-		AXEG A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
-		AXEG A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
-		AXEG A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
-		AXEG A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
-		AXEG A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
-		AXEG A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
-		AXEG A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
-		AXEG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
-		AXEG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck")
 		RIFG A 0 A_JumpIfInventory("StartDualWield",1,"Throwswitch")
-		AXES G 1 A_WeaponReady(WRF_ALLOWRELOAD)	
-		AXES G 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
-		AXEG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		AXES G 1 A_WeaponReadyLit
 		Loop
 	
 	Deselect:
@@ -720,7 +707,7 @@ ACTOR BrutalAxe : BrutalWeapon
 		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
 		Goto Ready3	
 	
-WeaponCheck:
+User4:
 		TNT1 A 0 a_STARTSOUND("MAGGRAB2", 120,0,0.6)
 		AXE1 UTSRQPON 1
 		AXEI R 1

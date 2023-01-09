@@ -29,6 +29,8 @@ Class DROPPEDpistolmag : Inventory
 	+ROLLCENTER
 	+touchy
 	+missile
+	+EXPLODEONWATER
+	+FORCEXYBILLBOARD
         }
     int currentmag;
 	int droppedammo;
@@ -109,6 +111,8 @@ Class DROPPEDSMGmag : Inventory
 	+ROLLCENTER
 	+touchy
 	+missile
+	+EXPLODEONWATER
+	+FORCEXYBILLBOARD
         }
     int currentmag;
 	int droppedammo;
@@ -188,6 +192,8 @@ Class DROPPEDASGmag : Inventory
 	+ROLLCENTER
 	+touchy
 	+missile
+	+EXPLODEONWATER
+	+FORCEXYBILLBOARD
         }
     int currentmag;
 	int droppedammo;
@@ -282,6 +288,8 @@ Class DROPPEDriflemag473 : Inventory
 	+ROLLCENTER
 	+touchy
 	+missile
+	+EXPLODEONWATER
+	+FORCEXYBILLBOARD
         }
     int currentmag;
 	int droppedammo;
@@ -386,6 +394,8 @@ Class DROPPEDMMGmag : Inventory
 	+ROLLCENTER
 	+touchy
 	+missile
+	+EXPLODEONWATER
+	+FORCEXYBILLBOARD
         }
     int currentmag;
 	int droppedammo;
@@ -482,6 +492,8 @@ Class DROPPEDplasmamag : Inventory
 	+ROLLCENTER
 	+touchy
 	+missile
+	+EXPLODEONWATER
+	+FORCEXYBILLBOARD
         }
     int currentmag;
 	int droppedammo;
@@ -567,6 +579,8 @@ Class DROPPEDLancemag : Inventory
 	+ROLLCENTER
 	+touchy
 	+missile
+	+EXPLODEONWATER
+	+FORCEXYBILLBOARD
         }
     int currentmag;
 	int droppedammo;

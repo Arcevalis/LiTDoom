@@ -30,30 +30,30 @@ ACTOR Machinegun : BrutalWeapon
 		BADF A 0 A_TakeInventory("neverfoundLMG", 1)
 	FirstMag1:
 		BADF A 0 a_overlay(2,"INSPECTcamera")
-		LMGI ABC 2 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		LMGI ABC 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		BADF A 0 A_PlaySound("RELO1")
-		LMGI DEFGHI 2 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		LMGI DEFGGHHHHHHII 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		BADF A 0 A_PlaySound("BELT1")
-		LMGI JKLMNOPQR 2 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		LMGI JKLMNNOOOOOPPQR 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		BADF A 0 A_PlaySound("BELT2")
-		LMGI STU 2 A_JumpIfInventory("Kicking",1,"InspectCancel")
-		TNT1 A 10 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		LMGI STU 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		TNT1 A 13 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		BADF A 0 A_PlaySound("GRNTOSS")
-		LMG1 ABCDEFGGG 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		LMG1 ABCDEFG 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		LMGL P 0 A_playsound("MAGTHUD",1)
-		LMG1 HIJKLMNOPQRSTUVWXYZ 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		LMG1 HIIIJKLMNNOOOOOOPQRSTUVWXYZ 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		LMGI VWX 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		
 		BADF A 0 a_overlay(2,"RELOADcamera")
 		LMGL IJ 1
 		BADF A 0 A_PlaySound("MGMAGIN", 6)
 		LMGL KLN 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
-		LMGL N 10 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		LMGL N 8 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		LMGL O 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		LMGL P 5 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		LMGL P 0 A_PlaySound("mgmagtap", 1)
 		TNT1 A 0 A_QUAKE(2,4,0,200)
-		LMGL STUV 3 A_JumpIfInventory("Kicking",1,"InspectCancel")
+		LMGL STTTTTTUVUV 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		LMGL WXYZ 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		LMGD EDCB 1 A_JumpIfInventory("Kicking",1,"InspectCancel")
 		BADF A 0 A_PlaySound("MGBOLT2", 1)
@@ -81,49 +81,16 @@ ACTOR Machinegun : BrutalWeapon
 		LMUG DCBA 1
 		Goto Ready3
 	Ready3:
-		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
-	   "####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "UNLOAD")
-	   "####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
 		"####" "#" 0 A_JumpIfInventory("Kicking",1,"DOKICKLMG")
-		"####" "#" 0 A_JumpIfInventory("Salute1", 1, "Salute")
-		"####" "#" 0 A_JumpIfInventory("Salute2", 1, "Salute")
-		"####" "#" 0 A_JumpIfInventory("Taunting",1,"Taunt")
-		"####" "#" 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
-		"####" "#" 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
-		"####" "#" 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
-		"####" "#" 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
-		"####" "#" 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
-		"####" "#" 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
-		"####" "#" 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
-		"####" "#" 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
-		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
-		"####" "#" 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
-		"####" "#" 0 
 		"####" "#" 0 A_JumpIfInventory("StartDualWield",1,"ReloadGrenade")
-		
 		"####" "#" 0 A_JumpIfInventory("HASUNLOADEDLMG",1,"UNLOADED")
-		LMGF A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		LMGF A 1 A_WeaponReadyLit
 		Loop	
 		 	 
 		Unloaded:
-		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "UNLOAD")
 		"####" "#" 0 A_JumpIfInventory("Kicking",1,"DOKICKLMG")
-		"####" "#" 0 A_JumpIfInventory("Salute1", 1, "Salute")
-		"####" "#" 0 A_JumpIfInventory("Salute2", 1, "Salute")
-		"####" "#" 0 A_JumpIfInventory("Taunting",1,"Taunt")
-		"####" "#" 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
-		"####" "#" 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
-		"####" "#" 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
-		"####" "#" 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
-		"####" "#" 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
-		"####" "#" 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
-		"####" "#" 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
-		"####" "#" 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
-		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
-		"####" "#" 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
-		"####" "#" 0 
 		"####" "#" 0 A_JumpIfInventory("StartDualWield",1,"ReloadGrenade")		
-		LMGR A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		LMGR A 1 A_WeaponReadyLit
 		Loop	
 		  
 	CheckSprint:
@@ -345,6 +312,7 @@ ACTOR Machinegun : BrutalWeapon
 		
 		Select: 
 		TNT1 A 0  A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("LMGCrosshair"));}else{A_SetCrosshair(0);}}
 		TNT1 A 0 a_removelight(1)
 		TNT1 A 0 A_removelight(2)		
 			TNT1 A 0 A_SetRoll(0)
@@ -621,7 +589,7 @@ ACTOR Machinegun : BrutalWeapon
 		BADF A 0 A_ZoomFactor(1.0)
 		BADF A 0 A_Takeinventory("ADSmode",1)
 		BADF A 0 A_Takeinventory("Zoomed",1)
-		TNT1 A 0 A_SetCrosshair(0)	
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("LMGCrosshair"));}else{A_SetCrosshair(0);}}
 		BADF A 0 A_Takeinventory("Reloading",1)
 		PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
 		
@@ -633,7 +601,7 @@ ACTOR Machinegun : BrutalWeapon
         Goto FinishReloading
         TNT1 AAA 0
 		BADF A 0 A_Takeinventory("Zoomed",1)
-		TNT1 A 0 A_SetCrosshair(0)							
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("LMGCrosshair"));}else{A_SetCrosshair(0);}}						
 		BADF A 0 A_GiveInventory ("Pumping", 1)
 		BADF A 0 A_Takeinventory("Reloading",1)
 		BADF A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
@@ -755,7 +723,7 @@ ACTOR Machinegun : BrutalWeapon
 		LMGU IHGFEDCBA 1
 		 goto Ready3
 			
-	Unload:
+	user4:
 		TNT1 A 0 A_jumpifinventory("jammedLMG",1,"Unstuck")
         BADF A 0 A_JumpIfInventory("LMGAmmo",1,7)
 		BADF A 0 A_JumpIfInventory("LMGGRENADE",1,"UnloadGrenade")
@@ -769,7 +737,7 @@ ACTOR Machinegun : BrutalWeapon
 		BADF A 0 A_ZoomFactor(1.0)
 		BADF A 0 A_Takeinventory("ADSmode",1)
 		BADF A 0 A_Takeinventory("Zoomed",1)
-		TNT1 A 0 A_SetCrosshair(0)	
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("LMGCrosshair"));}else{A_SetCrosshair(0);}}
         TNT1 AAA 0
 		BADF A 0 A_Takeinventory("Zoomed",1)						
 		BADF A 0 a_overlay(2,"unloadcamera")
