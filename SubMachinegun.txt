@@ -254,7 +254,7 @@ ACTOR BrutalSMG : BrutalWeapon
         //TNT1 AAAA 0
 		"####" "####" 0
 		
-		"####" "#" A 0 A_JumpIfInventory("Suppressormounted",1,"fireSUPPRESSED")
+		"####" "#" 0 A_JumpIfInventory("Suppressormounted",1,"fireSUPPRESSED")
 		
 		//DURABILITY CHECK
 		SMGI A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
