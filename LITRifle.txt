@@ -208,13 +208,13 @@ MagLoad:
 		BADF A 0 A_Takeinventory("StartDualWield",1)
         TNT1 AAAA 0
 	Ready3:
-		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
-		BADF A 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		B4D5 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		B4D5 A 0 A_JumpIfInventory("Zoomed",1,"Ready2")
 		B4D5 A 1 A_WeaponReadyLit
-		BADF A 0 A_JumpIfInventory("ETCRIFLETOKEN",1,"Upgrade")
-		BADF A 0 A_JumpIfInventory("Kicking",1,"RIFLEBASH")
-		BADF A 0 A_JumpIfInventory("StartDualWield",1,"SpecialAction")
-		TNT1 A 0 { If(CountInv("plasmaenhancedrifle") == 1) { a_overlay(5,"plasmaoverlay", false); } }
+		B4D5 A 0 A_JumpIfInventory("ETCRIFLETOKEN",1,"Upgrade")
+		B4D5 A 0 A_JumpIfInventory("Kicking",1,"RIFLEBASH")
+		B4D5 A 0 A_JumpIfInventory("StartDualWield",1,"SpecialAction")
+		B4D5 A 0 { If(CountInv("plasmaenhancedrifle") == 1) { a_overlay(5,"plasmaoverlay", false); } }
 		goto Ready3
 		
 	Plasmaoverlay:
@@ -265,13 +265,13 @@ MagLoad:
 		BADA E 1 A_WeaponReadyLit
 		
 				
-		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 2)  ///////ADS MODE CHECK
-		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		BADA E 0 A_JumpIf(Getcvar("ADSMode") == 0, 2)  ///////ADS MODE CHECK
+		BADA E 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
 		goto noaim
 		TNT1 A 0
-		BADF A 0 A_JumpIfInventory("plasmaenhancedrifle",1,1)
+		BADA E 0 A_JumpIfInventory("plasmaenhancedrifle",1,1)
 		goto ready2
-		BADF A 0 a_overlay(5,"AIMplasmaoverlay", false)
+		BADA E 0 a_overlay(5,"AIMplasmaoverlay", false)
 		goto Ready2
 		
 	AIMPlasmaoverlay:
@@ -380,15 +380,15 @@ Deselect:
     Fire:
         "####" "#" 0 
 		{
-		if (CountInv("RifleAmmo") == 0) { return state("Misfire"); }
+		if (CountInv("RifleAmmo") == 0) { return state("NoAmmo"); }
 		return state("");
 		}
 		//DURABILITY CHECK
-		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 5)
-		PIST F 0 A_JumpIfInventory("jammedrifle",1, "Unstuck")
-		PIST F 0 A_Takeinventory("RifleDurability",1)
-		PIST F 0 A_JumpIfInventory("RifleDurability",75, 2)
-		PIST F 0 A_Jump(40, "Misfire")
+		B4D5 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 5)
+		B4D5 A 0 A_JumpIfInventory("jammedrifle",1, "Unstuck")
+		B4D5 A 0 A_Takeinventory("RifleDurability",1)
+		B4D5 A 0 A_JumpIfInventory("RifleDurability",75, 2)
+		B4D5 A 0 A_Jump(40, "Misfire")
 		///
 		"####" "#" 0
 		{
@@ -483,7 +483,7 @@ Deselect:
 		///
 		return state("");
 		}
-		BADF A 0 A_refire
+		B4D5 A 0 A_refire
 		Goto Ready3
 	
 	RecoilCamera:
@@ -576,9 +576,9 @@ Deselect:
 		///
 		return state("");
 		}
-		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
-		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
-		BADF A 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")
+		BADA E 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
+		BADA E 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		BADA E 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")
 		
 		BADA E 1 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "FIRE")
 		BADA E 7 A_WeaponReady(1)
@@ -606,9 +606,9 @@ Deselect:
 		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, "Ready2")  ///////ADS MODE CHECK
 		
 	   HoldAim:	
-		BADF A 0 A_GiveInventory("ZoomHold",1)
+		BADA E 0 A_GiveInventory("ZoomHold",1)
 		BADA E 1 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "FIRE")
-		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		BADA E 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
 		
        NoAim:
 		BADF A 0 A_Takeinventory("Zoomed",1)
@@ -632,50 +632,17 @@ Deselect:
 		PISA D 0 ACS_NamedExecutealways("riflemagcheck762", 0)
 		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
 		stop	
-	NoAmmoUnload:
-	    PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
-		goto Noammo
-		TNT1 A 0 A_Overlay(98,"WeaponCheckOverlay",false)
-	NoAmmo:
-		BADF A 0
-		BADF A 0 A_ZoomFactor(1.0)
-		BADF A 0 A_Takeinventory("Zoomed",1)
-		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("RifleCrosshair"));}else{A_SetCrosshair(0);}}					
-		BADF A 0 A_Takeinventory("ADSmode",1)
-		BADF A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
-		TNT1 A 0 A_PlaySound("DRYFIRE2", 4)
-	NoAmmo2:
-		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
-		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
-		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
-		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
-		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
-		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
-		BADF A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
-		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
-		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
-	    BADF A 0 A_JumpIfInventory("Taunting",1,"Taunt")
-		BADF A 0 A_JumpIfInventory("Salute1", 1, "Salute")
-		BADF A 0 A_JumpIfInventory("ETCRIFLETOKEN",1,"Upgrade")
-		BADF A 0 A_JumpIfInventory("Salute2", 1, "Salute")
-		BADF A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
-		BADF A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
-		BADF A 0 A_JumpIfInventory("Kicking",1,"RIFLEBASH")
-		BADF A 5 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE)
-		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "noammo2")
-		BADF A 0 
-		Goto Ready3
 	
     Reload:
-		BADF A 1 A_WeaponReady
-		BADF A 0 A_Takeinventory("Reloading",1)
-		BADF A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
-		BADF A 0 A_ZoomFactor(1.0)
-		BADF A 0 A_Takeinventory("ADSmode",1)
-		BADF A 0 A_Takeinventory("Zoomed",1)
-		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("RifleCrosshair"));}else{A_SetCrosshair(0);}}	
-		TNT1 A 0 A_jumpifinventory("jammedrifle",1,"Unstuck")
-		PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
+		"####" "#" 1 A_WeaponReady
+		"####" "#" 0 A_Takeinventory("Reloading",1)
+		"####" "#" 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
+		"####" "#" 0 A_ZoomFactor(1.0)
+		"####" "#" 0 A_Takeinventory("ADSmode",1)
+		"####" "#" 0 A_Takeinventory("Zoomed",1)
+		"####" "#" 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("RifleCrosshair"));}else{A_SetCrosshair(0);}}	
+		"####" "#" 0 A_jumpifinventory("jammedrifle",1,"Unstuck")
+		"####" "#" 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
 		
 		 BADF A 0 A_JumpIfInventory("loaded762",1,3)
 		BADF A 0 A_JumpIfInventory("RifleAmmo",30,"Ready3")
@@ -969,8 +936,13 @@ CheckchamberFinish:
 		B4D5 B 1
 		goto Ready3
 		
-	
+	User4Zoom:
+		BADF A 0 A_ZoomFactor(1.0)
+		BADF A 0 A_Takeinventory("ADSmode",1)
+		BADF A 0 A_Takeinventory("Zoomed",1)
+		BADA EDCBA 1
 	User4:
+		"####" "#" 0 A_JumpIfInventory("Zoomed",1,"User4Zoom")
 		BADF A 5 A_WeaponReady
 		BADF A 0 A_ZoomFactor(1.0)
 		BADF A 0 A_Takeinventory("ADSmode",1)
@@ -1094,6 +1066,19 @@ CheckchamberFinish:
 		"####" "#" 1 OFFSET(0,32)
 		"####" "#" 0 A_jumpifinventory("ADSMode",1,"Ready2")
 		goto Ready3
+	NoAmmoUnload:
+	    "####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		goto Noammo
+		"####" "#" 0 A_Overlay(98,"WeaponCheckOverlay",false)
+	NoAmmo:
+		"####" "#" 1 offset(0,34) { A_PlaySound("dryfire", 4);}
+	NoAmmoHold:
+		"####" "#" 1 offset(0,34)//A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE)
+		"####" "#" 0 offset(0,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammohold")
+		"####" "#" 1 offset(0,33)
+		"####" "#" 1 offset(0,32)
+		"####" "#" 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		Goto Ready3
 		
 		Jammed:
 		TNT1 A 0 A_giveinventory("jammedrifle",1)

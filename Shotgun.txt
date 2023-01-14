@@ -53,7 +53,7 @@ ACTOR Shot_Gun : BrutalWeapon
 		SGNH ABCD 1
 		//SHTN A 0 A_startsound("Weapons/Revolver/Click1",45,0,1.0)
 		SGNH EFGHI 1	
-		SHTN A 0 A_startsound("SHELGRAB",45,0,1.0)
+		//SHTN A 0 A_startsound("SHELGRAB",45,0,1.0) //MOVED TO THE MAIN STATE TO NOT PLAY THE SOUND WHEN RELOADING
 		SGNH JKLMNOPQRSTUVWXYZ 1
 		5GNH ABCDEFGHIJKKKLMNOPQRRRRRRRSTUV 1
 		SHTN A 0 A_Giveinventory("shotgunammo",1)
@@ -270,8 +270,11 @@ ACTOR Shot_Gun : BrutalWeapon
 		TNT1 A 0 A_JumpIFInventory("adsmode", 1, "Pump2Check")
 		//DURABILITY CHECK 2
 		TNT1 A 0 A_JumpIF(GetCVAR("firearmsdurability") == 1, 4)
-		PIST F 0 A_JumpIf(CountInv("ShotgunDurability") == 0, 1)
-		goto weaponbreak
+		"####" "#" 0
+		{
+		If(CountInv("ShotgunDurability") == 0) { return state("weaponbreak"); }
+		return state("");
+		}
 		PIST F 0 A_JumpIfInventory("ShotgunDurability",30, 2)
 		PIST F 0 A_Jump(60,"PUMPJAMMED")
 		goto pumpslow
@@ -321,7 +324,7 @@ ACTOR Shot_Gun : BrutalWeapon
 	   SHNP LMNOPQ 1 a_takeinventory("pumpreflex",10)
 	   SHTN A 0 A_STARTSound("weapons/sgPump2", 31)
 	   SHNP RSTUV 1
-	   SHTN A 0 A_JumpIf(CountInv("IsTacticalClass") == 1 && GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD && GetPlayerInput(INPUT_BUTTONS) & BT_SPEED, "StartSprint")
+	   TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Fire")
 	   Goto Ready3
 	  
 	PUMPCAMERA:
@@ -687,11 +690,11 @@ AimFireVariant2:
 		PIST F 0 A_JumpIfInventory("zoomed",1,"Aimreload")		
 		SHTN A 1 A_WeaponReady(WRF_NOFIRE)
 		//reserve ammo check
-		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,2)
+		"####" "#" 0 A_JUMPIFINVENTORY("SlugSelected",1,2)
 		SHTN A 0 A_JumpIfInventory("AmmoShell", 1, 2)
-		Goto noammo+2
+		Goto noammo
 		SHTN A 0 A_JumpIfInventory("AmmoSlug", 1, 2)
-		Goto noammo+2
+		Goto noammo
 		SHTN A 0
 		SHTN A 0 A_Takeinventory("Zoomed",1)
 		SHTN A 0 A_Takeinventory("adsmode",1)
@@ -812,9 +815,9 @@ AimFireVariant2:
 		TNT1 A 0 A_JUMPIFINVENTORY("Zoomed",1,"AimSpecial")
 		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,2)
 		SHTN A 0 A_JumpIfInventory("AmmoShell", 1, 2)
-		Goto noammo+6
+		Goto noammo
 		SHTN A 0 A_JumpIfInventory("AmmoSlug", 1, 1)
-		Goto noammo+6
+		Goto noammo
 		TNT1 A 0 A_startsound("SGSEL",40,0,0.5)
 		SHNI Z 1 offset(50,32)
 		SHN1 ABCDEFGHIJKL 1
@@ -936,10 +939,10 @@ AimFireVariant2:
 		BADF A 0 A_takeInventory("ZoomHold",1)
 		SHT8 GFEDCBA 1
 	user4:
-		PIST F 0 A_JumpIfInventory("zoomed",1,"AimUnload")
-		TNT1 A 0 A_JUMPIFINVENTORY("JAMMEDSHOTGUN",1,"UNSTUCK")
-		PIST F 0 A_JumpIf(GetCVAR("realreload") == 0,2)
-		PIST F 0 A_JumpIfInventory("needspumping",1,"PumpCheck")
+		"####" "#" 0 A_JumpIfInventory("zoomed",1,"AimUnload")
+		"####" "#" 0 A_JUMPIFINVENTORY("JAMMEDSHOTGUN",1,"UNSTUCK")
+		"####" "#" 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+		"####" "#" 0 A_JumpIfInventory("needspumping",1,"PumpCheck")
 	
 		SHTN A 1
 		SHTN A 0 A_ZoomFactor(1.0)
@@ -1049,28 +1052,25 @@ FInishUnload:
 		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
 		stop	
 	NoAmmoUnload:
-	    PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+	    "####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
 		goto Noammo
-		TNT1 A 0 A_Overlay(98,"WeaponCheckOverlay",false)
+		"####" "#" 0 A_Overlay(98,"WeaponCheckOverlay",false)
 	NoAmmo:
-		TNT1 A 0 A_PlaySound("weapons/empty", 4,0.5)
-		TNT1 A 0
-		PIST F 0 A_JumpIfInventory("needspumping",1,2)
-		PIST F 0 A_Jump(256,2)
-		PIST F 0 A_overlay(5,"PumpingCue")
-		
-		PIST F 0 A_JumpIfInventory("adsmode",1,"noammo2")
-		PIST F 0 A_JumpIfInventory("zoomed",1,"noammo2")
-		RIFG A 0 A_ZoomFactor(1.0)
-		RIFG A 0 A_Takeinventory("Zoomed",1)
-		RIFG A 0 A_Takeinventory("ADSmode",1)
-		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
+		"####" "#" 1 offset(0,34) 
+		{ 
+		if (CountInv("needspumping") == 1 ) { A_overlay(5,"PumpingCue"); }
+		if (CountInv("adsmode") == 1 || CountInv("zoomed") == 1) { return state("noammo2"); }
+		A_PlaySound("weapons/empty", 4,0.5); A_WeaponOffset(0,32);
+		return state("");
+		}
 	NoAmmoHold:
-		SHTN A 5 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE)
-		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Noammohold")
-		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, "Noammohold")
-		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammohold")
+		"####" "#" 1 offset(0,34) A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE | WRF_NOBOB)
+		"####" "#" 0 offset(0,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammohold")
+		"####" "#" 1 offset(0,33)
+		"####" "#" 1 offset(0,32)
+		"####" "#" 0 A_JumpIfInventory("Zoomed",1,"Ready2")
 		Goto Ready3
+
 
 	NoAmmo2:
 		SHT8 H 4 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY)

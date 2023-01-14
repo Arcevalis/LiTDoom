@@ -1,0 +1,24 @@
+CHANGELOG STUFF
+
+- fixed the flare weapon having fuckd up kicks
+- fixed partially spent mags dissapearing on liquids
+- started doing some optimizations regarding weapons' code (NEEDS EXCESSIVE TESTING)
+
+
+
+7.01.2023
+- fixed a bunch of weapons crashing when attempting to sprint while idle, also not working unload/weapon special binds
+- more changes to the peestol's code to hopefully be cleaner AND smoother to use
+
+10.01.2023
+- a lot of undocumented shit but basically bugfixes lol
+- slight adjustments to rifle's 'misfire' state
+
+12.01.2023
+- fixed the bfg freezing the game when sprinting. I thought i fixed that before??????
+- new and improved NoAmmo states!!!!
+- fixed the rifle dissapearing when it misfires
+
+13.01.2023
+- fixed the plasma rifle freezing the game after unloading
+- removed the non-sensical delay on the pistol reload
