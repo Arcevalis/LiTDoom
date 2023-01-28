@@ -249,18 +249,19 @@ ACTOR BrutalSMG : BrutalWeapon
 	
     Fire:
 		"####" "#" 0 A_JumpIfInventory("JAMMEDSMG",1,"UNJAMMING")
-        "####" "#" 0 A_JumpIfInventory("BDSMGAmmo",1,2)
-        Goto Misfire
+       // "####" "#" 0 A_JumpIfInventory("BDSMGAmmo",1,2)
+       // Goto Misfire
+	   "####" "#" 0 { If(CountInv("BDSMGAmmo") == 0) { return state("NoAmmo"); } return state(""); }
         //TNT1 AAAA 0
 		"####" "####" 0
 		
 		"####" "#" 0 A_JumpIfInventory("Suppressormounted",1,"fireSUPPRESSED")
 		
 		//DURABILITY CHECK
-		SMGI A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
-		SMGI A 0 A_Takeinventory("SMGDurability",1)
-		SMGI A 0 A_JumpIfInventory("SMGDurability",75, 2)
-		SMGI A 0 A_Jump(30, "Misfire")
+		"####" "#" 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
+		"####" "#" 0 A_Takeinventory("SMGDurability",1)
+		"####" "#" 0 A_JumpIfInventory("SMGDurability",75, 2)
+		"####" "#" 0 A_Jump(30, "Misfire")
 		///
 		
 		SMGG A 0 A_ALertMonsters
@@ -362,16 +363,15 @@ ACTOR BrutalSMG : BrutalWeapon
 	
 	WeaponCheckOverlay:
 		TNT1 A 5
-		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
 		Stop
 	WeaponCheck2:
+		"####" "#" 0 
 		"####" "#" 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
 		"####" "#" 0 ACS_NAMEDEXECUTEalways("SMGDURABILITYCHECK",0)
 		"####" "#" 0 ACS_NAMEDEXECUTEalways("SMGMAGCHECK",0)
-		"####" "#" 0 A_JumpIfInventory("Suppressormounted",1,2)
-		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
-		stop	
-		"####" "#" 0 ACS_NAMEDEXECUTEalways("SUPPRESSORDURABILITYCHECK",0)
+		//"####" "#" 0 A_JumpIfInventory("Suppressormounted",1,2)
+		"####" "#" 0 { If(countInv("Suppressormounted") == 1) { ACS_NAMEDEXECUTEalways("SUPPRESSORDURABILITYCHECK",0); }}
 		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
 		stop	
 	NoAmmoUnload:
@@ -379,9 +379,12 @@ ACTOR BrutalSMG : BrutalWeapon
 		goto Noammo
 		"####" "#" 0 A_Overlay(98,"WeaponCheckOverlay",false)
 	NoAmmo:
+		SMGA F 0 A_JumpIfInventory("Zoomed",1,3)
+		SMSI A 0 A_JumpIfInventory("Suppressormounted",1,2)
+		SMGI A 0 
 		"####" "#" 1 offset(0,34) { A_PlaySound("dryfire", 4); }
 	NoAmmoHold:
-		"####" "#" 1 offset(0,34)//A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE)
+		"####" "#" 1 offset(0,34)
 		"####" "#" 0 offset(0,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammohold")
 		"####" "#" 1 offset(0,33)
 		"####" "#" 1 offset(0,32)
@@ -399,20 +402,20 @@ ACTOR BrutalSMG : BrutalWeapon
 
        "####" "#" 0 A_JumpIfInventory("Clip1",1,1)
         Goto NOAMMO
-        TNT1 A 0
-		SMGG A 0 A_Takeinventory("Zoomed",1)
-		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("SMGCrosshair"));}else{A_SetCrosshair(0);}}								
-        SMGG A 0 A_ZoomFactor(1.0)
-		SMGG A 0 A_GiveInventory ("Pumping", 1)
-		SMGG A 0 A_Takeinventory("Reloading",1)
-		SMGG A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
+        "####" "#" 0
+		"####" "#" 0 A_Takeinventory("Zoomed",1)
+		"####" "#" 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("SMGCrosshair"));}else{A_SetCrosshair(0);}}								
+        "####" "#" 0 A_ZoomFactor(1.0)
+		"####" "#" 0 A_GiveInventory ("Pumping", 1)
+		"####" "#" 0 A_Takeinventory("Reloading",1)
+		"####" "#" 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
 		
-		BADF A 0 A_JumpIfInventory("BDSMGammo",1,2)
-		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, "FullReloadCheck")
+		"####" "#" 0 A_JumpIfInventory("BDSMGammo",1,2)
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, "FullReloadCheck")
 	
 	UnloadfromReload:
-		BADF A 0 A_PlaySound("MAGGRAB", 5)
-		TNT1 A 0 A_OVERLAY(2,"RELOADCAMERA")
+		"####" "#" 0 A_PlaySound("MAGGRAB", 5)
+		"####" "#" 0 A_OVERLAY(2,"RELOADCAMERA")
 		SMGL ABCD 1
 		
 		SMGG A 0 A_JumpIfInventory("HasUnloadedSMG", 1, 6)
@@ -480,33 +483,33 @@ ACTOR BrutalSMG : BrutalWeapon
 		Goto Ready3
 
 	FullReloadCheck:	
-		A12S A 0 A_JumpIfInventory("Suppressormounted", 1, 3)
+		"####" "#" 0 A_JumpIfInventory("Suppressormounted", 1, 3)
 		SMGI A 3
-		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
 		goto unloadfromreload
-		A12S A 0
+		"####" "#" 0
 		SMSI A 3
-		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
 		goto unloadfromreloadsuppressed
-		A12S A 0 A_JumpIfInventory("Suppressormounted", 1, 3)
+		"####" "#" 0 A_JumpIfInventory("Suppressormounted", 1, 3)
 		SMGI A 3
-		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
 		goto unloadfromreload
-		A12S A 0
+		"####" "#" 0
 		SMSI A 3
-		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
 		goto unloadfromreloadsuppressed
-		A12S A 0 A_JumpIfInventory("Suppressormounted", 1, 3)
+		"####" "#" 0 A_JumpIfInventory("Suppressormounted", 1, 3)
 		SMGI A 3
-		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 4)
 		goto unloadfromreload
-		A12S A 0
+		"####" "#" 0
 		SMSI A 3
-		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 1)
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 1)
 		goto unloadfromreloadsuppressed
-		PIST F 0 A_JumpIfInventory("JAMMEDSMG",1,"UNjamming")
-		BADF A 0 A_JumpIfInventory("clip1",41,2)
-		A12S A 0 A_PRINT("you need at least 41 bullets to perform a full reload")
+		"####" "#" 0 A_JumpIfInventory("JAMMEDSMG",1,"UNjamming")
+		"####" "#" 0 A_JumpIfInventory("clip1",41,2)
+		"####" "#" 0 A_PRINT("you need at least 41 bullets to perform a full reload")
 		goto noammo
 		
 	FullReload:		
@@ -588,7 +591,7 @@ ACTOR BrutalSMG : BrutalWeapon
 	 User4:
 		"####" "#" 0 A_JumpIfInventory("JAMMEDSMG",1,"UNJAMMING")
 		"####" "#" 0 A_JumpIfInventory("Suppressormounted",1,"unloadsuppressed")
-		//SMGR N 5
+		"####" "#" 5
 		"####" "#" 0 A_Takeinventory("ADSmode",1)
 		"####" "#" 0 A_JumpIf(CountInv("BDSMGAmmo") == 0, "NoAmmoUnload")
 		TNT1 A 0 A_OVERLAY(2,"UNLOADCAMERA")
@@ -710,8 +713,8 @@ DETACHSUPPRESSOR:
 		"####" "#" 0 A_jumpifinventory("BDSMGAmmo",1,2)
 		"####" "#" 0 A_jump(255,2)		
 		"####" "#" 0 A_Jump(80,"JAMMED")
-		"####" "#" 1 offset(0,34)
-		"####" "#" 1 offset(0,33)
+		"####" "#" 13 offset(0,34)
+		"####" "#" 3 offset(0,33)
 		"####" "#" 1 offset(0,32)
 		"####" "#" 0 A_JumpIfInventory("Zoomed",1,"Ready2")
 		GOTO READY3		

@@ -11,6 +11,7 @@ ACTOR Flamethrower2 : BrutalWeapon
      +WEAPON.NOAUTOAIM
 	Inventory.PickupMessage "$GOTFLAME"
 	Tag "Flamethrower"
+	VisibleToPlayerClass BDoomer, Doomer2, TacticalDoomer, Purist, MiseryDoomer
 	Inventory.ForbiddenTo ""
 	States
 	{

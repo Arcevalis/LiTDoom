@@ -147,9 +147,8 @@ ACTOR Shot_Gun : BrutalWeapon
 		SHT8 H 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
 		SHT8 H 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
 		SHT8 H 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
-		SHT8 H 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "UNLOAD")
+		SHT8 H 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "User4")
 		SHT8 H 0 A_JumpIf(CountInv("IsTacticalClass") == 1 && GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD && GetPlayerInput(INPUT_BUTTONS) & BT_SPEED, "StartSprint")
-		SHT8 H 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
 		SHT8 H 1 A_WeaponReady(WRF_ALLOWRELOAD)
 		
 		SHT8 H 0 A_JumpIf(Getcvar("ADSMode") == 0, 2)  ///////ADS MODE CHECK
@@ -485,7 +484,7 @@ AimFireVariant2:
 		SHTN A 0 A_STARTSound("weapons/sgpump2", 31)
 		5HT8 MNOPQRST 1
 		SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,2)
-		 SHTN A 0 A_JumpIfInventory("FiredPrimary",1,"Fire") // realistic reload allows for slamfire
+		 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Fire") // realistic reload allows for slamfire
 		SHT8 H 3
 		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
 		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
@@ -1056,15 +1055,17 @@ FInishUnload:
 		goto Noammo
 		"####" "#" 0 A_Overlay(98,"WeaponCheckOverlay",false)
 	NoAmmo:
+		SHT8 H 0 A_JumpIfInventory("Zoomed",1,2)
+		SHTN A 0
 		"####" "#" 1 offset(0,34) 
 		{ 
 		if (CountInv("needspumping") == 1 ) { A_overlay(5,"PumpingCue"); }
-		if (CountInv("adsmode") == 1 || CountInv("zoomed") == 1) { return state("noammo2"); }
+	//	if (CountInv("adsmode") == 1 || CountInv("zoomed") == 1) { return state("noammo2"); }
 		A_PlaySound("weapons/empty", 4,0.5); A_WeaponOffset(0,32);
 		return state("");
 		}
 	NoAmmoHold:
-		"####" "#" 1 offset(0,34) A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE | WRF_NOBOB)
+		"####" "#" 1 offset(0,34) { if (CountInv("needspumping") == 1 ) { A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE | WRF_NOBOB); }}
 		"####" "#" 0 offset(0,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammohold")
 		"####" "#" 1 offset(0,33)
 		"####" "#" 1 offset(0,32)

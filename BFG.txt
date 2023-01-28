@@ -387,17 +387,18 @@ DeselectContinue:
 		TNT1 A 0 A_REMOVELIGHT(2)
 		BFGN A 0 A_STOPSOUND(802)
 		//core check
-		BFGN A 0 A_JumpIfInventory("BFGCOREINTEGRITY",1,2)
-		BFGN A 0 A_Jump(256,3)
+		8FGI U 0 A_JumpIfInventory("BFGCOREINTEGRITY",1,2)
+		8FGI U 0 A_Jump(256,3)
 		
-		BG2G A 0 A_overlay(5,"DetonateLights")
-		BG2G A 0 A_overlay(12,"NoAmmoOverlay")
+		8FGI U 0 A_overlay(5,"DetonateLights")
+		8FGI U 0 A_overlay(12,"NoAmmoOverlay")
 		
+	NoAmmoHold:
+		8FGI U 1 offset(0,34)//A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE)
+		8FGI U 0 offset(0,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammohold")
 		8FGI U 1 offset(0,33)
-		8FGI U 3 offset(0,34)
-		8FGI U 2 offset(0,33)
 		8FGI U 1 offset(0,32)
-		goto Ready3
+		Goto Ready3
 	
 	NoammoOverlay:
 		BG2G A 0 A_STARTsound("BFGON",802,0,1.0,0,1.0,0.15)

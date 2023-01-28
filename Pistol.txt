@@ -376,6 +376,8 @@ ACTOR BrutalPistol : BrutalWeapon
 		"####" "#" 0 A_Overlay(98,"WeaponCheckOverlay",false)
 		Goto NoAmmo
 	NoAmmo:
+		PISA D 0 A_JumpIfInventory("Zoomed",1,2)
+		PISF A 0 
 		"####" "#" 1 offset(0,34) { A_PlaySound("dryfire", 4); A_WeaponOffset(0,32);}
 	NoAmmoHold:
 		"####" "#" 1 offset(0,34)//A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE)
@@ -983,6 +985,8 @@ FullReloadUnload:
 		goto ready3
 		 
 		Jammedlight:
+		PISA D 0 A_JumpIfInventory("Zoomed",1,2)
+		PISF A 0 
 		"####" "#" 0 a_playsound("DRYFIRE",1)
 		"####" "#" 13 offset(0,34)
 		"####" "#" 3 offset(0,33)
