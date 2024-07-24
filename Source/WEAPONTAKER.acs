@@ -53,7 +53,7 @@ while(true)
 			If(CHECKINVENTORY("restchecked"))
 			{HudMessage(s:"Resting" ; HUDMSG_plain,403, CR_SAPPHIRE, 320.0, 370.0, 0.1);
 			setfont("smallfont");
-			HudMessage(s:"It will restore the whole stamina bar, plus a decent chunk of health." ; HUDMSG_plain,404, CR_white, 320.0, 390.0, 0.1);}
+			HudMessage(s:"Heals some wounds, refills your stamina and improves its regeration rate until the end of the next level." ; HUDMSG_plain,404, CR_white, 320.0, 390.0, 0.1);}
 			
 			else If(CHECKINVENTORY("militarychecked"))
 			{HudMessage(s:"Military Equipment" ; HUDMSG_plain,403, CR_SAPPHIRE, 320.0, 370.0, 0.1);
@@ -93,8 +93,10 @@ while(true)
 		DELAY(35);
 		PLAYSOUND(0,"BANDAGE1",1);
 		DELAY(35*4);
-		HEALTHING(30);
+		HEALTHING(15);
 		TAKEINVENTORY("USEDSTAMINA",4000);
+		GIVEINVENTORY("RESTED",1);
+		GIVEINVENTORY("WELLRESTED",1);
 		DELAY(35*2);		
 		SetPlayerProperty(TRUE, OFF, PROP_TOTALLYFROZEN);
 		SetActorProperty(0, APROP_Invulnerable, FALSE);

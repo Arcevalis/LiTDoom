@@ -45,7 +45,7 @@ script "QUICKPISTOLNEW" (void)
 
 script "SELECTCRAFT" (void)
  {
-	if (CheckInventory("craftdropper"))
+	if (CheckInventory("craftdropper") && !CheckInventory("choosingreward"))
 	{
 		Takeinventory("Zoomed",1);							
 		Takeinventory("ADSmode",1);
@@ -143,6 +143,7 @@ int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
 		
 		Else
 		{ //3
+		takeinventory("pistolfavorite",1);
 		takeinventory("LITriflefavorite",1);
 		takeinventory("favorite",1);
 		takeinventory("smgfavorite",1);
@@ -175,7 +176,8 @@ int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
 				//PISTOL
 				If(StrIcmp(weapon, "BrutalPistol") == 0)
 				{
-				Log(s:"There's already a keybind to quickly switch to the pistol, use that instead!");
+				GiveInventory("Pistolfavorite", 1);
+				Log(s:"The Pistol is now your favorite weapon.");
 				}
   
   				//LITRIFLE
@@ -340,8 +342,8 @@ delay(1);
 script "SWITCHFAVORITE" (void)
  {	
  
- //SMG
-		if (CheckInventory("smgfavorite") && CheckInventory("Brutalsmg") >= 1)
+  //PISTOL
+		if (CheckInventory("pistolfavorite") && CheckInventory("Brutalpistol") >= 1)
 		{
 		Takeinventory("Zoomed",1);							
 		Takeinventory("ADSmode",1);
@@ -373,6 +375,44 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("TossGrenade", 1);
 		TakeInventory("IsRunning", 1);
 		delay(1);
+        setweapon("BrutalPistol");
+		delay(1);
+		}
+ 
+ //SMG
+		else if (CheckInventory("smgfavorite") && CheckInventory("Brutalsmg") >= 1)
+		{
+		Takeinventory("Zoomed",1);							
+		Takeinventory("ADSmode",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("Kicking",1);
+        TakeInventory("Taunting",1);
+        TakeInventory("Reloading",1);
+		TakeInventory("Unloading",1);
+		TakeInventory("Salute1", 1);
+		TakeInventory("Salute2", 1);
+		Takeinventory("RifleSelected",1);
+		Takeinventory("StartDualWield",1);
+		Giveinventory("GoSpecial",1);
+		Takeinventory("FistsSelected",1);
+		Takeinventory("SawSelected",1);
+		Takeinventory("ShotgunSelected",1);
+		Takeinventory("pistolSelected",1);
+		Takeinventory("SSGSelected",1);
+		Takeinventory("MinigunSelected",1);
+		Takeinventory("PlasmaGunSelected",1);
+		Takeinventory("RocketLauncherSelected",1);
+		Takeinventory("GrenadeLauncherSelected",1);
+		Takeinventory("BFGSelected",1);
+		Takeinventory("BFG11kSelected",1);
+		Takeinventory("RailGunSelected",1);
+		Takeinventory("RevenantLauncherSelected",1);
+		Takeinventory("LostSoulSelected",1);
+		Takeinventory("FlameCannonSelected",1);
+		Takeinventory("HasBarrel",1);
+		TakeInventory("TossGrenade", 1);
+		TakeInventory("IsRunning", 1);
+		delay(1);
         setweapon("BrutalSMG");
 		delay(1);
 		}
@@ -389,6 +429,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Unloading",1);
 		TakeInventory("Salute1", 1);
 		TakeInventory("Salute2", 1);
+		Takeinventory("pistolSelected",1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
 		Giveinventory("GoSpecial",1);
@@ -427,6 +468,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Unloading",1);
 		TakeInventory("Salute1", 1);
 		TakeInventory("Salute2", 1);
+		Takeinventory("pistolSelected",1);
 		Takeinventory("StartDualWield",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
@@ -464,6 +506,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Unloading",1);
 		TakeInventory("Salute1", 1);
 		TakeInventory("Salute2", 1);
+		Takeinventory("pistolSelected",1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
 		Giveinventory("GoSpecial",1);
@@ -503,6 +546,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -540,6 +584,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -578,6 +623,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -616,6 +662,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -653,6 +700,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -690,6 +738,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -727,6 +776,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -765,6 +815,7 @@ script "SWITCHFAVORITE" (void)
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
 		Giveinventory("GoSpecial",1);
+		Takeinventory("pistolSelected",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
 		Takeinventory("ShotgunSelected",1);
@@ -803,6 +854,7 @@ script "SWITCHFAVORITE" (void)
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
 		Giveinventory("GoSpecial",1);
+		Takeinventory("pistolSelected",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
 		Takeinventory("ShotgunSelected",1);
@@ -839,6 +891,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -876,6 +929,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -913,6 +967,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -950,6 +1005,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -988,6 +1044,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -1027,6 +1084,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -1065,6 +1123,7 @@ script "SWITCHFAVORITE" (void)
 		TakeInventory("Salute2", 1);
 		Takeinventory("RifleSelected",1);
 		Takeinventory("StartDualWield",1);
+		Takeinventory("pistolSelected",1);
 		Giveinventory("GoSpecial",1);
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
@@ -1107,6 +1166,7 @@ script "SWITCHFAVORITE" (void)
 		Takeinventory("FistsSelected",1);
 		Takeinventory("SawSelected",1);
 		Takeinventory("ShotgunSelected",1);
+		Takeinventory("pistolSelected",1);
 		Takeinventory("SSGSelected",1);
 		Takeinventory("MinigunSelected",1);
 		Takeinventory("PlasmaGunSelected",1);
@@ -1126,45 +1186,6 @@ script "SWITCHFAVORITE" (void)
         setweapon("proxbomb");
 		delay(1);
   }
-
-//DRAGONSLAYER
-		else if (CheckInventory("dsfavorite") && CheckInventory("dsweap2") >= 1)
-		{
-		Takeinventory("Zoomed",1);							
-		Takeinventory("ADSmode",1);
-		TakeInventory("TossGrenade", 1);
-		TakeInventory("Kicking",1);
-        TakeInventory("Taunting",1);
-        TakeInventory("Reloading",1);
-		TakeInventory("Unloading",1);
-		TakeInventory("Salute1", 1);
-		TakeInventory("Salute2", 1);
-		Takeinventory("RifleSelected",1);
-		Takeinventory("StartDualWield",1);
-		Giveinventory("GoSpecial",1);
-		Takeinventory("FistsSelected",1);
-		Takeinventory("SawSelected",1);
-		Takeinventory("ShotgunSelected",1);
-		Takeinventory("SSGSelected",1);
-		Takeinventory("MinigunSelected",1);
-		Takeinventory("PlasmaGunSelected",1);
-		Takeinventory("RocketLauncherSelected",1);
-		Takeinventory("GrenadeLauncherSelected",1);
-		Takeinventory("BFGSelected",1);
-		Takeinventory("bfg11kSelected",1);
-		Takeinventory("RailGunSelected",1);
-		Takeinventory("SubMachineGunSelected",1);
-		Takeinventory("RevenantLauncherSelected",1);
-		Takeinventory("LostSoulSelected",1);
-		Takeinventory("FlameCannonSelected",1);
-		Takeinventory("HasBarrel",1);
-		TakeInventory("TossGrenade", 1);
-		TakeInventory("IsRunning", 1);
-		delay(1);
-        setweapon("dsweap2");
-		delay(1);
-  }
-
 
   Else Print(s:"Favorite weapon not assigned or lost. Press the button while \cA CROUCHING \cF to assign a new weapon!");
 }

@@ -1,0 +1,1095 @@
+ACTOR BrutalPistol : BrutalWeapon
+{
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "Clip1"
+	Weapon.AmmoType2 "BDPistolAmmo"
+	weapon.selectionorder 3800
+	Obituary "%o was shot down by %k's pistol."
+    AttackSound "None"
+    Inventory.PickupSound "PISTSELE"
+	Inventory.Pickupmessage "$GOTPISTOL"
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+WEAPON.NOALERT
+	+WEAPON.NO_AUTO_SWITCH
+	+WEAPON.WIMPY_WEAPON
+    +FORCEXYBILLBOARD
+	Scale 0.22
+	 tag "Mediator M99"
+	States
+	{
+	
+	goingtoaction:
+		PIST A 0
+		BADF A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}							
+		BADF A 0 A_Takeinventory("ADSmode",1)
+		BADF A 0 A_ZoomFactor(1.0)
+        PISS ABCDEFGHI 1
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		TNT1 A 0 A_TakeInventory("flaretoken", 1)
+		PIST F 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair
+	
+	Select: 
+		TNT1 A 0  A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)	
+        TNT1 A 0 SetPlayerProperty(0,0,2)
+		TNT1 A 0 ACS_NAMEDEXECUTE("WEAPONSELECT",0)
+		PIST F 0 A_Takeinventory("StartDualWield",1)
+		PIST F 0 A_Giveinventory("GoSpecial",1)
+		PIST F 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}
+		PIST F 0 a_zoomfactor(1.0)
+		TNT1 A 0 A_SetRoll(0)
+		TNT1 A 1
+		TNT1 A 1 A_Raise
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
+		Goto SelectAnimation
+		
+	INSPECT:
+		TNT1 A 0 
+			{
+			if(CountInv("IsDoomguy") == 1 && CountInv("JustStartedGame") == 1)
+					{
+					A_print("\cf WARNING: \n \cgThe Doomguy class cuts out various features from the mod for an easier, and more arcade BD-like experience. \n \cfUse other classes to enjoy the mod's full potential and if you're looking for a proper challenge!",10);
+					}
+			}
+		BADF A 0 A_TakeInventory("neverfoundpistol", 1)
+		BADF A 0 A_TakeInventory("JustStartedGame", 1)
+	
+		PIRP ABCDE 1 { a_SETROLL(ROLL-2); A_InspectReady; }
+		PIST F 0 A_PlaySound("PISTSELE")
+		PIRP FGHIJKLMNOPPQQRRS 1 { a_SETANGLE(ANGLE-0.3); A_InspectReady; }
+		PIRP TUVWXYZ 1 A_InspectReady
+		P1RP ABCDE 1 { a_SETROLL(ROLL+2); A_InspectReady; }
+		P1RP FGHIJKL 1 { a_SETANGLE(ANGLE+0.7); A_InspectReady; }
+		PIST F 0 A_PlaySound("GRNTOSS")
+		P1RP MNOPQRST 1 A_InspectReady
+		P1RP U 1 A_STARTSound("PISSLIDE",160)
+		P1RP VWXYZ 1 { A_SETPITCH(PITCH+1); A_InspectReady; }
+		P1RS ABCCCCCCCCCCCCCCCD 1 { a_weaponready(1); A_InspectReady; }
+		PIST F 0 A_PlaySound("PISTBOLT",1)
+		P1RS EFGHIJKL 1 A_InspectReady
+		P1RS MNOPQ 1 { A_SETPITCH(PITCH-1.5); A_InspectReady; }
+		P1RS RSTUVWXYZ 1 A_InspectReady
+		PIRS ABCD 1 A_InspectReady
+		PIST F 0 A_PlaySound("PISTRELO",1)
+		TNT1 A 0 A_GIVEINVENTORY("BDPistolAmmo",15)
+		PIRS EFGHIJKLMNOPQ 1 A_InspectReady
+		PIRS RSTUV 1 { A_SETPITCH(PITCH+0.9); A_InspectReady; }
+		
+		PI1B C 1 offset(-35,0) A_InspectReady
+		PI1B D 1 offset(-30,0) A_InspectReady
+		PI1B E 1 offset(-25,0) A_InspectReady
+		PI1B F 1 offset(-20,0) A_InspectReady
+		PI1B G 1 offset(-15,0) A_InspectReady
+		PI1B H 1 offset(-10,0) A_InspectReady
+		PI1B I 1 offset(-5,0) { A_STARTSound("PISSLIDE",160); A_InspectReady; }
+		PI1B J 1 offset(-2,0) A_InspectReady
+		PI1B KKKKJI 1 A_InspectReady
+		PIST F 0 A_PlaySound("PISTBOLT",1)
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		PI1B HH 1 A_InspectReady
+		P11B BCDEFGHIJ 1 A_InspectReady
+		TNT1 AAAA 1 { A_SETPITCH(PITCH-0.9); A_InspectReady; }	
+	Ready:
+	SelectAnimation:
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		//Inspect check
+		TNT1 A 0 a_jumpif(GetCVAR("weaponinspect") == 1,2)
+		TNT1 A 0 A_JumpIfInventory("neverfoundpistol",1,"Inspect")
+		//
+		TNT1 A 1
+		{
+		a_SETROLL(0);
+		If(CountInv("GoFatality") == 1) { return state("Steady"); }
+        A_PlaySound("PISTSELE");
+		return state("");
+		}
+        PISS FEDCB 1
+		PIST F 0 A_Takeinventory("StartDualWield",1)
+	Ready3:
+		PISA D 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		PISF A 0
+		"####" "#" 1 
+		{
+		A_WeaponReadyLit;
+		if (CountInv("Kicking") == 1) { return state("DOKICKPISTOL"); }
+		if (CountInv("StartDualWield") == 1) { return state("SpecialAction"); }
+		return state("");
+		}
+		Loop
+		
+	Deselect:
+		PIST A 0
+		BADF A 0 A_Takeinventory("PistolSelected",1)
+		BADF A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}						
+		BADF A 0 A_Takeinventory("ADSmode",1)
+		BADF A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_JumpIfInventory("weaponbroke", 1, "DeselectCONTINUE")
+        PISS BCDEF 1
+	DeselectCONTINUE:
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		TNT1 A 0 A_TakeInventory("flaretoken", 1)
+		PIST F 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 1 A_Lower
+		Wait	
+		
+		
+	StartSprint:
+		PISP ABCD 1 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")
+	Sprinting:	
+		PISP A 0 offset(-9,32) 
+		PIST F 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		PIST F 0 offset(-9,32) A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		BADF A 0 A_Takeinventory("Zoomed",1)
+		BADF A 0 A_Takeinventory("ZoomHold",1)
+        BADF A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}					
+		BADF A 0 A_Takeinventory("ADSmode",1)
+		PLAY A 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		PIST F 0 offset(-9,32) A_JumpIfInventory("Powerstrength2", 1, 2)
+		PIST F 0 offset(-9,32) A_GiveInventory("UsedStamina", 3)
+		PIST F 0 offset(-9,32)
+		PISP R 1 offset(-9,34) A_SetPitch(pitch -0.5)
+		PISP R 1 offset(-6,36) A_SetPitch(pitch -0.5)
+		PISP R 1 offset(-3,38) A_SetPitch(pitch -0.5)
+		PISP R 1 offset(0,38) A_SetPitch(pitch -0.5)
+		PISP R 1 offset(3,36) A_SetPitch(pitch -0.5)
+		PISP R 1 offset(6,34) A_SetPitch(pitch -0.5)
+		PISP R 1 offset(9,32) A_SetPitch(pitch -0.5)
+		PIST R 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		PIST R 0 A_JumpIfInventory("Kicking",1,"DOKICKPISTOL")
+        PIST R 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        PIST R 0 
+		PIST R 0 offset(-9,32) A_GiveInventory("UsedStamina", 3)
+		PIST R 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		PISP R 1 offset(9,34) A_SetPitch(pitch +0.5)
+		PISP R 1 offset(6,36) A_SetPitch(pitch +0.5)
+		PISP R 1 offset(3,38) A_SetPitch(pitch +0.5)
+		PISP R 1 offset(0,38) A_SetPitch(pitch +0.5)
+		PISP R 1 offset(-3,36) A_SetPitch(pitch +0.5)
+		PISP R 1 offset(-6,34) A_SetPitch(pitch +0.5)
+		PISP R 1 offset(-9,32) A_SetPitch(pitch +0.5)
+		PIST R 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		PIST F 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		Goto StopSprint
+		
+	StopSprintTired:
+		PISP DCBA 1
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		PIST F 0 A_PlaySound("Tired", 2)
+		TNT1 A 0 A_Jumpifhealthlower(25,"rupturesprint")
+		PISF A 25
+		Goto Ready3
+		
+	StopSprint:
+		PISP DCBA 1
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		Goto Ready3
+	
+    Fire:
+        "####" "#" 0 
+		{
+		if (CountInv("BDPistolAmmo") == 0) { return state("NoAmmo"); } 
+		if (CountInv("Zoomed") == 1 && CountInv("PistolBurstFire") == 1) { return state("AimBurst"); }
+		if (CountInv("Zoomed") == 1) { return state("AimFire"); }
+		if (CountInv("PistolBurstFire") == 1) { return state("Fire2"); }
+		return state("");
+		}
+		//DURABILITY CHECK
+		"####" "#" 0 A_JumpIF(GetCVAR("firearmsdurability") == 0, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedpistol",1, "Unstuck")
+		"####" "#" 0 A_JumpIfInventory("PistolDurability",60, 2)
+		"####" "#" 0 A_Jump(50,"Firejammed")
+		"####" "#" 0 A_Takeinventory("PistolDurability",1)
+		///
+		"####" "#" 0
+		{
+		A_AlertMonsters;
+		A_PlaySound("FARSHT", 6); A_PlaySound("PISTFIRE", 1);
+		A_ZoomFactor(0.98);
+		A_FireProjectile("PistolTracer", frandom(-1,1), 0,0,2);
+		if(CountInv("NoRecoil") == 0 ) { A_OVERLAY(4,"RECOILCAMERA"); }
+		A_FireCustomMissile("PistolCaseSpawn",5,0,0,-7);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_Quake(1, 3, 0, 400, "");
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+		"####" "#" 0 A_Jump(255,"Firevariant1","Firevariant2","Firevariant3")		
+	  FIREVARIANT1:
+		PISF B 1 BRIGHT
+        PISF C 1 BRIGHT { A_ZoomFactor(1.0); A_WeaponOffset(0,32); }
+		GOTO FireEnd	
+	  FIREVARIANT2:
+		PISF H 1 BRIGHT
+        PISF I 1 BRIGHT { A_ZoomFactor(1.0); A_WeaponOffset(0,32); }
+		Goto FireEnd
+	  FIREVARIANT3:
+		PISF N 1 BRIGHT
+        PISF O 1 BRIGHT { A_ZoomFactor(1.0); A_WeaponOffset(0,32); }
+	FireEnd:
+		PISF DD 1 
+		"####" "#" 0 A_JumpIf(CountInv("pistoldurability") == 0, "weaponbreak")
+		PISF A 2
+		Goto Ready3	
+		
+	FIREJAMMED:
+		"####" "#" 0 A_Jump(210,"JammedLight")
+		"####" "#" 0 
+		PISF B 1 BRIGHT
+		{
+		A_AlertMonsters;
+		A_PlaySound("FARSHT", 6); A_PlaySound("PISTFIRE", 1);
+		A_ZoomFactor(0.98);
+		if(CountInv("NoRecoil") == 0 ) { A_OVERLAY(4,"RECOILCAMERA"); }
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_Quake(1, 3, 0, 400, "");
+		A_FireProjectile("PistolTracer", frandom(-1,1), 0,0,2);
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+        PISF C 1 BRIGHT { A_ZoomFactor(1.0); A_WeaponOffset(0,32); }
+		PISF DD 1 
+		PISF AAA 4 A_JumpIf(CountInv("pistoldurability") == 0, "weaponbreak")
+		GOTO Jammed
+		
+		RecoilCamera:
+		TNT1 A 1
+		TNT1 AA 1 A_setpitch(pitch-0.5)
+		TNT1 AAA 1 A_setpitch(pitch+0.3)
+		STOP
+		
+	Fire2:
+		PISF A 0 A_JumpIf(CountInv("BDPistolAmmo") == 0, "NoAmmo3")
+       //DURABILITY CHECK
+		"####" "#" 0 A_JumpIF(GetCVAR("firearmsdurability") == 0, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedpistol",1, "Unstuck")
+		"####" "#" 0 A_JumpIfInventory("PistolDurability",60, 2)
+		"####" "#" 0 A_Jump(50,"Firejammed")
+		"####" "#" 0 A_Takeinventory("PistolDurability",1)
+		///
+		PISF B 1
+		{
+		A_AlertMonsters;
+		A_startSound("FARSHT", 120); A_startSound("PISTFIRE", 10);
+		A_ZoomFactor(0.98);
+		A_FireProjectile("PistolTracer", frandom(-1,1), 0,0,2);
+		if(CountInv("NoRecoil") == 0 ) { A_SetPitch(pitch-2); A_SetAngle(angle+random(-1,1)); }
+		A_FireCustomMissile("PistolCaseSpawn",5,0,0,-7);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_Quake(1, 3, 0, 400, "");
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+		//SHOT2
+		PISF A 0 A_JumpIf(CountInv("BDPistolAmmo") == 0, "NoAmmo2")
+       //DURABILITY CHECK
+		"####" "#" 0 A_JumpIF(GetCVAR("firearmsdurability") == 0, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedpistol",1, "Unstuck")
+		"####" "#" 0 A_JumpIfInventory("PistolDurability",60, 2)
+		"####" "#" 0 A_Jump(50,"Firejammed")
+		"####" "#" 0 A_Takeinventory("PistolDurability",1)
+		///
+		PISF C 1
+		{
+		A_AlertMonsters;
+		A_startSound("FARSHT", 120); A_startSound("PISTFIRE", 10);
+		A_ZoomFactor(1.0);
+		A_FireProjectile("PistolTracer", frandom(-1,1), 0,0,2);
+		if(CountInv("NoRecoil") == 0 ) { A_SetPitch(pitch+1); A_SetAngle(angle+random(-1,1)); }
+		A_FireCustomMissile("PistolCaseSpawn",5,0,0,-7);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_Quake(1, 3, 0, 400, "");
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+		//SHOT3
+		PISF A 0 A_JumpIf(CountInv("BDPistolAmmo") == 0, "NoAmmo")
+       //DURABILITY CHECK
+		"####" "#" 0 A_JumpIF(GetCVAR("firearmsdurability") == 0, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedpistol",1, "Unstuck")
+		"####" "#" 0 A_JumpIfInventory("PistolDurability",60, 2)
+		"####" "#" 0 A_Jump(50,"Firejammed")
+		"####" "#" 0 A_Takeinventory("PistolDurability",1)
+		///
+		PISF H 1
+		{
+		A_AlertMonsters;
+		A_startSound("FARSHT", 120); A_startSound("PISTFIRE", 10);
+		A_ZoomFactor(0.98);
+		A_FireProjectile("PistolTracer", frandom(-1,1), 0,0,2);
+		if(CountInv("NoRecoil") == 0 ) { A_SetPitch(pitch-2); A_SetAngle(angle+random(-1,1)); }
+		A_FireCustomMissile("PistolCaseSpawn",5,0,0,-7);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_Quake(1, 3, 0, 400, "");
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+
+        PISF O 1 { A_SetPitch(pitch+1); A_ZoomFactor(1.0); }
+		"####" "#" 0 A_JumpIf(CountInv("pistoldurability") == 0, "weaponbreak")
+		"####" "#" 0 A_WeaponOffset(0,32)
+		PISF DD 1 A_SetPitch(pitch+0.5)
+		PISF A 6
+		Goto Ready3	
+
+	WeaponCheckOverlay:
+		TNT1 A 5
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		Stop
+	WeaponCheck2:
+		TNT1 A 1
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PISA D 0 ACS_NamedExecutealways("pistoldurabilitycheck", 0)
+		PISA D 0 ACS_NamedExecutealways("pistolmagcheck", 0)
+		PISA D 0 ACS_NamedExecutealways("pistolmodecheck", 0)
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
+		stop	
+	NoAmmoUnload:
+	    "####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		goto Noammo
+		"####" "#" 0 A_Overlay(98,"WeaponCheckOverlay",false)
+		Goto NoAmmo
+	NoAmmo:
+		PISA D 0 A_JumpIfInventory("Zoomed",1,2)
+		PISF A 0 
+		"####" "#" 1 offset(0,34) { A_PlaySound("dryfire", 4); A_WeaponOffset(0,32);}
+	NoAmmoHold:
+		"####" "#" 1 offset(0,34)//A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE)
+		"####" "#" 0 offset(0,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammohold")
+		"####" "#" 1 offset(0,33)
+		"####" "#" 1 offset(0,32)
+		"####" "#" 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		Goto Ready3
+	
+	Cancelreload:
+	PIST F 0 A_JumpIfInventory("ADSMODE",1,"READY2")
+	PIST F 0 A_Takeinventory("ADSmode",1)
+	PIST F 0 A_Takeinventory("Zoomed",1)
+	BADF A 0 A_ZoomFactor(1.0)
+	GOTO READY3
+	
+Reload:
+		"####" "#" 0 A_Takeinventory("Reloading",1)
+		"####" "#" 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")	
+		"####" "#" 0 A_JumpIfInventory("JAMMEDPISTOL",1,"UNSTUCK")
+		
+		"####" "#" 0 A_JumpIfInventory("BDPistolAmmo",16,"Ready3")
+		"####" "#" 0 A_JumpIfInventory("BDPistolAmmo",15,2)
+        "####" "#" 0 A_JumpIfInventory("Clip1",1,3)
+		//"####" "#" 10
+        Goto NoAmmo
+        TNT1 AAA 0
+		"####" "#" 0 A_Takeinventory("ADSmode",1)
+        BADF A 0 A_ZoomFactor(1.0)
+		"####" "#" 0 A_JumpIf(countInv("Zoomed") == 0, 5)
+		PISA DCBA 1
+		PIST F 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}
+		BADF A 0 A_JumpIfInventory("BDPISTOLAMMO",1,2)
+		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, "FullReloadCheck")	
+ReloadUnload:
+		PIST F 0 A_JumpIfInventory("BDPistolAmmo",1,"ReloadnoSlide")
+		PISR ABCDEF 1 A_SETANGLE(ANGLE-0.5)
+		PISR GH 1 A_SETPITCH(PITCH-1.0)
+		PIST F 0 A_JumpIfInventory("UnloadedPistol", 1, "Reload2")
+		PIST F 0 A_PlaySound("PISTUNLO",1)
+		TNT1 AA 0
+		PISR IJKLMNO 1 A_SETPITCH(PITCH+1.0)
+		
+		BADF A 0 A_JumpIfInventory("realreloadOFF",1,2)
+		PIST F 0 A_JumpIfInventory("BDPISTOLAMMO",2,3)
+		RIFR C 0 A_SpawnItemEx("EmptyClip", 5,10,32,0,-4,-4,40,SXF_NOCHECKPOSITION) //RIFR C 0 A_SpawnItemEx("EmptyClip", 5,10,32,0,-4,-4,40,SXF_NOCHECKPOSITION)
+		PIST F 0 A_Jump(256,2)
+		RIFR C 0 ACS_NAMEDEXECUTE("DropPISTOLMAG",0)
+		TNT1 A 0
+		
+Reload2:
+		PIST F 0 A_startSound("magazine/grab",160,1.0)
+		PISR NNNNOOONNNNOOO 1
+		PISR OPQ 1 A_SETPITCH(PITCH-1.0)
+
+		PIST F 0 
+		PISR RST 1
+		PISR A 0 A_PlaySound("PISTRELO",1)
+		PISR UVWXYZ 1
+        P1SR ABBBB 1
+		PIST F 0 A_PlaySound("PISTBOLT",1)
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		P1SR CD 1
+		P1SR EFGH 1 A_SETPITCH(PITCH+0.5)
+		P1SR IJKLMN 1 A_SETANGLE(ANGLE+0.5)
+		P1SR OPQR 1
+		
+	TurboReload:
+		PIST F 0 A_Takeinventory("UnloadedPistol",1)
+        PISS BA 0
+        Goto InsertBullets
+	
+	ReloadnoSlideUnloaded:
+		PISS ABCDEFG 1
+		P1RS KLMN 1
+		goto ReloadnoSlide2
+	ReloadnoSlide:
+		PIST F 0 A_PlaySound("PISTSELE")
+		PIST F 0 A_JumpIfInventory("UnloadedPistol",1,"ReloadnoSlideUnloaded")
+		P1SR RQPON 1 a_SETANGLE(ANGLE-0.3)
+		P1SR MLKJ 1 A_SETPITCH(PITCH-0.5)
+		P1SR IHG 1
+		P1SR F 1 OFFSET(-5,0)
+		P1SR E 1 OFFSET(-10,0)
+		P1SR D 1 OFFSET(-15,0)
+		PIRS K 1 OFFSET(1,0)
+		PIRS KJIHHH 1
+		PIST F 0 A_PlaySound("PISTUNLO")
+		PIRS GFEDCBA 1
+		P1RS ZYXWVU 1
+		PIST F 0  A_Giveinventory("UnloadedPistol",1)
+		P1RS T 1 OFFSET(0,33)
+		P1RS S 1 OFFSET(0,35)
+		P1RS R 1 OFFSET(0,38)
+		P1RS Q 1 OFFSET(0,41)
+		P1RS PON 1 OFFSET(0,43)
+		
+		BADF A 0 A_JumpIfInventory("realreloadOFF",1,2)
+		PIST F 0 A_JumpIfInventory("BDPISTOLAMMO",2,3)
+		RIFR C 0 A_SpawnItemEx("EmptyClip", 5,10,32,0,-4,-4,40,SXF_NOCHECKPOSITION)
+		PIST F 0 A_Jump(256,2)
+		RIFR C 0 ACS_NAMEDEXECUTE("DropPISTOLMAG",0)
+		
+		P1RS N 1 OFFSET(2,43)
+		P1RS N 1 OFFSET(1,42)
+		P1RS N 5 OFFSET(-3,40)
+		P1RS N 1 OFFSET(-2,37)
+		P1RS N 1 OFFSET(-1,34)
+	ReloadnoSlide2:
+		P1RS N 1 OFFSET(0,32)
+		P1RS OPQRSTUVWXYZ 1 OFFSET(0,32)
+		PISR A 0 A_PlaySound("PISTRELO",1)
+		PIST F 0  A_TAKEinventory("UnloadedPistol",1)
+		PIRS ABCDEFGHIJKLMNOPQ 1
+		TNT1 A 5
+		PISS FEDCBA 1
+
+	InsertBullets:
+		TNT1 AAAA 0
+		PIST F 0 A_JumpIfInventory("BDPistolAmmo",1,"Fullchambered")
+		PIST F 0 A_Takeinventory("UnloadedPistol",1)
+		PIST F 0 A_JumpIfInventory("realreloadOFF",1,2)
+		PIST F 0 A_Takeinventory("BDPistolAmmo",15)
+		
+	Fullmag:
+        TNT1 A 0
+		PIST F 0 A_JumpIfInventory("BDPistolAmmo",15,"FinishReload")
+		PIST F 0 A_JumpIfInventory("Clip1",1,1)
+		Goto Ready3
+		PIST F 0 A_Giveinventory("BDPistolAmmo",1)
+		PIST F 0 A_Takeinventory("Clip1",1)
+		Goto Fullmag
+	
+	Fullchambered:
+		PIST F 0 A_Takeinventory("UnloadedPistol",1)
+		PIST F 0 A_JumpIfInventory("realreloadOFF",1,3)
+		PIST F 0 A_Takeinventory("BDPistolAmmo",15)	
+		PIST F 0 A_Giveinventory("BDPistolAmmo",1)
+        TNT1 A 0 
+		PIST F 0 A_JumpIfInventory("BDPistolAmmo",16,"FinishReload")
+		PIST F 0 A_JumpIfInventory("Clip1",1,1)
+		Goto Ready3
+		PIST F 0 A_Giveinventory("BDPistolAmmo",1)
+		PIST F 0 A_Takeinventory("Clip1",1)
+		Goto Fullchambered+5
+	
+	
+	Finishreload:
+		TNT1 A 0
+		PIST F 0 A_Takeinventory("Reloading",1)
+		PIST F 0 A_Refire
+        Goto Ready3
+	
+FullReloadCheck:
+		PISF A 3
+		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 1)
+		goto ReloadUnload
+		PISF A 3
+		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 1)
+		goto ReloadUnload
+		PISF A 3
+		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 1)
+		goto ReloadUnload
+		PISF A 3
+		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, 1)
+		goto ReloadUnload
+		BADF A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}	
+		PIST F 0 A_JumpIfInventory("JAMMEDPISTOL",1,"UNSTUCK")
+		PIST F 0 A_JumpIfInventory("Clip1",16,2)
+		PISF A 0 A_print("you need at least 16 bullets to perform a full reload")
+		goto noammo	
+		PIST F 0 A_JumpIfInventory("UnloadedPistol",1,1)
+		goto FullReloadUnload
+FullReload:
+		PISS ABCDEFGHI 1
+		PIST F 0 A_PlaySound("PISTSELE")
+		TNT1 A 5
+		PI1B CDEFGGGH 1
+		PIST F 0 A_PlaySound("PISSLIDE")
+		PI1B IJKLMNOOPPPPQQQQQ 1
+		PIST F 0 A_Takeinventory("Clip1",1)
+		PIST F 0 A_Giveinventory("BDPistolAmmo",1)
+		TNT1 A 0 A_PlaySoundEx("REVOLOAD", "Auto")
+		PI1B QRR 1 a_setpitch(pitch+1)
+		PI1B SST 1 a_setpitch(pitch-1)
+		PI1B UVWXYZZZ 1
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		PIST F 0 A_PlaySound("PISTBOLT",1)
+		P11B ABCDEF 1
+		P11B GHIJ 1 a_setpitch(pitch+1.5)
+		TNT1 A 20
+		P1RS MNOP 1 a_setpitch(pitch-3)
+		P1RS QRSTUVWXYZ 1
+		PIST F 0 A_PlaySound("PISTRELO")
+		PIST F 0 A_Takeinventory("Clip1",15)
+		PIST F 0 A_Giveinventory("BDPistolAmmo",15)
+		PIRS ABCDEFGHIJKLMNOPQR 1
+		PIRS STUV 1 a_setpitch(pitch+1.5)
+		goto selectanimation
+FullReloadUnload:
+		PISR ABCDEF 1 A_SETANGLE(ANGLE-0.5)
+		PISR GH 1 A_SETPITCH(PITCH-1.0)
+		PIST F 0 A_PlaySound("PISTUNLO",1)
+		TNT1 AA 0
+		PISR IJKLMNO 1 A_SETPITCH(PITCH+1.0)
+		RIFR C 0 A_SpawnItemEx("EmptyClip", 5,10,32,0,-4,-4,40,SXF_NOCHECKPOSITION)
+		PISR NHGFEDC 1
+		goto FullReload
+		
+		
+	InsertBullets2:
+		TNT1 AAAA 0
+		PIST F 0 A_JumpIfInventory("BDPistolAmmo",16,15)
+		PIST F 0 A_JumpIfInventory("Clip1",1,3)
+		Goto Ready3
+        TNT1 AAAAAA 0
+		PIST F 0 A_Giveinventory("BDPistolAmmo",1)
+		PIST F 0 A_Takeinventory("Clip1",1)
+		Goto InsertBullets2
+		
+		TNT1 AAAAAAAAAA 0
+		PIST F 0 A_Takeinventory("Reloading",1)
+		PIST F 0 A_Refire
+        Goto Ready3
+		TNT1 AAAA 0
+		PIST F 0 A_Takeinventory("Reloading",1)
+		
+		PIST F 0 A_Refire
+        Goto Ready3	
+ 	Spawn:
+		PIST A 0
+		PIST G -1
+		Stop
+		
+/////////////////
+//////////////// ADS MODE - START
+///////////////	
+	
+	    Ready2:
+
+		PISA D 0 A_JumpIfInventory("Kicking",1,"DOKICKPISTOL")
+		PISA D 0 A_JumpIfInventory("StartDualWield",1,"SpecialAction")
+		PISA D 1 A_WeaponReadyLit
+		
+		PISA D 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		
+		PISA D 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")
+		TNT1 A 0
+		Loop
+	
+	
+	Altfire:
+		BADF A 0 a_startsound("ADSin",250)
+		BADF A 0 A_Giveinventory("GoSpecial",1)
+		BADF A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
+		BADF A 0 A_Giveinventory("Zoomed",1)
+        BADF A 0 A_ZoomFactor(1.5)
+		TNT1 A 0 A_SetCrosshair(41)							 
+		BADF A 0 A_Giveinventory("ADSmode",1)
+        PISA AABC 1	
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, "Ready2")  ///////ADS MODE CHECK		
+	  HoldAim:	
+		PISA D 0 A_GiveInventory("ZoomHold",1)
+		PISA D 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "fire")
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+      NoAim:
+		PISA D 0 A_Takeinventory("Zoomed",1)
+		PISA D 0 A_Takeinventory("ZoomHold",1)
+        PISA D 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}
+		PISA D 0 A_Takeinventory("ADSmode",1)
+		PISA DCBAA 1
+        Goto Ready3
+			
+	RecoilCameraADS:
+		TNT1 A 1
+		TNT1 AA 1 A_setpitch(pitch-0.2)
+		TNT1 AAA 1 A_setpitch(pitch+0.1)
+		STOP	
+			
+	Aimfire:
+		//DURABILITY CHECK
+		PISA D 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 5)
+		PISA D 0 A_JumpIfInventory("jammedpistol",1, "Unstuck")
+		PISA D 0 A_JumpIfInventory("PistolDurability",60, 2)
+		PISA D 0 A_Jump(50,"AimFirejammed")
+		PISA D 0 A_Takeinventory("PistolDurability",1)
+		///
+		"####" "#" 0
+		{
+		A_AlertMonsters	;
+		A_PlaySound("FARSHT", 6);
+        A_PlaySound("PISTFIRE", 1);
+		A_FireProjectile("PistolTracer", frandom(-0.1,0.1), 0,0,3);
+		if(CountInv("norecoil") == 0) { A_OVERLAY(4,"RECOILCAMERAADS"); }
+		A_FireCustomMissile("PistolCaseSpawn",5,0,0,-4);
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_Quake(1, 3, 0, 400, "");
+		A_ZoomFactor(1.45);
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+		BADF A 0 A_Jump(255,"AIMFirevariant1","AIMFirevariant2")
+	  AIMFIREVARIANT1:
+		PISA N 1 BRIGHT 
+		GOTO FireEndADS
+	   AIMFIREVARIANT2:
+		PISA S 1 BRIGHT
+		
+	  FireEndADS:
+		PISA D 0 A_WeaponOffset(0,32)
+		PISA D 0 A_ZoomFactor(1.5)
+        PISA OP 1 
+		"####" "#" 0 A_JumpIf(CountInv("pistoldurability") == 0, "weaponbreak")
+		PISA D 3
+		Goto Ready2	
+		
+		AIMFIREjammed:
+		"####" "#" 0 a_JUMP(210,"JAMMEDLIGHT")
+		PISA S 1 BRIGHT 
+		{
+		A_AlertMonsters	;
+		A_PlaySound("FARSHT", 6);
+        A_PlaySound("PISTFIRE", 1);
+		A_FireProjectile("PistolTracer", frandom(-0.1,0.1), 0,0,3);
+		if(CountInv("norecoil") == 0) { A_OVERLAY(4,"RECOILCAMERAADS"); }
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_Quake(1, 3, 0, 400, "");
+		A_ZoomFactor(1.45);
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+		PISA D 0 A_ZoomFactor(1.5)
+		PISA D 0 A_WeaponOffset(0,32)
+        PISA O 1 
+		PISA PP 1 
+		PISA D 5
+		GOTO Jammed
+
+	AIMBURST:
+		//SHOT 1
+		PISA D 0 A_JumpIf(CountInv("BDPistolAmmo") == 0, "NoAmmo")
+       //DURABILITY CHECK
+		"####" "#" 0 A_JumpIF(GetCVAR("firearmsdurability") == 0, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedpistol",1, "Unstuck")
+		"####" "#" 0 A_JumpIfInventory("PistolDurability",60, 2)
+		"####" "#" 0 A_Jump(50,"Firejammed")
+		"####" "#" 0 A_Takeinventory("PistolDurability",1)
+		///
+		PISA N 1 BRIGHT
+		{
+		A_AlertMonsters	;
+		A_PlaySound("FARSHT", 6);
+        A_PlaySound("PISTFIRE", 1);
+		A_FireProjectile("PistolTracer", frandom(-0.1,0.1), 0,0,3);
+		if(CountInv("norecoil") == 0) { A_SetPitch(Pitch-2); A_SetAngle(angle+random(-1,1)); }
+		A_FireCustomMissile("PistolCaseSpawn",5,0,0,-4);
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_Quake(1, 3, 0, 400, "");
+		A_ZoomFactor(1.45);
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+		//SHOT 2
+		PISA D 0 A_JumpIf(CountInv("BDPistolAmmo") == 0, "NoAmmo")
+       //DURABILITY CHECK
+		"####" "#" 0 A_JumpIF(GetCVAR("firearmsdurability") == 0, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedpistol",1, "Unstuck")
+		"####" "#" 0 A_JumpIfInventory("PistolDurability",60, 2)
+		"####" "#" 0 A_Jump(50,"Firejammed")
+		"####" "#" 0 A_Takeinventory("PistolDurability",1)
+		///
+		PISA O 1 BRIGHT
+		{
+		A_AlertMonsters	;
+		A_PlaySound("FARSHT", 6);
+        A_PlaySound("PISTFIRE", 1);
+		A_FireProjectile("PistolTracer", frandom(-0.1,0.1), 0,0,3);
+		if(CountInv("norecoil") == 0) { A_SetPitch(Pitch+1); A_SetAngle(angle+random(-1,1)); }
+		A_FireCustomMissile("PistolCaseSpawn",5,0,0,-4);
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_Quake(1, 3, 0, 400, "");
+		A_ZoomFactor(1.45);
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+		//SHOT 3
+		PISA D 0 A_JumpIf(CountInv("BDPistolAmmo") == 0, "NoAmmo")
+       //DURABILITY CHECK
+		"####" "#" 0 A_JumpIF(GetCVAR("firearmsdurability") == 0, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedpistol",1, "Unstuck")
+		"####" "#" 0 A_JumpIfInventory("PistolDurability",60, 2)
+		"####" "#" 0 A_Jump(50,"Firejammed")
+		"####" "#" 0 A_Takeinventory("PistolDurability",1)
+		///
+		PISA S 1 BRIGHT
+		{
+		A_AlertMonsters	;
+		A_PlaySound("FARSHT", 6);
+        A_PlaySound("PISTFIRE", 1);
+		A_FireProjectile("PistolTracer", frandom(-0.1,0.1), 0,0,3);
+		if(CountInv("norecoil") == 0) { A_SetPitch(Pitch-2); A_SetAngle(angle+random(-1,1)); }
+		A_FireCustomMissile("PistolCaseSpawn",5,0,0,-4);
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_WeaponOffset(random(-2,2),32+random(0,1));
+		A_Quake(1, 3, 0, 400, "");
+		A_ZoomFactor(1.45);
+		A_Takeinventory("BDPistolAmmo",1);
+		}
+		//
+		NULL A 0 A_WeaponOffset(0,32)
+		PISF F 0 A_ZoomFactor(1.5)
+        PISA OPP 1 A_SetPitch(pitch+0.5)
+		PISA D 6 A_SetPitch(pitch+0.2)
+		Goto Ready2	
+
+/////////////////
+//////////////// ADS MODE - END
+///////////////	
+		
+	KickLeft:
+		KIK1 ABC 1
+        PIST F 0 A_PlaySound("KICK")
+		PIST F 0 A_Giveinventory("Punching",1)
+		PIST F 0 A_SetPitch(-6 + pitch)
+		KIK1 D 1
+		PUN2 A 0 A_Custompunch(35,0,1,"MeleePuff", 100)
+		KIK1 DD 1
+		KIK1 ECBA 1
+		TNT1 A 5 A_TakeInventory("Kicking",1)
+		Goto Ready3
+		
+	Steady:
+		TNT1 A 1
+		Goto Ready3	
+		
+	Checkmag2:
+		PIST F 0 A_JumpIfInventory("BDPistolAmmo",2,1)
+		goto Checkchamber
+		P1SR RQPON 1 a_SETANGLE(ANGLE-0.3)
+		P1SR MLKJ 1 A_SETPITCH(PITCH-0.5)
+		P1SR IIHGFE 1
+	Checkmag:
+		P1RS U 5 a_weaponready(WRF_NOFIRE | WRF_NOSWITCH)
+		PISA D 0 ACS_NamedExecutealways("pistolmodecheck", 0)
+		TNT1 A 0 ACS_NAMEDEXECUTEalways("PISTOLMAGCHECK",0)
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		TNT1 A 0 ACS_NAMEDEXECUTEalways("PISTOLDURABILITYCHECK",0)
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CHECKMAG")
+		
+		P1RS UVWXYZ 1 A_SETPITCH(PITCH+0.31)
+		PIST F 0 A_PlaySound("PISTRELO")
+		PIRS ABCDEFGHIJKLMNOPQR 1 A_SETANGLE(ANGLE+0.09)
+		goto selectanimation
+	
+	Checkchamber:
+		PIST F 0 A_PlaySound("PISTSELE")
+		PISS ABCDEF 1
+		BADF A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}
+		PIST F 0 A_JumpIfInventory("JAMMEDPISTOL",1,"UNSTUCK")	
+		P1RP QRSTUUUUU 1
+		PIST F 0 A_PlaySound("PISSLIDE")
+		P1RP VW 1
+		P1RP XYZ 1
+	CheckchamberHold:
+		PISA D 0 ACS_NamedExecutealways("pistolmodecheck", 0)
+		TNT1 A 0 ACS_NAMEDEXECUTE("PISTOLMAGCHECK",0)
+				TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		TNT1 A 0 ACS_NAMEDEXECUTEalways("PISTOLDURABILITYCHECK",0)
+		P1RP Z 5 a_weaponready(WRF_NOFIRE | WRF_NOSWITCH)
+			PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CHECKchamberHold")
+		P1RS ABCD 1
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		PIST F 0 A_PlaySound("PISTBOLT",1)
+		P1RS EFFFFGHIJK 1
+		TNT1 A 2
+		goto SelectAnimation	
+	
+	User4:	
+		"####" "#" 5 A_WeaponReady
+		"####" "#" 0 A_Takeinventory("ADSmode",1)
+		"####" "#" 0 A_JumpIfInventory("BDPistolAmmo",1,1)
+        Goto NoAmmoUnload
+        TNT1 A 0
+		BADF A 0 A_ZoomFactor(1.0)
+		"####" "#" 0 A_JumpIf(countInv("Zoomed") == 0, 5)
+		PISA DCBA 1
+		PIST F 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}
+		PIST F 0 A_GiveInventory ("Pumping", 1)
+		
+		PIST F 0 A_JumpIfInventory("BDPistolAmmo",2,1)
+		goto unloadchamber
+        P1SR RQPON 1 a_SETANGLE(ANGLE-0.3)
+		P1SR MLKJ 1 A_SETPITCH(PITCH-0.5)
+		P1SR IHG 1
+		P1SR F 1 OFFSET(-5,0)
+		P1SR E 1 OFFSET(-10,0)
+		P1SR D 1 OFFSET(-15,0)
+		PIRS K 1 OFFSET(1,0)
+		PIRS KJIHHH 1
+		PIST F 0 A_PlaySound("PISTUNLO")
+		PIRS GFEDCBA 1
+		P1RS ZYXWVU 1
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Checkmag")
+		P1RS TSRQPONMLK 1
+		TNT1 A 10
+		PISS FEDCBA 1
+		PIST F 0 A_Giveinventory("UnloadedPistol",1)
+
+	RemoveBullets:
+		TNT1 AAAA 0
+		PIST F 0 A_JumpIfInventory("BDPistolAmmo",2,1)
+		Goto Ready3
+        TNT1 A 0
+		PIST F 0 A_Takeinventory("BDPistolAmmo",1)
+		PIST F 0 A_Takeinventory("BDDualPistolAmmo",1)
+		PIST F 0 A_Giveinventory("Clip1",1)
+		Goto RemoveBullets
+		
+		TNT1 AAAAAAAAAA 0
+		PIST F 0 A_Takeinventory("Reloading",1)
+		
+		PIST F 0 A_Refire
+        Goto Ready3
+		TNT1 AAAA 0
+		PIST F 0 A_Takeinventory("Reloading",1)
+		
+		PIST F 0 A_Refire
+        Goto Ready3
+	
+	UnloadChamber:
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Checkmag2")
+		PIST F 0 A_PlaySound("PISTSELE")
+		PISS ABCDEF 1
+		BADF A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}	
+		PIST F 0 A_JumpIfInventory("JAMMEDPISTOL",1,"UNSTUCK")
+			
+		P1RP QRSTUUUUU 1
+		PIST F 0 A_PlaySound("PISSLIDE")
+		P1RP VW 1
+		PIST F 0 A_TAKEinventory("BDPistolAmmo",1)
+		TNT1 A 0 A_OVERLAY(-2,"9mmout")
+		P1RP XYZ 1
+		P1RP Z 20
+		PIST F 0 A_GIVEinventory("Clip1",1)
+	    P1RS ABCD 1
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		PIST F 0 A_PlaySound("PISTBOLT",1)
+		P1RS EFFFFGHIJK 1
+		TNT1 A 2
+		goto SelectAnimation	
+	9MMOUT:
+		TNT1 A 0 {a_overlayflags(-2, pspf_flip, 1); a_overlayflags(-2, pspf_mirror, 1);}
+		TNT1 A 0 A_PlaySoundEx("REVOLOAD", "Auto")
+		9MMZ MLKJIGGGGGG 1 OFFSET(-25,0)
+		TNT1 A 0 {a_overlayflags(-2, pspf_flip, 0); a_overlayflags(-2, pspf_mirror, 0);}
+		TNT1 A 0 A_OVERLAY(3,"9mmout2")
+		STOP
+	9MMOUT2:
+		TNT1 A 0 {a_overlayflags(3, pspf_flip, 1); a_overlayflags(3, pspf_mirror, 1);}
+		9MMZ FEDCBA 1 OFFSET(-25,0)
+		TNT1 A 0 {a_overlayflags(3, pspf_flip, 0); a_overlayflags(3, pspf_mirror, 0);}
+		STOP
+	
+	
+	SpecialAction:
+		"####" "#" 0 A_Takeinventory("StartDualWield",1)
+		"####" "#" 0 A_PlaySound("PISTSELE")
+		"####" "#" 0 
+		{
+		If(CountInv("PistolBurstFire") == 1)
+			{
+			A_TakeInventory("PistolBurstFire", 1);
+			}
+		else
+			{
+			A_GiveInventory("PistolBurstFire", 1);
+			}
+		}
+		"####" "#" 0 A_JumpIfInventory("Zoomed",1,"SpecialActionZoomed")
+		"####" "#" 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}
+		PISB ABCDCBA 1
+		Goto Ready3
+		
+	SpecialActionZoomed:
+		"####" "#" 0 A_SetCrosshair(41)
+		PISA D 1 offset(0,33)
+		PISA D 1 offset(0,35)
+		PISA DD 1 offset(0,36)
+		PISA D 1 offset(0,35)
+		PISA D 1 offset(0,33)
+		PISA D 1 offset(0,32)
+		Goto Ready2
+		
+		Jammed:
+		"####" "#" 0 a_Giveinventory("jammedpistol",1)
+		"####" "#" 0 a_playsound("DRYFIRE",1)
+		"####" "#" 0 A_JUMPIFINVENTORY("Zoomed",1,"Ready2")
+		goto ready3
+		 
+		Jammedlight:
+		PISA D 0 A_JumpIfInventory("Zoomed",1,2)
+		PISF A 0 
+		"####" "#" 0 a_playsound("DRYFIRE",1)
+		"####" "#" 13 offset(0,34)
+		"####" "#" 3 offset(0,33)
+		"####" "#" 1 offset(0,32)
+		"####" "#" 0 A_JUMPIFINVENTORY("Zoomed",1,"Ready2")
+		goto ready3
+
+		Weaponbreak:
+		TNT1 A 0 a_print("your pistol has broken!")
+		TNT1 A 0 A_takeinventory("Jammedpistol",1)
+		 PISS ABCDEFGHI 1
+		 TNT1 A 0 a_SPAWNITEM("brokenpistol",0,0)
+		 TNT1 A 1
+		  TNT1 A 0 a_RADIUSGIVE("hasbeendropped",90, RGF_OBJECTS | RGF_NOSIGHT , 1, "brokenpistol")
+		TNT1 A 0 ACS_namedexecute("BROKENDISARM",0)
+		TNT1 AAA 1 a_weaponready
+		Wait
+		
+		UNSTUCK:
+		"####" "#" 0 A_JumpIf(countInv("Zoomed") == 0, 5)
+		PISA DCBA 1
+		"####" "#" 0
+		{
+		A_TakeInventory("Zoomed",1);
+		A_TakeInventory("ADSmode",1);
+		A_ZoomFactor(1.0);
+		}
+		PISS BCDEF 1
+		TNT1 A 2
+		PI1B CDDEEEE 1
+		PI1B EEEFGGG 1
+		PIST F 0 A_PlaySound("PISSLIDE",1)
+		PI1B HHH 1
+		PIST F 0 A_STOPSOUND(1)
+		PI1B GEEEEEEEEEGGGHHHHHHGHGHGHGHGHGHGHGHGHGHGHGHGHGHGHGHGHGHGH 1
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		PIST F 0 A_FireCustomMissile("PistolCaseSpawn",5,0,0,-9)
+		PIST F 0 A_PlaySound("PISSLIDE",1)
+		PI1B IJK 1
+		PI1B KJIH 1
+		PIST F 0 A_PlaySound("PISTBOLT",1)
+		P11B A 1
+		P11B BCDEFGHIJ 1
+		TNT1 A 0 a_TAKEINVENTORY("JAMMEDPISTOL",1)
+		BADF A 0 A_Takeinventory("Zoomed",1)
+		BADF A 0 A_Takeinventory("ZoomHold",1)
+        BADF A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("PistolCrosshair"));}else{A_SetCrosshair(0);}}						
+		BADF A 0 A_Takeinventory("ADSmode",1)
+		goto SelectAnimation
+		
+		
+	KITREPAIR:
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		PISF A 5
+		
+		TNT1 A 0 A_JumpIFInventory("PistolDurability",200, "NoNeedRepair")
+		PIST F 0 A_JumpIfInventory("scrapmetal",1, 2)
+		PIST F 0 A_Jump(256,"outofmetal")
+		
+	KITREPAIR2:
+		PIST F 0 A_GIVEinventory("PistolDurability",50)
+		BADF A 0 A_Takeinventory("survivalkituses",1)
+		BADF A 0 A_Takeinventory("scrapmetal",1)
+		TNT1 A 0 A_playsound("WIRECUT",1)
+		PISS ABCDEFGHI 1
+		TNT1 A 17
+		PISS IHGFEDCBA 1
+		
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		PISF A 2
+		goto Ready3
+		
+	DoKICKPISTOL:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,4)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,3)
+		TNT1 A 0 A_overlay(3,"KICKPISTOL")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3
+		TNT1 A 0 A_overlay(3,"KICKPISTOLtired")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3	
+	KICKPISTOL:
+		PISP ABC 1
+		PISP D 12 
+		PISP CBA 1 
+		TNT1 A 0 A_JumpIfInventory("Airkicking", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("isSliding", 1, 2)
+		stop
+		PISP A 10
+		STOP
+		PISS ABCDEFGHI 1
+		TNT1 A 1
+		STOP
+	KICKPISTOLtired:
+		PISP ABC 2 
+		PISP D 37 
+		PISP CBA 2 
+		STOP	
+	
+	}
+}
+
+Actor UnloadedPistol : Inventory { Inventory.MaxAmount 1 }

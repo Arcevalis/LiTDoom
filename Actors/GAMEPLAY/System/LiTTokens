@@ -1,0 +1,210 @@
+/// HUD TOKENS
+ACTOR showkill : Inventory { Inventory.MaxAmount 1 }
+ACTOR showitems : Inventory { Inventory.MaxAmount 1 }
+ACTOR showsecrets : Inventory { Inventory.MaxAmount 1 }
+ACTOR flashlighton : Inventory { Inventory.MaxAmount 1 }
+actor CMShot : Inventory{Inventory.Amount 1 Inventory.MaxAmount 6}
+
+ACTOR weargasmask : Inventory { Inventory.MaxAmount 1 }
+ACTOR gasmaskon : Inventory { Inventory.MaxAmount 1 }
+ACTOR gasmaskoff : Inventory { Inventory.MaxAmount 1 }
+ACTOR removegasmask : Inventory { Inventory.MaxAmount 1 }
+
+
+ACTOR clairvoyancetoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR radartoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR lifemoduleON : Inventory { Inventory.MaxAmount 1 }
+ACTOR predatormode : Inventory { Inventory.MaxAmount 1 }
+
+/// WEAPON FOUND ANIMATIONS
+ACTOR neverusedcrafting : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundshotgun : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundrifle : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundpistol : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundrevolver : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundASG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundSSG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundGL : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundLMG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundSMG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundBFG : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundminigun : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundplasmagun : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundRL : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundplasmalance : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundaxe : Inventory { Inventory.MaxAmount 1 }
+ACTOR neverfoundknife : Inventory { Inventory.MaxAmount 1 }
+
+
+/// OTHER TOKENS
+ACTOR beheadingtoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR ELECTROCUTED : Inventory { Inventory.MaxAmount 1 }
+ACTOR ShockCharge : Inventory { Inventory.MaxAmount 1000 }
+ACTOR syringedonce : Inventory { Inventory.MaxAmount 1 }
+ACTOR frenzied : Inventory { Inventory.MaxAmount 10 }
+ACTOR STAMINAFRENZY : Inventory { Inventory.MaxAmount 1 }
+ACTOR PermanentBerserk : Inventory {Inventory.MaxAmount 1}
+ACTOR BerserkTimer : Inventory {Inventory.MaxAmount 300}
+ACTOR hasbackpack : Inventory {Inventory.MaxAmount 1}
+ACTOR charging_battery : Inventory {Inventory.MaxAmount 1}
+ACTOR isSliding : Inventory {Inventory.MaxAmount 1}
+ACTOR AirKicking : Inventory {Inventory.MaxAmount 1}
+ACTOR weaponbroke : Inventory {Inventory.MaxAmount 1}
+ACTOR ArtifactRemover : Inventory {Inventory.MaxAmount 1}
+ACTOR droppingarmor : Inventory {Inventory.MaxAmount 1}
+ACTOR droppingmag : Inventory {Inventory.MaxAmount 1}
+ACTOR painkillerstoken : Inventory {Inventory.MaxAmount 1}
+ACTOR currently_healing : Inventory {Inventory.MaxAmount 1}
+ACTOR armorshardtoken : Inventory {Inventory.MaxAmount 1}
+ACTOR foodtoken : Inventory {Inventory.MaxAmount 1}
+ACTOR triptoken : Inventory {Inventory.MaxAmount 1}
+ACTOR wallexecutiontoken : Inventory {Inventory.MaxAmount 1}
+ACTOR stopgravity : Inventory {Inventory.MaxAmount 1}
+ACTOR demonshardactive : Inventory {Inventory.MaxAmount 1}
+
+
+ACTOR switchfromblank : Inventory { Inventory.MaxAmount 1 }
+ACTOR grabbedacaco : Inventory { Inventory.MaxAmount 5 }
+ACTOR istinctactive : Inventory { Inventory.MaxAmount 1 }
+ACTOR isminigunguy : Inventory { Inventory.MaxAmount 1 }
+ACTOR numberofsentrybots : Inventory { Inventory.MaxAmount 4 }
+ACTOR NOTinvehicle : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR freedashcharge : Inventory { Inventory.MaxAmount 5 }
+ACTOR isleaningright : Inventory { Inventory.MaxAmount 1 }
+ACTOR isleaningleft : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR MonsterHaveSeenPlayer : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR norecoil : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR REPAIRTOKEN : Inventory { Inventory.MaxAmount 1 }
+ACTOR Flaretoken : Inventory {Inventory.MaxAmount 1}
+ACTOR bandagetoken : Inventory {Inventory.MaxAmount 1}
+ACTOR battledrugtoken : Inventory {Inventory.Maxamount 1 }
+
+ACTOR yellowdrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR reddrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR bluedrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR greendrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR greendrug2 : Inventory { Inventory.MaxAmount 1 }
+ACTOR purpledrug : Inventory { Inventory.MaxAmount 1 }
+ACTOR cyandrug : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR bandagedrugtoken : Inventory {Inventory.MaxAmount 1}
+ACTOR tossedflare : Inventory {Inventory.MaxAmount 1}
+
+ACTOR ReadingAmmo : Inventory {Inventory.MaxAmount 1}
+ACTOR RealreloadOFF : Inventory {Inventory.MaxAmount 1}
+
+// CLASSES & STUFF
+ACTOR LargeStamina : Inventory { Inventory.MaxAmount 1 }
+Actor IsSurvivalistClass : Inventory {inventory.maxamount 2}
+Actor IsSCIENTIST : Inventory{inventory.maxamount 1}
+Actor IsDOOMGUY : Inventory{inventory.maxamount 1}
+ACTOR equipmentloss : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR justfoundSSG : Inventory {Inventory.MaxAmount 1}
+
+
+/// FAVORITEWEAPON
+ACTOR litriflefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR pistolfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR smgfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR revolverfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR shotgunfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR ssgfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR ashotgunfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR riflefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR m60favorite : Inventory {Inventory.MaxAmount 1}
+ACTOR minigunfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR rocketfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR glfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR plasmafavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR railgunfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR bfg11kfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR unmakerfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR flamefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR flame2favorite : Inventory {Inventory.MaxAmount 1}
+ACTOR revenantfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR sawfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR axefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR knifefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR DSfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR 2pistolsfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR 2smgsfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR 2riflesfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR 2plasmafavorite : Inventory {Inventory.MaxAmount 1}
+
+ACTOR grenadefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR clusterfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR quickrevenantfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR minesfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR hellfirefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR acidmistfavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR flarefavorite : Inventory {Inventory.MaxAmount 1}
+ACTOR quickknifefavorite : Inventory {Inventory.MaxAmount 1}
+
+ACTOR quickrevenantfiring : Inventory {Inventory.MaxAmount 1}
+/// WEAPON DURABILITY
+ACTOR FirearmsDurabilityON : Inventory {Inventory.MaxAmount 1}
+ACTOR FirearmsDurabilityOFF : Inventory {Inventory.MaxAmount 1}
+
+ACTOR RIFLEdurability : AMMO {Inventory.MaxAmount 250}
+ACTOR PISTOLdurability : AMMO {Inventory.MaxAmount 200}
+ACTOR SMGdurability : AMMO {Inventory.MaxAmount 250}
+ACTOR REVOLVERdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR SHOTGUNdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR SSGdurability : AMMO {Inventory.MaxAmount 250}
+ACTOR ASGdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR LMGdurability : AMMO {Inventory.MaxAmount 300}
+ACTOR MINIGUNdurability : AMMO {Inventory.MaxAmount 600}
+ACTOR RLdurability : AMMO {Inventory.MaxAmount 20}
+ACTOR GLdurability : AMMO {Inventory.MaxAmount 80}
+ACTOR revenantdurability : AMMO {Inventory.MaxAmount 60}
+ACTOR PLASMAdurability : AMMO {Inventory.MaxAmount 200}
+ACTOR RAILGUNdurability : AMMO {Inventory.MaxAmount 300}
+ACTOR BFG7Kdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR BFG11Kdurability : AMMO {Inventory.MaxAmount 600}
+ACTOR NAPALMdurability : AMMO {Inventory.MaxAmount 100}
+ACTOR FLAMEdurability : AMMO {Inventory.MaxAmount 300}
+
+ACTOR SUPPRESSORDURABILITY : AMMO {Inventory.MaxAmount 150}
+ACTOR SurvivalKitUses : AMMO {Inventory.MaxAmount 100}
+
+ACTOR jammedpistol : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedrifle : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedshotgun : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedasg : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedLMG : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedSMG : Inventory {Inventory.MaxAmount 1}
+ACTOR jammedplasma : Inventory {Inventory.MaxAmount 1}
+
+
+// STATUS EFFECTS
+ACTOR usedhealthpack : Inventory {Inventory.MaxAmount 1 +INVENTORY.UNDROPPABLE}
+ACTOR usedbandages : Inventory {Inventory.MaxAmount 1 +INVENTORY.UNDROPPABLE}
+ACTOR CanBleed : Inventory{Inventory.MaxAmount 1 +INVENTORY.UNDROPPABLE}
+ACTOR STILLBLEEDING : Inventory {Inventory.MaxAmount 1}
+ACTOR ironfeettoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR poisoned : Inventory { Inventory.MaxAmount 1 }
+ACTOR wellrested : Inventory { Inventory.MaxAmount 1 }
+ACTOR rested : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR LWrist_Wound : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR Rupture : CustomInventory
+{
+  Inventory.PickupMessage "rupture"
+  iNVENTORY.AMOUNT 1
+  +AUTOACTIVATE
+  States
+  {
+  Spawn:
+    DMHE A 1
+    Loop
+  PICKUP:
+    TNT1 A 0 ACS_NamedExecute("RUPTURE")
+    Stop
+  }
+}

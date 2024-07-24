@@ -1,0 +1,1724 @@
+ACTOR SSG : BrutalWeapon
+{
+	Game Doom
+	SpawnID 33
+   Weapon.Kickback 70
+	Weapon.SelectionOrder 400
+	Weapon.AmmoGive1 0
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "AmmoShell"
+	Weapon.AmmoType2 "SSGAmmo"
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+WEAPON.NOALERT
+	+FORCEXYBILLBOARD
+	Inventory.PickupMessage "$GOTSHOTGUN2"
+	Obituary "$OB_MPSSHOTGUN"
+    Inventory.PickupSound "CLIPINSS"
+	 Xscale 0.35
+	YSCALE 0.4
+	Tag "Akrafena"
+	States
+	{
+	
+		INSPECT:
+		//SHTN A 0 A_OVERLAY(2,"INSPECTCAMERA")
+		SHTN A 0 A_TakeInventory("neverfoundSSG", 1)	
+		
+		SSGM ABCDEFGHI 1 A_InspectReady
+		TNT1 A 0 A_OVERLAY(9,"INSPECTLIGHT1")
+		SHTZ A 0 A_PlaySound("IGNITE",7)
+		SSGM IIIIIIIIIIIIIII 1 A_InspectReady
+		SHTZ A 0 A_PlaySound("AXEDRAW",1)
+		SSGM JK 2 A_InspectReady
+		TNT1 A 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		SSGK KKKKKKKKKKKKKKK 1 A_InspectReady
+		TNT1 A 0 A_removeLight(2)
+		SSGM JIHGFEDCBA 1 A_InspectReady
+		TNT1 AAAAA 1 A_InspectReady
+		
+		SSGI ABCD 1
+		SHTZ A 0 A_ALertMonsters(150)
+		84DS E 0 A_QuakeEx(3, 1, 2, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 3)
+		SHTZ A 0 A_PlaySound("VOLCCF1",7)
+		SHTZ A 0 A_PlaySound("weapons/sshotc")
+		
+		TNT1 A 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		SSGI E 1 BRIGHT
+		TNT1 A 0 A_removeLight(2)
+		SSGI FGHIJKLMNOPQR 1 A_InspectReady
+		SSGI R 20 A_InspectReady
+		SSGI STUVWXYZ 1 A_InspectReady
+		TNT1 A 0 A_InspectReady
+		TNT1 A 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		84DS E 0 A_QuakeEx(3, 1, 2, 5, 0, 64, "", 0, 0, 0, 0, 0, 0, 3)
+		SHTZ A 0 A_PlaySound("VOLCCF4",1)
+		TNT1 A 0 A_OVERLAY(9,"INSPECTLIGHT2")
+		TNT1 A 0 A_GIVEINVENTORY("SSGAMMO",2)
+		SHTZ A 0 A_takeinventory("justfoundSSG",1)
+		SHOF KKKKK 1 BRIGHT A_InspectReady
+		SHOF XXXXXXXXXX 1 A_InspectReady
+		TNT1 A 0 A_removeLight(2)
+		GOTO Ready3
+		
+		INSPECTLIGHT1:
+		TNT1 A 0 A_OVERLAYflags(9, PSPF_RENDERSTYLE, true)
+		TNT1 A 0 A_OverlayRenderstyle(9, STYLE_Add)
+		SSGL MLKJI 2 BRIGHT
+		TNT1 A 2
+		SSGL EFGHHHHHHHHHHHGFE 1 BRIGHT
+		STOP
+			
+		INSPECTLIGHT2:
+		TNT1 A 0 A_OVERLAYflags(9, PSPF_RENDERSTYLE, true)
+		TNT1 A 0 A_OverlayRenderstyle(9, STYLE_Add)
+		SSGL STUVWXY 2 BRIGHT
+		SSGL ABCDDCBA 2 bright
+		STOP
+		
+		
+		
+		
+		
+	
+	Ready:
+	SelectAnimation:
+		//Inspect check
+		TNT1 A 0 a_jumpif(GetCVAR("weaponinspect") == 1,2)
+		TNT1 A 0 A_JumpIfInventory("neverfoundssg",1,"Inspect")
+		//
+		TNT1 A 0 A_ClearOverlays(9,9) //ssg
+		TNT1 A 0 A_JumpIfInventory("SSGMELEE", 1, "SelectMelee")
+	SelectNormal:
+		SHTZ A 0 A_PlaySound("weapons/sshoto")
+		SHT5 ABCDE 1
+		Goto Ready3
+	SelectMelee:	
+		SSGM ABCDEF 1
+		SHTZ A 0 A_PlaySound("axedraw",1)
+		SSGM GHIJ 1
+		TNT1 A 0 A_giveinventory("SSGMelee",1)
+		goto Ready3
+	Ready3:
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+        "####" "#" 0 A_JumpIfInventory("Kicking",1,"DoKickSSG")
+		"####" "#" 0 A_JumpIfInventory("StartDualWield",1,"Changemode")
+		"####" "#" 0 A_jumpifinventory("SSGmelee",1,11)
+		/// Gun idle
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "UNLOAD")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",10,"FULLCHARGE")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",8,"ALMOSTCHARGED")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",6,"HALFCHARGE")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",4,"QUARTERCHARGE")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",2,"MINCHARGE")
+		"####" "#" 0 A_removelight(2)
+		SHOF K 1 A_WeaponReadyLit
+		Loop	
+		/// Melee idle
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "meleeunload")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",10,"MFULLCHARGE")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",8,"MALMOSTCHARGED")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",6,"MHALFCHARGE")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",4,"MQUARTERCHARGE")
+		"####" "#" 0 A_jumpifinventory("SSGcharge",2,"MMINCHARGE")
+		"####" "#"0 A_removelight(2)
+		SSGM K 1 A_WeaponReadyLit
+		goto Ready3
+		
+		MMINCHARGE:
+		"####" "#" 0 A_OVERLAY(9,"MCHARGE2")
+		SSGM K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SSGM K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		Mquartercharge:
+		"####" "#" 0 A_OVERLAY(9,"MCHARGE4")
+		SSGM K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SSGM K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		MHalfcharge:
+		"####" "#" 0 A_OVERLAY(9,"MCHARGE6")
+		SSGM K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SSGM K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		MAlmostcharged:
+		"####" "#" 0 A_OVERLAY(9,"MCHARGE8")
+		SSGM K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SSGM K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		MFullCharge:
+		"####" "#" 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		"####" "#" 0 A_PlaySound("SSGWHISP", 6,0.5,1)
+		"####" "#" 0 A_OVERLAY(9,"MCHARGE10")
+		SSGK K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SSGM K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+////////////////////////////////////////////////////////////////////		
+
+		MINCHARGE:
+		"####" "#" 0 A_OVERLAY(9,"CHARGE2")
+		SHOF K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SHOF K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		quartercharge:
+		"####" "#" 0 A_OVERLAY(9,"CHARGE4")
+		SHOF K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SHOF K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		Halfcharge:
+		"####" "#" 0 A_OVERLAY(9,"CHARGE6")
+		SHOF K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SHOF K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		Almostcharged:
+		"####" "#" 0 A_OVERLAY(9,"CHARGE8")
+		SHOF K 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SHOF K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		FullCharge:
+		"####" "#" 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		"####" "#" 0 A_PlaySound("SSGWHISP", 6,0.5,1)
+		"####" "#" 0 A_OVERLAY(9,"CHARGE10")
+		SHOF X 1 A_WeaponReadyLit
+		"####" "#" 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SHOF K 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "UseAttack")
+		goto Ready3
+		
+		//////
+		///// CHARGE OVERLAYS
+		
+		ShowCharges:
+			TNT1 A 0 A_jumpifinventory("SSGcharge",10,"MCHARGE10")
+			TNT1 A 0 A_jumpifinventory("SSGcharge",8,"MCHARGE8")
+			TNT1 A 0 A_jumpifinventory("SSGcharge",6,"MCHARGE6")
+			TNT1 A 0 A_jumpifinventory("SSGcharge",4,"MCHARGE4")
+			TNT1 A 0 A_jumpifinventory("SSGcharge",2,"MCHARGE2")
+			stop
+		
+		//Melee
+		MCHARGE2:
+		SSGL M 2 bright
+		stop
+		
+		MCHARGE4:
+		SSGL L 2 bright
+		stop
+
+		MCHARGE6:
+		SSGL K 2 bright
+		stop
+		
+		MCHARGE8:
+		SSGL J 2 bright
+		stop
+		
+		MCHARGE10:
+		SSGL H 2 bright
+		stop
+		/////
+		
+		//Gun
+		CHARGE2:
+		SSGL Q 2 bright
+		stop
+		
+		CHARGE4:
+		SSGL P 2 bright
+		stop
+
+		CHARGE6:
+		SSGL O 2 bright
+		stop
+		
+		CHARGE8:
+		SSGL N 2 bright
+		stop
+		
+		CHARGE10:
+		"####" "#" 0 A_Jump(10,"SSGFLICKER")
+		SSGL D 2 bright
+		stop
+		
+		SSGFLICKER:
+		SSGL CCCCBCCCCC 2 bright
+		stop
+		/////
+		
+		
+	CheckSprint:
+		"####" "#" 0 A_JumpIfInventory("SSGMELEE", 1, 3)
+		SHOF K 1 A_WeaponReady(WRF_NOFIRE)
+		"####" "#" 0 A_Jump(256,2)
+		
+		SSGM K 1 A_WeaponReady(WRF_NOFIRE)
+		"####" "#" 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		"####" "#" 0 A_JumpIfInventory("IsTacticalClass", 1, "StartSprint")
+		Goto Ready3
+		
+	StartSprint:
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD, 1)
+		GOTO READY3	
+		"####" "#" 0 A_JumpIfInventory("SSGMELEE", 1, "StartSprintMelee")
+		SSGS CDEF 1 A_WeaponReady(WRF_NOFIRE)
+		"####" "#" 0 A_Jump(256,7)
+	StartSprintMelee:	
+		SSGS GHIJK 1 A_WeaponReady(WRF_NOFIRE)
+
+		"####" "#" 0
+		"####" "#" 0 A_Takeinventory("Zoomed",1)
+		"####" "#" 0 A_Takeinventory("ADSmode",1)
+		"####" "#" 0 A_ZoomFactor(1.0)
+		"####" "#" 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		"####" "#" 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		"####" "#" 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")
+		
+	Sprinting:	
+		"####" "#" 0 offset(-9,32) 
+		"####" "#" 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		"####" "#" 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		"####" "#" 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		"####" "#" 0 A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		"####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD, 1)
+		GOTO StopSprint
+		"####" "#" 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		"####" "#" 0 offset(-9,32) A_JumpIfInventory("PowerStrength2", 1, 2)
+		"####" "#" 0 offset(-9,32) A_GiveInventory("UsedStamina", 5)
+		"####" "#" 0 offset(-9,32)
+		"####" "#" 1 offset(-9,34) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(-6,36) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(-3,38) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(0,38) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(3,36) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(6,34) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(9,32) A_SetPitch(pitch -0.5)
+		"####" "#" 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		"####" "#" 0 A_JumpIfInventory("Kicking",1,"DoKickSSG")
+       "####" "#" 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        "####" "#" 0 A_JumpIfInventory("Reloading",1,"Reload")
+		"####" "#" 0 offset(-9,32) A_GiveInventory("UsedStamina", 6)
+		"####" "#" 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		"####" "#" 1 offset(9,34) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(6,36) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(3,38) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(0,38) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(-3,36) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(-6,34) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(-9,32) A_SetPitch(pitch +0.5)
+		"####" "#" 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		"####" "#" 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		Goto StopSprint
+	
+	StopSprintTired:
+		"####" "#" 0 A_JumpIfInventory("SSGMELEE", 1, "MELEEStopSprintTired")
+		SSGS FEDC 1
+		"####" "#" 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		"####" "#" 0 A_PlaySound("Tired", 2)
+		"####" "#" 0 A_Jumpifhealthlower(25,"rupturesprint")														 
+		SSGS C 25
+		Goto Ready3
+		
+	MELEEStopSprintTired:
+		SSGS KJIHG 1 A_WeaponReady(WRF_NOFIRE)
+		"####" "#" 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		"####" "#" 0 A_PlaySound("Tired", 2)
+		"####" "#" 0 A_Jumpifhealthlower(25,"rupturesprint")														 
+		SSGM K 25
+		Goto Ready3
+	
+	StopSprint:
+		"####" "#" 0 A_JumpIfInventory("SSGMELEE", 1, 5)
+		SSGS EDC 1 A_WeaponReady(WRF_NOFIRE)
+		"####" "#" 0 A_Jump(256,6)
+	
+		SSGS KJIHG 1 A_WeaponReady(WRF_NOFIRE)
+		
+		"####" "#" 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		"####" "#" 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		"####" "#" 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		"####" "#" 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		Goto Ready3
+		
+	Deselect:
+		TNT1 A 0 A_removelight(2)
+		SHTZ A 0 a_stopsound(6)
+		SHTZ A 0 A_Takeinventory("Zoomed",1)
+        SHTZ A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_TakeInventory("SSGSELECTED", 1)
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		SHTZ A 0 A_TakeInventory("Flaretoken", 1)
+		SHTZ A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_ClearOverlays(9,9)
+		TNT1 A 0 A_JumpIfInventory("weaponbroke", 1, "DeselectCONTINUE")
+		TNT1 A 0 A_JumpIfInventory("SSGmelee", 1, "DeselectMelee")
+		SHT5 EDCBA 1
+	DESELECTCONTINUE:
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+	
+	DeselectMelee:
+		SHTZ A 0 A_PlaySound("imp/melee3",1)
+		SSGM JIHGFEDCBA 1
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+	
+	goingtoaction:
+		TNT1 A 0 A_PlaySound("weapons/changing")
+		TNT1 A 0 A_JumpIfInventory("SSGmelee", 1, "goingtoactionmelee")
+		SHT5 EDCBA 1
+		goto goingtoaction2
+	goingtoactionmelee:
+		SSGM JIHGFEDCBA 1
+		goto goingtoaction2
+	goingtoaction2:
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		TNT1 A 0 A_TakeInventory("readythrow", 1)
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair
+	
+	Select: 
+		TNT1 A 0 A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("SSGCrosshair"));}else{A_SetCrosshair(0);}}
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)	
+		TNT1 A 0 A_SetRoll(0)
+		SHTZ A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 ACS_NAMEDEXECUTE("WEAPONSELECT",0)
+		SHTZ A 0 A_TakeInventory("Flaretoken", 1)
+		SHTZ A 0 A_TakeInventory("TossGrenade", 1)	
+	Select2:
+		TNT1 AAAAAAAAAAAA 0 A_Raise
+		loop
+		
+	RaiseNoAmmo:	
+		SHT5 ABCD 1
+		SHTZ A 0 A_PlaySound("weapons/sshotc")
+		Goto Ready3
+
+	WeaponCheckOverlay:
+		TNT1 A 5
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		Stop
+	WeaponCheck2:
+		TNT1 A 1
+		PISA D 0 ACS_NamedExecutealways("ssgdurabilitycheck", 0)
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
+		stop	
+	NoAmmoUnload:
+	    PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		goto Noammo
+		TNT1 A 0 A_Overlay(98,"WeaponCheckOverlay",false)
+	NoAmmo:
+		SHTZ A 0
+		SHTZ A 0 A_ZoomFactor(1.0)
+		SHTZ A 0 A_Takeinventory("Zoomed",1)
+		SHTZ A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_PlaySound("weapons/empty", 4)
+	NoAmmo2:
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		SHTZ A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+	    SHTZ A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		SHTZ A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		SHTZ A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		SHTZ A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		SHTZ A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SHTZ A 0 A_JumpIfInventory("Kicking",1,"DoKickSSG")
+		SHOF K 15		
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammo2")
+		Goto Ready3
+	
+	GUNDISCHARGE:
+	TNT1 A 0 A_TAKEINVENTORY("SSGCHARGE",10)
+	TNT1 A 8
+	SSGL D 10 BRIGHT
+	SSGL CCBBAA 3 BRIGHT
+	SSGL NOPQ 3 BRIGHT
+	TNT1 A 0 A_removelight(2)
+	STOP
+	
+
+	 Fire:
+		SHTZ A 0 A_JumpIfInventory("SSGMelee",1,"MeleeAttack")
+		SHTZ A 0 A_TakeInventory("Reloading",1)
+	Fire2:
+		SHTZ A 0 A_JumpIfInventory("SSGCHARGE",10,4)
+		SHTZ A 0 A_JumpIfInventory("SSGAlt",1,"AltFire")
+		SHTZ A 0 A_JumpIfInventory("SSGAmmo", 2, 3)
+		SHTZ A 0 A_JumpIfInventory("SSGAmmo", 1, "ALTFIRE")
+		Goto NoAmmo
+
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
+		PIST F 0 A_Takeinventory("SSGDurability",2)
+		PIST F 0 A_JumpIfInventory("SSGDurability",75, 2)
+		PIST F 0 A_Jump(100, "Misfire")
+		///
+		
+		SHTZ A 0 A_ZoomFactor(1.6)
+		SHTZ A 0 A_JumpIfInventory("PowerStrength", 1, 2)
+		SHTZ A 0 A_Recoil(5)
+		SHTZ A 0
+		SHTZ A 0 A_FireCustomMissile("DistantFireSoundSSG", random(-1,1), 0, 0, -12, 0, random(-1,1))
+		SHO9 A 0 A_firebullets (0,0,1,45,"shotpuff",FBF_NORANDOM,300)
+		TNT1 AAAAAAAAAAA 0 A_FireCustomMissile("DecorativeTracer", random(-10,10), 0, 0, -12, 0, random(-5,5))
+		TNT1 AAAAAAAAAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9))
+		TNT1 AAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9))
+		SHTZ A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		SHTZ A 0 A_ALertMonsters
+		
+		SHTZ A 0 A_JumpIfInventory("NORECOIL", 1, 2)
+		SHTZ A 0 A_OVERLAY(3,"DOUBLEFIRERECOIL")
+		SHOF A 1 BRIGHT A_AttachLightdef(2,"SMALLREDTORCH")
+		
+		
+		SHO9 A 0 BRIGHT A_playsound("SSHFIRE", 5,2)
+		
+		//CHARGED SHOT
+	ChargedShot:
+		TNT1 A 0 A_JumpIFInventory("SSGCHARGE", 10, 3)
+		SHTZ A 0 A_TakeInventory("SSGAmmo", 2)
+		TNT1 A 0 A_Jump(256, "Firecontinue")
+		
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_Takeinventory("SSGDurability",20)
+	
+		SHTZ A 0 a_stopsound(6)
+		SHTZ A 0 A_PlaySound("weapons/ssg1",5,2)
+		SHTZ A 0 a_startsound("SSG/SOULSCREAM",21)
+		SHTZ A 0 a_startsound("SSG/CHARGEDFIRE",22)
+		SHTZ AA 0 A_SpawnItemEx ("DamnedSoul", random(50,100), 0, 0, 0, 0, RANDOM(1,2), 0, SXF_NOCHECKPOSITION, Args[2])
+		SHTZ AA 0 A_SpawnItemEx ("DamnedSoul", random(150,200), RANDOM(30,-30), -5, 0, 0, RANDOM(1,2), 0, SXF_NOCHECKPOSITION, Args[2])
+		SHTZ A 0 A_SpawnItemEx ("DamnedSoul", random(250,300), -50, -10, 0, 0, RANDOM(1,2), 0, SXF_NOCHECKPOSITION, Args[2])
+		SHTZ A 0 A_SpawnItemEx ("DamnedSoul", random(250,300), 50, -10, 0, 0, RANDOM(1,2), 0, SXF_NOCHECKPOSITION, Args[2])
+		SHTZ A 0 A_SpawnItemEx ("DamnedSoul", random(350,400), 90, -15, 0, 0, RANDOM(1,2), 0, SXF_NOCHECKPOSITION, Args[2])
+		SHTZ A 0 A_SpawnItemEx ("DamnedSoul", random(350,400), -90, -15, 0, 0, RANDOM(1,2), 0, SXF_NOCHECKPOSITION, Args[2])
+		
+		PUFF A 0 A_takeinventory("ssgischarged",1)
+		TNT1 AAAAA 0 A_CustomMissile("VolcabusBallFAST",RANDOM(35,40),RANDOM(4,-4),0,0,RANDOM(3,-3))
+		RAIL AAA 0 A_FireCustomMissile("SSGtracer", 0, 0, RANDOM(2,-2), 0,0,RANDOM(2,-2))
+		RAIL AAA 0 A_FireCustomMissile("SSGProjectile", 0, 0, RANDOM(2,-2), 0,0,RANDOM(2,-2))
+		FLMT A 0 BRIGHT A_FireCustomMissile("FlamethrowerMissileProper", 0, 0, 5, -12, 0, 8)
+		FLMT A 0 BRIGHT A_FireCustomMissile("FlamethrowerMissileProper", 0, 0, -5, -12, 0, 8)
+		SHTZ A 0 A_FireBullets (3, 3, 6, 80, "SLUGPuff", FBF_NORANDOM)
+		SHTZ A 0 A_FireBullets (5, 5, 6, 80, "SLUGPuff", FBF_NORANDOM)
+		FLMT A 0 A_OVERLAY(9,"GUNDISCHARGE")
+		TNT1 A 0 A_Jump(256, 3)
+		//////////////////////
+	Firecontinue:
+		SHTZ A 0 A_FireBullets (10, 7, 6, 31, "ShotgunPuff", FBF_NORANDOM)
+		SHTZ A 0 A_FireBullets (7, 8, 6, 32, "ShotgunPuff", FBF_NORANDOM)
+		
+		SHTN A 0 A_FireBullets (10, 7, 6, 31, "ShotgunPuff2", FBF_NORANDOM)
+		SHTZ A 0 
+		TNT1 AA 0
+		SHTN A 0 A_Quake(4, 20, 0, 400, "")
+		SHTZ A 0 
+		
+        SHOF B 1 BRIGHT 
+		SHTZ A 0 A_ZoomFactor(1.00)
+		TNT1 A 0 A_removelight(2)
+        SHTZ A 0 A_TakeInventory("SSGAlt",1)
+        SHTZ A 0 A_TakeInventory("Reloading",1)
+    
+		SHOF CDEFGIJK 1 
+		
+		SHTZ A 0 A_JumpIfInventory("IsNOTTacticalClass", 1, 8)//Tactical Mode takes more time
+		SHOF KKKKKKKK 1 
+		SHOF KK 1 A_WeaponReady(WRF_NOFIRE | WRF_NOBOB)
+		SHOF KKK 1 A_JumpIfInventory("Reloading",1,"Reload")
+		
+		/// DURABILITY CHECK 2
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGdurability", 1, 1)
+		goto weaponbreak
+		TNT1 A 0
+		///
+		
+		
+		SHTZ A 0 A_JumpIfInventory("Kicking",1,"dokickSSG")
+        SHTZ A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		SHTZ A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		SHTZ A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		SHTZ A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")	
+		SHTZ A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		SHOF K 1 A_WeaponReady(WRF_NOFIRE | WRF_NOBOB)
+		TNT1 A 0 A_JumpIfInventory("NoAutoReload", 1, 2)//Don't go to NoAmmo unless they try to fire again
+		Goto NoAmmo2
+		TNT1 AA 0
+		Goto Ready3
+		
+	
+	DOUBLEFIRERECOIL:
+		TNT1 A 2
+		TNT1 AA 1 A_SetPitch(pitch-16)
+		TNT1 AAAAAAAA 1 A_SetPitch(pitch+3)
+		TNT1 AAAAAAAA 1 A_SetPitch(pitch+0.5)
+		STOP
+	
+		
+	Reload:	
+		SHTZ A 0	
+		SHTZ A 0 A_TakeInventory("Reloading",1)
+		PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
+		SHTZ A 0 A_JumpIfInventory("SSGMelee",1,"TryRepair")
+		
+		SHTZ A 0 A_JumpIfInventory("SSGAmmo", 2, "Ready3")  //if both barrels are loaded, go back to ready
+	
+		SHTZ A 0 A_JumpIfInventory("AmmoShell", 1, 1)//Check if has any ammo left to reload
+		Goto Ready3
+
+		SHTZ A 0 A_JumpIfInventory("SSGAmmo", 1, "Reload2")  //if only one barrel is loaded, load just one shell
+		SHTZ A 0 A_JumpIfInventory("AmmoShell", 2, 1)//Check if has ammo to reload 2 shells
+		Goto Reload2
+	
+		
+		//Reload 2 barrels		
+		SHT5 EDCB 1 
+		SHTZ ABCDEFGHIJKLMN 1
+		84DS E 0 A_QuakeEx(2, 1, 2, 5, 0, 64, "", 0, 0, 0, 0, 0, 0, 2)
+		SHTZ O 1 
+		SHTZ A 0 A_GiveInventory ("Pumping", 1)
+		SHTZ A 0 A_ALertMonsters(150)
+        SHTZ A 0 A_PlaySound("SSGopen",7,1.0)
+        SHTZ A 0 A_startSound("weapons/sshoto",29)
+		SHTZ A 0 A_JumpIfInventory("JUSTFOUNDSSG", 1,4)
+		SHTZ A 0 A_JumpIfInventory("SSGunloaded", 1,3)
+		TNT1 AA 0 A_FireCustomMissile("SSGCaseSpawner",0,0,-10, -20)
+		SHTZ P 1 A_AttachLightdef(2,"SMALLREDTORCH")
+		SHTZ QR 1 bright
+		TNT1 A 0 A_removelight(2)
+		SHTZ STUVWXYZ 1
+		SHT2 ABCDEFGH 1 
+		SHTZ A 0 A_takeinventory("justfoundSSG",1)
+		SHTZ A 0 A_playsound("weapons/sshotl")
+		SHTZ A 0 A_TakeInventory("AmmoShell", 1)
+		SHTZ A 0 A_GiveInventory("SSGAmmo", 1)
+		SHT2 IJJJ 1 a_setpitch(pitch+0.5)
+		SHT2 KLMN 1 a_setpitch(pitch-0.5)
+		SHT2 OPQRS 1
+		SHT2 T 1 a_setpitch(pitch+0.5)
+		  SHT2 B 0 A_startsound("weapons/sshotl",30)	
+		  SHTZ A 0 A_TakeInventory("AmmoShell", 1)
+		SHTZ A 0 A_GiveInventory("SSGAmmo", 1)
+		  SHT2 UUU 1 a_setpitch(pitch+0.5)
+		 SHT2 VWXY 1 a_setpitch(pitch-0.5)
+		 SHT2 Z 1
+		  SHTZ A 0 A_GiveInventory ("Pumping", 1)
+			
+		SHT3 ABCD 1 
+		
+		SHTZ A 0 A_GiveInventory ("Pumping", 1)
+		SHTZ A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+			TNT1 A 3
+			SHT4 CDE 1
+			84DS E 0 A_QuakeEx(2, 1, 2, 5, 0, 64, "", 0, 0, 0, 0, 0, 0, 3)
+		SHTZ A 0 A_startSound("weapons/sshotc",31)
+		  SHTZ A 0 A_TakeInventory ("Pumping", 1)
+		  SHTZ A 0 A_TakeInventory ("SSGunloaded", 1)											   
+		  SHTZ A 0 A_TakeInventory("SSGAlt",1)
+			SHT4 FGHIJKKKKKKLMOPQRS 1
+		  SHTZ A 0 A_ReFire
+		 SHOF K 2
+        Goto Ready3
+		
+
+AltFire:
+		SHTZ A 0 A_TakeInventory("Reloading",1)
+		SHTZ A 0 A_JumpIfInventory("SSGMelee",1,"ChargedMelee")
+		SHTZ A 0 A_JumpIfInventory("SSGAmmo",1,3)
+        Goto NoAmmo
+        TNT1 AAAAA 0
+		
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
+		PIST F 0 A_Takeinventory("SSGDurability",1)
+		PIST F 0 A_JumpIfInventory("SSGDurability",75, 2)
+		PIST F 0 A_Jump(50, "Misfire")
+		///
+		
+		
+		SHTZ A 0 A_JumpIfInventory("NORECOIL", 1, 2)
+		SHTZ A 0 A_OVERLAY(3,"FIRERECOIL")
+		
+		TNT1 A 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		SHTZ A 0 A_JumpIfInventory("SSGAlt",1,"AltFire2")
+		SHTZ A 0 A_TakeInventory("SSGAmmo",1)
+		SHTZ A 0 A_GiveInventory("SSGAlt",1)
+        SHTZ A 0 A_ALertMonsters
+		TNT1 AAAAAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9))
+		TNT1 AAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9))
+        SHOF L 1 BRIGHT A_PlaySound("weapons/ssg1",5,2)
+		SHTZ A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
+		SHTZ A 0 A_FireCustomMissile("DistantFireSoundShotgun", random(-1,1), 0, 0, -12, 0, random(-1,1))
+        SHOF M 1 BRIGHT A_FireBullets (7, 5, 6, 28, "ShotgunPuff", FBF_NORANDOM)
+		SHTN A 0 A_FireBullets (7, 4, 3, 29, "ShotgunPuff2", FBF_NORANDOM)
+		
+		TNT1 A 0 A_removelight(2)
+		RIFG A 0 A_JumpIfInventory("norecoil", 1, 2)
+		SHTN A 0 A_Quake(2, 10, 0, 400, "")
+		SHTZ A 0
+		
+        TNT1 AAAAA 0 A_FireCustomMissile("DecorativeTracer", random(-5,5), 0, 0, -12, 0, random(-5,5))
+
+		SHOF NOPQ 1 
+		
+		/// DURABILITY CHECK 2
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGdurability", 1, 1)
+		goto weaponbreak
+		TNT1 A 0
+		///
+		
+		
+        SHTZ A 0
+        Goto Ready3
+
+	AltFire2:
+		SHTZ A 0 A_TakeInventory("SSGAmmo", 1)
+        SHTZ A 0 A_ALertMonsters
+		//SHTZ AA 0 A_FireCustomMissile("GunFireSmoke", 0, 0, -2, 0, 0, 0)
+		TNT1 AAAAAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9))
+		TNT1 AAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9))
+        SHOF R 1 BRIGHT A_PlaySound("weapons/ssg1",5, 2)
+		SHTZ A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
+		SHTZ A 0 A_FireCustomMissile("DistantFireSoundShotgun", random(-1,1), 0, 0, -12, 0, random(-1,1))
+		
+        SHOF S 1 BRIGHT A_FireBullets (7, 5, 6, 28, "ShotgunPuff", FBF_NORANDOM)
+		SHTN A 0 A_FireBullets (7, 4, 3, 29, "ShotgunPuff2", FBF_NORANDOM)
+		
+		RIFG A 0 A_JumpIfInventory("norecoil", 1, 2)
+		SHTN A 0 A_Quake(2, 10, 0, 400, "")
+		SHTZ A 0
+		TNT1 A 0 A_removelight(2)
+		
+        TNT1 AAAAA 0 A_FireCustomMissile("DecorativeTracer", random(-5,5), 0, 0, -12, 0, random(-5,5))
+        SHOF TUVW 1 
+		
+		SHTZ A 0 A_TakeInventory("SSGAlt", 1)
+		
+		/// DURABILITY CHECK 2
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGdurability", 1, 1)
+		goto weaponbreak
+		TNT1 A 0
+		///
+		
+		
+		TNT1 A 0 A_JumpIfInventory("NoAutoReload", 1, 2)//Don't go to NoAmmo unless they try to fire again
+		Goto Reload
+		TNT1 AA 0
+		Goto Ready3
+    
+    
+	FIRERECOIL:
+		TNT1 A 2
+		TNT1 AA 1 A_SetPitch(pitch-6)
+		TNT1 A 1 A_SetPitch(pitch-3)
+		TNT1 AAAAAAAA 1 A_SetPitch(pitch+1)
+		STOP
+	
+	
+	/// Reload 1 barrel
+	Reload2:
+		SHTZ A 0 A_TakeInventory("Reloading",1)
+		SHTZ A 0 A_JumpIfInventory("AmmoShell",1,1)
+		Goto Ready3
+		SHTZ A 0 A_TakeInventory("SSGAlt",1)
+		
+		SHT5 EDCB 1 
+		SHTZ ABCDEFGHIJKLM 1
+		84DS E 0 A_QuakeEx(2, 1, 2, 5, 0, 64, "", 0, 0, 0, 0, 0, 0, 2)
+		SHTZ A 0 A_ALertMonsters(150)
+		SHTZ N 1 
+		SHTZ A 0 A_GiveInventory ("Pumping", 1)
+         SHTZ A 0 A_PlaySound("SSGopen",7,0.5)
+        SHTZ A 0 A_startSound("weapons/sshoto",29)
+		SHTZ A 0 A_JumpIfInventory("SSGunloaded", 1,2)
+		SHTZ A 0 A_FireCustomMissile("SSGCaseSpawner",0,0,-10, -20)
+		SHTZ OP 1
+		SHTZ A 0 A_OVERLAY(3,"RightShellOverlay")
+		TNT1 A 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		SHTZ QR 1 bright
+		TNT1 A 0 A_removelight(2)
+		SHTZ STUVWXY 1
+		SHT3 EFGHIJKLM 1
+        SHTZ A 0 A_startsound("weapons/sshotl",30)
+		SHTZ A 0 A_TakeInventory("AmmoShell", 1)
+		SHTZ A 0 A_GiveInventory("SSGAmmo", 1)
+		SHT3 NOPP 1 a_setpitch(pitch+0.5)
+		SHT3 PQRS 1 a_setpitch(pitch-0.5)
+		SHT3 TUVWXYZ 1
+		SHT4 AB 1
+		TNT1 A 3
+		SHTZ A 0 A_GiveInventory ("Pumping", 1)
+        
+
+        SHT4 CDE 1
+		84DS E 0 A_QuakeEx(2, 1, 2, 5, 0, 64, "", 0, 0, 0, 0, 0, 0, 3)
+        SHTZ A 0 A_startSound("weapons/sshotc",31)
+		SHTZ A 0 A_GiveInventory ("Pumping", 1)
+		SHTZ A 0 A_TakeInventory ("SSGunloaded", 1)
+		SHT4 FGHIJKKKKKKLMOPQRS 1
+		SHTZ A 0 A_ReFire
+	   SHOF K 2
+	  Goto Ready3
+
+	Spawn:
+		SOSP A -1
+		Stop
+	
+    RightShellOverlay:
+	OVSH FGHIJJJJJ 1
+	STOP
+		
+	ShellcheckOverlay:
+		TNT1 A 0 A_JUMPIFinventory("ssgammo",2,2)
+		OVSH O 1
+		stop
+		TNT1 A 0
+		stop
+	ShellcheckOverlay2:
+		TNT1 A 0 A_JUMPIFinventory("ssgammo",2,6)
+		OVSH OOOOO 1
+		stop
+		TNT1 A 0
+		stop
+		
+	CheckBarrels:
+		SHT4 SRQPONMLKJIHG 1
+		SHTZ A 0 A_startSound("SSGUNLO",29)
+		SHT4 FEDC 1
+		TNT1 A 3
+		TNT1 A 0 A_JUMPIFinventory("SSGunloaded",1,2)
+		A12S A 0 A_Jump(256,2)
+		TNT1 A 0 a_overlay(7,"ShellCheckOverlay2", false)
+		SHT3 Z 1 offset(-10,45) 
+		SHT3 Y 1 offset(-5,40) 
+		SHT3 X 1 offset(-3,35) 
+		SHT3 W 1 offset(1,32) 
+		TNT1 A 0 A_JUMPIFinventory("SSGunloaded",1,3)
+		TNT1 A 0 A_JUMPIFinventory("ssgammo",2,3)
+		SHTZ A 0 A_FireCustomMissile("SSGCaseSpawner",0,0,-10, -20)
+		SHTZ A 0 A_GiveInventory ("SSGunloaded", 1)
+	CheckbarrelsHold:
+		SHT3 W 1 a_overlay(8,"ShellCheckOverlay", false)
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		TNT1 A 0 ACS_NAMEDEXECUTEalways("ssgDURABILITYCHECK",0)
+		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CheckBarrelsHOLD")
+		
+		TNT1 A 0 a_overlay(7,"ShellCheckOverlay2", false)
+		SHT3 W 1 offset(1,32) 
+		SHT3 X 1 offset(-3,35) 
+		SHT3 Y 1 offset(-5,40)
+		SHT3 Z 1 offset(-10,45)
+		TNT1 A 3 A_clearoverlays(7,8)
+		SHT4 CDEF 1
+		84DS E 0 A_QuakeEx(3, 1, 2, 5, 0, 64, "", 0, 0, 0, 0, 0, 0, 3)
+		SHTZ A 0 A_startSound("weapons/ssg/close",29)
+		SHT4 GHIJKLMNOPQRS 1
+		goto Ready3
+		
+	MeleeUnload:
+		SHTZ A 0 A_PlaySound("imp/melee3",1)
+		SSGM JIHGFEDCBA 1
+		TNT1 A 5
+		SHTZ A 0 A_PlaySound("weapons/sshoto")
+		SHT5 ABCDE 1
+		TNT1 A 0 A_TAKEinventory("SSGMelee",1)
+	user4:
+		"####" "#" 0 A_JumpIfInventory("SSGMelee",1,"MeleeUnload")
+		SHOF K 5 A_WeaponReady
+		SHTZ A 0 A_ZoomFactor(1.0)
+		SHTZ A 0 A_Takeinventory("ADSmode",1)
+		SHTZ A 0 A_Takeinventory("Zoomed",1)
+        SHTZ A 0 A_JumpIfInventory("SSGAmmo",1,1)
+        Goto noammoUnload
+        TNT1 AAA 0
+		SHTZ A 0 A_Takeinventory("Zoomed",1)
+		SHTZ A 0 A_GiveInventory ("Pumping", 1)
+		A12S A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CheckBarrels")
+		SHT5 EDCB 1 
+		SHTZ ABCDEFGHIJKLMNOP 1
+		84DS E 0 A_QuakeEx(3, 1, 2, 5, 0, 64, "", 0, 0, 0, 0, 0, 0, 3)
+		SHTZ A 0 A_startSound("SSGUNLO",29)
+		TNT1 A 0 A_JUMPIFinventory("ssgammo",2,"Unload2shells")
+		TNT1 A 0 A_JUMPIFinventory("ssgammo",1,"Unload1shell")
+		
+	Unload2shells:
+		SHT3 BA 1
+		SHT2 ZYXWVUT 1
+		SHTZ A 0 A_startSound("SSGUNLO2",29)
+		SHT2 SRQPONMLKJI 1
+		SHTZ A 0 A_startSound("SSGUNLO2",29)
+		SHT2 HGFEDCBA 1
+		SHTZ ZY 1
+		goto removebullets
+	
+	Unload1shell:
+		SHTZ A 0 A_JumpIfInventory("SSGunloaded", 1,2)
+		SHTZ A 0 A_FireCustomMissile("SSGCaseSpawner",0,0,-10, -20)
+		SSGU J 1
+		SHTZ A 0 A_OVERLAY(3,"UnloadShellOverlay")
+		SHT3 A 1
+		SHT2 ZYXWVUT 1
+		SHTZ A 0 A_startSound("SSGUNLO2",29)
+		SHT2 SRQPONML 1
+		SHTZ A 0 A_OVERLAY(3,"UnloadShellOverlay2")
+		SHT3 IHGFE 1
+		goto removebullets
+		
+	UnloadShellOverlay:
+		OVSH N 1 offset(0,1)
+		OVSH O 5 offset(0,1)
+		OVSH O 2 offset(0,2)
+		OVSH O 3 offset(0,1)
+		OVSH O 5 offset(0,1)
+		STOP
+		
+	UnloadShellOverlay2:
+		OVSH T 5
+		STOP
+
+		
+	RemoveBullets:
+		TNT1 AAAA 0
+		SHTZ A 0 A_JumpIfInventory("SSGAmmo",1,3)
+		Goto FinishUnload
+        TNT1 AAAAAA 0
+		SHTZ A 0 A_Takeinventory("SSGAmmo",1)
+		SHTZ A 0 A_Giveinventory("AmmoShell",1)
+		Goto RemoveBullets
+	
+	FInishUnload:
+		SHTZ A 0 A_GiveInventory("SSGunloaded", 1)
+
+		SHTZ A 0 A_GiveInventory ("Pumping", 1)
+		SSGU IHGFEDCBA 1
+		84DS E 0 A_QuakeEx(3, 1, 2, 2, 0, 64, "", 0, 0, 0, 0, 0, 0, 3)
+        SHTZ A 0 A_startSound("weapons/sshotc",30)
+		SHTZ A 0 A_startSound("CLIPINSS",31)
+		SHTZ A 0 A_GiveInventory ("Pumping", 1)
+		SHTZ PONMLKJIHGFEDCBA 1
+		SHT5 BCDE 1 
+		Goto Ready3
+		
+		
+		Misfire:
+		TNT1 A 0 A_playsound("DRYFIRE")
+		TNT1 A 0 A_giveinventory("ssgdurability",1)
+		goto Ready3
+		
+		Weaponbreak:
+		TNT1 A 0 A_removelight(2)
+		TNT1 A 0 a_SETROLL(0)
+		TNT1 A 0 a_print("your Double Barreled Shotgun has broken!")
+		TNT1 A 0 a_SPAWNITEM("brokenSSG",0,0)
+		TNT1 A 0 ACS_namedexecute("BROKENDISARM",0)
+		TNT1 AAA 1 a_weaponready
+		Wait
+		
+		
+		////////
+		////////
+		////////		MELEE MODE
+		////////
+		////////
+		
+		Changemode:
+		TNT1 A 0 A_TAKEinventory("startdualwield",1)
+		TNT1 A 0 A_jumpifinventory("SSGmelee",1,"SwitchtoGun")
+		
+		SwitchtoMelee:
+		SHT5 EDCBA 1
+		TNT1 A 5
+		SSGM ABCDEFGH 1
+		SHTZ A 0 A_PlaySound("axedraw",1)
+		SSGM IJ 1
+		TNT1 A 0 A_giveinventory("SSGMelee",1)
+		goto Ready3
+			
+		SwitchtoGun:
+		SHTZ A 0 A_PlaySound("imp/melee3",1)
+		SSGM JIHGFEDCBA 1
+		TNT1 A 5
+		SHTZ A 0 A_PlaySound("weapons/sshoto")
+		SHT5 ABCDE 1
+		TNT1 A 0 A_TAKEinventory("SSGMelee",1)
+		goto Ready3
+			
+			
+	///FIRST SLASH
+	MELEEATTACK:
+		TNT1 A 0 A_ClearOverlays(9,9)
+		TNT1 A 0 A_JumpIfInventory("POWERSTRENGTH2", 1, 5)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",90,"tiredswing")
+		TNT1 A 0 A_JumpifInventory("usedstamina", 1990,"tiredswing")
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("SSGDurability",1, 1)
+		goto WEAPONBREAK
+	
+	FIRSTSLASH:
+		SSGM NML 1
+		AXEG A 0 A_startSound("SSGBLADE", 1,CHANF_OVERLAP)
+		SSGM LMNO 1 a_setroll(roll+1.5)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		KNFS K 0 A_Giveinventory("UsedStamina", 10)
+		TNT1 A 0 A_JumpIfInventory("POWERSTRENGTH2", 1, 2)
+		TNT1 A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("SSGSLASH", 0, 0, 0, 0)
+		TNT1 A 0 A_Firecustommissile("SSGSLASHScan",0,0,0,0)
+		SSGM PQ 1 a_setroll(roll-1.5)
+		TNT1 AA 1 a_setroll(rolL-1.5)
+		TNT1 A 0 a_setroll(0)
+		
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGDurability",1, 1)
+		goto weaponbreak
+		PIST F 0 
+		///	
+		TNT1 A 4
+		TNT1 A 1 A_Refire	
+		GOTO slashcheck	
+	
+	SECONDSLASH:
+		AXEG A 0 A_startSound("SSGBLADE", 1,CHANF_OVERLAP)
+		SSGM RSTU 1 a_setroll(roll-1.5)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		KNFS K 0 A_Giveinventory("UsedStamina", 10)
+		TNT1 A 0 A_JumpIfInventory("POWERSTRENGTH2", 1, 2)
+		TNT1 A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("SSGSLASH", 0, 0, 0, 0)
+		TNT1 A 0 A_Firecustommissile("SSGSLASHScan",0,0,0,0)
+		SSGM VW 1 a_setroll(roll+1.5)
+		TNT1 AA 1 a_setroll(rolL+1.5)
+		TNT1 A 0 a_setroll(0)
+		
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGDurability",1, 1)
+		goto weaponbreak
+		PIST F 0 
+		///	
+		TNT1 A 4
+		KNFD A 0 A_Refire	
+		GOTO slashcheck2
+	
+	SLASHCHECK:
+		TNT1 A 1
+		TNT1 AAAAAAAAAA 1 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "SECONDslash")
+		TNT1 A 5
+		GOTO backTOMELEE
+		
+	SLASHCHECK2:
+		TNT1 A 1
+		TNT1 AAAAAAAAAA 1 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "BacktoFirstSlash")
+		TNT1 A 5
+		GOTO backTOMELEE
+	BacktoFirstSlash:
+		TNT1 A 1 A_startSound("SSGBLADE", 1,CHANF_OVERLAP)
+		goto firstslash+3
+	
+	HOLD:
+		SHTZ A 0 A_JumpIfInventory("SSGMelee",1,1)
+		goto Fire2
+		TNT1 A 1 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK, "ChargedmeleeCombo")
+		PONG B 0 A_Refire
+	MACEATTACK:
+		AXEG A 0 A_PlaySound("SSGMACE1", 1)
+		SSGB VWXY 1 a_setroll(roll-1.5)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		KNFS K 0 A_Giveinventory("UsedStamina", 10)
+		
+		TNT1 A 0 A_JumpIfInventory("POWERSTRENGTH2", 1, 3)
+		AXEG A 0 A_FireCustomMissile("SSGMACE", 0, 0, 0, 0)
+		TNT1 A 0 A_Jump(256,2)
+		AXEG A 0 A_FireCustomMissile("SSGMACEBERSERK", 0, 0, 0, 0)
+		TNT1 A 0 A_Firecustommissile("SSGSLASHScan",0,0,0,0)
+		
+		SSGB Z 1 a_setroll(roll+1.5)
+		SSG8 A 1 a_setroll(rolL+1.5)
+		TNT1 AA 1 a_setroll(rolL+1.5)
+		TNT1 A 0 a_setroll(0)
+		
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGDurability",1, 1)
+		goto weaponbreak
+		PIST F 0 
+		///	
+		TNT1 A 10
+		KNFD A 0 A_Refire	
+		goto SLASHCHECK2
+		
+	BacktoMelee:
+	SSGK FEDCBA 1
+	goto CheckforCharge
+	
+	CheckforCharge:
+	TNT1 A 0 A_JumpIFInventory("SSGcharge", 10, 1)
+	goto Ready3
+	TNT1 A 0 A_JumpIFInventory("SSGischarged", 1, "Ready3")
+	TNT1 A 0 A_OVERLAY(9,"FULLCHARGEDOVERLAY")
+	SSGM K 7
+	SSGK K 3 
+	goto Ready3
+	
+	FULLCHARGEDOVERLAY:
+	PUFF A 0 A_PlaySound("IGNITE", 1)
+	PUFF A 0 A_giveinventory("ssgischarged",1)
+	TNT1 A 0 A_AttachLightdef(2,"SMALLREDTORCH")
+	SSGL E 5 BRIGHT
+	84DS E 0 A_QuakeEx(3, 1, 2, 5, 0, 64, "", 0, 0, 0, 0, 0, 0, 3)
+	SSGL EEFFG 1 BRIGHT
+	TNT1 A 0 A_removelight(2)
+	PUFF A 0 A_PlaySound("volcabus/cannon", 7)
+	STOP
+	
+	
+	CHARGEDMELEECOMBO:
+	TNT1 A 0
+	goto Chargedmelee+14
+	
+	CHARGEDMELEE:
+	SSGK ABCDEF 1
+	AXEG A 0 A_STARTSOUND("PREGRNT", 22, 0,1.0,0,0.9)
+	TNT1 A 5
+	KNFR A 0 A_PlaySound("knife/slash",1,1.0)
+	SSGB ABCDEFGHIJKLM 1
+	SSGB NNOOPP 1  a_setroll(roll+2)
+	
+	ALTHOLD:
+	TNT1 A 0 A_JumpIfInventory("SSGmelee", 1, 1)
+	goto altfire
+	SSGB P 1
+	KNFD A 0 A_Refire("Althold")
+	
+	AXEG A 0 A_PlaySound("SSGMACE2", 1)
+	SSGB PONMLKJIH 1
+	TNT1 A 5
+	
+	TNT1 A 0 A_JumpIfInventory("SSGCHARGE", 10, "LIFESTEAL")
+	
+		TNT1 A 0 A_JumpIfInventory("POWERSTRENGTH2", 1, 5)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 5)
+		TNT1 A 0 A_JumpifInventory("LARGESTAMINA",1,2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",80,"tiredmace")
+		TNT1 A 0 A_JumpifInventory("usedstamina", 1980,"tiredmace")
+		KNFS K 0 A_Giveinventory("UsedStamina", 25)
+	
+	AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+	SSGB QRS 1  a_setroll(roll-10)
+	TNT1 A 0 A_JumpIfInventory("POWERSTRENGTH2", 1, 2)
+	TNT1 A 0 A_Jump(256,2)
+	AXEG AA 0 A_FireCustomMissile("SSGMACECHARGED", 0, 0, 0, 0)
+	TNT1 AA 0 A_Firecustommissile("SSGSLASHScan",0,0,0,0)
+	SSGB TU 1 
+	TNT1 AAAAAA 1 a_setroll(roll+3)
+	TNT1 A 0 a_setroll(0)
+	
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGDurability",1, 1)
+		goto weaponbreak
+		PIST F 0 
+		///	
+		goto Backtomelee
+
+
+
+	LIFESTEAL:
+		SHTZ A 0 a_stopsound(6)
+		SHTZ A 0 A_ALertMonsters
+		AXEG A 0 A_PlaySound("SSGSCREM", 6)
+		PUFF A 0 A_takeinventory("ssgischarged",1)
+		TNT1 A 0 A_TAKEINVENTORY("SSGCHARGE",10)
+		SSGM L 1 
+		S5GS ABCD 1 A_SETROLL(ROLL-7)
+		TNT1 A 0 A_OVERLAY(9,"SUCCLIGHT")
+		TNT1 A 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		
+	LIFESTEALLOOP:
+		//DURABILITY CHECK
+		AXEG A 0 A_PlaySound("SSGHEART", 7)
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGDurability",1, 1)
+		goto weaponbreak
+		PIST F 0 
+		///		
+		AXEG A 0 Radius_Quake (2, 2, 0, 5, 0)
+		PIST F 0 A_JumpIfInventory("SSGLIFESTEALDURATION",50, "lifestealend")
+		TNT1 A 0 A_Firecustommissile("LIFESTEALScan",0,0,0,0)
+		S5GS E 1 BRIGHT A_WeaponOffset(random(-2,2),32+random(0,2))
+		loop
+	
+	LIFESTEALEND:
+		TNT1 A 0 A_TAKEINVENTORY("SSGLIFESTEALDURATION",50)
+		TNT1 A 0 A_WeaponOffset(0,32)
+		S5GS GHIJ 1 BRIGHT a_SETROLL(ROLL+4)
+		SSGM L 1 BRIGHT a_SETROLL(ROLL+1)
+		TNT1 A 0 A_removelight(2)
+		TNT1 A 5 a_SETROLL(0)
+		TNT1 A 0 A_OVERLAY(9,"MELEEDISCHARGE")
+		goto backtomelee
+	
+	MELEEDISCHARGE:
+		TNT1 A 5
+		SSGL HGF 3 BRIGHT
+		SSGL IJKLM 2 BRIGHT
+		TNT1 A 0 A_removelight(2)
+	STOP
+	
+	SUCCLIGHT:
+	S5GL ABCDEFGHIJKLMNOPQRSTUVWXYZ 2 BRIGHT
+	STOP
+	
+	TryRepair:
+	TNT1 A 0 A_JumpIFInventory("SSGdurability", 250, 4)
+	TNT1 A 0 A_JumpIFInventory("SSGcharge", 10, 4)
+	TNT1 A 0 a_print("\cR The weapon hungers for more blood.",3)
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, "SacrificeCheck")
+	goto ready3
+	TNT1 A 0 a_print("\cR The weapon is currently sated.",3)
+	goto ready3
+	AXEG A 0 A_PlaySound("SSGHEART", 7)
+	AXEG A 0 A_startSound("ignite", 10)
+	TNT1 A 0 A_AttachLightdef(2,"redkey")
+	TNT1 A 0 a_giveinventory("SSGDURABILITY", 7)
+	PUFF A 0 A_takeinventory("ssgischarged",1)
+	TNT1 A 0 A_TAKEINVENTORY("SSGCHARGE",10)
+	TNT1 A 0 A_OVERLAY(9,"REPAIRLIGHT1")
+	TNT1 A 0 A_OVERLAY(8,"REPAIRLIGHT2")
+	SSGK K 50 a_giveinventory("SSGDURABILITY", 7)
+	TNT1 A 0 A_AttachLightdef(2,"SMALLREDTORCH")
+	SSGM K 7 BRIGHT
+	TNT1 A 0 A_removelight(2)
+	AXEG A 0 A_STOPSound(6)
+	SHTZ A 0 A_ALertMonsters(150)
+	TNT1 A 0 A_startSound("VOLCCF1",11)
+	TNT1 A 0 A_startSound("VOLCCF4",12)
+	TNT1 A 0 A_OVERLAY(9,"MELEEDISCHARGE")
+	TNT1 A 0 a_print("\cA The weapon fed itself.", 2)
+	GOTO READY3
+	
+	REPAIRLIGHT1:
+	SSGL H 62 bright
+	stop
+	
+	REPAIRLIGHT2:
+	55GR ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 bright
+	S5GR ABCDEFGHIJKLMNOPQRSTUVWX 1 bright a_giveinventory("SSGDURABILITY", 1)
+	SSGP ABCDEFG 1 bright a_giveinventory("SSGDURABILITY", 2)
+	stop
+	
+	SacrificeCheck:
+		SSGK K 1 a_overlay(9,"showcharges",false)
+		TNT1 A 0 A_giveinventory("ssgsacrifice",1)
+		TNT1 A 0 A_JumpIfInventory("ssgsacrifice", 60, "BloodSacrifice_Start")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, "SacrificeCheck")
+		TNT1 A 0 A_takeinventory("ssgsacrifice",70)
+		goto Ready3
+		
+BloodSacrifice_Start:
+		TNT1 A 0 A_takeinventory("ssgsacrifice",60)
+		TNT1 A 0 A_startsound("SACSTART", 666)
+		SSCR ABCDEFGHIJKLM 1
+		TNT1 A 0 A_DamageSelf(1,"nosound", DMSS_NOPROTECT | DMSS_NOFACTOR)	
+		"####" "#" 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		SSCR NOP 1
+		"####" "#" 0 A_removelight(2)
+		SSCR QRRRRRRRRRRRRRRRRRR 1
+		TNT1 A 0 A_startsound("SACLOOP", 667, CHANF_LOOPING)
+BloodSacrifice_Loop:
+		"####" "#" 0 a_zoomfactor(0.9)
+		SSCR STUVWXYZ 1
+		S5CR ABCDEFG 1
+		"####" "#" 0 a_zoomfactor(1.0)
+				
+		TNT1 A 0 A_jump(200,3)
+		TNT1 A 0 A_DamageSelf(10,"bleeding", DMSS_NOPROTECT | DMSS_NOFACTOR)
+		TNT1 A 0 A_jump(256,2)
+		TNT1 A 0 A_DamageSelf(10,"nosound", DMSS_NOPROTECT | DMSS_NOFACTOR)	
+		
+		S5CR HIJKLM 1
+		"####" "#" 0 A_quakeex(2,2,2,15,0,0)
+		"####" "#" 0 A_AttachLightdef(2,"SMALLREDTORCH")
+		S5CR NOP 1
+		"####" "#" 0 A_removelight(2)
+		S5CR QRST 1
+		TNT1 A 0 A_giveinventory("ssgCHARGE",1)
+		TNT1 A 0 A_JumpIfInventory("SSGCHARGE", 10, "BloodSacrifice_End")
+		goto BloodSacrifice_loop
+BloodSacrifice_End:
+		S5CR T 10
+		TNT1 A 0 A_startsound("SACEND", 667)
+		TNT1 A 0 A_giveinventory("rupture",1)
+		TNT1 A 0 A_giveinventory("Lwrist_wound",1)
+		S5CR UVWXYZ 1
+		55CR ABCDE 1
+		goto CheckforCharge
+		
+		
+	
+	TIREDSWING:
+	SSGK ABCDEF 1
+	TNT1 A 2
+	KNFR A 0 A_PlaySound("knife/slash",1,1.0)
+	SSGB ABCDEFGHIJKLM 1
+	SSGB NOP 1  a_setroll(roll+4)
+	SSGB ONMLKJIH 1
+	AXEG A 0 A_STARTSOUND("PREGRNT", 22, 0,1.0,0,0.9)
+	TNT1 A 2
+	
+		AXEG A 0 A_startSound("SSGBLADE", 1,CHANF_OVERLAP)
+		SSGM LMNO 1 a_setroll(roll-6)
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		KNFS K 0 A_Giveinventory("UsedStamina", 10)
+		TNT1 A 0 A_JumpIfInventory("POWERSTRENGTH2", 1, 2)
+		TNT1 A 0 A_Jump(256,2)
+		AXEG AA 0 A_FireCustomMissile("SSGSLASH", 0, 0, 0, 0)
+		TNT1 A 0 A_Firecustommissile("SSGSLASHScan",0,0,0,0)
+		SSGM PQ 1 a_setroll(roll+3)
+		TNT1 AA 3 a_setroll(rolL+3)
+		SHTZ A 0 A_STARTSound("Tired", 21)
+		TNT1 A 0 a_setroll(0)
+		
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGDurability",1, 1)
+		goto weaponbreak
+		PIST F 0 
+		///		
+		GOTO backtomelee
+		
+	
+	TIREDMACE:
+	TNT1 A 4
+	AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+	SSGB QRS 1  a_setroll(roll-10)
+	TNT1 A 0 A_JumpIfInventory("POWERSTRENGTH2", 1, 2)
+	TNT1 A 0 A_Jump(256,2)
+	AXEG AA 0 A_FireCustomMissile("SSGMACE", 0, 0, 0, 0)
+	TNT1 AA 0 A_Firecustommissile("SSGSLASHScan",0,0,0,0)
+		KNFS K 0 A_Giveinventory("UsedStamina", 20)
+	SSGB TU 1
+	TNT1 AAAAAA 1 a_setroll(roll+3)
+	TNT1 A 0 a_setroll(0)
+	
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		PIST F 0 A_JumpIfInventory("SSGDurability",1, 1)
+		goto weaponbreak
+		PIST F 0 
+		///	
+		TNT1 A 0 A_jump(256,"Trip")
+		goto backtomelee
+		
+		
+	DokickSSG:
+		PIST F 0 A_JumpIfInventory("SSGMelee",1, 1)
+		goto QuickBash	
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,4)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,3)
+		TNT1 A 0 A_overlay(3,"loweredSSG")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3
+		TNT1 A 0 A_overlay(3,"loweredSSGTired")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3	
+	LOWEREDSSG:
+		SSGK ABC 1
+		SSGK C 12
+		SSGK CBA 1
+		SSGK K 6
+		STOP
+	LOWEREDSSGTIRED:
+		SSGK ABC 2
+		SSGK C 37
+		SSGK CBA 2
+		STOP
+	
+	QuickBash:
+		NULL A 0 A_JumpIf (momZ > 0, "AirKick")
+		NULL A 0 A_JumpIf (momZ < 0, "AirKick")
+		TNT1 A 0 A_JumpIfInventory("IsCrouching", 1, "SlideAttack")
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 5)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,"Tiredbash")
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,"Tiredbash")
+		TNT1 A 0 A_Giveinventory("UsedStamina",10)
+		TNT1 A 0 A_PlaySound("3WRTATK2")
+		SHT5 EDCBA 1
+		TNT1 A 2
+		SSGB GF 1
+		SSGB E 1 A_FireCustomMissile("SSGSLASHScan", 0, 0, 0, -7)
+		TNT1 A 0 A_jumpifinventory("Powerstrength2",1,2)
+		TNT1 A 0 A_jump(256,2)
+		RIFF A 0 A_FireCustomMissile("SUPERKICKATTACK", 0, 0, 0, -7)
+		RIFF AA 0 A_FireCustomMissile("KICKATTACK", 0, 0, 0, -7)
+        SSGB DCBA 1
+		TNT1 A 5
+		KICK A 0 A_Takeinventory("Kicking",1)
+		SHT5 ABCDE 1
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		RIBA A 0 A_Takeinventory("Kicking",1)
+		Goto READY3
+		
+		TiredBASH:
+		TNT1 A 0 A_Giveinventory("UsedStamina",10)
+		TNT1 A 0 A_PlaySound("3WRTATK2")
+		SHT5 EDCBA 1
+		TNT1 A 6
+		AXEG A 0 A_STARTSOUND("GRUNT", 22, 0,1.0,0,0.9)
+		SSGB GF 1
+		SSGB E 1 A_FireCustomMissile("SSGSLASHScan", 0, 0, 0, -7)
+		TNT1 A 0 A_jumpifinventory("Powerstrength2",1,2)
+		TNT1 A 0 A_jump(256,2)
+		RIFF A 0 A_FireCustomMissile("SUPERKICKATTACK", 0, 0, 0, -7)
+		RIFF AA 0 A_FireCustomMissile("KICKATTACK", 0, 0, 0, -7)
+        SSGB DCBA 1
+		TNT1 A 10
+		KICK A 0 A_Takeinventory("Kicking",1)
+		SHTC ABCDE 2
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		RIBA A 0 A_Takeinventory("Kicking",1)
+		Goto READY3
+	
+	
+	Execution1:
+		TNT1 A 0 a_setpitch(0)
+		//lower
+		TNT1 A 0 A_JumpIfInventory("SSGMELEE", 1, 6)
+		SHT5 DCBA 1 A_RADIUSGIVE("beheadingtoken",100, RGF_MONSTERS | RGF_NOSIGHT,1)
+		TNT1 A 0 A_Jump(256,5)
+		SSGK BCDE 1 A_RADIUSGIVE("beheadingtoken",100, RGF_MONSTERS | RGF_NOSIGHT,1)
+		// stun
+		TNT1 A 0 a_overlay(3,"HOMERUNcamera")
+		TNT1 A 1 
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 1); a_overlayflags(1, pspf_mirror, 1);}
+		AXEG A 0 A_startSound("SSGMACE1", 148,0,1.0,0,1.3)
+		SSGB VWXYZ 1 A_RADIUSGIVE("beheadingtoken",100, RGF_MONSTERS | RGF_NOSIGHT,1)
+		AXEG A 0 A_startSound("SSGBONK", 149,0,1.0,0,1.3)
+		SSG8 A 1
+		TNT1 A 2
+		SSGB HI 3 OFFSET(50,32) A_SETROLL(ROLL-1)
+		SSGB I 2 OFFSET(56,32) A_SETROLL(ROLL-1)
+		SSGB I 2 OFFSET(59,32) A_SETROLL(ROLL-1)
+		SSGB I 2 OFFSET(61,32) A_SETROLL(ROLL-1)
+		SSGB I 10 OFFSET(67,32) A_SETROLL(ROLL-1)
+		// START SWING 
+		AXEG A 0 A_PlaySound("SSGMACE1", 1)
+		SSGB I 1 OFFSET(67,32)
+		SSGB I 1 OFFSET(57,32)
+		SSGB I 1 OFFSET(47,32)
+		SSGB I 1 OFFSET(37,32)
+		SSGB I 1 OFFSET(27,32)
+		SSGB I 1 OFFSET(17,32)
+		SSGB H 1 OFFSET(7,32)
+		SSGB H 1 OFFSET(1,32)
+		SSGB H 1 OFFSET(1,32)
+		TNT1 A 1 OFFSET(0,0)
+		TNT1 A 0 {a_overlayflags(1, pspf_flip, 0); a_overlayflags(1, pspf_mirror, 0);}	
+		SSGB VWX 1 a_setroll(roll+10)
+		KNFR A 0 A_startsound("SSGCUT1",12)
+		SSGB XXY 1 a_setroll(roll+10)
+		AXEG A 0 A_FireCustomMissile("SSGMACE", 0, 0, 0, -7)
+		
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		KNFS K 0 A_Giveinventory("UsedStamina", 5)
+		KNFS K 0 A_Giveinventory("SSGCHARGE", 2)
+		
+		SHTN A 0 A_Quake(4, 4, 0, 400, "")	
+		SSGB Z 1 
+		SSG8 A 1 
+		TNT1 A 15 
+		TNT1 AAA 1 a_setroll(rolL-7)
+		TNT1 A 0 a_setroll(0)
+		Goto FinishExecution+8
+	
+	HOMERUNCamera:
+		TNT1 AAAA 1 A_SetROLL(ROLL+1)
+		TNT1 AAAAA 1 A_SetROLL(ROLL-1)
+		TNT1 AAAAAAAAAAAAAAA 1 A_SetANGLE(ANGLE+2)
+		TNT1 A 7
+		// START SWING 
+		TNT1 AAAAAAAAAAAA 1 A_SetANGLE(ANGLE-33)
+		TNT1 A 2
+		TNT1 AAA 1 A_SetANGLE(ANGLE-10)
+		TNT1 A 15
+		TNT1 AAA 1 A_SetANGLE(ANGLE+10)
+		STOP
+	
+	Execution2:
+		 TNT1 A 0 a_overlay(3,"ssgexecutioncamera")
+		TNT1 A 2 A_SetPitch(0)
+		TNT1 A 0 A_startSound("AXESW1", 17,0,0.6)
+		SSGB ABCDEFGHIJKLM 1 A_Stop
+		SSGB NOP 1 A_Stop
+		
+		AXEG A 0 A_PlaySound("SSGMACE2", 1)
+		SSGB PONMLKJIH 1 A_Stop
+		TNT1 A 5 A_Stop
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 2)
+		KNFS K 0 A_Giveinventory("UsedStamina", 5)
+		KNFS K 0 A_Giveinventory("SSGCHARGE", 2)
+	
+		SSGB QR 1 A_Stop		
+		SSGB S 1 A_SetPitch(70)
+		SHTN A 0 A_Quake(4, 20, 0, 400, "")
+		KNFR A 0 A_startsound("SSGBONK",13)
+		KNFR A 0 A_startsound("AXECLN",12,0,0.5)
+		TNT1 A 0 A_FireCustomMissile("ExecutionAttackKick", 0, 0, 0, -7)
+		TNT1 A 0 A_SpawnItemEx ("floorbonk",11,11,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		SSGB SSSSTU 1 A_Stop
+		TNT1 AAAAAA 1 A_Stop
+		TNT1 A 0 a_setroll(0)
+			
+		TNT1 A 0 A_ZoomFactor(1.0)
+		Goto FinishExecution
+	
+	ssgExecutionCamera:
+		TNT1 AAAAAAAAAAAAAAAAAA 1 A_SetPitch(PITCH-3)
+		TNT1 A 5
+		TNT1 AAAAAAAAA 1 A_SetPitch(PITCH+20)
+		STOP
+		
+	KITREPAIR:
+		TNT1 A 0 A_print("This weird weapon looks almost alive, \n and you have no idea how  you could manually repair it.")
+		goto Ready3
+	}
+}
+
+//////////////////
+/////////////////
+
+ACTOR SSGSLASH : axeattack
+{
+	DamageType "Cut"
+    Damage (random(60,60))
+	speed 53
+	decal "Horizontalcut"
+States
+{
+	XDeath:
+			AXEG A 0
+			AXEG A 0 A_startSound("SSGCUT1", 60, CHANF_OVERLAP)
+			PUFF A 0 A_PlaySound("player/cyborg/fist", 3)
+			TNT1 A 0 A_giveToTarget("SSGcharge", 1)
+			AXEG A 0 A_TakeFromTarget ("SSGDurability", 2)												 
+			AXEG A 0 A_SpawnItemEx ("PLOFT2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+			AXEG A 0 A_JumpIfInTargetInventory("powerstrength2", 1, "Berserk")
+			TNT1 A 10
+			Stop
+	
+	DEATH:
+	Crash:
+			AXEG A 0 A_startSound("SSGCUT2", 60, CHANF_OVERLAP)
+			TNT1 A 0 A_giveToTarget("AxeHit", 1)
+			AXEG A 0 A_TakeFromTarget ("SSGDurability", 1)	
+			AXEG A 0 A_SpawnItemEx ("PLOFT2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+			AXEG A 0 A_JumpIfInTargetInventory("powerstrength2", 1, "Berserk")
+			TNT1 A 10
+			Stop	
+}}
+
+ACTOR SSGMACE : SSGSLASH
+{
+	DamageType "KICK"
+    Damage (random(70,80))
+	decal "bonkdecal"
+	DEATHSOUND "SSGBONK"
+		ProjectileKickBack 40
+	+FORCEPAIN
+	States
+	{
+	XDeath:
+	AXEG A 0 A_startSound("SSGBONK", 60, CHANF_OVERLAP)
+	TNT1 A 0 A_SpawnItemEx ("floorbonk",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	goto Super::XDeath+3
+	
+	DEATH:
+	Crash:
+	AXEG A 0 A_startSound("SSGBONK", 60, CHANF_OVERLAP)
+	TNT1 A 0 A_SpawnItemEx ("floorbonk",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	goto Super::Crash+2
+	}
+}
+
+ACTOR SSGMACEBERSERK : SSGMACE
+{
+	DamageType "Extremepunches"
+    Damage (random(100,120))
+	decal "bonkdecal"
+	DEATHSOUND "SSGBONK"
+	ProjectileKickBack 80
+	+FORCEPAIN
+}
+
+ACTOR SSGMACECHARGED : SSGSLASH
+{
+	DamageType "Extremepunches"
+    Damage (random(150,150))
+	ProjectileKickBack 80
+	+FORCEPAIN
+	decal "bonkdecal"
+	States
+{
+	Melee:
+	XDeath:
+			AXEG A 0
+			TNT1 A 0 A_giveToTarget("SSGcharge", 2)
+			AXEG A 0 A_startSound("SSGBONK", 60, CHANF_OVERLAP)
+			AXEG A 0 A_TakeFromTarget ("SSGDurability", 4)												 
+			AXEG A 0 A_SpawnItemEx ("PLOFT2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+			AXEG A 0 A_JumpIfInTargetInventory("powerstrength2", 1, "Berserk")
+			TNT1 A 0 A_SpawnItemEx ("floorbonk",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			TNT1 A 10
+			Stop
+			
+	DEATH:
+	Crash:
+	AXEG A 0 A_startSound("SSGBONK", 60, CHANF_OVERLAP)
+	TNT1 A 0 A_SpawnItemEx ("floorbonk",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	goto Super::Crash+2
+}}
+
+Actor SSGSLASHScan: AxeAttack
+{
+Radius 12
+speed 53
+Height 2
+Damagetype "Cut"
+decal "none"
+Damage (random(1, 1))
+States
+{
+	Death:
+				AXEG A 0
+				AXEG A 0
+				TNT1 AB 0 bright
+				AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+				AXEG A 0 A_CheckFloor("SpawnFloor")
+				AXEG A 0 A_SpawnItem ("Sparks", 0)
+				AXEG A 0 A_startSound("ssgcut2", 60, CHANF_OVERLAP)
+				AXEG A 0 A_TakeFromTarget ("SSGDurability", 3)												  
+				AXEG A 0 A_ALertMonsters(400)		
+				TNT1 AAAAAAAAAAAAAAAA 0 A_CustomMissile ("SparkX", 2, 0, random (0, 360), 2, random (30, 170))
+				Stop
+				
+	XDeath:
+	Melee:
+	Crash:
+			AXEG A 0
+			PUFF A 0 A_PlaySound("player/cyborg/fist", 3)
+			AXEG A 0 A_startSound("SSGCUT1", 60, CHANF_OVERLAP)
+			AXEG A 0 A_TakeFromTarget ("SSGDurability", 2)												 
+			AXEG A 0 A_SpawnItemEx ("PLOFT2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+			TNT1 A 10
+			Stop
+    }
+}
+
+Actor LIFESTEALScan: AxeAttack
+{
+Radius 12
+Height 2
+Damagetype "ACID"
+decal "smallburn"
+Damage (random(35, 35))
+States
+{
+Spawn:
+		AXEG A 0 
+		TNT1 A 1 BRIGHT A_GIVETOTARGET("SSGLIFESTEALDURATION",1)
+		AXEG A 0 Radius_Quake (1, 6, 0, 5, 0)
+		Stop
+		
+	Death:
+				AXEG A 0
+				AXEG A 0 A_GIVETOTARGET("SSGLIFESTEALDURATION",1)
+				TNT1 AB 0 bright
+				AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+				AXEG A 0 A_CheckFloor("SpawnFloor")
+				AXEG A 0 A_SpawnItem ("sparks", 0)
+				TNT1 AAAAAAAAAAAAAAAA 0 A_CustomMissile ("SparkX", 2, 0, random (0, 360), 2, random (30, 170))
+				AXEG A 0 A_JumpIfInTargetInventory("powerstrength2", 1, "Berserk")
+				Stop
+				
+	XDeath:
+	Melee:
+	Crash:
+			AXEG A 0
+			AXEG A 0 A_GIVETOTARGET("SSGLIFESTEALDURATION",1)
+			AXEG A 0 A_GIVETOTARGET("HEALTHPLUS2",1)
+			AXEG A 0 A_TakeFromTarget ("SSGDurability", 3)		
+			AXEG A 0 A_SpawnItem ("redsmokkspawner", 0)
+			AXEG A 0 A_SpawnItemEx ("PLOFT2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			AXEG A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+			TNT1 A 10
+			Stop
+    }
+}
+
+ACTOR SSGLIFESTEALDURATION : Inventory { Inventory.MaxAmount 50 }
+
+ACTOR SSGMELEE : Inventory { Inventory.MaxAmount 1 }
+ACTOR SSGischarged : Inventory { Inventory.MaxAmount 1 }
+ACTOR SSGsacrifice : Inventory { Inventory.MaxAmount 60 }
+
+ACTOR SSGCHARGE : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 10
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 10
+}
+
+

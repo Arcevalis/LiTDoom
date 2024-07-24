@@ -27,7 +27,7 @@ if (magazineammo == 1)
 {HudMessage(s:"A \cvsingle round\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
-if (magazineammo > 1 && magazineammo < 3)
+else if (magazineammo > 1 && magazineammo < 3)
 {HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
@@ -124,7 +124,7 @@ if (magazineammo == 1)
 {HudMessage(s:"A \cvsingle round\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
-if (magazineammo > 1 && magazineammo < 8)
+else if (magazineammo > 1 && magazineammo < 8)
 {HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
@@ -168,7 +168,7 @@ if (magazineammo == 1)
 {HudMessage(s:"A \cvsingle shell\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
-if (magazineammo == 2 )
+else if (magazineammo == 2 )
 {HudMessage(s:"The tube feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
@@ -225,7 +225,7 @@ if (magazineammo == 1)
 {HudMessage(s:"A \cvsingle shell\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
-if (magazineammo > 1 && magazineammo < 4)
+else if (magazineammo > 1 && magazineammo < 4)
 {HudMessage(s:"The drum feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
@@ -297,7 +297,7 @@ if (magazineammo == 1 )
 {HudMessage(s:"A \cvsingle round\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
-if (magazineammo > 1 && magazineammo < 8)
+else if (magazineammo > 1 && magazineammo < 8)
 {HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
@@ -340,7 +340,7 @@ if (magazineammo == 1 )
 {HudMessage(s:"A \cvsingle round\c- is chambered" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 
-if (magazineammo > 1 && magazineammo < 5)
+else if (magazineammo > 1 && magazineammo < 5)
 {HudMessage(s:"The magazine feels \cvalmost empty" ; HUDMSG_plain,8888, CR_DARKGREY, -50.1,160.1,1.0);
 terminate;}
 

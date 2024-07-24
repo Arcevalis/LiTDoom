@@ -1,0 +1,79 @@
+ACTOR Infrared2 : Inventory replaces NIghtvision 30040
+{
+  Game Doom
+  SpawnID 138
++canpass
+   +CANNOTPUSH
+  +INVENTORY.HUBPOWER
+  +INVENTORY.INVBAR
+  scale 0.6
+  Inventory.Icon "INFRI0"
+  Inventory.MaxAmount 1
+  Inventory.PickUpSound "GOGGLES"
+  Inventory.PickupMessage "$GOTGOGGLES"
+   tag"Night Visor"
+  States
+  {
+  	Spawn:
+		INFR A 1
+	Stay:
+		INFR AAAA 1 bright a_jumpifinventory("removeingredient",1,"Disappear")
+		INFU AAAAAAAA 1 a_jumpifinventory("removeingredient",1,"Disappear")
+		LOOP
+		
+	Disappear:
+		TNT1 A 0
+		stop
+
+  }
+}
+
+ACTOR InfraredUsed : CUSTOMInventory
+{
++INVENTORY.INVBAR
++THRUACTORS
++UNDROPPABLE
+scale 0.6
+INVENTORY.ICON "INFRU0"
+INVENTORY.MAXAMOUNT 1
+Inventory.InterHubAmount 0
+STATES
+	{
+		SPAWN:
+		INFU A 10
+		INFU A 1 a_spawnitem("infrareddepleted",0,0)
+		STOP
+		DROP:
+		STOP
+		
+		Use:
+		TNT1 A 0 A_jumpifinventory("batterypickup",2,"recharge")
+		TNT1 A 0 A_print("You need at least 2 batteries to recharge it",3)
+		TNT1 A 0 A_giveinventory("infraredused", 1)
+		fail
+		
+		Recharge:
+		TNT1 A 0 A_playsound("PLSDRAW")
+		TNT1 A 0 ACS_NamedExecute("GoogleRecharge",0)
+		TNT1 A 0 A_takeinventory("infraredused", 1)
+		TNT1 A 0 A_takeinventory("batterypickup", 2)
+		TNT1 A 0 A_jumpifinventory("infrared2",1,2)
+		TNT1 A 0 A_giveinventory("infrared2", 1)
+		Stop
+		TNT1 A 0 A_spawnitemex("infrared2",0,0,0,0,1,5)
+		Stop
+	}
+}
+
+ACTOR Infrareddepleted
+{
+scale 0.6
++THRUACTORS
+States
+{
+SPAWN:
+INFU A -1
+stop
+}}
+
+ACTOR PowerLightAmp2 : PowerLightAmp { Powerup.Duration -130 }

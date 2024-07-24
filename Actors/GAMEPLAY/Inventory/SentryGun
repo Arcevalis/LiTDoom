@@ -1,0 +1,541 @@
+ACTOR SentryAmmo : Inventory { Inventory.MaxAmount 50 }
+ACTOR turretstable : Inventory { Inventory.MaxAmount 1 }
+
+Actor SentryGun : Switchabledecoration 30046
+{
+  obituary "%o was ventilated by an auto-sentry."
+  health 300
+  radius 20
+  height 56
+  mass 100000
+  speed 0
+  scale 0.55
+  	DamageFactor "Stealth", 0.0 DamageFactor "Use", 0.0 DamageFactor "HEADKICK", 0.0
+  DamageFactor "Blood", 0.0 DamageFactor "BlueBlood", 0.0 DamageFactor "GreenBlood", 0.0
+  DamageFactor "BlueBloodSplasher", 0.0
+  DamageFactor "BlueSuperBloodSplasher", 0.0
+  DamageFactor "bloodsplasher", 0.0    DamageFactor "tinybloodsplasher", 0.0    DamageFactor "superbloodsplasher", 0.0    DamageFactor "smallbloodsplasher", 0.0
+  DamageFactor "Fatality", 5.0
+  DamageFactor "Shrapnel", 0.4
+  DamageFactor "Disarm", 0.1
+  painchance "disarm", 256
+  MaxTargetRange 2048
+  MONSTER
+  +FLOORCLIP
+  +FRIENDLY
+  +NOBLOOD
+  +USESPECIAL
+  Activation THINGSPEC_Switch
+  +SHOOTABLE
+  +QUICKTORETALIATE
+  +MISSILEMORE
+  +MISSILEEVENMORE
+  +LOOKALLAROUND
+  +NEVERRESPAWN
+  +STANDSTILL
+  states
+  {
+  Spawn:
+    TNT1 A 0 A_GiveInventory("TargetIsAMarine", 1)
+	
+   DEPLOY:
+   TNT1 A 0 Thing_ChangeTID(0,666)
+   HOLO A 0 A_RadiusGive("RandomAggro",300,RGF_MONSTERS )
+   TNT1 A 0 A_PlaySound ("Claymore/Place")
+   SENB A 35
+   TNT1 A 0 A_playsound("RBUILD")
+   TNT1 A 0 A_GiveInventory("SentryAmmo", 50)
+   TNT1 A 0 A_GiveInventory("TURRETSTABLE", 1)
+   SENB BCDEFGHIJKLMN 2
+   STUR A 30
+   TNT1 A 0 A_STARTsound("AISTABLE",50,0,1.5, ATTN_IDLE)
+	
+	STAY:
+	TNT1 A 0 A_removelight(4)
+    STUR AAAAAAAAAAAAAAAA 1 A_Look
+    TNT1 A 0 A_SetAngle(angle + 45)
+    STUR A 0 A_PlaySound ("Sentry/Active")
+    STUR AAAAAAAAAAAAAAAA 1 A_Look
+    TNT1 A 0 A_SetAngle(angle - 45)
+    STUR AAAAAAAAAAAAAAAA 1 A_Look
+    TNT1 A 0 A_SetAngle(angle - 45)
+    STUR A 0 A_PlaySound ("Sentry/Active")
+    STUR AAAAAAAAAAAAAAAA 1 A_Look
+	TNT1 A 0 A_SetAngle(angle + 45)
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 givebody(1,200)
+	HOLO A 0 A_RadiusGive("RandomAggro",300,RGF_MONSTERS )
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,4)
+	EXPL AA 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0 A_JUMPIFINVENTORY("turretstable",1,"Malfunction")
+	TNT1 A 0 A_Jumpifinventory("sentryammo",1,1)
+	goto Reloading
+	TNT1 A 0
+    goto stay
+	
+  ForgetTarget:
+    TNT1 A 0 A_ClearTarget
+	TNT1 A 0 A_PLAYsound("AISCAN",2)
+	goto Stay
+	
+  See:
+  TNT1 A 0 A_removelight(4)
+    STUR AAAAAAAAAAAAAAAAAAA 1 A_Chase
+    STUR A 0 A_PlaySound ("Sentry/Active")
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 givebody(1,200)
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,4)
+	EXPL AA 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0 A_JUMPIFINVENTORY("turretstable",1,"Malfunction")
+	TNT1 A 0 A_Jump(40,"forgettarget")
+    loop
+	
+	Malfunction:
+	TNT1 A 0 A_STARTsound("STEAM",51)
+	STUR AAAAAAAAAAAAAAAAAAA 1 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0 A_STARTsound("AIMALFUN",50)
+	TNT1 A 0 A_TAKEINVENTORY("TURRETSTABLE",1)
+	GOTO STAY
+	
+	
+  iNACTIVE:
+  Active:
+  TNT1 A 0 A_removelight(4)
+	TNT1 A 0 A_JumpifHealthlower(100,"Damaged")
+	TNT1 A 0 A_playsound("RDISM")
+	SENB NMLKJIHGFEDCBAAA 2
+    TNT1 A 0 A_NoBlocking
+    TNT1 A 0 A_ChangeFLag ("SHOOTABLE", 0)
+    TNT1 A 0 A_ChangeFLag ("SOLID", 0)
+    TNT1 A 0 A_SpawnItemEx ("SentryBoxInventory",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+    TNT1 A 0
+    Stop
+	
+Damaged:
+	STUR A 1 
+	TNT1 A 0 A_STARTsound("AIMALFUN",50)
+	STUR A 1 a_printBOLD("\cJThe turret's autorepair and reassembling module is damaged. Repair it first!",5)
+	GOTO see
+	
+  Missile:
+	TNT1 A 0 Thing_ChangeTID(0,666)
+    STUR A 0 A_PlaySound ("CHAINSTA", 2)
+    STUR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_FaceTarget
+  MissileContinue:
+    TNT1 A 0 A_JumpIfInTargetInventory("TargetIsAMarine", 1, "ForgetTarget")
+
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 givebody(1,200)
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,2)
+	EXPL A 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0
+	
+	STUR A 2 A_FaceTarget
+	TNT1 A 0 A_jumpifinventory("sentryturretammo",1,1, AAPTR_PLAYER1)
+	goto Noammo
+	TNT1 A 0 A_AttachLightdef(4,"SMALLREDTORCH") 
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR B 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+	TNT1 A 0 A_AlertMonsters(500, AMF_TARGETEMITTER)
+	HOLO A 0 A_RadiusGive("RandomAggro",1112,RGF_MONSTERS  | RGF_NOSIGHT)
+	 TNT1 A 0 ACS_namedexecute("turretammotaker",0)
+
+    STUR A 2 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR C 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+	TNT1 A 0 A_TAKEInventory("SentryAmmo", 1)
+	TNT1 A 0 ACS_namedexecute("turretammotaker",0)
+	
+
+    STUR A 2 A_FaceTarget
+	TNT1 A 0 A_jumpifinventory("sentryturretammo",1,1, AAPTR_PLAYER1)
+	goto Noammo
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR B 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+	TNT1 A 0 A_TAKEInventory("SentryAmmo", 1)
+	TNT1 A 0 ACS_namedexecute("turretammotaker",0)
+
+    STUR A 2 A_FaceTarget
+	TNT1 A 0 A_jumpifinventory("sentryturretammo",1,1, AAPTR_PLAYER1)
+	goto Noammo	
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR C 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+	TNT1 A 0 A_TAKEInventory("SentryAmmo", 1)
+	TNT1 A 0 ACS_namedexecute("turretammotaker",0)
+
+    STUR A 2 A_FaceTarget
+	TNT1 A 0 A_jumpifinventory("sentryturretammo",1,1, AAPTR_PLAYER1)
+	goto Noammo	
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR B 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+	TNT1 A 0 A_TAKEInventory("SentryAmmo", 1)
+	TNT1 A 0 ACS_namedexecute("turretammotaker",0)
+
+    STUR A 2 A_FaceTarget
+	TNT1 A 0 A_jumpifinventory("sentryturretammo",1,1, AAPTR_PLAYER1)
+	goto Noammo	
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR C 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+	TNT1 A 0 A_TAKEInventory("SentryAmmo", 1)
+	TNT1 A 0 ACS_namedexecute("turretammotaker",0)
+
+    STUR A 2 A_FaceTarget
+	TNT1 A 0 A_jumpifinventory("sentryturretammo",1,1, AAPTR_PLAYER1)
+	goto Noammo	
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR B 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+	TNT1 A 0 A_TAKEInventory("SentryAmmo", 1)
+	TNT1 A 0 ACS_namedexecute("turretammotaker",0)
+
+    STUR A 2 A_FaceTarget
+	TNT1 A 0 A_jumpifinventory("sentryturretammo",1,1, AAPTR_PLAYER1)
+	goto Noammo	
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR C 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+	TNT1 A 0 A_TAKEInventory("SentryAmmo", 1)
+	TNT1 A 0 ACS_namedexecute("turretammotaker",0)
+	
+	TNT1 A 0 A_AlertMonsters(500, AMF_TARGETEMITTER)
+	HOLO A 0 A_RadiusGive("RandomAggro",1112,RGF_MONSTERS  | RGF_NOSIGHT)
+	TNT1 A 0 A_removelight(4)
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,2)
+	EXPL A 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0
+	
+	TNT1 A 0 A_Jumpifinventory("sentryammo",1,1)
+	goto Reloading
+
+
+    STUR A 0 A_MonsterRefire(70, "See")
+    goto MissileContinue
+
+Reloading:
+	TNT1 A 0 A_removelight(4)
+	TNT1 A 0 A_STARTsound("RDISM",50)
+	SENB NMLKJIHGFED 2
+Reloading2:
+	SENB D 1 A_STARTsound("AIRELOAD",51)
+	SENB D 17 A_STARTsound("CHAINSTA",50)
+	SENB D 17 A_STARTsound("CHAINSTA",50)
+	SENB D 17 A_STARTsound("CHAINSTA",50)
+	SENB D 17 A_STARTsound("CHAINSTA",50)
+	TNT1 A 0 A_GiveInventory("SentryAmmo", 50)
+	TNT1 A 0 A_STARTsound("RBUILD",50)
+	SENB EFGHIJKLMN 2
+	GOTO STAY
+	
+	
+Noammo:
+	TNT1 A 0 
+	TNT1 A 0 A_removelight(4)
+	TNT1 A 0 A_STARTsound("RDISM",50)
+	SENB NMLKJIHGFED 2
+	SENB D 1 A_STARTsound("AINOAMMO",51)
+	SENB D 60 
+	SENB D 60 
+	SENB D 60 
+	SENB D 60 
+	TNT1 A 0 A_jumpifinventory("sentryturretammo",1,"Reloading2", AAPTR_PLAYER1)
+	TNT1 A 0 A_STARTsound("RBUILD",50)
+	SENB EFGHIJKLMN 2
+	GOTO STAY
+	
+  Death:
+  TNT1 A 0 A_removelight(4)
+    SENB O 2 A_PlaySoundEx ("Sentry/Death", "SoundSlot5")
+    TNT1 A 0 A_NoBlocking
+    TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+    STUR C 0 A_PlaySoundEx ("weapons/rocklx", "SoundSlot6")EXPL A 0 Radius_Quake (3, 8, 0, 15, 0)//(intensity, duration, damrad, tremrad, tid)
+		TNT1 A 0 A_CustomMissile("ExplosionSplashSpawner")
+        TNT1 A 0 A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("UnderwaterExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+        TNT1 A 0 A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+        TNT1 AAA 0 A_CustomMissile ("BDExplosionparticles", 0, 0, random (0, 360), 2, random (40, 90))
+		TNT1 AA 0 A_CustomMissile ("BDExplosionparticles2", 0, 0, random (0, 360), 2, random (40, 90))
+		TNT1 AA 0 A_CustomMissile ("BDExplosionparticles3", 10, 0, random (0, 360), 2, random (40, 90))
+		TNT1 AAA 0 A_CustomMissile ("MediumExplosionFlames", 0, 0, random (0, 360), 2, random (0, 360))
+        EXPL A 0 A_CustomMissile ("BigNeoSmoke", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_SpawnItemEx ("RocketExplosion",0,0,13,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		SENB PQ 2
+		TNT1 A 0 A_SpawnItemEx ("LiquidExplosionEffectSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)																																																			//
+		TNT1 A 0 A_PlaySound("FAREXPL", 3)
+    TNT1 A 0 A_spawnitem("SentryRip")
+    STOP
+	
+	Pain.disarm:
+	TNT1 A 0 A_JumpifHealthlower(200,2)
+	STUR A 1
+	goto Refund
+	STUR A 5 givebody(250)
+	TNT1 A 0 A_GIVEINVENTORY("TURRETSTABLE",1)
+	goto forgettarget
+	
+	Refund:
+		STUR AAAA 1 A_printBOLD("\cjThe turret is already in perfect conditions")
+		TNT1 A 0 A_radiusgive("scrapmetal",150, RGF_PLAYERS, 1)
+		TNT1 A 0 A_radiusgive("survivalkituses",150, RGF_PLAYERS, 1)
+	goto forgettarget
+  }
+}
+
+actor SentryRip
+{
+ health 100
+  radius 20
+  height 30
+  scale 0.55
+  DamageFactor "Use", 0.0 DamageFactor "HEADKICK", 0.0
+  DamageFactor "Disarm", 1000.1
+  painchance "disarm", 256
+  +DONTTHRUST
+  +FLOORCLIP
+  +NOBLOOD
+  +SHOOTABLE
+  +STANDSTILL
+  states
+  {
+  Spawn:
+     SENB RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR 8 A_CustomMissile ("PlasmaSmoke", 24, 0, random (0, 180), 2, random (0, 180))
+    SENB R 200
+	SENB R -1
+    STOP
+	
+	pain.disarm:
+	Death.Disarm:
+	TNT1 A 0 A_spawnitem("metalspawner")
+	Death:
+	TNT1 A 0 A_playsound("METALPK")
+	TNT1 A 0 A_spawnitem("scrapmetal")
+	stop
+	}}
+	
+
+
+
+ACTOR EnemySentry : Sentrygun 30047
+{
+DamageFactor "Disarm", 500.0
+scale 0.55
+Health 300
+  radius 20
+-FRIENDLY
+obituary "%o was honeycombed by a bugged auto-sentry."
+  states
+  {
+  Spawn:
+    TNT1 A 0 A_GiveInventory("TargetIsAMarine", 1)
+    STUR AAAAAAAAAAAAAAAA 1 A_Look
+    TNT1 A 0 A_SetAngle(angle + 45)
+    STUR A 0 A_PlaySound ("Sentry/Active")
+    STUR AAAAAAAAAA 1 A_Look
+    TNT1 A 0 A_SetAngle(angle - 45)
+    STUR AAAAAAAAAA 1 A_Look
+    TNT1 A 0 A_SetAngle(angle - 45)
+    STUR A 0 A_PlaySound ("Sentry/Active")
+    STUR AAAAAAAAAA 1 A_Look
+	TNT1 A 0 A_SetAngle(angle + 45)
+	
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,2)
+	EXPL A 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0	
+    loop
+	
+  ForgetTarget:
+    TNT1 A 0 A_ClearTarget
+  See:
+    STUR AAAAAAAAAAAAAAAAAAA 1 A_Chase
+    STUR A 0 A_PlaySound ("Sentry/Active")
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,2)
+	EXPL A 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0
+    loop
+  Active:
+    STUR A 1
+  Missile:
+    STUR A 0 A_PlaySound ("CHAINSTA", 2)
+    STUR AAAAAAAAAAAAAAAAAAAAAAAAA 1 A_FaceTarget
+	 STUR A 0 A_PlaySound ("CHAINSTA", 2)
+    STUR AAAAAAAAAAAAAAAAAAAAAAAAA 1 A_FaceTarget
+	 STUR A 0 A_PlaySound ("CHAINSTA", 2)
+    STUR AAAAAAAAAAAAAAAAAAAAAAAAA 1 A_FaceTarget
+  MissileContinue:
+    TNT1 A 0 A_JumpIfInTargetInventory("TargetIsAMarine", 1, "ForgetTarget")
+
+	TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,2)
+	EXPL A 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0
+    STUR A 5 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR B 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+
+    STUR A 5 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR C 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+
+    STUR A 2 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR B 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+
+    STUR A 25 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR C 2 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+
+TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,2)
+	EXPL A 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0
+
+    STUR A 5 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR B 5 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+
+    STUR A 5 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR C 5 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+
+    STUR A 2 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR B 5 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+
+    STUR A 30 A_FaceTarget
+    TNT1 AA 0 A_CustomMissile("HeavyMachinegunFlash",40, 10)
+    TNT1 A 0 A_PlaySound("TANKMG", 1)
+    STUR C 5 bright A_CustomMissile("HeavyMachinegunProjectileEnemy",40, 10)
+
+TNT1 A 0 A_JumpifHealthlower(100,2)
+	TNT1 A 0 A_Jump(256,2)
+	EXPL A 0 A_CustomMissile ("Neosmoke2", 45, 0, random (0, 360), 2, random (290, 360))
+	TNT1 A 0
+
+    STUR A 0 A_JUMP(80, "FORGETTARGET")
+    goto MissileContinue
+	
+	Pain.disarm:
+    Death.Disarm:
+	STUR A 1 A_PlaySoundEx ("Sentry/Death", "SoundSlot5")
+    SENB NMLKJIHGFEDCBAAA 2
+    TNT1 A 0 A_NoBlocking
+    TNT1 A 0 A_ChangeFLag ("SHOOTABLE", 0)
+    TNT1 A 0 A_ChangeFLag ("SOLID", 0)
+    TNT1 A 0 A_SpawnItemEx ("SentryBoxRandomAmmo",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	Stop
+  }
+}
+
+
+ACTOR SentryBoxInventory : CustomInventory 30048
+{
+scale 0.55
+  -COUNTITEM
+  +INVENTORY.INVBAR
+  +CANNOTPUSH
+  +canpass
+  +vulnerable
+  +SHOOTABLE
+  +NOBLOOD
+  HEALTH 500
+  painchance "disarm", 256
+  DAMAGEFACTOR "DISARM", 1000.0
+  Inventory.InterHubAmount 1
+  Inventory.MaxAmount 1
+  Inventory.Icon "SENBZ0"
+  Inventory.PickupMessage "$GOTSENTRY"
+  Inventory.PickupSOUND "TURRETPK"
+   tag"Portable Sentry Turret"
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	SENB A 1 a_jumpifinventory("removeingredient",1,"Disappear")
+    loop
+
+Death:	
+	TNT1 A 0 A_Spawnitemex("scrapmetal",0,10, 15,0,1,3,random(1,5))
+	stop
+	
+ Disappear:
+	TNT1 A 0
+	stop
+	
+ Pain.Disarm:
+  Death.Disarm:
+	TNT1 A 0
+	TNT1 A 0 A_Spawnitemex("scrapmetal",0,10, 15,0,1,3,random(1,5))
+	TNT1 A 0 A_Spawnitemex("scrapmetal",0,-10, 15,0,-1,3,random(1,5))
+	TNT1 A 0 A_SpawnitEM("ELECTRONICPARTS")
+    stop
+	
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("SentryGun", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+
+ACTOR SentryBox : SENTRYBOXinventory
+{
+  +COUNTITEM
+  +canpass
+-INVENTORY.INVBAR
++ALWAYSPICKUP
+States
+	{
+Spawn:
+	TNT1 A 0
+Stay:
+    SENB A -1
+    Stop
+	
+PICKUP:
+	CBPK A 0 a_giveinventory("sentryturretammo", 250)
+	CBPK A 0 A_JUMPIFINVENTORY("SENTRYBOXINVENTORY",1,2)
+	CBPK A 0 a_giveinventory("sentryBOXinventory", 1)
+	stop
+	CBPK A 0 a_print("You can only carry one sentry turret, so you settled for just taking the ammunitions in this one with you.")
+	CBPK A 0 a_spawnitem("sentryboxinventory", 0,0)
+	TNT1 A 1 
+	stop
+	}
+}
+
+ACTOR SentryBoxRandomAmmo : SENTRYBOXinventory
+{
+-COUNTITEM
+-INVENTORY.INVBAR
++ALWAYSPICKUP
+States
+	{
+	 PICKUP:
+	CBPK A 0 a_giveinventory("sentryturretammo", RANDOM(50,250))
+	CBPK A 0 A_JUMPIFINVENTORY("SENTRYBOXINVENTORY",1,2)
+	CBPK A 0 a_giveinventory("sentryBOXinventory", 1)
+	stop
+	CBPK A 0 a_print("You can only carry one sentry turret, so you settled for just taking the ammunitions in this one with you.")
+	CBPK A 0 a_spawnitem("sentryboxinventory", 0,0)
+	TNT1 A 1 
+	stop
+	}
+}

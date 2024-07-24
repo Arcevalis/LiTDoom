@@ -1,0 +1,602 @@
+ACTOR MiniGun : BrutalWeapon
+{
+	Game Doom
+	SpawnID 28
+	Weapon.SelectionOrder 700
+	Weapon.BobSpeed 2.1
+	Weapon.AmmoType1 "MinigunAmmo"
+	Weapon.AmmoGive 0
+	Weapon.AmmoUse1 1
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+FORCEXYBILLBOARD
+	Inventory.PickupSound "CBOXPKUP"
+	Inventory.PickupMessage "$GOTMINIGUN"
+	Obituary "%o was mowed down by %k's Minigun."
+	AttackSound "none"
+	 tag "XM-214"
+	Scale 0.8
+	States
+	{
+	Spawn:
+		MGUN A 1
+		MGUN A -1
+		Stop
+		
+		INSPECT:
+		TNT1 A 0 SetPlayerProperty(0,1,4)
+		CHAG A 0 A_Takeinventory("neverfoundminigun",1)
+		CHAG A 0 a_setpitch(0)
+		TNT1 AAAAAAAAA 1 {a_setpitch(pitch+4); A_InspectReady;}
+		TNT1 A 0 A_InspectReady
+		TNT1 A 0 ACS_NAMEDEXECUTE("MINIGUNCROUCH",0)
+		//crouch
+		CHAI ABCDEF 1 {a_setpitch(pitch+3); A_InspectReady;}
+		CHAI GHI 1 A_InspectReady
+		TNT1 A 0 a_overlay(2,"BELTCAMERA")
+		CHAI JKL 1 A_InspectReady
+		// belt load
+		CHAG A 0 A_PlaySound("BELT1", 5)
+		CHAI MMMMMMMMMM 1 A_InspectReady
+		CHAI NOPQRSTUUVVWW 1 A_InspectReady
+		CHAG A 0 A_PlaySound("BELT2", 5)
+		CHAI XXYYZZ 1 A_InspectReady
+		//beep 1
+		CH41 A 2
+		CHAG A 0 A_PlaySound("BLEEP1", 1)
+		CH4I ABCDEF 2 A_InspectReady
+		//beep2
+		CHAG A 0 A_PlaySound("BLEEP2", 5)
+		CH4I GHI 2 A_InspectReady
+		//steam
+		CHAG A 0 A_PlaySound("STEAM", 2)
+		CH4I JKLMNOPQRSTUVWXY 1 A_InspectReady
+		//get up
+		CH4I Z 1 {a_setpitch(pitch-5); A_InspectReady;}
+		CH5I ABCD 1 {a_setpitch(pitch-5); A_InspectReady;}
+		CHAG A 0 A_PlaySound("CHGNPKUP",7)
+		//select
+		TNT1 A 0 a_giveinventory("minigunammo",20)
+		CHGS ABCDEFGH 1 {a_setpitch(pitch-3); A_InspectReady;}
+		
+		TNT1 A 0 A_JumpIfInventory("choosingreward", 1, 2)
+		TNT1 A 0 SetPlayerProperty(0,0,4)
+		TNT1 A 0
+		goto ready3
+		
+		BeltCamera:
+		TNT1 A 1 A_setAngle(angle-0.5)
+		TNT1 AA 1 a_setpitch(pitch+0.5)
+		TNT1 AAA 1 A_setAngle(angle+0.5)
+		//belt load
+		TNT1 AAAAAAAAAA 1
+		TNT1 AA 1 A_setAngle(angle+0.5)
+		TNT1 AA 1 a_setpitch(pitch+0.5)
+		TNT1 AA 1 A_setAngle(angle+0.5)
+		TNT1 AAA 1 a_setpitch(pitch-0.5)
+		TNT1 AA 1
+		TNT1 AA 1 a_setpitch(pitch-0.5)
+		TNT1 AA 1 A_setAngle(angle-0.5)
+		TNT1 AA 1 a_setpitch(pitch-0.5)
+		TNT1 AA 1 A_setAngle(angle-0.5)
+		//beep 1
+		TNT1 AA 2 A_setAngle(angle-0.5)
+		TNT1 A 2
+		TNT1 AAAA 2 a_setpitch(pitch-0.5)
+		//beep 2
+		TNT1 AAA 2 A_setAngle(angle-0.5)
+		TNT1 AA 2 a_setpitch(pitch+1)
+		STOP
+		
+		 Ready: 
+		 SelectAnimation:
+			CHAG A 0
+			TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+				//Inspect check
+				TNT1 A 0 a_jumpif(GetCVAR("weaponinspect") == 1,2)
+				TNT1 A 0 A_JumpIfInventory("neverfoundMINIGUN",1,"Inspect")
+				//
+			CHAG A 0 
+			CHGS ABCDEFGH 1 A_JumpIfInventory("GoFatality", 1, "Steady")
+			CHAG A 1 
+		 Ready3:
+		  CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		  CHAG A 1 A_WeaponReadyLit
+			
+		  CHAG A 0 A_JumpIfInventory("Spin",1,"Ready2")
+		  CHAG A 0 A_JumpIfInventory("MinigunAmmo",1,"Ready3")
+		  Goto IdleNoAmmo
+		  
+		  IdleNoAmmo:
+		  CHAG A 1 A_WeaponReadyLit
+		  CHAG A 0 A_TakeInventory ("Spin",1)
+		  CHAG A 0 A_JumpIfInventory("MinigunAmmo",1,"Ready3")
+		  CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		  Loop
+
+		Ready2:	
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 3)
+		PIST F 0 A_JumpIfInventory("minigunDurability",180, 2)
+		CHAG A 0 A_TakeInventory ("Spin",1)
+		goto Ready3
+		///
+		  CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		  CHAG ABCD 1 A_WeaponReadyLit
+		  CHAG A 0 A_AlertMonsters
+		  CHAG A 0 A_PlaySound("CHAINSPI", 6, 0.8, 256)
+		  Loop
+		  
+	CheckSprint:
+		//CHAG A 1 A_WeaponReady(WRF_NOFIRE)
+		CHAG A 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		CHAG A 0 A_JumpIfInventory("IsTacticalClass", 1, "StartSprint")
+		Goto Ready3
+		
+	StartSprint:
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD, 1)
+		GOTO READY3
+		CHGS GFED 1 A_WeaponReady(WRF_NOFIRE)
+		CHAG A 0 A_Takeinventory("Zoomed",1)
+		CHAG A 0 A_Takeinventory("ADSmode",1)
+		CHAG A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")
+		
+	Sprinting:	
+		CHSP A 0 offset(-9,32) 
+		CHAG A 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD, 1)
+		GOTO StopSprint
+		PLAY A 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		CHAG A 0 offset(-9,32) A_JumpIfInventory("Powerstrength2", 1, 2)
+		CHAG A 0 offset(-9,32) A_GiveInventory("usedstamina", 10)
+		CHAG A 0 offset(-9,32)
+		CHSP A 1 offset(-9,34) A_SetPitch(pitch -0.5)
+		CHSP A 1 offset(-6,36) A_SetPitch(pitch -0.5)
+		CHSP A 1 offset(-3,38) A_SetPitch(pitch -0.5)
+		CHSP A 1 offset(0,38) A_SetPitch(pitch -0.5)
+		CHSP A 1 offset(3,36) A_SetPitch(pitch -0.5)
+		CHSP A 1 offset(6,34) A_SetPitch(pitch -0.5)
+		CHSP A 1 offset(9,32) A_SetPitch(pitch -0.5)
+		CHAG A 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+        CHAG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		CHAG A 0 offset(-9,32) A_GiveInventory("UsedStamina", 9)
+		CHAG A 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		CHSP A 1 offset(9,34) A_SetPitch(pitch +0.5)
+		CHSP A 1 offset(6,36) A_SetPitch(pitch +0.5)
+		CHSP A 1 offset(3,38) A_SetPitch(pitch +0.5)
+		CHSP A 1 offset(0,38) A_SetPitch(pitch +0.5)
+		CHSP A 1 offset(-3,36) A_SetPitch(pitch +0.5)
+		CHSP A 1 offset(-6,34) A_SetPitch(pitch +0.5)
+		CHSP A 1 offset(-9,32) A_SetPitch(pitch +0.5)
+		CHAG A 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		CHAG A 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		Goto StopSprint
+		
+	StopSprintTired:
+		CHGS DEFG 1
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		CHAG A 0 A_PlaySound("Tired", 2)
+		TNT1 A 0 A_Jumpifhealthlower(25,"rupturesprint")													   
+		CHAG A 25 A_WeaponReady
+		Goto Ready3
+	StopSprint:
+		CHGS DEFG 1
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		Goto Ready3 
+
+		Deselect:
+			CHAG A 0 A_StopSound(1)
+			CHAG A 0 A_StopSound(6)
+			MGN1 A 0 A_TakeInventory ("MINIGUNSELECTED",1)
+			CHAG A 0 A_TakeInventory ("Spin",1)
+			TNT1 A 0 A_TakeInventory("throwtoken", 1)
+			TNT1 A 0 A_TakeInventory("slashtoken", 1)
+			CHAG A 0 A_TakeInventory("Flaretoken", 1)			
+			CHAG A 0 A_TakeInventory("TossGrenade", 1)
+			CHAG A 0 A_Takeinventory("HeavyAutomaticWeapon",1)
+			CHAG A 0 A_TakeInventory("RandomHeadExploder", 1)
+			CHAG A 0 SetPlayerProperty(0,0,0)
+			TNT1 A 0 A_JumpIfInventory("weaponbroke", 1, "Deselectcontinue")
+			CHGS DCBA 1 
+		DESELECTCONTINUE:
+			TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+			TNT1 A 1 A_Lower 
+			Wait
+			
+			goingtoaction:
+			CHAG A 0 A_StopSound(1)
+			CHAG A 0 A_StopSound(6)
+			MGN1 A 0 A_TakeInventory ("MINIGUNSELECTED",1)
+			CHAG A 0 A_TakeInventory ("Spin",1)
+			TNT1 A 0 A_TakeInventory("throwtoken", 1)
+			TNT1 A 0 A_TakeInventory("slashtoken", 1)
+			CHAG A 0 A_TakeInventory("Flaretoken", 1)			
+			CHAG A 0 A_TakeInventory("TossGrenade", 1)
+			CHAG A 0 A_Takeinventory("HeavyAutomaticWeapon",1)
+			CHAG A 0 A_TakeInventory("RandomHeadExploder", 1)
+			CHAG A 0 SetPlayerProperty(0,0,0)
+			CHGS DCBA 1
+			TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+			TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+			TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+			TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+			goto repair
+
+		Select: 
+		TNT1 A 0  A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)		
+			CHAG A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("MinigunCrosshair"));}else{A_SetCrosshair(0);}}
+			TNT1 A 0 A_SetRoll(0)
+			TNT1 A 0 SetPlayerProperty(0,0,2)
+			TNT1 A 0 ACS_NAMEDEXECUTE("WEAPONSELECT",0)
+			CHAG A 0 A_Giveinventory("GoSpecial",1)
+			CHAG A 0 A_Giveinventory("HeavyAutomaticWeapon",1)
+			TNT1 A 0 A_TakeInventory("throwtoken", 1)
+			TNT1 A 0 A_TakeInventory("slashtoken", 1)
+			CHAG A 0 A_TakeInventory("Flaretoken", 1)		
+			CHAG A 0 A_TakeInventory("TossGrenade", 1)
+			CHAG A 0 A_GiveInventory("RandomHeadExploder", 1)
+			CHAG A 0 A_JumpIfInventory("IsPlayingAsPurist", 1, "PuristGun")
+			CHAG A 0 A_PlaySound("CHAINPK")
+			CHGS AAA 0 A_Raise
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
+			goto ready
+
+
+	WeaponCheckOverlay:
+		TNT1 A 5
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		Stop
+	WeaponCheck2:
+		TNT1 A 1
+		PISA D 0 ACS_NamedExecutealways("minigundurabilitycheck", 0)
+		PISA D 0 ACS_NamedExecutealways("minigunmagcheck", 0)
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
+		stop	
+	NoAmmoUnload:
+	    PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		goto Noammo
+		TNT1 A 0 A_Overlay(98,"WeaponCheckOverlay",false)
+	NoAmmo:
+		CHAG A 0 A_PlaySound("dryfire")
+	Noammo2:
+		CHAG A 20 
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammo2")
+		Goto IdleNoAmmo
+			
+			
+		Fire:
+			CHAG A 0
+			CHAG A 0 A_JumpIfInventory("Spin",1,"Hold")
+			CHAG A 0 A_PlaySound("CHAINSTA", 1)
+			CHAG A 0 BRIGHT A_FireCustomMissile("Alerter", 0, 0, 0, 0)
+			CHAG BC 6
+			CHAG D 4
+			CHAG AB 4
+			CHAG A 0 A_StopSound(6)
+			CHAG A 0
+			
+		Hold:	
+		//DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
+		PIST F 0 A_Takeinventory("minigunDurability",1)
+		PIST F 0 A_JumpIfInventory("minigunDurability",180, 2)
+		PIST F 0 A_Jump(20, "Misfire")
+		///
+		RIFG A 0 A_JumpIfInventory("minigunammo", 1, 1)
+		goto stopspinning
+			CHAG A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+			CHAG A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+			
+			CHAG A 0 A_StartSound("MINGLOOP",6, CHANF_LOOPING)
+			CHAG A 0 A_ZoomFactor(0.90)
+			
+			CHAF A 1 A_Fireprojectile("minigunTracer", frandom(-1.3,1.3), 1,0,0,0, 0)
+			"####" "#" 0 A_WeaponOffset(random(-2,2),32+random(-2,2))
+			"####" "#" 0 A_SetAngle(angle+random(-1,1))
+			CHAG A 0 A_Quake(1, 3, 0, 400, "")
+			CHAG A 0 A_Firecustommissile("50CaseSpawn",0,0,-12,-18)
+			CHAG A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+			CHAG A 0 A_ZoomFactor(1.0)
+			CHAG A 0 A_JumpIfInventory("IsTacticalClass", 1, 2)//Tactical mode skips a frame, fires faster
+			CHAF B 1 A_WeaponOffset(0,32)
+			CHAG A 0
+			
+			RIFG A 0 A_JumpIfInventory("norecoil", 1, 3)
+			RIFG A 0 A_JumpIfInventory("IsNOTTacticalClass", 1, 2)//tactical mode has muzzle climb
+			RIFG A 0 A_SetPitch(pitch-1.7)
+			RIFG A 0
+			
+
+			CHAG A 0 A_ZoomFactor(0.88)
+			//TNT1 AA 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+			//RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -5, 0, 0)
+			CHAF C 1 A_Fireprojectile("minigunTracer", frandom(-1.3,1.3), 1,0,0,0, 0)
+			"####" "#" 0 A_WeaponOffset(random(-2,2),32+random(-2,2))
+			"####" "#" 0 A_SetAngle(angle+random(-1,1))
+			CHAG A 0 A_Quake(1, 3, 0, 400, "")
+			CHAG A 0 A_Firecustommissile("50CaseSpawn",0,0,-12,-18)
+			CHAG A 0 A_SpawnItemEx("PlayerMuzzle3",30,5,27)
+			CHAG A 0 A_ZoomFactor(1.0)
+			CHAG A 0 A_JumpIfInventory("IsTacticalClass", 1, 2)//Tactical mode skips a frame, fires faster
+			CHAF D 1 A_WeaponOffset(0,32)
+			CHAG A 0
+			
+			RIFG A 0 A_JumpIfInventory("norecoil", 1, 3)
+			RIFG A 0 A_JumpIfInventory("IsNOTTacticalClass", 1, 2)//tactical mode has muzzle climb
+			RIFG A 0 A_SetPitch(pitch-1.7)
+			RIFG A 0
+			
+			/// DURABILITY CHECK 2
+			PIST F 0 A_JumpIfInventory("FIREARMSdurabilityOFF", 1, 2)
+			PIST F 0 A_JumpIfInventory("MINIGUNdurability", 1, 1)
+			goto weaponbreak
+			RIFG A 0 A_JumpIfInventory("minigunammo", 1, 1)
+			goto stopspinning
+			///
+			
+			MNGG B 0 A_ReFire
+			
+		StopSpinning:
+			CHAG A 0 A_StopSound(6)
+			CHAG A 0 A_PlaySound("MINIGEN", 1)
+			CHAG A 0 A_JumpIfInventory("Spin",1,"Ready2")
+			
+		 CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		 CHAG A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		 CHAG A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		 CHAG A 1 A_WeaponReady
+		
+		 CHAG B 1 A_WeaponReady
+		 CHAG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		 CHAG A 0 A_Refire
+		
+		 CHAG C 1 A_WeaponReady
+		 CHAG A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+		 CHAG D 1 A_WeaponReady
+				
+
+		 CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		 
+		 CHAG A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		 CHAG A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		 CHAG A 1 A_WeaponReady
+		 TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		 TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		 TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		 CHAG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		 CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		 CHAG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		
+		 CHAG B 1 A_WeaponReady
+		 CHAG A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+		 CHAG C 2 A_WeaponReady
+		
+		 CHAG D 2 A_WeaponReady
+		 CHAG A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+		 CHAG A 0 A_JumpIfInventory("Spin",1,"Ready2") 
+		 CHAG A 0 A_TakeInventory("Spin", 1)
+		 CHAG A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		 CHAG A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		 TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		 TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		 TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		 CHAG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		 CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		 CHAG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		 
+		 CHAG A 2 A_WeaponReady
+		
+		 CHAG B 2 A_WeaponReady
+		 CHAG A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+		 CHAG C 2 A_WeaponReady
+		
+		 CHAG D 2 A_WeaponReady
+		 CHAG A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+		 TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		 TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		 TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		 CHAG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		 CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		 CHAG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		 CHAG ABCD 2 A_WeaponReady
+		 TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		 TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		 TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		 CHAG A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		 CHAG A 0 A_JumpIfInventory("Kicking",1,"DOKICKMINIGUN")
+		 CHAG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		 CHAG ABCD 3 A_WeaponReady		 
+		 goto Ready3
+
+
+
+	  AltFire:
+		 CHAG A 0 A_JumpIfInventory("Spin",1,"StopAlt")
+		 
+		 //DURABILITY CHECK
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
+		PIST F 0 A_JumpIfInventory("minigunDurability",180, 3)
+		CHAG A 0 A_TakeInventory ("Spin",1)
+		PIST F 0 A_print("that function is not working properly at the moment!")
+		goto Ready3
+		///
+		 
+		 CHAG A 0 A_GiveInventory ("Spin",1)
+		 //CHAG A 0 SetPlayerProperty(0,1,0)
+		  CHAG A 0 A_PlaySound("CHAINSTA", 1)
+		  CHAG A 0 A_JumpIfInventory("MinigunAmmo",1,1)
+		  Goto IdleNoAmmo
+		  
+		 CHAG BC 6 A_WeaponReady(WRF_NOFIRE)
+		 CHAG D 4	A_WeaponReady(WRF_NOFIRE)	 
+		 CHAG AB 3 A_WeaponReady(WRF_NOFIRE)
+		 CHAG CDABCDABCD 3 A_WeaponReady(WRF_NOFIRE)
+		 CHAG A 0
+		 Goto Ready2
+
+	  StopAlt:
+		CHAG A 0
+		 CHAG A 0 A_TakeInventory ("Spin",1)
+		 CHAG A 0 A_PlaySound("CHAINSTO", 1)
+		 CHAG A 0 A_StopSound(6)
+		 //CHAG A 0 SetPlayerProperty(0,0,0)
+		 CHAG ABCD 1 A_WeaponReady(WRF_NOFIRE)
+		 CHAG ABCDABCD 2 A_WeaponReady(WRF_NOFIRE)
+		 CHAG ABCD 3 A_WeaponReady(WRF_NOFIRE)
+		 CHAG A 0
+		 Goto Ready3
+
+
+		Misfire:
+		CHAG A 0 A_PlaySound("CHAINSTO", 1)
+		TNT1 A 0 A_stopsound(6)
+		TNT1 A 0 A_playsound("DRYFIRE",1)
+		CHAG A 20
+		TNT1 A 0 A_playsound("DRYFIRE",1)
+		goto Ready3
+
+		Weaponbreak:
+		CHAG A 0 A_PlaySound("CHAINSTO", 1)
+		CHAG A 0 A_StopSound(6)
+		TNT1 A 0 a_print("your Minigun has broken!")
+		CHGS DCBA 1 
+		TNT1 A 1
+		TNT1 A 0 a_SPAWNITEM("brokenMINIGUN",0,0)
+		 TNT1 A 0 a_RADIUSGIVE("hasbeendropped",90, RGF_OBJECTS | RGF_NOSIGHT, 1, "brokenMINIGUN")
+		TNT1 A 0 ACS_namedexecute("BROKENDISARM",0)
+		TNT1 AAA 1 a_weaponready
+		Wait
+		
+	RELOAD:
+	PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
+	goto Ready3
+	
+User4:
+	PIST F 0 A_JumpIfInventory("minigunammo",1,1)
+	goto noammounload
+	CHAG A 5
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CheckAmmo2")
+	goto Ready3
+CheckAmmo2:
+	TNT1 A 0 SetPlayerProperty(0,1,4)
+	CHAG A 0 A_PlaySound("CHGNPKUP",7)
+	CHGS GFEDCBA 1 
+	TNT1 A 0 a_setpitch(0)
+	TNT1 A 0 ACS_NamedExecute("CROUCH",0)
+	TNT1 AAAAA 1 a_setpitch(pitch+8)
+	CH5I DCBA 1
+	CH4I ZYXWVUTS 1
+	CHAG A 0 A_PlaySound("BLEEP2", 5)
+	CH4I HGF 1
+	CH4I E 1 Offset(0,38)
+	CH4I E 1 Offset(0,35)
+	CH4I E 1 Offset(0,33)
+CheckAmmoHold:
+	CH4I E 1 Offset(0,32)
+	TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+	TNT1 A 0 ACS_NAMEDEXECUTEalways("minigunDURABILITYCHECK",0)
+	TNT1 A 0 ACS_NamedExecutealways("MinigunMAGCHECK",0)
+	TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CheckAmmoHold")
+	CH4I E 1 Offset(0,33)
+	CH4I E 1 Offset(0,35)
+	CH4I E 1 Offset(0,38)
+	CH4I FGH 1
+	CHAG A 0 A_PlaySound("BLEEP1", 5)
+	CH4I STUVWXYZ 1
+	CH5I ABCD 1
+	TNT1 A 0 ACS_NamedExecute("GETUP",0)
+	TNT1 AAAAA 1 a_setpitch(pitch-8)
+	TNT1 A 0 a_setpitch(0)
+	CHAG A 0 A_PlaySound("CHGNPKUP",7)
+	CHGS ABCDEFG 1
+	TNT1 A 0 SetPlayerProperty(0,0,4)
+	goto Ready3
+	
+	
+	KITREPAIR:
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		CHAG A 5
+		
+		TNT1 A 0 A_JumpIFInventory("minigunDurability",600, "NoNeedRepair")
+		PIST F 0 A_JumpIfInventory("scrapmetal",1, 2)
+		PIST F 0 A_Jump(256,"outofmetal")
+		
+	KITREPAIR2:
+		PIST F 0 A_GIVEinventory("minigunDurability",80)
+		BADF A 0 A_Takeinventory("survivalkituses",1)
+		BADF A 0 A_Takeinventory("scrapmetal",1)
+		TNT1 A 0 A_playsound("WIRECUT",1)
+		CHGS HGFEDCBA 1
+		TNT1 A 35
+		CHGS ABCDEFGH 1
+		
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		CHAG A 2
+		goto Ready3	
+		
+	DoKICKMINIGUN:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,4)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,3)
+		TNT1 A 0 A_overlay(3,"KICKMINIGUN")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3
+		TNT1 A 0 A_overlay(3,"KICKMINIGUNtired")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3	
+	KICKMINIGUN:
+		CHGS GFE 1
+		CHSP A 12 
+		CHGS EFG 1 
+		TNT1 A 0 A_JumpIfInventory("Airkicking", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("isSliding", 1, 2)
+		stop
+		CHGS G 10
+		STOP
+		CHGS DCBA 1 
+		TNT1 A 6
+		STOP
+	KICKMINIGUNtired:
+		CHGS GFE 2 
+		CHSP A 37 
+		CHGS EFG 2 
+		STOP	
+		
+		}
+}
+

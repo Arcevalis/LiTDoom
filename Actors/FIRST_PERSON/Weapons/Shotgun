@@ -1,0 +1,1456 @@
+ACTOR Shot_Gun : BrutalWeapon
+{
+	Game Doom
+	SpawnID 27
+	Weapon.SelectionOrder 1300
+	Weapon.SlotPriority 1					  
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive1 0
+	Weapon.AmmoGive2 0
+	Inventory.PickupMessage "$GOTSHOTGUN"
+    Inventory.PickupSound "weapons/sgpump"
+	Obituary "$OB_MPSHOTGUN"
+    AttackSound "None"
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+FORCEXYBILLBOARD
+	yScale 0.51
+	xscale 0.49
+	Tag "Kampfmann M650"
+	States
+	{
+		
+    Spawn:
+		SGNW B -1
+		Stop
+    	
+	INSPECTLOAD:
+		SHTN A 0 A_takeinventory("NEVERFOUNDSHOTGUN",1)
+		SHNI ABCDEFGHHHHHIJKL 1 A_InspectReady
+		TNT1 A 0 A_startsound("CLIPICK",40)
+		SHNI MNOOOPQRSTUVWXYZ 1 A_InspectReady
+		SHN1 ABCDE 1 A_InspectReady
+		TNT1 A 0 A_startsound("SGSEL",41,0,0.5)
+		SHN1 FGHIJKLLLLLLLL 1 A_InspectReady
+		SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+		SHN1 MN 1 A_InspectReady
+		TNT1 A 0 A_Overlay(3,"InspectHand",true)
+		SHN1 OPQRSTUVWXYZ 1 A_InspectReady
+		5HNI ABCDEFGHIJKLMNOPQRSTUVWWWXYZ 1 A_InspectReady
+		SLCH A 0 A_STARTsound("SHELPLOP", 31)
+		5HN1 ABCDDDDDDDEFGHIJKLMNOPQRSTTTTTTT 1
+		SHTN A 0 A_STARTSound("weapons/sgpump2", 30)
+		5HN1 UVWXYZ 1 A_InspectReady
+		TNT1 A 0 A_startsound("MAGBAG3",40,0,0.5)
+		SGNI ABCDEFGHIJKLM 1 A_InspectReady
+		SHSS ED 1
+		GOTO Ready3
+	
+	InspectHand:
+		SHTN A 0 A_STARTSound("KNIFESL1", 33,0,0.4)
+		SGNH ABCD 1 
+		//SHTN A 0 A_startsound("Weapons/Revolver/Click1",45,0,1.0)
+		SGNH EFGHI 1	
+		//SHTN A 0 A_startsound("SHELGRAB",45,0,1.0) //MOVED TO THE MAIN STATE TO NOT PLAY THE SOUND WHEN RELOADING
+		SGNH JKLMNOPQRSTUVWXYZ 1 
+		5GNH ABCDEFGHIJKKKLMNOPQRRRRRRRSTUV 1 
+		SHTN A 0 A_Giveinventory("shotgunammo",1)
+		stop
+		
+	Select: 
+		TNT1 A 0 A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)	
+		TNT1 A 0 A_SetRoll(0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
+		TNT1 A 0 SetPlayerProperty(0,0,2)													  											  
+		SHTN A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 ACS_NAMEDEXECUTE("WEAPONSELECT",0)
+		SHTN A 0 A_TakeInventory("Flaretoken", 1)
+		SHTN A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
+		TNT1 AAAA 0 A_Raise
+
+	
+	Ready:	
+	SelectAnimation:
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SHTN A 0 A_PlaySound("weapons/shotgun/select")
+		//Inspect check
+		TNT1 A 0 a_jumpif(GetCVAR("weaponinspect") == 1,2)
+		TNT1 A 0 A_JumpIfInventory("neverfoundshotgun",1,"Inspectload")
+		//
+        TNT1 AAAA 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		SHTN A 0 A_JumpIfInventory("IsPlayingAsPurist", 1, "PuristGun")
+        SHSS A 1 A_JumpIfInventory("GoFatality", 1, "Steady")
+		SHSS B 1 offset(1,40) 
+		SHSS B 1 offset(5,32) 
+		SHSS C 1 offset(1,40) 
+		SHSS C 1 offset(5,32) 
+		SHTN A 1 offset(-20,40)
+		SHTN A 1 offset(-10,35)
+		SHTN A 1 offset(-5,32)
+		SHTN A 0 A_Takeinventory("StartDualWield",1)											  
+		SHTN A 0 
+	Ready3:	
+		SHTN A 0 a_clearoverlays(17,17)
+        SHTN A 0 A_JumpIfInventory("Kicking",1,"DOKICKSHOTGUN")
+		SHTN A 0 A_JumpIfInventory("Zoomed",1,"REady2")
+		SHTN A 1 A_WeaponReadyLit
+		SHTN A 0 A_JumpIfInventory("startdualwield",1,"AmmoSwitch")										
+        Goto Ready3
+	
+	AltFire:
+        SHTN A 0
+		BADF A 0 a_startsound("ADSin",250)
+		SHTN A 0 A_Giveinventory("GoSpecial",1)
+		SHTN A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
+		SHTN A 0 A_Giveinventory("Zoomed",1)
+		TNT1 A 0 A_SetCrosshair(41)							 
+        SHTN A 0 A_ZoomFactor(1.2)
+		SHTN A 0 A_Giveinventory("ADSmode",1)
+		SHT8 ABCDEFG 1
+		SHT8 H 1 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "FIRE")
+		
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, "Ready2")  ///////ADS MODE CHECK
+		
+	   HoldAim:	
+		BADF A 0 A_GiveInventory("ZoomHold",1)
+		SHT8 H 1 a_weaponready(WRF_ALLOWRELOAD | WRF_NOSECONDARY)//A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "FIRE")
+		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		
+	NoAim:	
+        TNT1 AAAAAA 0
+		BADF A 0 a_startsound("ADSin",250)
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+        SHTN A 0 A_ZoomFactor(1.0)
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
+		SHT8 H 1
+		BADF A 0 A_takeInventory("ZoomHold",1)
+		SHT8 GFEDCBA 1
+        Goto Ready3
+		
+	Ready2:
+		SHT8 H 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+        SHT8 H 0 A_JumpIfInventory("Kicking",1,"DOKICKSHOTGUN")
+        SHT8 H 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        SHT8 H 0 
+		SHT8 H 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		SHT8 H 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		SHT8 H 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		SHT8 H 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		SHT8 H 0 A_JumpIfInventory("repairtoken",1,"goingtoaction")
+		SHT8 H 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		SHT8 H 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		SHT8 H 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		SHT8 H 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		SHT8 H 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		SHT8 H 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		SHT8 H 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "User4")
+		SHT8 H 0 A_JumpIf(CountInv("IsTacticalClass") == 1 && GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD && GetPlayerInput(INPUT_BUTTONS) & BT_SPEED, "StartSprint")
+		SHT8 H 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		
+		SHT8 H 0 A_JumpIf(Getcvar("ADSMode") == 0, 2)  ///////ADS MODE CHECK
+		SHT8 H 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		goto noaim
+		SHT8 H 0
+		Loop		
+		
+	
+	Deselect:
+		SHTN A 0
+		TNT1 A 0 A_TAKEINVENTORY("SHOTGUNSELECTED",1)
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		SHTN A 0 A_TakeInventory("Flaretoken", 1)
+		SHTN A 0 A_TakeInventory("TossGrenade", 1)
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_Takeinventory("UseShotgunStrap",1)
+        SHTN A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
+		TNT1 A 0 A_JumpIfInventory("weaponbroke", 1, "Deselectcontinue")
+		SHSS CBA 1
+	DESELECTCONTINUE:
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 0 A_Lower
+		Wait
+
+    goingtoaction:
+        SHTN A 0
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		SHTN A 0 A_TakeInventory("Flaretoken", 1)
+		SHTN A 0 A_TakeInventory("TossGrenade", 1)
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_Takeinventory("UseShotgunStrap",1)
+        SHTN A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
+		SHSS CBA 1
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair
+	
+	MuzzleSmoke:
+		TNT1 A 2
+		SMOC ABC 3
+		stop
+		
+    Fire:
+		"####" "#" 0 
+		{
+		A_Takeinventory("Reloading",1);
+		if (CountInv("ShotgunAmmo") == 0) { return state("NoAmmo"); }
+		if (CountInv("Zoomed") == 1) { return state("Fire2"); }
+		if (GetCVAR("realreload") == 1) 
+			{
+			If(countInv("needspumping") == 1) { return state("NoAmmo"); }
+			}
+		return state("");
+		}
+		//DURABILITY CHECK
+		"####" "#" 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedshotgun",1, "Unstuck")
+		"####" "#" 0 A_Takeinventory("ShotgunDurability",1)
+		"####" "#" 0 A_JumpIfInventory("ShotgunDurability",30, 2)
+		"####" "#" 0 A_Jump(80,"jammedLIGHT")
+		///	
+		"####" "#" 0 
+		{
+		A_ZoomFactor(0.96);
+        A_AlertMonsters;
+		A_FireCustomMissile("DistantFireSoundShotgun", random(-1,1), 0, 0, -12, 0, random(-1,1));
+		A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		A_Takeinventory("ShotgunAmmo",1); 
+		A_Quake(2, 10, 0, 400, "")	;
+		A_overlay(-2,"muzzlesmoke");
+		}
+		TNT1 AAAAAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9))
+		TNT1 AAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9))
+		SHTN A 0 A_JumpIfInventory("slugselected",1,"Fireslug")	
+		//slugs or buckshots
+	  Firebuckshot:
+		SHTN A 0 A_PlaySound("weapons/sg", 1)
+		SHTN AAAA 0 A_Fireprojectile("BuckshotTracer", frandom(-1.7,1.7), 0,0,0,0, frandom(-1.9,1.9))
+		SHTN AAAA 0 A_Fireprojectile("BuckshotTracer", frandom(-1.8,1.8), 0,0,0,0, frandom(-0.9,0.9))
+		SHTN A 0 A_Fireprojectile("BuckshotTracer", frandom(-0.2,0.2), 0,0,0,0, 0)
+		"####" "#" 0 { if(CountInv("norecoil") == 0) { A_overlay(2,"recoil"); } }
+		SHTN A 0 A_Jump(128, "Firevariant2")
+		goto FireVariant1	
+	  FireSlug:
+		SHTN A 0 A_PlaySound("SGFIRE2", 1)
+		SHTN A 0 A_Fireprojectile("SLUGTracer",0, 0,0,0,0)
+		"####" "#" 0 { if(CountInv("norecoil") == 0) { A_overlay(2,"recoil"); } }
+		SHTN A 0 A_Jump(128, "Firevariant2")
+		goto FireVariant1	
+		//
+	  Firevariant1:
+		SHTA AB 1 BRIGHT
+		SHTN A 0 A_Jump(256,3)
+	  Firevariant2:
+		SHTA HI 1 BRIGHT
+		SHTN A 0 
+		SHTN A 0 A_ZoomFactor(1.00)
+		SHTA CCDDDEEFG 1
+		SHSS ED 1	
+		SHTN A 1
+
+	PumpAction:
+		SHTN A 0 
+		{ 
+		If(GetCVAR("realreload") == 1) { A_giveinventory("needspumping",1);  return state("Ready3"); }
+		return state("");
+		}
+	PumpCheck:
+		TNT1 A 0 A_JumpIFInventory("adsmode", 1, "Pump2Check")
+		//DURABILITY CHECK 2
+		TNT1 A 0 A_JumpIF(GetCVAR("firearmsdurability") == 1, 4)
+		"####" "#" 0
+		{
+		If(CountInv("ShotgunDurability") == 0) { return state("weaponbreak"); }
+		return state("");
+		}
+		PIST F 0 A_JumpIfInventory("ShotgunDurability",30, 2)
+		PIST F 0 A_Jump(60,"PUMPJAMMED")
+		goto pumpslow
+		///
+		SHTN A 0
+		Goto Pump1
+		
+	Recoil:
+	TNT1 A 1 A_SetPitch(pitch-2)
+	TNT1 A 1 A_SetPitch(pitch-8) 
+	SHTN A 0 A_SetPitch(-6.0 + pitch)
+	TNT1 AAA 1 A_SetPitch(+1.0 + pitch)
+	TNT1 A 2 
+	TNT1 A 1 A_SetPitch(+3.0 + pitch)
+	TNT1 AAAA 1 A_SetPitch(pitch+0.6)
+	Stop
+		
+   Pump1:	
+	   SHTN A 0
+	   SHTN A 0 A_GiveInventory ("Pumping", 1)
+	   SHTN A 0 A_GiveInventory ("GoSpecial", 1)
+	   SHTN A 0 A_OVERLAY(2,"PUMPCAMERA")
+	   SHNP ABCDE 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   SHNP FGH 1
+	   SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+	   goto PumpFail 
+	   SHTN A 0 A_Takeinventory("needspumping",1)
+	   SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+	   SHNP IJK 1 
+	   // slugs or buckshots
+	   "####" "#" 0
+		{ 
+		If(CountInv("slugselected") == 1) { A_FireCustomMissile("SLUGCaseSpawn",-10,0,10,-10); }
+		else { A_FireCustomMissile("ShotCaseSpawn",-10,0,10,-10); }
+		}
+	   //   
+	 Pump1Hold:
+	   SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,7)
+	   SHNP L 1 a_giveinventory("pumpreflex",1)
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Pump1Hold")
+	   SHTN A 0 A_Jump(256,2)
+	   
+	   SHNP L 5
+	   SHTN A 0 A_JumpIfInventory("pumpreflex",5,2)
+	   SHTN A 0 A_Jump(256,6)
+	   SHNP LMNOPQ 1 a_takeinventory("pumpreflex",10)
+	   SHTN A 0 A_STARTSound("weapons/sgPump2", 31)
+	   SHNP RSTUV 1
+	   TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Fire")
+	   Goto Ready3
+	  
+	PUMPCAMERA:
+	  TNT1 AAAAAA 1 A_SETPITCH(PITCH-0.5)
+	  TNT1 A 1
+	  TNT1 AAAAAAAA 1 A_SETPITCH(PITCH+1.2)
+	  TNT1 AAAAAAAA 1 A_SETPITCH(PITCH-0.8)
+	  STOP
+	  
+   Pumpslow:	
+	   SHTN A 0
+	   SHTN A 0 A_GiveInventory ("Pumping", 1)
+	   SHTN A 0 A_GiveInventory ("GoSpecial", 1)
+	   SHTN A 0 A_OVERLAY(2,"PUMPCAMERA")
+	   SHNP ABCDE 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   SHNP FGHII 1
+	   
+	   SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+	   goto PumpFail
+	   SHTN A 0 A_Takeinventory("needspumping",1)
+	   SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+	   SHNP IJK 2 
+	   	// slugs or buckshots
+	   "####" "#" 0
+		{ 
+		If(CountInv("slugselected") == 1) { A_FireCustomMissile("SLUGCaseSpawn",-10,0,10,-10); }
+		else { A_FireCustomMissile("ShotCaseSpawn",-10,0,10,-10); }
+		}
+	   //
+	   PumpSlowHold:
+	   SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,4)
+	   SHNP L 1 a_giveinventory("pumpreflex",1)
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "PumpslowHold")
+	   
+	   SHTN A 0 A_JumpIfInventory("pumpreflex",5,2)
+	   SHTN A 0 A_Jump(256,3)
+	   SHNP LMNOPPQQ 1 a_takeinventory("pumpreflex",10)
+	   SHTN A 0 A_STARTSound("weapons/sgPump2", 31)
+	   SHNP RRSSTUV 1
+	   SHTN A 0 A_JumpIf(CountInv("IsTacticalClass") == 1 && GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD && GetPlayerInput(INPUT_BUTTONS) & BT_SPEED, "StartSprint")
+	   Goto Ready3
+	      
+    Pumpjammed:	
+	   SHTN A 0
+	   SHTN A 0 A_GiveInventory ("Pumping", 1)
+	   SHTN A 0 A_GiveInventory ("GoSpecial", 1)
+	   SHTN A 0 A_OVERLAY(2,"PUMPCAMERA")
+	   SHNP ABCDEFGHIIII 1
+	   SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+	   SHNP JJJJJ 1
+		TNT1 A 0 A_STOPSOUND(30)
+		SHTN A 0 A_PlaySound("PISSLIDE")
+		SHNP JJJJJJ 1
+		SHTN A 0 A_PlaySound("PISSLIDE")
+		SHNP IIIIIHGFEDCBA 1  
+	   Goto JAMMED
+   
+	PumpFail:	
+		SHTN A 0 A_STARTSound("PISSLIDE",32)
+		SHNP IHGFEDCBA 1
+		Goto Ready3
+		
+	Fire2:
+		"####" "#" 0 
+		{
+		A_Takeinventory("Reloading",1);
+		if (CountInv("ShotgunAmmo") == 0) { return state("NoAmmo"); }
+		if (GetCVAR("realreload") == 1) 
+			{
+			If(countInv("needspumping") == 1) { return state("NoAmmo"); }
+			}
+		return state("");
+		}
+		//DURABILITY CHECK
+		"####" "#" 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 5)
+		"####" "#" 0 A_JumpIfInventory("jammedshotgun",1, "Unstuckaim")
+		"####" "#" 0 A_Takeinventory("ShotgunDurability",1)
+		"####" "#" 0 A_JumpIfInventory("ShotgunDurability",30, 2)
+		"####" "#" 0 A_Jump(80,"jammedLIGHT")
+		///
+		SHTN A 0 A_SpawnItemEx("PlayerMuzzle1",30,0,45)
+		SHTN A 0 A_AlertMonsters
+		// slugs or buckshots
+		SHTN A 0 A_JumpIfInventory("slugselected",1,"Fire2slug")
+Fire2Buckshot:
+		SHTN A 0 A_PlaySound("weapons/sg", 1)
+		SHTN AAAA 0 A_Fireprojectile("BuckshotTracer", frandom(-1.6,1.6), 0,0,0,0, frandom(-1.4,1.4))
+		SHTN AAAA 0 A_Fireprojectile("BuckshotTracer", frandom(-1.4,1.4), 0,0,0,0, frandom(-0.9,0.9))
+		SHTN A 0 A_Fireprojectile("BuckshotTracer", 0, 0,0,0,0, 0)
+		goto Fire2Continue
+Fire2Slug:
+		SHTN A 0 A_PlaySound("SGFIRE2", 1)
+		SHTN A 0 A_Fireprojectile("SLUGTracer",0, 0,0,0,0)
+		goto Fire2Continue	
+		//
+Fire2Continue:	
+		SHTN A 0 
+		{ 
+		if(CountInv("norecoil") == 0) { A_overlay(2,"recoil2"); }
+		A_FireCustomMissile("DistantFireSoundShotgun", random(-1,1), 0, 0, -12, 0, random(-1,1));
+		A_Takeinventory("ShotgunAmmo",1);
+		A_overlay(-2,"muzzlesmoke");
+		}
+		SHTN A 0 A_jump(128, "Aimfirevariant2")	
+AimFireVariant1:
+        SHT8 IJ 1 BRIGHT 
+		SHT8 KLMNOPQR 1 
+		goto pump2action	
+AimFireVariant2:
+		SHT8 ST 1 BRIGHT
+		SHT8 UWXYZ 1
+		5H78 ABC 1
+		goto pump2action
+		
+	Pump2Action:
+		PIST F 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+		PIST F 0 A_giveinventory("needspumping",1)
+		goto Ready2
+	Pump2Check:
+		//DURABILITY CHECK 2
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 4)
+		PIST F 0 A_JumpIfInventory("ShotgunDurability",1, 1)
+		goto weaponbreak
+		PIST F 0 A_JumpIfInventory("ShotgunDurability",30, 2)
+		PIST F 0 A_Jump(75,"aimPUMPJAMMED")
+		goto pump2slow
+		///
+				
+   Pump2:
+		SHT8 H 1
+		5HT8 ABCD 1
+		
+		SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+	   goto Pump2Fail
+	   
+		SHTN A 0 A_Takeinventory("needspumping",1)
+		SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+		5HT8 EF 1
+		
+	   	// slugs or buckshots
+	   SHTN A 0 A_JumpIfInventory("slugselected",1,3)
+	   SHTN A 0 A_FireCustomMissile("ShotCaseSpawn",40,0,14,-10)
+	   SHTN A 0 A_Jump(256,2)
+	   SHTN A 0 A_FireCustomMissile("SLUGCaseSpawn",40,0,14,-10)
+	   //
+	   
+	   Pump2Hold:
+	   SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,6)
+	   5HT8 G 1 a_giveinventory("pumpreflex",1)
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Pump2Hold")
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, "Pump2Hold")
+		
+		SHTN A 0 A_JumpIfInventory("pumpreflex",5,2)
+	   SHTN A 0 A_Jump(256,"Slampump")
+		5HT8 GHIJKL 1 A_takeinventory("pumpreflex",10)
+		SHTN A 0 A_STARTSound("weapons/sgpump2", 31)
+		5HT8 MNOPQRST 1
+		SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+		 TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "Fire") // realistic reload allows for slamfire
+		SHT8 H 3
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
+		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		BADF A 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")		
+		TNT1 A 0
+		Goto Ready2
+	
+	SlamPump:
+		SHTN A 0 A_STARTSound("weapons/sgpump2", 31)
+		5HT8 KMNT 1 A_takeinventory("pumpreflex",10)
+		SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+		 SHTN A 0 A_JumpIfInventory("FiredPrimary",1,"Fire") // realistic reload allows for slamfire
+		SHT8 H 3
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
+		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		BADF A 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")		
+		TNT1 A 0
+		Goto Ready2
+		
+	Pump2slow:
+		SHT8 H 1
+		5HT8 ABCD 1
+		SHTN A 0 A_Takeinventory("needspumping",1)
+		SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+		5HT8 EF 2
+	   	// slugs or buckshots
+	   SHTN A 0 A_JumpIfInventory("slugselected",1,3)
+	   SHTN A 0 A_FireCustomMissile("ShotCaseSpawn",40,0,14,-10)
+	   SHTN A 0 A_Jump(256,2)
+	   SHTN A 0 A_FireCustomMissile("SLUGCaseSpawn",40,0,14,-10)
+	   //	
+	   	Pump2SlowHold:
+	   SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,6)
+	   5HT8 G 1 a_giveinventory("pumpreflex",1)
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Pump2slowHold")
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD, "Pump2slowHold")
+	   
+	   	SHTN A 0 A_JumpIfInventory("pumpreflex",5,2)
+	   SHTN A 0 A_Jump(256,5)
+		5HT8 GHHIIJKL 1 A_takeinventory("pumpreflex",10)
+		SHTN A 0 A_STARTSound("weapons/sgpump2", 31)
+		5HT8 MNOPQRST 1
+		SHTN A 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+		 SHTN A 0 A_JumpIfInventory("FiredPrimary",1,"Fire") // realistic reload allows for slamfire
+		SHT8 H 3
+		
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
+		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		BADF A 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")	
+		TNT1 A 0
+		Goto Ready2
+		
+	Recoil2:
+		TNT1 A 1 A_SetPitch(pitch-17)
+		TNT1 AAAAA 1 A_SetPitch(pitch+2)
+		Stop
+		
+	aimPumpjammed:
+		5HT8 ABCD 1
+		SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+		5HT8 EFGHHIII 1
+		SHTN A 0 A_stopsound(30)
+		5HT8 IIIHHGFEDCBA 1
+		SHTN A 0 A_STARTSound("weapons/sgpump2", 31)
+		SHTN A 0 A_GiveInventory ("jammedshotgun", 1)
+
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 3)  ///////ADS MODE CHECK
+		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		BADF A 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")	
+		TNT1 A 0
+		Goto Ready2
+	
+	Pump2Fail:
+		SHTN A 0 A_STARTSound("PISSLIDE",32)
+		5HT8 DCBA 1
+		goto Ready3
+		
+		
+	CheckSprint:
+		//SHTN A 1 A_WeaponReady(WRF_NOFIRE)
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+        SHTN A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}							
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_Giveinventory("GoSpecial",1)
+		SHTN A 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		SHTN A 0 A_JumpIfInventory("IsTacticalClass", 1, "StartSprint")
+		Goto Ready3
+		
+	StartSprint:
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD, 1)
+		GOTO READY3
+		//SHTN A 1 A_WeaponReady(WRF_NOFIRE)
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}
+		SHTN A 1 offset(-5,32)
+		SHTN A 1 offset(-10,30)
+		SHTN A 1 offset(-20,40)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")
+		
+	Sprinting:	
+		STRN A 0 offset(-9,32) 
+		SHTN A 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD, 1)
+		GOTO StopSprint
+		PLAY A 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		SHTN A 0 offset(-9,32) A_JumpIfInventory("Powerstrength2", 1, 2)
+		SHTN A 0 offset(-9,32) A_GiveInventory("UsedStamina", 8)
+		SHTN A 0 offset(-9,32)
+		SHSS C 1 offset(-9,34) A_SetPitch(pitch -0.5)
+		SHSS C 1 offset(-6,36) A_SetPitch(pitch -0.5)
+		SHSS C 1 offset(-3,38) A_SetPitch(pitch -0.5)
+		SHSS C 1 offset(0,38) A_SetPitch(pitch -0.5)
+		SHSS C 1 offset(3,36) A_SetPitch(pitch -0.5)
+		SHSS C 1 offset(6,34) A_SetPitch(pitch -0.5)
+		SHSS C 1 offset(9,32) A_SetPitch(pitch -0.5)
+		SHTN A 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		SHTN A 0 A_JumpIfInventory("Kicking",1,"DOKICKSHOTGUN")
+        SHTN A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        SHTN A 0 
+		SHTN A 0 offset(-9,32) A_GiveInventory("UsedStamina", 5)
+		SHTN A 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		SHSS C 1 offset(9,34) A_SetPitch(pitch +0.5)
+		SHSS C 1 offset(6,36) A_SetPitch(pitch +0.5)
+		SHSS C 1 offset(3,38) A_SetPitch(pitch +0.5)
+		SHSS C 1 offset(0,38) A_SetPitch(pitch +0.5)
+		SHSS C 1 offset(-3,36) A_SetPitch(pitch +0.5)
+		SHSS C 1 offset(-6,34) A_SetPitch(pitch +0.5)
+		SHSS C 1 offset(-9,32) A_SetPitch(pitch +0.5)
+		SHTN A 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		SHTN A 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")	
+		Goto StopSprint
+		
+	StopSprintTired:	
+		SHTN A 1 offset(-20,40)
+		SHTN A 1 offset(-10,30)
+		SHTN A 1 offset(-5,32)
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		SHTN A 0 A_PlaySound("Tired", 2)
+		TNT1 A 0 A_Jumpifhealthlower(25,"rupturesprint")													   
+		SHTN A 25
+		Goto Ready3
+	StopSprint:
+		SHTN A 1 offset(-20,40)
+		SHTN A 1 offset(-10,30)
+		SHTN A 1 offset(-5,32)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		Goto Ready3
+	
+	RealReload:
+		SHTN A 0 A_JumpIfInventory("AmmoShell", 1, 2)
+		SHTN A 0 A_Jump(256,2)
+		SHTN A 0 A_JumpIfInventory("ShotgunwasEmpty",1,"SpecialReload")
+		SHTN A 0 A_JumpIfInventory("zoomed",1,"Pump2Check")
+		goto PumpCheck
+	
+	AimReload:
+		TNT1 A 0 A_startsound("adsin",40)
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+        SHTN A 0 A_ZoomFactor(1.0)
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
+		SHT8 H 1
+		BADF A 0 A_takeInventory("ZoomHold",1)
+		SHT8 GFEDCBA 1
+    Reload:
+	    SHTN A 0
+		SHTN A 0 A_TakeInventory("Reloading", 1)
+		PIST F 0 A_JumpIfInventory("REPAIRMODE",1,"KITREPAIR")
+		TNT1 A 0 A_JUMPIFINVENTORY("JAMMEDSHOTGUN",1,"UNSTUCK")
+					
+		SHTN A 0 A_JumpIfInventory("ShotgunAmmo",9,"ready3")
+		SHTN A 0 A_JumpIfInventory("ShotgunAmmo", 1, 2)//Check if there is a shell in the chamber
+		SHTN A 0 A_GiveInventory("ShotgunWasEmpty", 1)//This means there is no shell in the chamber
+		
+		PIST F 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+		PIST F 0 A_JumpIfInventory("needspumping",1,"RealReload")	
+		PIST F 0 A_JumpIfInventory("zoomed",1,"Aimreload")		
+		SHTN A 1 A_WeaponReady(WRF_NOFIRE)
+		//reserve ammo check
+		"####" "#" 0 A_JUMPIFINVENTORY("SlugSelected",1,2)
+		SHTN A 0 A_JumpIfInventory("AmmoShell", 1, 2)
+		Goto noammo
+		SHTN A 0 A_JumpIfInventory("AmmoSlug", 1, 2)
+		Goto noammo
+		SHTN A 0
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+		SHTN A 0 A_Takeinventory("adsmode",1)
+        SHTN A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
+		TNT1 A 0 A_startsound("SGSEL",40,0,0.5)
+		SHNR FGHIJKLMNOPQ 1	
+	 InsertingShells:
+		//reserve ammo check
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,2)
+		SHTN A 0 A_JumpIfInventory("AmmoShell", 1, 2)
+		Goto FinishedInsertingShells
+		SHTN A 0 A_JumpIfInventory("AmmoSlug", 1, 2)
+        Goto FinishedInsertingShells
+		SHTN A 0
+		SHTN A 0 A_GiveInventory ("Pumping", 1)
+		SSHR A 0 A_TakeInventory("Reloading", 1)
+        
+	InsertShellAnimation:	
+		SHTN A 0 A_jumpifinventory("isdoomguy",1,"fastinsert")
+		SHNR Q 1
+		TNT1 A 0 a_OVERLAY(2,"RELOADCAMERA")
+		SHNL AB 1
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,2)
+		TNT1 A 0 A_JUMP(256,2)
+		TNT1 A 0 a_OVERLAY(3,"slugreload")
+		SHNL CDEFGHI 1
+		TNT1 A 0  A_PlaySound("insertshell")
+		//slugs or shells
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,4)
+		SHTN A 0 A_Giveinventory("ShotgunAmmo",1)
+		SHTN A 0 A_Takeinventory("AmmoShell",1)
+			TNT1 A 0 A_JUMP(256,3)
+		SHTN A 0 A_Giveinventory("ShotgunAmmo",1)
+		SHTN A 0 A_Takeinventory("AmmoSlug",1)
+		//
+        SHNL JKLMNOPQRSTUVWXYZ 1 A_WeaponReady(WRF_NOfire)
+		TNT1 A 0 a_jump(256,"insertcontinue")	
+	Fastinsert:
+		TNT1 A 0 a_OVERLAY(2,"RELOADCAMERA")
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,2)
+		TNT1 A 0 A_JUMP(256,2)
+		TNT1 A 0 a_OVERLAY(3,"slugreload")
+		SHNL CDEFGHI 1
+		//slugs or shells
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,4)
+		SHTN A 0 A_Giveinventory("ShotgunAmmo",1)
+		SHTN A 0 A_Takeinventory("AmmoShell",1)
+			TNT1 A 0 A_JUMP(256,3)
+		SHTN A 0 A_Giveinventory("ShotgunAmmo",1)
+		SHTN A 0 A_Takeinventory("AmmoSlug",1)
+		//
+		TNT1 A 0  A_PlaySound("insertshell")
+        SHNL JKLMNOPQRSTUVWXYZ 1 A_WeaponReady(WRF_NOfire)
+		
+	Insertcontinue:
+        SHTN A 0 A_JumpIfInventory("Kicking",1,"DOKICKSHOTGUN")
+		SHTN A 0 A_JumpIf(CountInv("IsTacticalClass") == 1 && GetPlayerInput(INPUT_BUTTONS) & BT_FORWARD && GetPlayerInput(INPUT_BUTTONS) & BT_SPEED, "StartSprint")
+		SHTN A 0 A_JumpIfInventory("ShotgunAmmo",9,"FinishedInsertingShells")//If there are 8+1 shells, stop it immediately
+		SHTN A 0 A_JumpIfInventory("shotgunwasempty",1,"ReloadPump")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, 1)
+		goto insertingshells
+  FinishedInsertingShells:
+		TNT1 A 0 A_startsound("MAGBAG3",40,0,0.5)
+		SHTN A 0 A_Takeinventory("Reloading",1)
+		SHNR QPONMLKJIHGF 1 A_WeaponReady(WRF_NOfire)
+	FinishReloadHold:
+		SHTN A 1 A_WeaponReady(WRF_NOfire)
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "FinishReloadHold")
+		SHTN A 1 
+		Goto Ready3
+	
+	SlugReload:
+		SGRS ABCDEFGHIJKLMN 1
+		stop
+	
+	ReloadPumpOverlay:
+		TNT1 A 1
+		SGNI NO 1
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 1)
+		stop
+		TNT1 A 5
+		5GSL XW 1
+		stop
+	
+	ReloadPump:
+		SHTN A 0 A_Takeinventory("shotgunwasempty",1)
+		TNT1 A 0 A_startsound("adsin",40)
+		SHNR RSTUVWXYZ 1
+		5HNR ABC 1
+		TNT1 A 0 A_STARTSound("weapons/sgpump1", 30)
+		TNT1 A 0 A_overlay(5,"reloadpumpoverlay")
+		SHN1 LMN 1 a_setpitch(pitch+0.5)
+		SHN1 O 1 offset(0,34) a_setpitch(pitch+0.5)
+		SHN1 P 1 offset(0,36) a_setpitch(pitch-0.5)
+		SHN1 P 1 offset(0,37) a_setpitch(pitch-0.5)
+		SHN1 P 1 offset(0,35) a_setpitch(pitch-0.5)
+		TNT1 A 0 offset(0,32) A_STARTSound("weapons/sgpump2", 31)
+		SHN1 ONML 1
+		5HNR CBA 1
+		TNT1 A 0 A_startsound("adsin",40)
+		SHNR ZYXWVUTSRQ 1
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "finishedinsertingshells")
+		goto InsertingShells
+	
+	AimSpecial:
+		TNT1 A 0 A_startsound("adsin",40)
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+        SHTN A 0 A_ZoomFactor(1.0)
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
+		SHT8 H 1
+		BADF A 0 A_takeInventory("ZoomHold",1)
+		SHT8 GFEDCBA 1
+	SpecialReload:
+		//reserve ammo check
+		TNT1 A 0 A_JUMPIFINVENTORY("Zoomed",1,"AimSpecial")
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,2)
+		SHTN A 0 A_JumpIfInventory("AmmoShell", 1, 2)
+		Goto noammo
+		SHTN A 0 A_JumpIfInventory("AmmoSlug", 1, 1)
+		Goto noammo
+		TNT1 A 0 A_startsound("SGSEL",40,0,0.5)
+		SHNI Z 1 offset(50,32)
+		SHN1 ABCDEFGHIJKL 1
+		TNT1 A 0 A_STARTSound("weapons/sgpump1", 30)
+		SLCH A 0 A_overlay(2,"SpecialFlick",true)
+		SHN1 MN 1 offset(50,32)
+		SHN1 OPP 1 offset(50,32)
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 3)
+		SHTN A 0 A_FireCustomMissile("ShotCaseSpawn",40,0,28,-10)
+		PIST F 0 A_Jump(256,2)
+		SHTN A 0 A_FireCustomMissile("SlugCaseSpawn",40,0,28,-10)
+		
+		SHN1 QR 1 offset(50,32)
+		//slugs or shells
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 3)
+		SLCH A 0 A_overlay(3,"ShellHand",true)
+		PIST F 0 A_Jump(256,2)
+		SLCH A 0 A_overlay(3,"SlugHand",true)
+		//
+		SHN1 STUVWXYZ 1
+		5HNI ABCDEFGHIJKLMNOPQRSTUVWXYZ 1
+		5HN1 AB 1	
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 2)
+		PIST F 0 A_Jump(256,2)
+		SLCH A 0 A_overlay(2,"IdleSlug",true)
+		5HN1 CDEFGHIJKLMNOPQRST 1
+		SHTN A 0 A_Takeinventory("shotgunwasempty",1)
+		SHTN A 0 A_Takeinventory("needspumping",1)
+		TNT1 A 0 A_STARTSound("weapons/sgpump2", 30)
+		5HN1 UV 1
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, 1)
+		goto specialinsert
+		TNT1 A 0 A_startsound("MAGBAG3",40,0,0.5)
+		5HN1 W 1
+		5HN1 XYZ 1
+		
+		SGNI A 1 offset(45,32)
+		SGNI B 1 offset(40,32)
+		SGNI C 1 offset(35,32)
+		SGNI D 1 offset(30,32)
+		SGNI E 1 offset(25,32)
+		SGNI F 1 offset(20,32)
+		SGNI G 1 offset(15,32)
+		SGNI H 1 offset(10,32)
+		SGNI I 1 offset(5,32)
+		SGNI J 1 offset(3,32)
+		SGNI K 1 offset(2,32)
+		SGNI L 1 offset(1,32)
+		SGNI M 1 offset(0,32)
+		SHSS ED 1
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "FinishReloadHold")
+		goto Ready3
+	SpecialInsert:
+		TNT1 A 0 A_startsound("ADSIN",40)
+		5HNR CBA 1
+		SHNR ZYXWVUTSR 1 
+		goto InsertingShells
+	SpecialFlick:
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,"specialflick2")
+		TNT1 A 2
+		SGNH ABC 1 
+		stop
+	SpecialFlick2:
+		5GSL W 1
+		5GSL X 1
+		SGSL BCD 1
+	   stop
+		
+
+///////// AMMO CHECK
+	CheckTube:
+		TNT1 A 0 A_STARTSound("weapons/sgpump1", 30)
+		SHN1 M 1 offset(50,100)	a_overlay(3,"slugcheck")
+	CheckTubeHold:
+		SHN1 N 1  offset(50,100)	
+		TNT1 A 0 A_JumpIFInventory("FirearmsdurabilityOFF", 1, 2)
+		TNT1 A 0 ACS_NAMEDEXECUTEalways("shotgunDURABILITYCHECK",0)
+		TNT1 A 0 ACS_NamedExecutealways("ShotgunMagCheck",0)
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CheckTubeHold")
+		
+		TNT1 A 0  A_STARTSound("weapons/sgpump2", 31)
+		TNT1 A 0 A_startsound("MAGBAG3",40,0,0.5)
+		SHN1 M 1 offset(50,100)	
+		SHN1 L 1 offset(50,100)		
+		SHN1 K 1 offset(50,96)
+		SHN1 J 1 offset(50,88)
+		SHN1 I 1 offset(50,82)
+		SHN1 H 1 offset(50,75)
+		SHN1 G 1 offset(50,70)
+		SHN1 F 1 offset(50,65)
+		SHN1 E 1 offset(50,60)
+		SHN1 D 1 offset(50,55)
+		SHN1 C 1 offset(50,50)
+		SHN1 B 1 offset(50,45)
+		SHN1 A 1 offset(50,40)
+		SHNI Z 1 offset(50,35)
+		SHTN A 0 offset(1,32)
+		Goto ready3	
+		
+	SlugCheck:
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,1)
+		stop
+		5GSL W 1
+	SlugCheckHold:
+		5GSL X 1 
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "SlugCheckHold")
+		5GSL W 1
+		stop
+		
+///////// UNLOAD	
+	AimUnload:
+		TNT1 A 0 A_startsound("adsin",40)
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+        SHTN A 0 A_ZoomFactor(1.0)
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}	
+		SHT8 H 1
+		BADF A 0 A_takeInventory("ZoomHold",1)
+		SHT8 GFEDCBA 1
+	user4:
+		"####" "#" 0 A_JumpIfInventory("zoomed",1,"AimUnload")
+		"####" "#" 0 A_JUMPIFINVENTORY("JAMMEDSHOTGUN",1,"UNSTUCK")
+		"####" "#" 0 A_JumpIf(GetCVAR("realreload") == 0,2)
+		"####" "#" 0 A_JumpIfInventory("needspumping",1,"PumpCheck")
+	
+		SHTN A 1
+		SHTN A 0 A_ZoomFactor(1.0)
+		SHTN A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}		
+        SHTN A 0 A_JumpIfInventory("ShotgunAmmo",1,4)
+		goto noammoUnload
+        TNT1 AAA 0
+		TNT1 A 0 A_startsound("SGSEL",40,0,0.5)
+		SHNI Z 1 offset(50,35)
+		SHN1 A 1 offset(50,40)
+		SHN1 B 1 offset(50,45)
+		SHN1 C 1 offset(50,50)
+		SHN1 D 1 offset(50,55)
+		SHN1 E 1 offset(50,60)
+		SHN1 F 1 offset(50,65)
+		SHN1 G 1 offset(50,70)
+		SHN1 H 1 offset(50,75)
+		SHN1 I 1 offset(50,82)
+		SHN1 J 1 offset(50,88)
+		SHN1 K 1 offset(50,96)
+		SHN1 L 1 offset(50,100)
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "CheckTube")
+		SHTN A 0 A_GiveInventory ("Pumping", 1)
+
+		
+RemoveBullets:
+		TNT1 AAAA 0
+		SHTN A 0 A_JumpIfInventory("ShotgunAmmo",1,3)
+		Goto FinishUnload
+        TNT1 AAAAAA 0	
+		TNT1 A 0 a_overlay(3,"Unloadflick",false)
+	   SHN1 M 1 offset(50,110) A_STARTSound("weapons/sgpump1", 30)
+	   SHN1 N 2 offset(50,120) 
+	   SHN1 OO 2 offset(50,120)
+	   	SHTN A 0 A_Takeinventory("ShotgunAmmo",1)
+		//slugs or shells
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,3)
+		SHTN A 0 A_Giveinventory("AmmoShell",1)
+		TNT1 A 0 A_JUMP(256,2)
+		SHTN A 0 A_Giveinventory("AmmoSlug",1)	
+		//
+	   TNT1 A 0 offset(50,110) A_STARTSound("weapons/sgpump2", 31)
+	   SHN1 OONM 2 offset(50,110)
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "finishunload")
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_reload, "finishunload")
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "finishunload")
+	   SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altattack, "finishunload")
+	   TNT1 A 0 A_JUMPIFINVENTORY("kicking",1,"finishunload")
+		Goto removebullets
+UnloadFlick:
+		TNT1 A 0 A_JUMPIFINVENTORY("SlugSelected",1,"unloadflick2")
+		TNT1 A 3
+		SGNH ABC 1 
+		 TNT1 A 5
+	   TNT1 A 0 A_JUMPIFINVENTORY("shotgunammo",1,3)
+	   SGNI ON 2
+	   TNT1 A 0 
+		stop
+UnloadFlick2:
+		5GSL W 1
+		5GSL X 2
+		SGSL BCD 1
+		TNT1 A 5
+		TNT1 A 0 A_JUMPIFINVENTORY("shotgunammo",1,3)
+	   SGNI ON 2
+	   stop
+		5GSL XW 2
+		stop
+FInishUnload:
+		SHTN A 0 A_Takeinventory("kicking",1)
+		TNT1 A 0 A_startsound("MAGBAG3",40,0,0.5)
+		SHN1 L 1 offset(50,100)
+		SHN1 K 1 offset(50,96)
+		SHN1 J 1 offset(50,88)
+		SHN1 I 1 offset(50,82)
+		SHN1 H 1 offset(50,75)
+		SHN1 G 1 offset(50,70)
+		SHN1 F 1 offset(50,65)
+		SHN1 E 1 offset(50,60)
+		SHN1 D 1 offset(50,55)
+		SHN1 C 1 offset(50,50)
+		SHN1 B 1 offset(50,45)
+		SHN1 A 1 offset(50,40)
+		SHNI Z 1 offset(50,35)
+		SHTN A 0 offset(1,32) 
+		SHTN A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_attack, "finishreloadhold")
+		Goto ready3		
+		
+	Steady:
+		TNT1 A 1
+		Goto Ready3
+	
+	PumpingCue:
+		TNT1 A 1
+		TNT1 A 0 A_startsound("SHELLPAK",50)
+		stop
+	WeaponCheckOverlay:
+		TNT1 A 5
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		Stop
+	WeaponCheck2:
+		TNT1 A 1
+		PISA D 0 ACS_NamedExecutealways("shotgundurabilitycheck", 0)
+		PISA D 0 ACS_NamedExecutealways("shotgunmagcheck", 0)
+		PISA D 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "WeaponCheck2")
+		stop	
+	NoAmmoUnload:
+	    "####" "#" 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER4, 1)
+		goto Noammo
+		"####" "#" 0 A_Overlay(98,"WeaponCheckOverlay",false)
+	NoAmmo:
+		SHT8 H 0 A_JumpIfInventory("Zoomed",1,2)
+		SHTN A 0
+		"####" "#" 1 offset(0,34) 
+		{ 
+		if (CountInv("needspumping") == 1 ) { A_overlay(5,"PumpingCue"); }
+	//	if (CountInv("adsmode") == 1 || CountInv("zoomed") == 1) { return state("noammo2"); }
+		A_PlaySound("weapons/empty", 4,0.5); A_WeaponOffset(0,32);
+		return state("");
+		}
+	NoAmmoHold:
+		"####" "#" 1 offset(0,34) { if (CountInv("needspumping") == 1 ) { A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOFIRE | WRF_NOBOB); }}
+		"####" "#" 0 offset(0,34) A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK || GetPlayerInput(INPUT_BUTTONS) & BT_RELOAD || GetPlayerInput(INPUT_BUTTONS) & BT_USER4, "Noammohold")
+		"####" "#" 1 offset(0,33)
+		"####" "#" 1 offset(0,32)
+		"####" "#" 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		Goto Ready3
+
+
+	NoAmmo2:
+		SHT8 H 4 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
+		RIFG A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo2")
+		
+		BADF A 0 A_JumpIf(Getcvar("ADSMode") == 0, 2)  ///////ADS MODE CHECK
+		BADF A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "holdaim")
+		goto noaim
+		TNT1 A 0	
+		Goto Ready2
+
+////////////////////////////////////////// AMMO CHANGE
+	AmmoSwitch:
+		PIST F 0 A_JumpIfInventory("adsmode",1,"noaim")
+		PIST F 0 A_Takeinventory("StartDualWield",1)
+		
+		PIST F 0 A_JumpIf(GetCVAR("realreload") == 0,4)
+		PIST F 0 A_JumpIfInventory("needspumping",1,2)
+		PIST F 0 A_Jump(256,2)
+		PIST F 0 A_print("You need to pump out your spent cartridge first.")
+		goto Ready3	
+		PIST F 0 A_JumpIfInventory("slugselected", 1, "SelectBuckshots")
+	SelectSlug:
+		SHTN A 0
+		TNT1 A 0 A_JUMPIFINVENTORY("JAMMEDSHOTGUN",1,"UNSTUCK")
+		PIST F 0 A_JumpIfInventory("AmmoSlug", 1, "CheckUnload")
+		PIST F 0 A_Print("You have no slug rounds.")
+		Goto Ready3		
+	Selectbuckshots:
+		TNT1 A 0 A_JUMPIFINVENTORY("JAMMEDSHOTGUN",1,"UNSTUCK")
+		SHTN A 0 A_JumpIfInventory("AmmoShell", 1, "CheckUnload")
+		SHTN A 0 A_Print("You have no buckshot shells.")
+		Goto Ready3
+	CheckUnload:
+		SHTN A 0
+		PIST F 0 A_JumpIfInventory("ShotgunAmmo", 1, "UnloadFirst")
+		Goto Ammochanging
+	UnloadFirst:
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 2)
+		PIST F 0 A_Print("You must unload all buckshots shells first.")
+		Goto Ready3
+		PIST F 0 A_Print("You must unload all slug rounds first.")
+		Goto Ready3
+	Ammochanging:	
+		TNT1 A 0 A_startsound("SGSEL",40,0,0.5)
+		SHNI Z 1 offset(50,32)
+		SHN1 ABCDEFGHIJKL 1
+		SLCH A 0 A_overlay(2,"EmptyChamber",true)
+		TNT1 A 0 A_STARTSound("weapons/sgpump1", 30)
+		SHN1 MNOPQR 1 offset(50,32)
+		//slugs or shells
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 3)
+		SLCH A 0 A_overlay(3,"SlugHand",true)
+		PIST F 0 A_Jump(256,2)
+		SLCH A 0 A_overlay(3,"ShellHand",true)
+		//
+		SHN1 STUVWXYZ 1
+		5HNI ABCDEFGHIJKLMNOPQRSTUVWXYZ 1
+		5HN1 AB 1	
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 2)
+		PIST F 0 A_Jump(256,2)
+		SLCH A 0 A_overlay(2,"IdleSlug",true)
+		5HN1 CDEFGHIJKLMNOPQRST 1
+		TNT1 A 0 A_STARTSound("weapons/sgpump2", 30)
+		5HN1 UVW 1
+		TNT1 A 0 A_startsound("MAGBAG3",40,0,0.5)
+		5HN1 XYZ 1
+		SGNI ABCDEFGHIJKLM 1
+		SHSS ED 1
+		SLCH A 0 A_takeinventory("needspumping", 1)
+		SLCH A 0 A_takeinventory("shotgunwasempty", 1)
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK, "FinishReloadHold")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_altATTACK, "FinishReloadHold")
+		goto Reload
+		
+EmptyChamber:
+		SGNI NO 1
+		stop
+ShellHand:
+		TNT1 A 0 A_startsound("SHELGRAB",40)
+		SLCH A 0 A_takeinventory("Slugselected", 1)
+		SGNH JKLMNO 1 offset(0,80)
+		SGNH K 1 offset(0,70)
+		SGNH L 1 offset(0,60) 
+		SGNH M 1 offset(0,55)
+		SGNH N 1 offset(0,50)
+		SGNH O 1 offset(0,45)
+		SGNH P 1 offset(0,40)
+		SGNH Q 1 offset(0,35)
+		SGNH R 1 offset(0,30)
+		SGNH S 1 offset(0,25)
+		SGNH T 1 offset(0,20)
+		SGNH U 1 offset(0,15)
+		SGNH V 1 offset(0,10)
+		SGNH W 1 offset(0,5)	
+		SGNH XYZ 1 offset(-3,2)
+		5GNH ABCDEFGHIJKLMNO 1
+		SLCH A 0 A_STARTsound("SHELPLOP", 31)
+		TNT1 A 0 A_Giveinventory("ShotgunAmmo", 1)	
+		TNT1 A 0 A_takeinventory("AmmoShell", 1)	
+		5GNH PQRSTUV 1
+		stop	
+SlugHand:
+		TNT1 A 0 A_startsound("SHELGRAB",40)
+		SLCH A 0 A_Giveinventory("Slugselected", 1)
+		SGSL JKLMNO 1 offset(0,80)
+		SGSL K 1 offset(0,70)
+		SGSL L 1 offset(0,60) 
+		SGSL M 1 offset(0,55)
+		SGSL N 1 offset(0,50)
+		SGSL O 1 offset(0,45)
+		SGSL P 1 offset(0,40)
+		SGSL Q 1 offset(0,35)
+		SGSL R 1 offset(0,30)
+		SGSL S 1 offset(0,25)
+		SGSL T 1 offset(0,20)
+		SGSL U 1 offset(0,15)
+		SGSL V 1 offset(0,10)
+		SGSL W 1 offset(0,5)	
+		SGSL XYZ 1 offset(-3,2)
+		5GSL ABCDEFGHIJKLMNO 1
+		SLCH A 0 A_STARTsound("SHELPLOP", 31)
+		TNT1 A 0 A_Giveinventory("ShotgunAmmo", 1)	
+		TNT1 A 0 A_takeinventory("AmmoSlug", 1)	
+		5GSL PQRSTUV 1
+		stop	
+IdleSlug:
+		5G5L ABCDEFGHIJKLMNOPQRU 1
+		stop
+
+		
+////////////////////////////////////////// AMMO CHANGE - end		
+	
+	
+		Jammed:
+		TNT1 A 0 a_Giveinventory("jammedSHOTGUN",1)
+		TNT1 A 0 a_playsound("DRYFIRE")
+		TNT1 A 0 A_JUMPIFINVENTORY("ADSMODE",1,"READY2")
+		goto READY3
+		
+		Jammedlight:
+		TNT1 A 0 a_playsound("DRYFIRE")
+		TNT1 A 0 A_JUMPIFINVENTORY("ADSMODE",1,2)
+		SHTN A 10
+		goto READY3
+		SHT8 H 10
+		goto READY2
+		
+		Weaponbreak:
+		TNT1 A 0 a_print("your Shotgun has broken!")
+		TNT1 A 0 A_takeinventory("Jammedshotgun",1)
+		SHSS CBA 1
+		TNT1 A 1
+		TNT1 A 0 a_SPAWNITEM("brokensHOTGUN",0,0)
+		 TNT1 A 0 a_RADIUSGIVE("hasbeendropped",90, RGF_OBJECTS | RGF_NOSIGHT, 1, "brokenSHOTGUN")		
+		TNT1 A 0 ACS_namedexecute("BROKENDISARM",0)
+		TNT1 AAA 1 a_weaponready
+		Wait
+		
+		
+		UnstuckAim:
+		SHT8 GFEDCBA 1
+		
+		UNSTUCK:
+		SHTN A 0 A_Takeinventory("needspumping",1)
+		BADF A 0 A_Takeinventory("Zoomed",1)
+		BADF A 0 A_Takeinventory("ZoomHold",1)
+        BADF A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 {if(GetCVAR("bd_SmartCrosshairs") == 1){A_SetCrosshair(GetCVAR("ShotgunCrosshair"));}else{A_SetCrosshair(0);}}							
+		BADF A 0 A_Takeinventory("ADSmode",1)
+		SHTN A 0 A_OVERLAY(2,"PUMPCAMERA")
+	   SHNP ABCDEFGHIIII 1
+	   SHTN A 0 A_STARTSound("PISSLIDE", 30)
+	   SHNP JJJJJ 1
+	   SHTN A 0 A_STOPSOUND(30)
+	   SHNP IIIIIHGFFFFFGHI 1
+	   	SHTN A 0 A_STARTSound("PISSLIDE", 30)
+	   SHNP JJJJJJ 1
+	   SHTN A 0 A_STOPSOUND(30)
+	   SHNP IIIIIHGFEDCBA 1
+	   TNT1 A 0 A_startsound("SGSEL",40,0,0.5)
+	   	SHNI Z 1 offset(50,32)
+		SHN1 ABCDEFGHIJKLLLLLLLLLLLL 1 offset(50,32)
+		SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+		// slug or shell
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 2)
+		PIST F 0 A_Jump(256,2)
+		TNT1 A 0 a_overlay(3,"Unstuckslug",true)
+		//
+		TNT1 A 0 A_startsound("PISSLIDE",41)
+		SHN1 M 1 offset(51,32)
+		SHTN A 0 A_STOPSOUND(30)
+		SHN1 M 5 offset(50,32)
+		SHN1 M 1 offset(51,32)
+		SHN1 M 1 offset(50,32)
+		SHN1 M 1 offset(51,32)
+		SHN1 M 1 offset(50,32)
+		SHN1 M 1 offset(51,32)
+		SHN1 M 1 offset(50,32)
+		SHN1 M 1 offset(51,32)
+		SHN1 M 1 offset(50,32)
+		SHN1 M 1 offset(51,32)
+		SHN1 M 1 offset(50,32)
+		SHN1 M 1 offset(51,32)
+		SHN1 M 1 offset(50,32)
+		
+		SHN1 M 1 offset(51,40)
+		SHTN A 0 A_STARTSound("weapons/sgpump1", 30)
+		SHTN A 0 A_Quake(1, 5, 0, 400, "")
+		SHN1 N 1 offset(51,50)
+		
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 2)
+		TNT1 A 0 a_overlay(3,"UnstuckShell",true)
+		SHN1 O 1 offset(51,60)
+		SHN1 P 2 offset(51,70)
+		// slug or shell
+		PIST F 0 A_JumpIfInventory("slugselected", 1, 3)
+		SHTN A 0 A_FireCustomMissile("ShotCaseSpawn",20,0,28,-8)
+		PIST F 0 A_Jump(256,2)
+		SHTN A 0 A_FireCustomMissile("SlugCaseSpawn",20,0,28,-8)
+		//
+		SHN1 P 10 offset(51,70)
+		SHN1 O 1 offset(51,60)
+		SHN1 N 1 offset(51,50)
+		SHN1 M 1 offset(51,40)
+		SHTN A 0 A_PlaySound("weapons/sgpump2", 31)
+		TNT1 A 0 A_startsound("MAGBAG3",40,0,0.5)
+		SHN1 LKJIHGFEDCBA 1 offset(50,32)
+		SHN1 M 0 offset(1,32)
+		TNT1 A 0 a_TAKEINVENTORY("JAMMEDSHOTGUN",1)
+		goto ready3
+	UnstuckShell:
+		SGNH ABC 1 
+		TNT1 A 11
+	   TNT1 A 0 A_JUMPIFINVENTORY("shotgunammo",1,3)
+	   SGNI ON 1
+	   TNT1 A 0 
+		stop
+	UnstuckSlug:
+		5GSL W 1 
+		SHTN A 0 A_STOPSOUND(30)
+		5GSL W 5 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL W 1 
+		5GSL X 1 
+		SGSL BCD 1
+		TNT1 A 11
+		TNT1 A 0 A_JUMPIFINVENTORY("shotgunammo",1,3)
+	   SGNI ON 1
+	   stop
+		5GSL XW 1
+		stop
+		
+		
+	
+	RELOADCAMERA:
+	TNT1 A 2 A_SETPITCH(PITCH+0.3)
+	TNT1 A 2 A_SETPITCH(PITCH+0.5)
+	TNT1 A 2 A_SETPITCH(PITCH+1)
+	TNT1 AA 2 
+	TNT1 A 2 A_SETPITCH(PITCH-1)
+	TNT1 A 2 A_SETPITCH(PITCH-0.5)
+	TNT1 A 2 A_SETPITCH(PITCH-0.3)
+	STOP
+	
+		INSPECTCAMERA:
+		TNT1 AAAAA 1 A_SETANGLE(ANGLE-1)
+		TNT1 AAA 2 A_SETPITCH(PITCH+1)
+		TNT1 AAAAAAAA 1 A_SETPITCH(PITCH+0.4)
+		TNT1 AAAAA 1 A_SETPITCH(PITCH+1)
+		TNT1 AAA 1 A_SETPITCH(PITCH-1.3)
+		TNT1 AA 1 A_SETANGLE(ANGLE+1)
+		TNT1 AAAAAA 1 A_SETPITCH(PITCH+0.5)
+		TNT1 A 5
+		TNT1 AAAA 1 A_SETROLL(ROLL+1.5)
+		TNT1 AAA 1 A_SETPITCH(PITCH-2)
+		
+		TNT1 A 1 A_SETANGLE(ANGLE-1)
+		TNT1 A 1 A_SETPITCH(PITCH-1)
+		TNT1 A 1 A_SETANGLE(ANGLE-1)
+		TNT1 A 1 A_SETPITCH(PITCH-1)
+		TNT1 A 1 A_SETANGLE(ANGLE-1)
+		TNT1 A 1 A_SETPITCH(PITCH-1)
+		
+		TNT1 AAA 1 A_SETPITCH(PITCH+1)
+		
+		TNT1 AA 1 A_SETPITCH(PITCH-1)
+		TNT1 AAAA 1 A_SETPITCH(PITCH+1)
+		TNT1 A 1 A_SETANGLE(ANGLE+1)
+		TNT1 A 1 A_SETPITCH(PITCH+1)
+		TNT1 AA 1 A_SETANGLE(ANGLE+1)
+		TNT1 A 1 A_SETPITCH(PITCH+1)
+		TNT1 AAA 1 A_SETPITCH(PITCH-1)
+		TNT1 A 1 A_SETANGLE(ANGLE-1)
+		TNT1 AA 1
+		TNT1 A 5
+		TNT1 AA 1 A_SETPITCH(PITCH+0.5)
+		TNT1 AAAA 1 A_SETROLL(ROLL-1.5)
+		STOP
+		
+	KITREPAIR:
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		SHTN A 5
+		
+		TNT1 A 0 A_JumpIFInventory("SHOTGUNDurability",100, "NoNeedRepair")
+		PIST F 0 A_JumpIfInventory("scrapmetal",1, 2)
+		PIST F 0 A_Jump(256,"outofmetal")
+		
+	KITREPAIR2:
+		PIST F 0 A_GIVEinventory("SHOTGUNDurability",30)
+		BADF A 0 A_Takeinventory("survivalkituses",1)
+		BADF A 0 A_Takeinventory("scrapmetal",1)
+		TNT1 A 0 A_playsound("WIRECUT",1)
+		SHSS CBA 1
+		TNT1 A 20
+		TNT1 A 0 A_startsound("SGSEL",40,0,0.5)
+		SHSS ABCD 1
+		
+		TNT1 A 0 A_JumpIFInventory("survivalkituses",1, 2)
+		PIST F 0 A_Jump(256,"kitbroke")
+		SHTN A 2
+		goto Ready3	
+		
+	DoKICKSHOTGUN:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,4)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,3)
+		TNT1 A 0 A_overlay(17,"KICKSHOTGUN")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3
+		TNT1 A 0 A_overlay(17,"KICKSHOTGUNtired")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3	
+	KICKSHOTGUN:
+		SHTN A 1 offset(-5,32)
+		SHTN A 1 offset(-10,30)
+		SHTN A 1 offset(-20,40)
+		SHSS C 12 offset(1,32)
+		SHTN A 1 offset(-20,40)
+		SHTN A 1 offset(-10,30)
+		SHTN A 1 offset(-5,32)
+		TNT1 A 0 A_JumpIfInventory("Airkicking", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("isSliding", 1, 2)
+		stop
+		SHTN A 10 offset(1,32)
+		STOP
+		SHSS CCBA 1 offset(1,32)
+		TNT1 A 6
+		STOP
+	KICKSHOTGUNtired:
+		SHTN A 2 offset(-5,32)
+		SHTN A 2 offset(-10,30)
+		SHTN A 2 offset(-20,40)
+		SHSS C 37 offset(1,32)
+		SHTN A 2 offset(-20,40)
+		SHTN A 2 offset(-10,30)
+		SHTN A 2 offset(-5,32)
+		STOP		
+	}
+}
+
+ACTOR LastUsedSlug : Inventory {Inventory.Maxamount 1}
+
+ACTOR NeedsPumping : Inventory {Inventory.Maxamount 1}
+ACTOR Pumpreflex : Inventory {Inventory.Maxamount 5}
+ACTOR Buckshotselected : Inventory {inventory.maxamount 1}
+ACTOR Slugselected : Inventory {inventory.maxamount 1}
+
+ACTOR ShotgunAmmo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 9
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 9
+   Inventory.Icon ""
+}
+
+
+

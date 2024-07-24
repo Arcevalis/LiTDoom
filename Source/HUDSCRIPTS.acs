@@ -242,6 +242,14 @@ Script "GETUP" (void)
 }
 
 
+Script "BatteryCharging" (void)
+{
+giveinventory("charging_battery",1);
+delay(35);
+takeinventory("charging_battery",1);
+}
+
+
 ///// GL SELECT
 SCRIPT "CLEARGLSELECT" (VOID)
 {

@@ -99,7 +99,7 @@ class LITWeapon : DoomWeapon
 {
     override Inventory CreateTossable( int amt )
     {
-        // disallow dropping if weapon isn't ready for switching (Thanks Marisa)
+        // disallow dropping if weapon isn't ready for switching
         if ( (Owner.player.ReadyWeapon == self) && (!(Owner.player.WeaponState&WF_WEAPONSWITCHOK) || (Owner.player.WeaponState&WF_DISABLESWITCH)) )
             return null;
         return Super.CreateTossable(amt);
@@ -109,7 +109,38 @@ class LITWeapon : DoomWeapon
   {  super.ownerdied();
       A_ClearOverlays(1,999,true);
   }
-	
+		
+	Action void A_WeaponReadyLit() //Universal check for universal weapon states
+		{
+			A_WeaponReady(WRF_allowreload|WRF_ALLOWUSER4|WRF_ALLOWUSER3); //reload / unload or mag check / toss throwable
+			State StartSprint = player.ReadyWeapon.FindState('StartSprint');
+			If(StartSprint != NULL && CountInv("IsTacticalClass") == 1 && player.cmd.buttons & BT_FORWARD && player.cmd.buttons & BT_SPEED) 
+				{
+				player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('StartSprint')); 
+				}
+			
+			If(player.cmd.buttons & BT_USE) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('UseAttack')); }
+			//////////
+			if (CountInv("weargasmask") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('goingtoaction')); }
+			if (CountInv("removegasmask") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('goingtoaction')); }
+			if (CountInv("repairtoken") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('goingtoaction')); }
+			if (CountInv("battledrugtoken") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('goingtoaction')); }
+			if (CountInv("BANDAGETOKEN") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('goingtoaction')); }
+			if (CountInv("throwtoken") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('Quickthrow')); }
+			if (CountInv("slashtoken") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('Quickslash')); }
+			if (CountInv("flaretoken") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('TossFlare')); }
+			if (CountInv("Taunting") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('Taunt')); }
+			if (CountInv("Salute1") == 1 || CountInv("Salute2") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('Salute')); }
+			if (CountInv("ExecuteDownedEnemy") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('DoExecution')); }
+		}
+		
+		Action void A_InspectReady() 
+			{
+			If(player.cmd.buttons & BT_ATTACK) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('InspectCancel')); }
+			If(player.cmd.buttons & BT_ALTATTACK) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('InspectCancel')); }
+			//////////
+			if (CountInv("kicking") == 1) { player.SetPSprite(PSP_WEAPON,player.ReadyWeapon.FindState('InspectCancel')); }
+			}
 }
 
 class ControlToken : Inventory

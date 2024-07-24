@@ -29,6 +29,31 @@ int maxhealth = (starthealth + stamina);
 		
 }
 
+script "Painkillers_Heal" (void)
+{
+  If(GetActorProperty(0, APROP_SpawnHealth) == 0)
+    SetActorProperty(0, APROP_SpawnHealth, 100);
+int starthealth = GetActorProperty(0, APROP_SpawnHealth);
+int stamina = GetActorProperty(0, APROP_Stamina);
+int maxhealth = (starthealth + stamina +25);
+  
+	While (Checkinventory("PainkillersINV"))
+	{
+	If(GetActorProperty(0, APROP_Health) < MAXHEALTH)
+		{
+		healthing(1,200);
+		takeinventory("painkillersINV",1);
+		delay(1);
+		restart;
+		}
+	takeinventory("currently_healing",1);
+	delay(1);
+	Terminate;
+	}
+
+}
+
+
 script "POISONCURE" (void)
 {
     HudMessage(s:""; 0, 221, 0, 0, 0, 0);
@@ -55,13 +80,71 @@ takeinventory("gasmaskon", 1);
 takeinventory("norecoil", 1);
 takeinventory("isdoomguy", 1);
 takeinventory("forcefieldon", 1);
-	
+takeinventory("choosingreward", 1);
+
+if(Checkinventory("nutritionvalue")>=1)
+{
+ACS_namedExecute("Nutrition_Stamina",0);	
+ACS_namedExecute("Nutrition_Health",0);	
+}
+
+
 if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 0)
 { delay(1); giveinventory("norecoil",1); giveinventory("isdoomguy",1);}
 TERMINATE;
-}
 
-// REGENSPHERE 
+}
+	
+
+// FOOD
+script "NUTRITION_Stamina" (void)
+ {
+		int iconX;
+		If(GetCvar("hudkills") == 0 && GetCvar("huditems") == 0 && GetCvar("hudsecrets") == 0)
+		{iconX = 695.1;}
+		Else
+		{iconX = 615.1;}
+
+	int nutrition = Checkinventory("nutritionvalue");
+	SetHudSize(640, 480, true);
+	
+		if (nutrition >= 40)
+		setfont("wellfed4");
+		else if (nutrition < 40 && nutrition >= 29)
+		setfont("wellfed3");
+		else if (nutrition < 29 && nutrition >= 19)
+		setfont("wellfed2");
+		else if (nutrition < 19 && nutrition >= 1)
+		setfont("wellfed1");
+		else if (nutrition < 1)
+		terminate;
+		
+				HudMessage(s:"A"; HUDMSG_FADEOUT|HUDMSG_ALPHA, 223, CR_UNTRANSLATED, iconX, 1.1,1.0,2.0,0.6);
+				takeinventory("UsedStamina", 3);
+				Delay(35);
+				restart;
+}		
+
+script "NUTRITION_Health" (void)
+ {
+		int nutrition = Checkinventory("nutritionvalue");
+		if (nutrition > 0)
+			{
+				int starthealth = GetActorProperty(0, APROP_SpawnHealth);
+				int stamina = GetActorProperty(0, APROP_Stamina);
+				int maxhealth = (starthealth + stamina);
+					If(GetActorProperty(0, APROP_Health) < MAXHEALTH)
+					{    
+					healthing(1,200);
+					}
+			Delay(35*10);
+			takeinventory("nutritionvalue", 1);
+			restart;
+			}
+		Terminate;
+}	
+	
+	// REGENSPHERE 
 script "STAMINASPHERE" (void)
  {
 	int i;
@@ -72,8 +155,8 @@ script "STAMINASPHERE" (void)
 				takeinventory("UsedStamina", 22);
 				Delay(36);
 			}
-}			
-			
+}	
+	
 // BERSERKPACK
 
 script "BERSERKRAGE" (void)

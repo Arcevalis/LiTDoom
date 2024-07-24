@@ -1,0 +1,232 @@
+
+//Random Spawners
+Actor LightArmorSPAWNER : BasicWeaponPickup //Replaces GreenArmor
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+		TNT1 A 0 A_Jump(80, "Medium")  // Medium Armor
+		TNT1 A 0 A_Jump(50,"Belt") //Armor + Belt
+
+
+		TNT1 A 0 A_Jump(60,2)
+		TNT1 A 0 A_SpawnItemEx ("LightArmornew",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("LightArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+	 Medium:
+	 TNT1 A 0 A_Jump(60,2)
+		TNT1 A 0 A_SpawnItemEx ("MediumArmor",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("MediumArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+ Belt:
+		TNT1 A 0 A_Jump(60,2)
+		TNT1 A 0 A_SpawnItemEx ("LightArmorBelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("MediumArmorbelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		
+    }
+}
+
+Actor RareLightArmor : BasicWeaponPickup //Replaces GreenArmor
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(10, "Medium")  // Medium Armor
+		TNT1 A 0 A_Jump(10,"Belt") //Armor + Belt
+		TNT1 A 0 A_Jump(110,"UNIFORM") //Uniform
+	
+	Light:
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+	TNT1 A 0 A_Jump(60,2)
+		TNT1 A 0 A_SpawnItemEx ("LightArmornew",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("LightArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+	 Medium:
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+		TNT1 A 0 A_Jump(60,2)
+		TNT1 A 0 A_SpawnItemEx ("MediumArmor",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("MediumArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+	 Belt:
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+		TNT1 A 0 A_Jump(40,2)
+		TNT1 A 0 A_SpawnItemEx ("LightArmorBelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("MediumArmorbelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		
+	Uniform:
+		TNT1 A 0 A_SpawnItemEx ("armoruniform",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		TNT1 A 0 a_jump(127,2)
+		TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,10,0,0,0,0,0,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("armorboots",0,10,0,0,0,0,0,0)
+		Stop
+    }
+}
+
+Actor UnfairLightArmor : BasicWeaponPickup //Replaces GreenArmor
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(15,"Belt") //Armor + Belt
+		TNT1 A 0 A_Jump(180,"UNIFORM") //Uniform
+		
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+		TNT1 A 0 A_Jump(60,2)
+		TNT1 A 0 A_SpawnItemEx ("LightArmornew",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("LightArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		
+	 Belt:
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+		TNT1 A 0 A_SpawnItemEx ("LightArmorBelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		
+	Uniform:
+		TNT1 A 0 A_SpawnItemEx ("armoruniform",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		TNT1 A 0 a_jump(127,2)
+		TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,10,0,0,0,0,0,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("armorboots",0,10,0,0,0,0,0,0)
+		Stop
+    }
+}
+
+/////HEAVY
+Actor HEAVYARMORSpawner : BasicWeaponPickup //Replaces BlueArmor
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 200)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 200)
+		TNT1 A 0 A_Jump(25, "Tech") // Tech Armor
+		TNT1 A 0 A_Jump(50, "Belt") // Heavy Armor Belt
+
+		TNT1 A 0 A_Jump(100,2)
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmornew",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+	 Belt:
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmorBelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+	 Tech:
+		TNT1 A 0 A_SpawnItemEx ("forcefieldG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+    }
+}
+
+Actor RareHeavyArmor : BasicWeaponPickup //Replaces BlueArmor
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 200)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 200)
+		TNT1 A 0 A_Jump(25, "Tech") // Tech Armor
+		TNT1 A 0 A_Jump(20, "Belt") // Heavy Armor Belt
+		TNT1 A 0 A_Jump(120, "medium")
+		
+		TNT1 A 0 A_Jump(120,2)
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmornew",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+	Belt:
+		TNT1 A 0 A_Jump(80,2)
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmorBelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("MediumArmorbelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop	
+	
+	 Tech:
+		TNT1 A 0 A_SpawnItemEx ("forcefieldG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		
+	 Medium:
+		TNT1 A 0 A_Jump(80,2)
+		TNT1 A 0 A_SpawnItemEx ("MediumArmor",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("MediumArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop	
+    }
+}
+
+Actor UnfairHeavyArmor : BasicWeaponPickup //Replaces BlueArmor
+{
+    States
+    {
+	Spawn:
+		TNT1 A 1	
+	TNT1 A 0 A_SpawnItemEx ("armorboots",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+	TNT1 A 0 A_SpawnItemEx ("armorhelmet",0,0,0,1,1,0,random(0,360),SXF_NOCHECKPOSITION , 220)
+		TNT1 A 0 A_Jump(15, "Tech") // Tech Armor
+		TNT1 A 0 A_Jump(20, "Belt") 
+		TNT1 A 0 A_Jump(80, "medium")
+		TNT1 A 0 A_Jump(155, "lightarmor")
+		
+		TNT1 A 0 A_Jump(120,2)
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmornew",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+	 Belt:
+		TNT1 A 0 A_Jump(80,2)
+		TNT1 A 0 A_SpawnItemEx ("HeavyArmorBelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_Jump(50,2)
+		TNT1 A 0 A_SpawnItemEx ("MediumArmorbelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop	
+		TNT1 A 0 A_SpawnItemEx ("LightArmorBelt",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+	
+	 Tech:
+		TNT1 A 0 A_SpawnItemEx ("forcefieldG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		
+	 Medium:
+		TNT1 A 0 A_Jump(60,2)
+		TNT1 A 0 A_SpawnItemEx ("MediumArmor",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("MediumArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop	
+		
+	LightArmor:
+		TNT1 A 0 A_Jump(60,2)
+		TNT1 A 0 A_SpawnItemEx ("LightArmornew",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+		TNT1 A 0 A_SpawnItemEx ("LightArmorknife",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+		Stop
+    }
+}
+//////

@@ -15,7 +15,7 @@ Class LightArmornew : Inventory
 	 +vulnerable
      -INVENTORY.ALWAYSPICKUP;
 	 +CANPASS
-	 +SOLID
+	 +MOVEWITHSECTOR
     }
 	int armorpnts;
 
@@ -220,7 +220,6 @@ Class MediumArmor : Inventory
 	 +vulnerable
      -INVENTORY.ALWAYSPICKUP;
 	 +CANPASS
-	 +SOLID
     }
 	int armorpnts;
      override bool TryPickup(in out Actor toucher)

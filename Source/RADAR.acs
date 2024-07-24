@@ -308,12 +308,12 @@ If (Checkinventory("basicarmor") >=1)
 	restart;
 	}
 
-Else if (Checkinventory("basicarmor") <=0 && checkinventory("droppingarmor") && checkinventory("radartoken") || checkinventory("lifemoduleON"))
+/*Else if (Checkinventory("basicarmor") <=0 && checkinventory("droppingarmor") && checkinventory("radartoken") || checkinventory("lifemoduleON"))
 	{
 	delay(1);
 	restart;
 	}	
-
+*/
 Else if (Checkinventory("basicarmor") <=0 && checkinventory("radartoken") && checkinventory("lifemoduleON"))
 	{
 	print(s:"Your movement sensor and life support module malfunctioned!");

@@ -48,3 +48,23 @@ int maxhealth = (starthealth + stamina);
   SetResultValue(FALSE);
   	}
 }
+
+
+Script "PainkillersCheck" (void)
+{
+  If(GetActorProperty(0, APROP_SpawnHealth) == 0)
+    SetActorProperty(0, APROP_SpawnHealth, 100);
+
+int starthealth = GetActorProperty(0, APROP_SpawnHealth);
+int stamina = GetActorProperty(0, APROP_Stamina);
+int maxhealth = (starthealth + stamina +25);
+  If(GetActorProperty(0, APROP_Health) < MAXHEALTH)
+  {    
+    SetResultValue(TRUE);
+	}
+
+  Else 
+   {
+  SetResultValue(FALSE);
+  	}
+}

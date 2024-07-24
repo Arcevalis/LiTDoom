@@ -216,9 +216,10 @@ GOTADRENALINE = "\cnYou absorbed a small orb of \chDemon Adrenaline.";
 GOTCRYSTAL = "\cnYou shattered a \chSoul Crystal.";
 GOTCRYSTAL2 = "\cnYou shattered a \cHweak Soul Crystal.";
 GOTCRYSTAL3 = "\cnYou shattered a dim, \cHSoul-less Crystal.";
-GOTPAINKILLER = "\cnYou picked up some pills of a bland \cHpainkiller.";
+GOTPAINKILLER = "\cnYou picked up some \cHC-Stabilizers pills.";
+GOTIFAK = "\cnYou opened an \cHindividual first aid kit.";
 
-GOTSTIM = "\cnPicked up a \chpainkiller stimpack.";
+GOTSTIM = "\cnPicked up a \ch stimpack.";
 GOTMEDINEED = "\cnPicked up a \chbox of stimpacks \cn that you REALLY needed!";
 GOTMEDIKIT = "\cnPicked up a \chbox of stimpacks";
 
@@ -293,18 +294,16 @@ SMGPART1 = "\cnYou got some \cqSMG parts\cn. (1/2)";
 SMGPART2 = "\cnYou assembled enough spare parts into a barely functional \cqSMG\cn!";
 SMGPARTREPAIR = "\cnYou used some spare parts to repair your \cq SMG\cn.";
 
-SHOTGUNPART1 = "\cnYou got some \cqPUMP SHOTGUN parts\cn. (1/3)";
-SHOTGUNPART2 = "\cnYou got some \cqPUMP SHOTGUN parts\cn. (2/3)";
-SHOTGUNPART3 = "\cnYou assembled enough spare parts into a barely functional \cqPUMP SHOTGUN\cn!";
+SHOTGUNPART1 = "\cnYou got some \cqPUMP SHOTGUN parts\cn. (1/2)";
+SHOTGUNPART2 = "\cnYou assembled enough spare parts into a barely functional \cqPUMP SHOTGUN\cn!";
 SHOTGUNPARTREPAIR = "\cnYou used some spare parts to repair your \cq PUMP SHOTGUN\cn.";
 
 ASGPART1 = "\cnYou got some \cqASSAULT SHOTGUN parts\cn. (1/2)";
 ASGPART2 = "\cnYou assembled enough spare parts into a barely functional \cqASSAULT SHOTGUN\cn!";
 ASGPARTREPAIR = "\cnYou used some spare parts to repair your \cq ASSAULT SHOTGUN\cn.";
 
-RIFLEPART1 = "\cnYou got some \cqRIFLE parts\cn. (1/3)";
-RIFLEPART2 = "\cnYou got some \cqRIFLE parts\cn. (2/3)";
-RIFLEPART3 = "\cnYou assembled enough spare parts into a barely functional \cq RIFLE\cn!";
+RIFLEPART1 = "\cnYou got some \cqRIFLE parts\cn. (1/2)";
+RIFLEPART2 = "\cnYou assembled enough spare parts into a barely functional \cq RIFLE\cn!";
 RIFLEPARTREPAIR = "\cnYou used some spare parts to repair your \cq  RIFLE\cn.";
 
 MMGPART1 = "\cnYou got some \cqMACHINEGUN parts\cn. (1/2)";

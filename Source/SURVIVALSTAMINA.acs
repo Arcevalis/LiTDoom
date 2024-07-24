@@ -21,33 +21,69 @@ While(1)
  delay(1);
 }
 
+///// RESTED BUFF
+script "Well_Rested_Buff" ENTER
+{
+	If(Checkinventory("WellRested"))
+	{
+	giveinventory("rested",1);
+	takeinventory("wellrested",1);
+	}
+	
+	Else
+	{
+	takeinventory("rested",1);
+	}
+terminate;
+}
+
+
 
 ///// REFILL
-
 script "SURVIVALSTAMINAREFILL" ENTER
 {
+
 While(1)
 {
 delay(1);
+
+If(Checkinventory("rested"))
+	{
+	SetHudSize(640, 480, true);
+	setfont("rested");
+		int iconX;
+		If(GetCvar("hudkills") == 0 && GetCvar("huditems") == 0 && GetCvar("hudsecrets") == 0)
+		{iconX = 720.1;}
+		Else
+		{iconX = 640.1;}
+	HudMessage(s:"A"; HUDMSG_FADEOUT|HUDMSG_ALPHA, 222, CR_UNTRANSLATED, iconX , 1.1,60.0,2.0,0.4);
+	}
+
 //SCIENTIST
  If(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 3 && Checkactorstate(0,"StandStill") && Checkinventory("UsedStamina") > 0 && !Checkinventory("poisoned") == 1)
  {
  takeinventory("usedstamina", 1);
- delay(60);
+			If(!Checkinventory("rested"))
+			delay(30);
+ delay(30);
  }
 
 //SURVIVALIST
  Else if(GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 2 && Checkactorstate(0,"StandStill") && Checkinventory("UsedStamina") > 0 && !Checkinventory("poisoned") == 1)
  {
  takeinventory("usedstamina", 1);
- delay(20);
+			If(!Checkinventory("rested"))
+			delay(10);
+ delay(10);
  }
  
  // SPACE MARINE
  Else if (GetPlayerInfo(PlayerNumber(), PLAYERINFO_PLAYERCLASS) == 1 && Checkactorstate(0,"StandStill") && Checkinventory("UsedStamina") > 0 && !Checkinventory("poisoned") == 1) 
  {
  takeinventory("usedstamina", 1);
- delay(3);
+ 			If(!Checkinventory("rested"))
+			delay(2);
+ delay(1);
  } 
  
  Else

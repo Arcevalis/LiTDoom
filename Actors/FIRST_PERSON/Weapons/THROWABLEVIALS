@@ -1,0 +1,856 @@
+ACTOR HELLFIREAmmo : Ammo
+{
+	Game Doom
+	Inventory.PickupMessage "$GOTHELLFIRE"
+	Inventory.Amount 1
+	Inventory.MaxAmount 6
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 12
+	inventory.pickupsound "GLVIALPK"
+	Inventory.Icon "GASHA0"
+	Scale 0.3
+	damagefactor "Shrapnel", 0.0  damagefactor "Trample", 0.0  damagefactor "headkick", 0.0 damagefactor "use", 0.0 damagefactor "stealth", 0.0
+	damagefactor "Head", 0.0	damagefactor "FriendBullet", 0.0    damagefactor "Taunt", 0.0    damagefactor "KillMe", 0.0
+	damagefactor "CancelTeleportFog", 0.0	damagefactor "BHFTOnBarrel", 0.0	damagefactor "GibRemoving", 0.0
+	damagefactor "SpawnMarine", 0.0	damagefactor "TeleportRemover", 0.0	damagefactor "MinorHead", 0.0 damagefactor "Telefrag", 0.0
+	damagefactor "Decaptate", 0.0	damagefactor "MonsterKnocked", 0.0
+	DamageFactor "CauseSplash", 0.0 DamageFactor "CauseObjectsToSplashSlime", 0.0 DamageFactor "CauseObjectsToSplashNukage", 0.0
+	DamageFactor "CauseObjectsToSplashBlood", 0.0 DamageFactor "CauseObjectsToSplashLava", 0.0
+	damagefactor "HelperMarineFatallity", 0.0	damagefactor "Leg", 0.0
+	DamageFactor "KillMeBot", 0.0
+	DamageFactor "beartrap", 1000.0
+	DamageFactor "plasma", 10.0  DamageFactor "EXPLOSIVEIMPACT", 0.1
+	tag"Hellfire Vial"
+	HEALTH 15
+	+SHOOTABLE
+	+cannotpush
++actlikebridge
+	+ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 //A_SetRoll(randompick(0,90,180,270))
+		Stay:
+		HELF AABBCCBBCCBB 1 BRIGHT A_SpawnItemEX("RedFlareSmall",0,0,-5)
+		loop
+		
+	Death:
+	TNT1 A 0 A_SPAWNITEM("HELLFIREEXPLOSION")
+	STOP
+	}
+}
+
+ACTOR HELLFIREVIAL : BrutalWeapon
+{
+	Weapon.AmmoUse1 1
+	Weapon.AmmoGive1 1
+	Weapon.SelectionOrder 99998
+	Weapon.AmmoType1 "hellfireammo"
+	Obituary "%o was bbq'd by %k's hellfire vial."
+    AttackSound "None"
+    Inventory.PickupSound "AmmoAPIN"
+	Inventory.Pickupmessage "$GOTHELLFIRE"
+	+UNDROPPABLE
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOALERT
+	+WEAPON.NOAUTOFIRE
+	//+INVENTORY.UNDROPPABLE
+    Scale 0.3
+	States
+	{
+	
+	SelectAnimation:
+	Ready:
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("hellfireammo", 1, 1)
+		Goto Novials
+		HELS ABC 1 BRIGHT
+		Goto Steady
+	
+	Ready3:
+	Steady:
+	TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		TNT1 A 0 A_JumpIfInventory("hellfireammo", 1, 1)
+		Goto Novials
+		HELS D 0 A_JumpIfInventory("Kicking",1,"DoKick")
+		HELS D 0 BRIGHT A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Useattackbright")
+		HELS DEF 3 BRIGHT A_WeaponReadyLit
+		Loop
+	
+	Novials:
+		HELS F 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Useattackbright")
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+		RIFG A 0 A_selectweapon("acidmistvial",SWF_SELECTPRIORITY)
+		TNT1 A 1 A_WeaponReadyLit
+		Goto Ready
+	
+	goingtoaction:
+		TNT1 A 0 A_PlaySound("weapons/changing")
+		HELS CBA 1
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		TNT1 A 0 A_TakeInventory("readythrow", 1)
+		TNT1 A 0 A_TakeInventory("throwtoken", 1)
+		TNT1 A 0 A_TakeInventory("slashtoken", 1)
+		TNT1 A 0 A_TakeInventory("flaretoken", 1)
+		PIST F 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair
+	
+	Deselect:
+		TNT1 A 0
+		TNT1 A 0 A_Lower
+		Wait
+		
+	Select: 
+		TNT1 A 0 A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)	
+		TNT1 A 0 SetPlayerProperty(0,0,2)
+		TNT1 A 0 A_SetRoll(0)
+		GRWG A 0 A_Raise
+		Loop
+	Fire:
+	    HELF LMNO 1 BRIGHT
+	Hold:
+		HELF O 1 BRIGHT
+		TNT1 A 0 A_REFIRE("HOLD")
+		TNT1 A 4
+		TNT1 A 0 A_PLaySound ("GRNTOSS")
+		HELF P 2 BRIGHT
+		TNT1 A 0 A_FireCustomMissile("HellfireVialYEET", random(-2,2), 1, 0, 0, 0, 0)
+		VTHR ABCD 1
+		VTHR EE 1 
+		VTHR FFFF 1
+		VTHR F 1 offset(0,34)
+		VTHR F 1 offset(0,36)
+		VTHR F 1 offset(0,38)
+		VTHR F 1 offset(0,40)
+		VTHR F 1 offset(0,42)
+		VTHR F 1 offset(0,44)
+		VTHR F 1 offset(0,46)
+		VTHR F 1 offset(0,48)
+		VTHR F 1 offset(0,50)
+		TNT1 A 5
+		Goto Ready	
+		
+ 	Spawn:
+		HELF AABBCCBBCCBB 1 BRIGHT
+		loop
+		
+	CheckSprint:
+		//HELS F 1 BRIGHT A_WeaponReady(WRF_NOFIRE)
+		GRND F 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		GRND F 0 A_JumpIfInventory("IsTacticalClass", 1, "StartSprint")
+		Goto STEADY
+		
+	StartSprint:
+		HELS D 1 BRIGHT A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")
+		
+	Sprinting:	
+		PISP A 0 offset(-9,32) 
+		GRND F 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		PLAY A 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		GRND F 0 offset(-9,32) A_JumpIfInventory("Powerstrength2", 1, 2)
+		GRND F 0 offset(-9,32) A_GiveInventory("usedstamina", 1)
+		GRND F 0 offset(-9,32)
+		HELS D 1 BRIGHT offset(-9,34) A_SetPitch(pitch -0.5)
+		HELS E 1 BRIGHT offset(-6,36) A_SetPitch(pitch -0.5)
+		HELS F 1 BRIGHT offset(-3,38) A_SetPitch(pitch -0.5)
+		HELS D 1 BRIGHT offset(0,38) A_SetPitch(pitch -0.5)
+		HELS E 1 BRIGHT offset(3,36) A_SetPitch(pitch -0.5)
+		HELS F 1 BRIGHT offset(6,34) A_SetPitch(pitch -0.5)
+		HELS D 1 BRIGHT offset(9,32) A_SetPitch(pitch -0.5)
+		GRND F 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		GRND F 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        GRND F 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		GRND F 0 offset(-9,32) A_GiveInventory("UsedStamina", 3)
+		GRND F 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		HELS E 1 BRIGHT offset(9,34) A_SetPitch(pitch +0.5)
+		HELS F 1  BRIGHT offset(6,36) A_SetPitch(pitch +0.5)
+		HELS D 1 BRIGHT offset(3,38) A_SetPitch(pitch +0.5)
+		HELS E 1 BRIGHT offset(0,38) A_SetPitch(pitch +0.5)
+		HELS F 1 BRIGHT offset(-3,36) A_SetPitch(pitch +0.5)
+		HELS D 1 BRIGHT offset(-6,34) A_SetPitch(pitch +0.5)
+		HELS E 1 BRIGHT offset(-9,32) A_SetPitch(pitch +0.5)
+		GRND F 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		GRND F 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		
+		Goto StopSprint
+	StopSprintTired:
+		//HELS F 1 BRIGHT
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		GRND F 0 A_PlaySound("Tired", 2)
+		HELS DEFDEF 1 BRIGHT 
+		HELS DEFDEF 1 BRIGHT 
+		HELS DEFDEF 1 BRIGHT 
+		HELS DEFDEF 1 BRIGHT 
+		HELS DEFDEF 1 BRIGHT
+		Goto STEADY
+	StopSprint:
+		//HELS F 1 BRIGHT
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		Goto STEADY	
+	
+	DoKICKVIAL:
+		TNT1 A 0 A_JumpIfInventory("isdoomguy", 1, 4)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,4)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,3)
+		TNT1 A 0 A_overlay(3,"KICKVIAL")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3
+		TNT1 A 0 A_overlay(3,"KICKVIALtired")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3	
+	KICKVIAL:
+		HELS LMN 1
+		HELS N 12 
+		HELS NML 1 
+		TNT1 A 0 A_JumpIfInventory("isSliding", 1, 1)
+		stop
+		HELS L 10
+		STOP
+	KICKVIALtired:
+		HELS LMN 2
+		HELS N 37 
+		HELS NML 2
+		STOP	
+		
+	}
+}
+
+
+Actor HellfirevialRoll
+{
+	Radius 4
+	Height 4
+	Projectile
+	Speed 5
+    Damage (random (100, 100))
+	Damagetype fire
+    Gravity 0.7
+	Scale 0.4
+	Projectile
+	+MISSILE
+	+EXPLODEONWATER
+	+SKYEXPLODE
+	+BOUNCEONWALLS
+	-NOTELEPORT
+	+THRUSPECIES
+	Species "Marines"
+	BounceFactor 0.5
+	WallBounceFactor 0.25
+    Health 5
+    SeeSound "GRNBNCE"
+	DeathSound "none"
+	Obituary "%o was BBQ'd by %k 's hellfire vial."
+	+ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+
+	States
+	{
+	Spawn:
+		TNT1 A 0 
+		HELF ELMELMELMELM 3 BRIGHT
+	Roll:
+		HELF ELMELMELMELM 3 BRIGHT a_setspeed(speed-0.5)	
+	Stay:
+		HELF E 1
+		loop
+		
+	Xdeath:
+		TNT1 A 0 A_AlertMonsters(200)
+	    HELF E 5 A_SpawnItemEX("RedFlareSmall",0,0,-5)
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItem("HellfireExplosion")
+		EXPL ABCDEFGH 1
+		TNT1 AA 0
+		stop
+		}
+}
+	
+
+ACTOR Hellfirevialyeet
+{
+	Radius 4
+	Height 4
+	Projectile
+	Speed 20
+    Damage (random (100, 100))
+	Damagetype fire
+    Gravity 0.7
+	Scale 0.4
+	Projectile
+	+MISSILE
+    -NOGRAVITY
+    -BLOODSPLATTER
+	-EXTREMEDEATH
+	+EXPLODEONWATER
+	+SKYEXPLODE
+	+BOUNCEONFLOORS
+	+BOUNCEONWALLS
+	+BOUNCEONCEILINGS
+	-NOTELEPORT
+	+THRUSPECIES
+	Species "Marines"
+	BounceFactor 0.5
+	WallBounceFactor 0.25
+    Health 5
+    SeeSound "GRNBNCE"
+	DeathSound "none"
+	Obituary "%o was BBQ'd by %k 's hellfire vial."
+	+ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+
+	States
+	{
+	Spawn:
+		HELF DDEEGFGHIIJJKKDDEEGFGHIIJJKK 1 BRIGHT A_SpawnItemEX("RedFlareSmall",0,0,-5)
+
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_AlertMonsters(200)
+	    HELF JJJJJJJJJJJJJJJ 1 BRIGHT A_SpawnItemEX("RedFlareSmall",0,0,-5)
+	
+	Explode:
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItem("GlassExplosion")
+		TNT1 A 0 A_SpawnItem("HellfireExplosion")
+		EXPL ABCDEFGH 1
+		TNT1 AA 0
+		Stop
+	}
+}
+
+
+actor HellfireExplosion
+{
++NOBLOCKMAP
++MISSILE
++DONTSPLASH
+Damagetype "Fire"
+DeathSound "Explosion"
+Height 32
+States   
+ {
+    Spawn:
+	TNT1 A 0
+
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("ExplosionSplashSpawner", 0, 0, -20)
+        TNT1 A 0 A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_SpawnItemEx ("FIREEMBERSBIG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("UnderwaterExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+        TNT1 A 0 A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+        TNT1 AAAAAAAAA 0 A_CustomMissile ("ExplosionParticleHeavy", 0, 0, random (0, 360), 2, random (0, 180))
+        TNT1 AAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("ExplosionParticleHeavy", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAAAAAA 0 A_CustomMissile ("ExplosionParticleVeryFast", 0, 0, random (0, 360), 2, random (0, 360))
+        TNT1 AAAA 0 A_CustomMissile ("MediumExplosionFlames", 0, 0, random (0, 360), 2, random (0, 360))
+        EXPL AAAA 0 A_CustomMissile ("ExplosionSmokeFast22", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL A 0 A_CustomMissile ("BigNeoSmoke", 0, 0, random (0, 360), 2, random (0, 360))
+		//TNT1 A 0 A_SpawnItemEx ("RocketPenetrator",cos(-pitch)*42,0,0+(sin(pitch)*42),cos(-pitch)*40,0,sin(pitch)*40,0,SXF_TRANSFERPITCH)
+		//TNT1 AA 0 A_SpawnItem("SuperExpensiveParticleSpawner")
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,0,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,-45,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,-90,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,45,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,90,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,-130,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,130,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,-20,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,20,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,-60,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,60,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,-160,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,160,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissileproper",10,25,180,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("flamethrowermissile",10,25,-160,CMF_OFFSETPITCH,180)
+		TNT1 A 0 A_CustomMissile("flamethrowermissile",10,25,160,CMF_OFFSETPITCH,180)
+		TNT1 A 0 A_CustomMissile("flamethrowermissile",10,25,180,CMF_OFFSETPITCH,180)
+		TNT1 A 0 A_CustomMissile("Durableflame", random (-32, 0), random (-60, 60), random (-32, 32), 2, random (-32, 32))
+		EXPL A 0 A_CustomMissile ("FlamethrowerFireParticles", 6, 0, random (0, 360), 2, random (10, 90))
+		TNT1 A 0 A_CustomMissile("Durableflame", random (-32, 0), random (-32, 32), random (-32, 32), 2, random (-32, 32))
+		EXPL A 0 A_CustomMissile ("FlamethrowerFireParticles", 6, 0, random (0, 360), 2, random (10, 90))
+		TNT1 A 0 A_CustomMissile("Durableflame", random (-32, 0), random (-60, 60), random (-32, 32), 2, random (-32, 32))
+		EXPL A 0 A_CustomMissile ("FlamethrowerFireParticles", 6, 0, random (0, 360), 2, random (10, 90))
+		TNT1 A 0 A_CustomMissile("Durableflame", random (-32, 0), random (-32, 32), random (-32, 32), 2, random (-32, 32))
+		EXPL A 0 A_CustomMissile ("FlamethrowerFireParticles", 6, 0, random (0, 360), 2, random (10, 90))
+		EXPL AAA 0 A_CustomMissile ("BarrelKaboom", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_Explode(200, 150, 0,150,0,0,0,BulletPuff, fire)
+		TNT1 A 2
+		TNT1 A 0 A_SpawnItemEx ("LiquidExplosionEffectSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_PlaySound("FAREXPL", 3)
+		TNT1 A 15
+		TNT1 A 0 A_PlaySound("distantexp", 5)
+		TNT1 AAAAA 4 A_CustomMissile ("HeavyExplosionSmoke", 2, 0, random (0, 360), 2, random (0, 360))
+        Stop
+		}
+		}
+		
+////////////
+///////////
+////////////////   ACID MIST
+//////////
+///////////
+
+ACTOR ACIDMISTAmmo : Ammo
+{
+	Game Doom
+	Inventory.PickupMessage "$GOTACIDMIST"
+	Inventory.Amount 1
+	Inventory.MaxAmount 6
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 12
+	inventory.pickupsound "GLVIALPK"
+	Inventory.Icon "GASAA0"
+	damagefactor "Shrapnel", 0.0  damagefactor "Trample", 0.0  damagefactor "headkick", 0.0 damagefactor "use", 0.0 damagefactor "stealth", 0.0
+	damagefactor "Head", 0.0	damagefactor "FriendBullet", 0.0    damagefactor "Taunt", 0.0    damagefactor "KillMe", 0.0
+	damagefactor "CancelTeleportFog", 0.0	damagefactor "BHFTOnBarrel", 0.0	damagefactor "GibRemoving", 0.0
+	damagefactor "SpawnMarine", 0.0	damagefactor "TeleportRemover", 0.0	damagefactor "MinorHead", 0.0 damagefactor "Telefrag", 0.0
+	damagefactor "Decaptate", 0.0	damagefactor "MonsterKnocked", 0.0
+	DamageFactor "CauseSplash", 0.0 DamageFactor "CauseObjectsToSplashSlime", 0.0 DamageFactor "CauseObjectsToSplashNukage", 0.0
+	DamageFactor "CauseObjectsToSplashBlood", 0.0 DamageFactor "CauseObjectsToSplashLava", 0.0
+	damagefactor "HelperMarineFatallity", 0.0	damagefactor "Leg", 0.0
+	DamageFactor "KillMeBot", 0.0
+	DamageFactor "beartrap", 1000.0
+	DamageFactor "plasma", 10.0  DamageFactor "EXPLOSIVEIMPACT", 0.1
+	tag"Acid Mist Vial"
+	+SHOOTABLE
+	+cannotpush
+	+actlikebridge
+	Scale 0.3
+	HEALTH 15
+	+ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		TNT1 A 0
+	Stay:
+		ACMI AAAAAAAAA 2 BRIGHT A_SpawnItem("GreenFlareSmall2",0,7)
+		loop
+		
+	Death:
+	TNT1 A 0 A_SPAWNITEM("ACIDMISTEXPLOSION")
+	STOP
+		
+	}
+}
+
+ACTOR ACIDMISTVIAL : BrutalWeapon
+{
+	Weapon.AmmoUse1 1
+	Weapon.AmmoGive1 1
+	Weapon.SelectionOrder 99998
+	Weapon.AmmoType1 "acidmistammo"
+	Obituary "%o was bbq'd by %k's hellfire vial."
+    AttackSound "None"
+    Inventory.PickupSound "AmmoAPIN"
+	Inventory.Pickupmessage "$GOTACIDMIST"
+	+undroppable
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOALERT
+	+WEAPON.NOAUTOFIRE
+	//+INVENTORY.UNDROPPABLE
+    Scale 0.3
+	States
+	{
+	
+	SelectAnimation:
+	Ready:
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("acidmistammo", 1, 1)
+		Goto Novials
+		ACIS ABCD 1 BRIGHT
+		Goto Steady
+	
+	Ready3:
+	Steady:
+	TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		TNT1 A 0 A_JumpIfInventory("acidmistammo", 1, 1)
+		Goto Novials
+		ACIS D 0 BRIGHT A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Useattackbright")
+		ACIS D 0 A_JumpIfInventory("Kicking",1,"DoKick")
+		ACIS D 1 BRIGHT A_WeaponReadyLit
+		Loop
+	
+	Novials:
+		TNT1 A 1 A_WeaponReady
+		RIFG A 0 A_selectweapon("clustergrenades",SWF_SELECTPRIORITY)
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"goingtoaction")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"goingtoaction")
+		TNT1 A 0 A_Jumpifinventory("throwtoken",1, "Quickthrow")
+		TNT1 A 0 A_Jumpifinventory("slashtoken",1, "Quickslash")
+		TNT1 A 0 A_JumpIfInventory("flaretoken",1,"TossFlare")
+		ACII A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USE, "Useattackbright")
+		TNT1 A 0 A_JumpIf(GetPlayerInput(INPUT_BUTTONS) & BT_USER3, "TOSSGRENADE")
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		RIFG A 0 A_JumpIfInventory("IsRunning",1,"CheckSprint")
+		Goto Ready
+	
+	Deselect:
+		TNT1 A 0
+		TNT1 A 0 A_Lower
+		Wait
+	
+	goingtoaction:
+		TNT1 A 0 A_PlaySound("weapons/changing")
+		ACIS DCBA 1
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		TNT1 A 0 A_TakeInventory("readythrow", 1)
+		TNT1 A 0 A_JumpIfInventory("weargasmask", 1, "wearanimation")
+		TNT1 A 0 A_JumpIfInventory("removegasmask", 1, "removeanimation")
+		TNT1 A 0 A_JumpIfInventory("battledrugtoken",1,"drugshot")
+		TNT1 A 0 A_JumpIfInventory("BANDAGETOKEN",1,"BANDAGE")
+		goto repair
+	
+	Select: 
+		TNT1 A 0  A_Overlay(-10,"FirstPersonLegsStand")
+		TNT1 A 0 a_removelight(1)
+		TNT1 A 0 A_removelight(2)	
+		TNT1 A 0 SetPlayerProperty(0,0,2)
+		TNT1 A 0 A_SetRoll(0)
+		GRWG A 0 A_Raise
+		Loop
+	Fire:
+	    ACIT ABCD 1	
+	Hold:
+		ACIT D 1
+		TNT1 A 0 A_REFIRE("hold")
+		TNT1 A 5
+		TNT1 A 0 A_PLaySound ("GRNTOSS")
+		ACIT E 2 BRIGHT
+		TNT1 A 0 A_FireCustomMissile("AcidMistyeet", random(-2,2), 1, 0, 0, 0, 0)
+		VTHR ABCD 1
+		VTHR EE 1 
+		VTHR FFFF 1
+		VTHR F 1 offset(0,34)
+		VTHR F 1 offset(0,36)
+		VTHR F 1 offset(0,38)
+		VTHR F 1 offset(0,40)
+		VTHR F 1 offset(0,42)
+		VTHR F 1 offset(0,44)
+		VTHR F 1 offset(0,46)
+		VTHR F 1 offset(0,48)
+		VTHR F 1 offset(0,50)
+		Goto Ready	
+		
+ 	Spawn:
+		ACMI A 1 BRIGHT
+		loop
+		
+	CheckSprint:
+		//ACIS D 1 BRIGHT A_WeaponReady(WRF_NOFIRE)
+		GRND F 0 A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		GRND F 0 A_JumpIfInventory("IsTacticalClass", 1, "StartSprint")
+		Goto Steady
+		
+	StartSprint:
+		ACIS D 1 BRIGHT A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "Trip")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "Trip")
+		
+	Sprinting:	
+		PISP A 0 offset(-9,32) 
+		GRND F 0 offset(-9,32) A_JumpIfInventory("IsStandingStill", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 100, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 2000, "StopSprintTired")
+		PLAY A 0 offset(-9,32) ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		GRND F 0 offset(-9,32) A_JumpIfInventory("Powerstrength2", 1, 2)
+		GRND F 0 offset(-9,32) A_GiveInventory("usedstamina", 1)
+		GRND F 0 offset(-9,32)
+		ACIS D 1 BRIGHT offset(-9,34) A_SetPitch(pitch -0.5)
+		ACIS D 1 BRIGHT offset(-6,36) A_SetPitch(pitch -0.5)
+		ACIS D 1 BRIGHT offset(-3,38) A_SetPitch(pitch -0.5)
+		ACIS D 1 BRIGHT offset(0,38) A_SetPitch(pitch -0.5)
+		ACIS D 1 BRIGHT offset(3,36) A_SetPitch(pitch -0.5)
+		ACIS D 1 BRIGHT offset(6,34) A_SetPitch(pitch -0.5)
+		ACIS D 1 BRIGHT offset(9,32) A_SetPitch(pitch -0.5)
+		GRND F 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		GRND F 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        GRND F 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		GRND F 0 offset(-9,32) A_GiveInventory("UsedStamina", 3)
+		GRND F 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		ACIS D 1 BRIGHT offset(9,34) A_SetPitch(pitch +0.5)
+		ACIS D 1 BRIGHT offset(6,36) A_SetPitch(pitch +0.5)
+		ACIS D 1 BRIGHT offset(3,38) A_SetPitch(pitch +0.5)
+		ACIS D 1 BRIGHT offset(0,38) A_SetPitch(pitch +0.5)
+		ACIS D 1 BRIGHT offset(-3,36) A_SetPitch(pitch +0.5)
+		ACIS D 1 BRIGHT offset(-6,34) A_SetPitch(pitch +0.5)
+		ACIS D 1 BRIGHT offset(-9,32) A_SetPitch(pitch +0.5)
+		GRND F 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		GRND F 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		
+		Goto StopSprint
+	StopSprintTired:
+	//	ACIS D 1 BRIGHT
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		GRND F 0 A_PlaySound("Tired", 2)
+		ACIS D 1 BRIGHT 
+		ACIS D 1 BRIGHT
+		ACIS D 1 BRIGHT 
+		ACIS D 1 BRIGHT 
+		ACIS D 1 BRIGHT 
+		Goto STEADY
+	StopSprint:
+		//ACIS D 1 BRIGHT
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 70, "StopSprintTired")
+		TNT1 A 0 A_JumpIfInventory("UsedStamina", 1400, "StopSprintTired")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		Goto STEADY
+		
+	DoKICKVIAL:
+		TNT1 A 0 A_JumpIfInventory("LARGESTAMINA", 1, 2)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",95,4)
+		TNT1 A 0 A_JumpifInventory("UsedStamina",1995,3)
+		TNT1 A 0 A_overlay(3,"KICKVIAL")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3
+		TNT1 A 0 A_overlay(3,"KICKVIALtired")
+		TNT1 A 0 a_Jump(256,"Dokick")
+		goto Ready3	
+	KICKVIAL:
+		ACIT ABC 1
+		ACIT C 12 
+		ACIT ABC 1 
+		TNT1 A 0 A_JumpIfInventory("isSliding", 1, 1)
+		stop
+		ACIT A 10
+		STOP
+	KICKVIALtired:
+		ACIT ABC 2
+		ACIT C 37 
+		ACIT ABC 2
+		STOP		
+	}
+}
+
+
+
+
+ACTOR AcidMistyeet
+{
+	Radius 4
+	Height 4
+	Projectile
+	Speed 20
+    Damage (random (100, 100))
+	Damagetype acid
+    Gravity 0.7
+	Scale 0.4
+	Projectile
+	+MISSILE
+    -NOGRAVITY
+    -BLOODSPLATTER
+	-EXTREMEDEATH
+	+EXPLODEONWATER
+	+SKYEXPLODE
+	+BOUNCEONFLOORS
+	+BOUNCEONWALLS
+	+BOUNCEONCEILINGS
+	-NOTELEPORT
+	+THRUSPECIES
+	Species "Marines"
+	BounceFactor 0.5
+	WallBounceFactor 0.25
+    Health 5
+    SeeSound "GRNBNCE"
+	DeathSound "GLASSEXP"
+	Obituary "%o melted"
+	+ROLLSPRITE
++ROLLCENTER
++FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		ACIF ABCDEFGABCDEFGABCDEFG 2 BRIGHT Light("ARMORBONUS") A_SpawnItem("GreenFlareSmall2",0,7)
+
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("GlassExplosion")
+		TNT1 A 1 A_SpawnItemex("AcidMistExplosion",0,0,6)
+		TNT1 AAA 0 A_SpawnItemex("acidEMBERSBIG",0,0,0,0,0,0,RANDOM(0,360))
+		TNT1 AAAAA 0 A_SpawnItemex("acidEMBERSBIG",random(0,35),random(0,35),0,0,0,0,random(0,360))
+		TNT1 A 0 A_AlertMonsters(200)
+	    HELF J 10 BRIGHT Light("ARMORBONUS") A_SpawnItem("GreenFlareSmall2",0,7)
+	
+		TNT1 A 0 A_NoBlocking
+		EXPG ABCDEFG 1 BRIGHT
+		TNT1 AA 0
+		Stop
+	}
+}
+
+ACTOR acidtimer : Inventory { Inventory.MaxAmount 50 }
+
+actor AcidMistExplosion
+{
++NOBLOCKMAP
++MISSILE
++DONTSPLASH
++invulnerable
+Damagetype "Acid"
+DeathSound "GLASSEXP"
+Height 32
+States   
+ {
+    Spawn:
+	TNT1 A 0
+		
+        TNT1 AAAAAAAAA 0 A_CustomMissile ("Acidflare", 0, 0, random (0, 360), 2, random (0, 180))
+        TNT1 AAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("AcidFlare", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAAAAAA 0 A_CustomMissile ("AcidExplosion", 0, 0, random (0, 360), 2, random (0, 360))
+        EXPL AAAA 0 A_CustomMissile ("ExplosionSmokeFast22", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL A 0 A_CustomMissile ("acidsmoke", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL AAA 0 A_CustomMissile ("AcidExplosion", 0, 0, random (0, 360), 2, random (0, 360))
+		goto acidmist
+	
+		
+		AcidMist:
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,0,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,-45,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,-90,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,45,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,90,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,-130,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,130,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,-20,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,20,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,-60,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,60,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,-160,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,160,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,180,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,-160,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,160,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,25,180,CMF_OFFSETPITCH,-180)
+		///second layer
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,0,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,-45,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,-90,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,45,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,90,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,-130,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,130,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,-20,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,20,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,-60,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,60,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,-160,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,160,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,180,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,-160,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,160,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,70,180,CMF_OFFSETPITCH,-180)
+		
+		
+		EXPL AAA 0 A_CustomMissile ("AcidExplosion", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_CustomMissile("acidflare", random (-32, 0), random (-60, 60), random (-32, 32), 2, random (-32, 32))
+		TNT1 A 0 A_CustomMissile("acidflare", random (-32, 0), random (-32, 32), random (-32, 32), 2, random (-32, 32))
+		TNT1 A 0 A_CustomMissile("acidflare", random (-32, 0), random (-60, 60), random (-32, 32), 2, random (-32, 32))
+		TNT1 A 0 A_CustomMissile("acidflare", random (-32, 0), random (-32, 32), random (-32, 32), 2, random (-32, 32))
+		TNT1 A 0 A_Explode(40, 300, XF_HURTSOURCE,300,0,0,0,"bulletpuff", "acid")
+		TNT1 A 2
+		TNT1 A 0 A_SpawnItemEx ("LiquidExplosionEffectSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 15
+		TNT1 AAAAA 4 A_CustomMissile ("HeavyExplosionSmoke", 2, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 5
+		TNT1 A 1 A_jump(256,"AcidMistcontinue")
+		GOTO ACIDMISTcontinue
+		
+		Death:
+		AcidMistcontinue:
+		TNT1 A 0 A_Jumpifinventory("acidtimer", 50, "Disappear")
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,0,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,-45,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,-90,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,45,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,90,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,-130,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,130,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,-20,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,20,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,-60,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,60,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,-160,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,160,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",10,30,180,CMF_OFFSETPITCH,random(-10,-5))
+		TNT1 A 0 A_CustomMissile("acidsmoke",30,30,-160,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_CustomMissile("acidsmoke",30,30,160,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_CustomMissile("acidsmoke",30,30,180,CMF_OFFSETPITCH,-180)
+		///second layer
+		TNT1 A 0 A_CustomMissile("acidsmokeslow",30,120,-160,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_CustomMissile("acidsmokeslow",30,120,160,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_CustomMissile("acidsmokeslow",30,120,180,CMF_OFFSETPITCH,-180)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,0)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,-45)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,-90)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,45)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,90)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,-130)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,130)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,-60)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,60)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,-160)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,160)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,-180)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,180)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,10)
+		TNT1 A 0 A_SpawnItemEx ("acidsmokeslow", 290, 0, 0,1,0,0,-170)
+		
+		
+		EXPL AAA 0 A_CustomMissile ("AcidExplosion", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_CustomMissile("acidflare", random (-32, 0), random (-60, 60), random (-32, 32), 2, random (-32, 32))
+		TNT1 A 0 A_CustomMissile("acidflare", random (-32, 0), random (-32, 32), random (-32, 32), 2, random (-32, 32))
+		TNT1 A 0 A_CustomMissile("acidflare", random (-32, 0), random (-60, 60), random (-32, 32), 2, random (-32, 32))
+		TNT1 A 0 A_CustomMissile("acidflare", random (-32, 0), random (-32, 32), random (-32, 32), 2, random (-32, 32))
+		TNT1 A 0 A_Explode(10, 340,XF_HURTSOURCE, 1,300,0,0,"bulletpuff", "acid")
+		TNT1 AAAAA 4 A_CustomMissile ("HeavyExplosionSmoke", 2, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 1 A_Giveinventory("acidtimer",1)
+        LOOP
+		
+		Disappear:
+		TNT1 A 1 A_takeinventory("acidtimer",50)
+		TNT1 A 1
+		Stop
+		}
+		}
+		
+ACTOR AcidMistGL1 : Acidmistyeet
+{
+Speed 50
+BounceFactor 0.1
+}
+
+ACTOR HellfireGL1 : Hellfirevialyeet
+{
+Speed 50
+BounceFactor 0.1
+}	

@@ -1,0 +1,252 @@
+ACTOR Flare : Ammo 30038
+{	
+	Game Doom
+	scale 0.16
+	Inventory.Amount 1
+	Inventory.MaxAmount 20
+	Ammo.BackpackAmount 5
+	Ammo.BackpackMaxAmount 40
+	Inventory.Icon "FLARE0"
+	Inventory.Pickupsound "Weapons/Revolver/Click1"
+	Inventory.PickupMessage "$GOTFLARE"
+	  DamageFactor "Use", 0.0
+	  DamageFactor "Stealth", 0.0
+  damagefactor "headkick", 0.0
+  damagefactor "trample", 0.0
+   damagefactor "melee", 0.1
+    damagefactor "kick", 0.1
+	+VULNERABLE
+	+SHOOTABLE
+	+noblood
+	+FORCEXYBILLBOARD
+	+CANNOTPUSH
+	HEALTH 30
+	States
+	{
+	Spawn:
+	TNT1 A 0
+	TNT1 A 0 
+	
+	Stay:
+		NFLP A 0
+		NFLP A 1 A_Jump(127, "rest2","REST3")
+	
+	Rest1:
+		NFLP A -1
+	Stop
+	
+	Rest2:
+		NFLP B -1
+	Stop
+	
+	REST3:
+	TNT1 A 0 A_Changeflag("SPRITEFLIP",1)
+	NFLP A -1
+	Stop
+	
+	 DEATH:
+	FFLA P 0 A_SPAWNITEM("BROKENFLARE",0,0)
+	TNT1 A 1 A_REMOVELIGHT(15)
+	STOP
+	}
+}
+
+Actor ActiveFlare
+{
+	Radius 6
+	Height 6
+	Projectile
+	Speed 25
+    Damage (random (30, 30))
+	Damagetype "Fire"
+    Gravity 0.8
+	+MISSILE
+    +noblood
+	-nogravity
+	-EXTREMEDEATH
+	+CANNOTPUSH
+	+BOUNCEONFLOORS
+	+BOUNCEONWALLS
+	+BOUNCEONCEILINGS
+	-NOTELEPORT
+	+THRUSPECIES
+	+explodeonwater
+	+FORCEXYBILLBOARD
+	+dropoff
+	+touchy
+	+floorclip
+	+shootable
+	health 10
+	Species "Marines"
+	BounceFactor 0.25
+	BounceCount 3
+	WallBounceFactor 0.25
+    bounceSound "GRNBNCE"
+	DeathSound "none"
+  scale 0.18
+  States
+  {
+	Spawn:
+		TNT1 A 0 	
+		FFLA HRFEDCBA 2 BRIGHT A_JumpIf(waterlevel > 1, "Splash")
+		loop
+
+	Death:
+		FFLA HRHFHR 2 BRIGHT
+		FFLA P 0 Bright A_PlaySoundEx("Flare/Loop", "SoundSlot7", 1, -1)
+		FFLA PQR 2 Bright
+	Death.water:
+		FFLA P 1 A_SPAWNITEM("ActiveFlareWaiting",0,0)
+		Stop
+		
+		Splash:
+		TNT1 A 0 A_die("water")
+		stop
+		
+  }
+ }
+
+Actor ActiveFlareRolled : ActiveFlare
+{
+Speed 5
+}
+
+
+Actor ActiveFlarewaiting : switchabledecoration 30039
+{
+	Radius 10
+	Height 10
+	HEALTH 20
+	+NOBLOOD
+	+CANNOTPUSH
+	+nevertarget
+	+VULNERABLE
+	+SHOOTABLE
+	+THRUSPECIES
+	+USESPECIAL
+	+floorclip
+	Activation THINGSPEC_SWITCH | THINGSPEC_NoDeathSpecial
+	damagefactor "Fire", 5.0
+	  DamageFactor "Use", 0.0
+	  DamageFactor "Stealth", 0.0
+  damagefactor "headkick", 0.0
+  damagefactor "trample", 0.0
+   damagefactor "melee", 0.1
+    damagefactor "kick", 0.1
+  +FORCEXYBILLBOARD
+  scale 0.18
+  States
+  {
+  Spawn:
+    FLAR F 0 Bright
+    FLAR F 0 Bright A_AttachLightDef(15,"FLARE")
+	
+  Rest:
+	FFLA P 0 Bright A_PlaySoundEx("Flare/Loop", "SoundSlot7", 1, -1)
+	TNT1 A 0 A_TAKEINVENTORY("litflarepickup",1)
+    FFLA PQR 2 Bright 
+	loop
+	
+  INACTIVE:
+  Active:
+	FFLA P 0 A_jumpifhealthlower(1,"Death")
+	TNT1 A 0 A_playsound("Weapons/Revolver/Click1",4,1.0)
+	FFLA P 1 BRIGHT ACS_NamedExecuteAlways("PICKFLARE",0)
+	
+BEINGPICKEDUP:
+	FFLA PQRPQRPQRPQRPQRPQR 2 Bright a_Jumpifinventory("litflarepickup",1,"disappear")
+	goto rest
+Disappear:
+	TNT1 A 1 A_REMOVELIGHT(15)
+	STOP
+	
+  DEATH:
+    FFLA P 0 A_die
+	FFLA P 0 A_SPAWNITEM("BROKENFLARE",0,0)
+	TNT1 A 0 A_REMOVELIGHT(15)
+	STOP
+	
+  }
+}
+
+Actor BrokenFlare : ActiveFlare
+{ 
+SPEED 3
+damage (random(5,6))
++floorclip
+-touchy
+-BOUNCEONFLOORS
+  States
+  {
+    Spawn:
+	 FLAR F 0
+    FLAR F 0 Bright A_EXPLODE(8,30,0,1,30,0,0,"HITPUFF","FIRE")
+    FLAR F 0 Bright A_PlaySound("Flare/Light",2)
+	TNT1 AAAAAAAAAAAA 0 a_spawnitemEX("RealFlameTrailsSmaller", 0,0,0,RANDOM(1,-1),RANDOM(1,-1),RANDOM(1,-1), RANDOM(0,360))
+	
+	Midair:
+	FFLA HST 2 BRIGHT A_AttachLightDef(1,"FLARE2")
+	FFLA UVW 2 bright A_AttachLightDef(1,"FLARE")
+	
+	Death:
+    FFLA XYYXY 2 BRIGHT A_AttachLightDef(1,"REDKEY")
+	FFLA Z 10 A_REMOVELIGHT(1)
+	
+	REST:
+	FFLA JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ 1 a_JUMP(1,"FLICKER")
+	
+	flicker:
+	FFLA Z 10  a_JUMP(50,"FLICKER")
+	goto REST
+}}
+
+Actor FlareBox : CustomInventory
+{
+  scale 0.15
+  Radius 28
+  Height 16
+  Inventory.Pickupsound "HELMPK"
+  Inventory.PickupMessage "$GOTFLARE2"
+  States
+  {
+  Spawn:
+    FLAB Z -1
+    Stop
+  Pickup:
+    TNT1 A 1 A_GiveInventory ("Flare", 10)
+    Stop
+  }
+}
+
+Actor Flarelight
+{
+   Radius 0
+   Height 0
+   Speed 0
+   Damage 0
+   Projectile
+   SeeSound "Null"
+   DeathSound "Null"
+   +THRUACTORS
+   +NONSHOOTABLE
+   +NOGRAVITY
+   
+   States
+   {
+      Spawn:
+         TNT1 A 10
+      Death:
+         TNT1 A 0
+         Stop
+   }
+}
+
+ACTOR FLAREEXPLOSION
+{
+Radius 6
+Height 6
++NOCLIP
+STATES
+{
+EFIR ABCDEFGHIJKLM 2 Bright A_CUSTOMMISSILE("RealFlameTrailsSmaller", 0, RANDOM(-10,10),RANDOM(0,360))
+}}

@@ -1,0 +1,338 @@
+ACTOR Purist : Doomer
+{
+	Speed 1.0
+	Player.DisplayName "Purist (Oldschool mode)"
+	Player.StartItem "Clip2", 50
+	Player.StartItem "IsPlayer", 1
+	Player.StartItem "IsPlayingAsPurist", 1
+	Player.StartItem "AmmoDroper"
+	Player.StartItem "IsNOTTacticalClass", 1
+	DamageFactor "KillMeBot", 0.0
+	Species "Marines"
+}
+
+
+ACTOR BDoomer : Doomer
+{
+	Speed 1.0
+	Player.DisplayName "Normal (Rifle Start)"
+	Player.StartItem "LitRifle"
+	Player.StartItem "Melee_Attacks"
+	Player.StartItem "IsPlayer", 1
+	Player.StartItem "Clip2", 30
+	Player.StartItem "RifleAmmo", 31
+	Player.StartItem "BDPistolAmmo", 16
+	Player.StartItem "ShotgunAmmo", 10
+	Player.StartItem "PlasmaAmmo", 50
+	Player.StartItem "AssaultShotgunAmmo", 20
+	Player.StartItem "BDSMGAmmo", 41
+	Player.StartItem "SSGAmmo", 2
+	Player.StartItem "RocketRounds", 6
+	Player.StartItem "PlasmaLanceammo", 50
+	Player.StartItem "IsPlayer", 1
+	Player.StartItem "HandGrenades", 1
+	Player.StartItem "GrenadeAmmo", 2
+	Player.StartItem "Ammocell", 10
+	Player.StartItem "NeverSelectedShotgun", 1
+	Player.StartItem "IsNOTTacticalClass", 1
+	DamageFactor "KillMeBot", 0.0
+	Player.StartItem "AmmoDroper"
+	Species "Marines"
+}
+
+///////////////////////////////////////////////////////////////   DOOMGUY
+
+ACTOR Doomer2 : Doomer
+{
+	Speed 1.0
+	Player.DisplayName "Doom Guy"
+	Player.Portrait "DOOMGUY"
+
+	//AMMO
+	Player.StartItem "PistolDurability", 150
+	Player.StartItem "RifleAmmo", 31
+	Player.StartItem "BDPistolAmmo", 16
+	Player.StartItem "BDSMGAmmo", 41
+	Player.StartItem "AssaultShotgunAmmo", 20
+	Player.StartItem "ShotgunAmmo", 10
+	Player.StartItem "PlasmaAmmo", 50
+	Player.StartItem "SSGAmmo", 2
+	Player.StartItem "RocketRounds", 6
+	Player.StartItem "PlasmaLanceammo", 50
+	Player.StartItem "GrenadeAmmo", 2
+	Player.StartItem "Battery", 40
+	Player.StartItem "Clip1", 60
+	//EQUIPMENT
+	Player.StartItem "BrutalPistol"
+	Player.StartItem "HandGrenades", 1
+	Player.StartItem "proxbomb", 1
+	Player.StartItem "AmmoDroper"
+	Player.StartItem "CraftDropper"
+	Player.StartItem "NewFlare"
+	Player.StartItem "HELLFIREVIAL"
+	Player.StartItem "ACIDMISTVIAL"
+	Player.StartItem "ClusterGrenades"
+	//TOKENS
+	Player.StartItem "HealthEffects",1
+	Player.StartItem "isDOOMGUY",1
+	Player.StartItem "Melee_Attacks"
+	Player.StartItem "IsPlayer", 1
+	Player.StartItem "IsPlayer", 1
+	Player.StartItem "JustStartedGame", 1
+	Player.StartItem "NeverSelectedShotgun", 1
+	Player.StartItem "BlankWeapon"
+	Player.StartItem "IsNOTTacticalClass", 1
+	Player.StartItem "realreloadOFF"
+	Player.StartItem "norecoil",2
+	Player.StartItem "grenadefavorite",1
+	Player.StartItem "grenadeloaded",1
+	Player.StartItem "neverusedcrafting"
+	Player.StartItem "DarkDoomZ_Flashlight",1
+	Player.StartItem "neverfoundrifle",1
+	
+	DamageFactor "KillMeBot", 0.0
+
+	
+Species "Marines"
+}
+
+
+///////////////////////////////////////////////////////////////   SPACE MARINE
+
+ACTOR TacticalDoomer : Doomer
+{
+	Speed 1.0
+	Player.RunHealth 999
+	Player.Portrait "TACTICAL"
+	Player.DisplayName "Space Marine"
+	//AMMO
+	Player.StartItem "RifleDurability", 210
+	Player.StartItem "RifleAmmo", 0
+	Player.StartItem "Clip2", 0
+	Player.StartItem "Minigunammo", 35
+	Player.StartItem "BDPistolAmmo", 16
+	Player.StartItem "BDSMGAmmo", 41
+	Player.StartItem "ShotgunAmmo", 10
+	Player.StartItem "AssaultShotgunAmmo", 20
+	Player.StartItem "PlasmaAmmo", 50
+	Player.StartItem "SSGAmmo", 2
+	Player.StartItem "LMGAMMO", 100
+	Player.StartItem "RocketRounds", 1
+	Player.StartItem "PlasmaLanceammo", 50
+	Player.StartItem "GrenadeAmmo", 1
+	Player.StartItem "Battery", 100
+	//EQUIPMENT
+	Player.StartItem "LitRifle"
+	Player.StartItem "HandGrenades", 1
+	Player.StartItem "proxbomb", 1
+	Player.StartItem "ACIDMISTVIAL"
+	Player.StartItem "HELLFIREVIAL"
+	Player.StartItem "AmmoDroper"
+	Player.StartItem "CraftDropper"
+	Player.StartItem "NewFlare"
+	Player.StartItem "ClusterGrenades"
+	Player.StartItem "repairdevice",1
+	//TOKENS
+	Player.StartItem "HealthEffects",1
+	Player.StartItem "Melee_Attacks"
+	Player.StartItem "IsPlayer", 1
+	Player.StartItem "CanBleed", 1
+	Player.StartItem "IsTacticalClass", 1
+	Player.StartItem "JustStartedGame", 1
+	Player.StartItem "NoAutoReload", 1
+	Player.StartItem "NeverSelectedShotgun", 1
+	Player.StartItem "grenadeloaded",1
+	Player.StartItem "BlankWeapon"
+	Player.StartItem "grenadefavorite",1
+	Player.StartItem "DarkDoomZ_Flashlight",1
+	//WEAPON RESPECT ANIMATION
+	Player.StartItem "neverusedcrafting",1
+	Player.StartItem "neverfoundrifle",1
+	Player.StartItem "neverfoundpistol",1
+	Player.StartItem "neverfoundrevolver",1
+	Player.StartItem "neverfoundASG",1
+	Player.StartItem "neverfoundminigun",1
+	Player.StartItem "neverfoundLMG",1
+	Player.StartItem "neverfoundGL",1
+	Player.StartItem "neverfoundSMG",1
+	Player.StartItem "neverfoundSSG",1
+	Player.StartItem "neverfoundBFG",1
+	Player.StartItem "neverfoundshotgun",1
+	Player.StartItem "neverfoundplasmagun",1
+	Player.StartItem "neverfoundRL",1
+	player.startitem "neverfoundplasmalance",1
+	player.startitem "neverfoundaxe",1
+	player.startitem "neverfoundknife",1
+	
+Species "Marines"
+}	   
+
+///////////////////////////////////////////////////////////////   SURVIVALIST
+
+ACTOR MiseryDoomer : Doomer
+{
+	Speed 1.0
+	Player.RunHealth 999
+	Player.DisplayName "Survivalist"
+	Player.Portrait "SURVIVAL"
+
+// START WEAPON
+	Player.StartItem "Knife"
+// EQUIPMENT
+	Player.StartItem "HandGrenades", 1
+	Player.StartItem "ClusterGrenades"
+	Player.StartItem "proxbomb", 1
+	Player.StartItem "AmmoDroper"
+	Player.StartItem "CraftDropper"
+	Player.StartItem "Knivesammo", 2
+	Player.StartItem "KnifeDurability", 20
+	Player.StartItem "saveammo", 1
+	Player.StartItem "NewFlare"
+	Player.StartItem "Survivalkit"
+	Player.StartItem "SurvivalkitUSES", 10
+	Player.StartItem "BearTrap", 1
+	Player.StartItem "Flare",2
+	Player.StartItem "ACIDMISTVIAL"
+	Player.StartItem "HELLFIREVIAL"
+	Player.StartItem "Battery", 50
+	Player.StartItem "Bandages", 2
+	//EMPTY MAGAZINES	
+	Player.StartItem "RifleAmmo", 0
+	Player.StartItem "Clip2", 0
+	Player.StartItem "BDPistolAmmo", 0
+	Player.StartItem "ShotgunAmmo", 0
+	Player.StartItem "AssaultShotgunAmmo", 0
+	Player.StartItem "PlasmaAmmo", 0
+	Player.StartItem "SSGAmmo", 0
+	Player.StartItem "RocketRounds", 0
+	Player.StartItem "PlasmaLanceammo", 0
+	Player.StartItem "GrenadeAmmo", 0
+	// TOKENS
+	Player.StartItem "HealthEffects",1
+	Player.StartItem "NeverSelectedShotgun", 1
+	Player.StartItem "Melee_Attacks"
+	Player.StartItem "BlankWeapon"
+	Player.StartItem "IsPlayer", 1
+	Player.StartItem "CanBleed", 1
+	Player.StartItem "IsTacticalClass", 1
+	Player.StartItem "isSurvivalistClass"
+	Player.StartItem "JustStartedGame", 1
+	Player.StartItem "NoAutoReload", 1
+	Player.StartItem "grenadefavorite",1
+	Player.StartItem "grenadeloaded",1
+	Player.StartItem "LargeStamina",1
+	Player.StartItem "equipmentloss",1
+	Player.StartItem "DarkDoomZ_Flashlight",1
+	
+	//WEAPON RESPECT ANIMATION
+	Player.StartItem "neverusedcrafting",1
+	Player.StartItem "neverfoundrifle",1
+	Player.StartItem "neverfoundpistol",1
+	Player.StartItem "neverfoundrevolver",1
+	Player.StartItem "neverfoundASG",1
+	Player.StartItem "neverfoundminigun",1
+	Player.StartItem "neverfoundLMG",1
+	Player.StartItem "neverfoundGL",1
+	Player.StartItem "neverfoundSMG",1
+	Player.StartItem "neverfoundBFG",1
+	Player.StartItem "neverfoundshotgun",1
+	Player.StartItem "neverfoundSSG",1
+	Player.StartItem "neverfoundplasmagun",1
+	Player.StartItem "neverfoundRL",1
+	player.startitem "neverfoundplasmalance",1
+	player.startitem "neverfoundaxe",1
+	player.startitem "neverfoundknife",1
+	
+Species "Marines"
+}	
+
+///////////////////////////////////////////////////////////////   SCIENTIST
+
+ACTOR ScienceDoomer : Doomer
+{
+	Speed 1.0
+	DamageFactor 1.25
+	Player.RunHealth 999
+	Player.DisplayName "Scientist"
+	Player.Portrait "SCIENCE"
+
+//START WEAPON
+	Player.StartItem "axedurability",40
+	Player.Startitem "brutalaxe",1
+
+	// EQUIPMENT
+	Player.StartItem "HandGrenades", 1
+	Player.StartItem "proxbomb", 1
+	Player.StartItem "AmmoDroper"
+	Player.StartItem "CraftDropper"
+	Player.StartItem "Hevsuit"
+	Player.StartItem "NewFlare"
+	Player.StartItem "ACIDMISTVIAL"
+	Player.StartItem "HELLFIREVIAL"
+	Player.StartItem "Recombinerpickup"
+	Player.StartItem "batterypickup",3
+	Player.StartItem "Battery", 50
+	Player.StartItem "ClusterGrenades"
+	//AMMO & REAGENTS
+	Player.StartItem "ammocell", 20
+	Player.StartItem "ACIDMISTammo", 1
+	Player.StartItem "emptyvial", 5
+	Player.StartItem "basicvial", 2
+	Player.StartItem "acidvial", 2
+	Player.StartItem "neutralvial", 2
+	Player.StartItem "scrapmetal", 5
+	Player.StartItem "electronicparts", 5
+	Player.StartItem "fabric", 5
+	Player.StartItem "impspike", 1
+	Player.StartItem "demonheart", 1
+	Player.StartItem "cacoeye", 1
+	Player.StartItem "bruiserhorn", 1
+	//EMPTY MAGAZINES	
+	Player.StartItem "RifleAmmo", 0
+	Player.StartItem "Clip2", 0
+	Player.StartItem "BDPistolAmmo", 0
+	Player.StartItem "ShotgunAmmo", 0
+	Player.StartItem "AssaultShotgunAmmo", 0
+	Player.StartItem "PlasmaAmmo", 0
+	Player.StartItem "SSGAmmo", 0
+	Player.StartItem "RocketRounds", 0
+	Player.StartItem "PlasmaLanceammo", 0
+	Player.StartItem "GrenadeAmmo", 0
+	
+	// TOKENS
+	Player.StartItem "HealthEffects",1
+	Player.StartItem "NeverSelectedShotgun", 1
+	Player.StartItem "IsPlayer", 1
+	Player.StartItem "Melee_Attacks"
+	Player.StartItem "BlankWeapon"
+	Player.StartItem "CanBleed", 1
+	Player.StartItem "IsTacticalClass", 1
+	Player.StartItem "JustStartedGame", 1
+	Player.StartItem "NoAutoReload", 1
+	Player.StartItem "grenadeloaded",1
+	Player.StartItem "acidmistfavorite",1
+	Player.StartItem "isSCIENTIST",1
+	Player.StartItem "equipmentloss",1
+	Player.StartItem "DarkDoomZ_Flashlight",1
+	
+	//WEAPON RESPECT ANIMATION
+	Player.StartItem "neverusedcrafting",1
+	Player.StartItem "neverfoundrifle",1
+	Player.StartItem "neverfoundpistol",1
+	Player.StartItem "neverfoundrevolver",1
+	Player.StartItem "neverfoundASG",1
+	Player.StartItem "neverfoundminigun",1
+	Player.StartItem "neverfoundLMG",1
+	Player.StartItem "neverfoundGL",1
+	Player.StartItem "neverfoundSMG",1
+	Player.StartItem "neverfoundBFG",1
+	Player.StartItem "neverfoundshotgun",1
+	Player.StartItem "neverfoundSSG",1
+	Player.StartItem "neverfoundplasmagun",1
+	Player.StartItem "neverfoundRL",1
+	player.startitem "neverfoundplasmalance",1
+	player.startitem "neverfoundaxe",1
+	player.startitem "neverfoundknife",1
+	
+Species "Marines"
+}	

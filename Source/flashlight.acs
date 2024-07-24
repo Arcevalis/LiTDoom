@@ -6,7 +6,10 @@
 ////TOGGLE
 script "FLASHLIGHTKEY" (void)
 {
-If (GetCVAR("flashlight_mod") == 0)
+If (Checkinventory("playerisdead"))
+terminate;
+
+Else If (GetCVAR("flashlight_mod") == 0)
 	{
 	If (Checkinventory("flashlighton") == 1)		
 		{Takeinventory("flashlighton",1);

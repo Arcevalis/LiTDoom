@@ -2,6 +2,11 @@
 #include doommonsters.bm
 #include doomweapons.bm
 
+brightmap sprite RVCGB0 { map "brightmaps/LitDoom/HellishMissileLauncher/RVCGB0.png" disablefullbright }
+brightmap sprite RVCGC0 { map "brightmaps/LitDoom/HellishMissileLauncher/RVCGC0.png" disablefullbright }
+brightmap sprite RVCGF0 { map "brightmaps/LitDoom/HellishMissileLauncher/RVCGF0.png" disablefullbright }
+brightmap sprite RVCGG0 { map "brightmaps/LitDoom/HellishMissileLauncher/RVCGG0.png" disablefullbright }
+
 brightmap sprite CBRAB0{map "brightmaps/doom/LABRABR1.png"}
 brightmap sprite CBRAC0{map "brightmaps/doom/LABRABR3.png"}
 brightmap sprite CBRAD0{map "brightmaps/doom/LABRABR4.png"}
